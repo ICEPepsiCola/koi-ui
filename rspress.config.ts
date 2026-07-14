@@ -84,7 +84,8 @@ export default defineConfig({
   ],
   themeConfig: {
     localeRedirect: 'auto',
-    locales: themeLocales,
+    // Per-locale sidebar keys (`/guide/` vs `/zh/guide/`) make JSON import a bad union for LocaleConfig.
+    locales: themeLocales as never,
   },
   globalStyles: path.join(__dirname, 'docs/styles.css'),
   builderConfig: {
