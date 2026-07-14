@@ -1,0 +1,53 @@
+# Button
+
+## Basic usage
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+  </Space>
+);
+```
+
+## Variants
+
+```tsx preview
+import { Button, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={2}>
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="destructive">Destructive</Button>
+  </Stack>
+);
+```
+
+## Size and status
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button size="sm">Small</Button>
+    <Button size="md">Medium</Button>
+    <Button size="lg">Large</Button>
+    <Button loading>Loading</Button>
+    <Button disabled>Disabled</Button>
+  </Space>
+);
+```
+
+## API
+
+### Button
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| loading | Loading | `boolean \|​ undefined` | `false` |
+| responsiveSize | Responsive size | `boolean \|​ undefined` | `true` |
+| size | Size | `enum` | `md` |
+| variant | Variant | `enum` | `-` |

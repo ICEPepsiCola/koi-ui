@@ -1,0 +1,21 @@
+# TabBar
+
+## Basic usage
+
+```tsx preview
+import { TabBar } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [k,setK]=useState('home'); return <TabBar activeKey={k} onChange={setK} items={[{ key:'home', label:'Home' }, { key:'mine', label:'Me' }]} />; };
+```
+
+## API
+
+### TabBar
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| items | Items | `TabBarItem[]` **(required)** | `-` |
+| activeKey | Active key | `string \|​ undefined` | `-` |
+| defaultActiveKey | - | `string \|​ undefined` | `-` |
+| onChange | Change callback | `((key: string) => void) \|​ undefined` | `-` |
+| safeArea | - | `boolean \|​ undefined` | `-` |

@@ -1,0 +1,25 @@
+# SafeArea
+
+## Basic usage
+
+```tsx preview
+import { SafeArea, Text } from '@koi-ui/core';
+export default () => (
+  <div className="koi-safe-area-demo flex h-full min-h-[28rem] flex-col overflow-hidden bg-primary/25" style={{ ['--koi-safe-area-top']: '48px', ['--koi-safe-area-bottom']: '34px' }}>
+    <SafeArea className="flex h-full min-h-0 flex-col bg-muted">
+      <div className="flex flex-1 flex-col items-center justify-center gap-2 px-4 text-center">
+        <Text className="font-medium">Safe area content</Text>
+        <Text muted size="sm">Colored bands mark the safe area</Text>
+      </div>
+    </SafeArea>
+  </div>
+);
+```
+
+## API
+
+### SafeArea
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| position | - | `enum` | `both` |

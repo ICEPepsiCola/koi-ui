@@ -1,0 +1,16 @@
+{
+  "title": {
+    "en": "Grid",
+    "zh": "栅格"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    },
+    "offset": {
+      "en": "Column offset",
+      "zh": "栅格偏移"
+    }
+  }
+}

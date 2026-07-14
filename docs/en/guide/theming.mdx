@@ -1,0 +1,56 @@
+# Theming
+
+Koi UI defines design tokens as CSS variables. Override them in your app as needed.
+
+## Primary color
+
+```css
+:root {
+  --color-primary: hsl(160 84% 39%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --radius-md: 0.75rem;
+}
+```
+
+## Dark mode
+
+Built-in dark tokens follow `html.dark` / `html.rp-dark` (compatible with the Rspress dark toggle). Override under the same selectors:
+
+```css
+html.dark {
+  --color-surface: hsl(222 47% 11%);
+  --color-surface-foreground: hsl(210 40% 98%);
+  --color-border: hsl(217 33% 22%);
+}
+```
+
+`@koi-ui/core/styles.css` includes tokens by default. Tokens only:
+
+```css
+@import "@koi-ui/tokens/theme.css";
+```
+
+## Common tokens
+
+| Token | Description |
+|-------|-------------|
+| `--color-primary` | Brand color |
+| `--color-surface` | Surface background |
+| `--color-muted` | Muted background |
+| `--color-border` | Border |
+| `--radius-sm/md/lg` | Radius |
+| `--shadow-sm/md` | Shadow |
+
+## Breakpoint provider
+
+`KoiProvider` can change the mobile breakpoint (default `lg` = 1024px):
+
+```tsx preview
+import { KoiProvider, Button } from '@koi-ui/core';
+
+export default () => (
+  <KoiProvider breakpoint="md">
+    <Button>Breakpoint md (768px)</Button>
+  </KoiProvider>
+);
+```

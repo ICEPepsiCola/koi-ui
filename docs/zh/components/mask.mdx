@@ -1,0 +1,20 @@
+# Mask 背景蒙层
+
+## 基础用法
+
+```tsx preview
+import { Mask, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>显示蒙层</Button><Mask open={o} onClick={()=>setO(false)} /></>; };
+```
+
+## API
+
+### Mask
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| onClick | 点击回调 | `(() => void) \|​ undefined` | `-` |
+| open | 是否显示 | `boolean \|​ undefined` | `-` |
+| visible | - | `boolean \|​ undefined` | `true` |
+| zIndex | - | `number \|​ undefined` | `50` |

@@ -1,0 +1,21 @@
+# Cascader
+
+## Basic usage
+
+```tsx preview
+import { Cascader } from '@koi-ui/core';
+export default () => <Cascader options={[{label:'Zhejiang',value:'zj',children:[{label:'Hangzhou',value:'hz'}]}]} placeholder="Select region" />;
+```
+
+## API
+
+### Cascader
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| options | Options | `CascaderOption[]` **(required)** | `-` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string[],​ labels: string[]) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+| value | Value | `string[] \|​ undefined` | `-` |

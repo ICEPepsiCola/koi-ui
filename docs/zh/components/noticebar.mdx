@@ -1,0 +1,21 @@
+# NoticeBar 通告栏
+
+## 基础用法
+
+```tsx preview
+import { NoticeBar } from '@koi-ui/core';
+export default () => <NoticeBar content="这是一条滚动通告信息" />;
+```
+
+## API
+
+### NoticeBar
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| content | 内容 | `ReactNode` **(必填)** | `-` |
+| closable | 是否可关闭 | `boolean \|​ undefined` | `-` |
+| leftIcon | - | `ReactNode` | `-` |
+| onClose | 关闭回调 | `(() => void) \|​ undefined` | `-` |
+| scrollable | - | `boolean \|​ undefined` | `-` |
+| variant | 变体 | `enum` | `-` |

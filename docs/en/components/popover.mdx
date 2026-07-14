@@ -1,0 +1,23 @@
+# Popover
+
+## Basic usage
+
+```tsx preview
+import { Popover, Button } from '@koi-ui/core';
+export default () => <Popover content="Popover content"><Button>Hover me</Button></Popover>;
+```
+
+## API
+
+### Popover
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| content | Content | `ReactNode` **(required)** | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultOpen | - | `boolean \|​ undefined` | `false` |
+| onOpenChange | - | `((open: boolean) => void) \|​ undefined` | `-` |
+| open | Open | `boolean \|​ undefined` | `-` |
+| placement | Placement | `enum` | `bottom` |
+| title | Title | `ReactNode` | `-` |
+| trigger | Trigger | `enum` | `click` |

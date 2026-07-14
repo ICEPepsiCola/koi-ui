@@ -1,0 +1,40 @@
+# Flex 弹性布局
+
+## 基础用法
+
+```tsx preview
+import { Flex, Button } from '@koi-ui/core';
+export default () => (
+  <Flex justify="between" align="center" className="p-4 border border-border rounded-md">
+    <span>左侧</span>
+    <Button size="sm">操作</Button>
+  </Flex>
+);
+```
+
+## 对齐方式
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <Flex justify="between" align="center" className="h-20 rounded-md border border-border px-4">
+    <Tag>左侧</Tag>
+    <Tag color="primary">右侧</Tag>
+  </Flex>
+);
+```
+
+## API
+
+### Flex
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| align | - | `enum` | `-` |
+| direction | 排列方向 | `enum` | `-` |
+| gap | 间距 | `enum` | `-` |
+| inline | - | `boolean \|​ undefined` | `-` |
+| justify | - | `enum` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `false` |
+| vertical | - | `boolean \|​ undefined` | `-` |
+| wrap | 是否换行 | `enum` | `-` |

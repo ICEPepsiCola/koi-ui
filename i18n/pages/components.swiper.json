@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Swiper",
+    "zh": "滑块视图"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+# Select
+
+## Basic usage
+
+```tsx preview
+import { Select } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(''); return <Select options={[{label:'Beijing',value:'bj'},{label:'Shanghai',value:'sh'}]} value={v} onChange={setV} placeholder="Select city" />; };
+```
+
+## Controlled select
+
+```tsx preview
+import { Select, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [city, setCity] = useState('sh');
+  return (
+    <div>
+      <Select
+        value={city}
+        onChange={setCity}
+        placeholder="Select city"
+        options={[
+          { label: 'Beijing', value: 'bj' },
+          { label: 'Shanghai', value: 'sh' },
+          { label: 'Guangzhou', value: 'gz' },
+        ]}
+      />
+      <Text muted className="mt-2 block text-sm">Current: {city}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### Select
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| options | Options | `SelectOption[]` **(required)** | `-` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+| value | Value | `string \|​ undefined` | `-` |

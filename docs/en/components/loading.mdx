@@ -1,0 +1,20 @@
+# Loading
+
+## Basic usage
+
+```tsx preview
+import { Loading, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Load</Button><Loading open={o} /></>; };
+```
+
+## API
+
+### Loading
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| className | Class name | `string \|​ undefined` | `-` |
+| fullscreen | - | `boolean \|​ undefined` | `true` |
+| open | Open | `boolean \|​ undefined` | `true` |
+| tip | - | `ReactNode` | `-` |

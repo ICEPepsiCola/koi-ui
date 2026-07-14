@@ -1,0 +1,21 @@
+# Pagination 分页
+
+## 基础用法
+
+```tsx preview
+import { Pagination } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [p,setP]=useState(1); return <Pagination current={p} total={50} onChange={setP} />; };
+```
+
+## API
+
+### Pagination
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| current | 当前步骤/页码 | `number` **(必填)** | `-` |
+| total | 总数 | `number` **(必填)** | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| onChange | 变化回调 | `((page: number) => void) \|​ undefined` | `-` |
+| pageSize | - | `number \|​ undefined` | `10` |

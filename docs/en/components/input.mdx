@@ -1,0 +1,42 @@
+# Input
+
+## Basic usage
+
+```tsx preview
+import { Input } from '@koi-ui/core';
+export default () => <Input placeholder="Enter text" />;
+```
+
+## Error state
+
+```tsx preview
+import { Input, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Input placeholder="Normal" />
+    <Input placeholder="Invalid" error="Enter valid content" />
+    <Input placeholder="Disabled" disabled />
+  </Stack>
+);
+```
+
+## Controlled input
+
+```tsx preview
+import { Input } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('');
+  return <Input value={value} onChange={setValue} placeholder="Synced input" />;
+};
+```
+
+## API
+
+### Input
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| error | Error message | `string \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| size | Size | `enum` | `-` |

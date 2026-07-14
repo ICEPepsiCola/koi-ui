@@ -1,0 +1,56 @@
+# 主题定制
+
+Koi UI 通过 CSS 变量定义 Design Tokens，可在业务项目中直接覆盖。
+
+## 覆盖主色
+
+```css
+:root {
+  --color-primary: hsl(160 84% 39%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --radius-md: 0.75rem;
+}
+```
+
+## 暗色模式
+
+库内置随 `html.dark` / `html.rp-dark` 切换的暗色 Token（与 Rspress 文档暗色开关兼容）。业务站若自建暗色，只要在同一选择器下覆盖变量即可：
+
+```css
+html.dark {
+  --color-surface: hsl(222 47% 11%);
+  --color-surface-foreground: hsl(210 40% 98%);
+  --color-border: hsl(217 33% 22%);
+}
+```
+
+默认通过 `@koi-ui/core/styles.css` 引入即可；若只要 tokens：
+
+```css
+@import "@koi-ui/tokens/theme.css";
+```
+
+## 常用 Tokens
+
+| Token | 说明 |
+|-------|------|
+| `--color-primary` | 主色 |
+| `--color-surface` | 表面背景 |
+| `--color-muted` | 弱化背景 |
+| `--color-border` | 边框 |
+| `--radius-sm/md/lg` | 圆角 |
+| `--shadow-sm/md` | 阴影 |
+
+## 断点 Provider
+
+`KoiProvider` 可改移动端分界断点（默认 `lg` = 1024px）：
+
+```tsx preview
+import { KoiProvider, Button } from '@koi-ui/core';
+
+export default () => (
+  <KoiProvider breakpoint="md">
+    <Button>断点改为 md (768px)</Button>
+  </KoiProvider>
+);
+```

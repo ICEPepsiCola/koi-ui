@@ -1,0 +1,33 @@
+# Responsive
+
+## Breakpoints
+
+| Breakpoint | Width |
+|------------|-------|
+| sm | 640px |
+| md | 768px |
+| lg | 1024px (default desktop / mobile split) |
+| xl | 1280px |
+| 2xl | 1536px |
+
+## Component behavior
+
+Most feedback / form / data components support `responsive`:
+
+- Default `true`: switch between desktop and mobile layouts by viewport
+- `false`: always use the desktop layout
+
+```text
+<Table responsive={false} columns={cols} data={data} />
+<Modal responsive={false} open={open} onClose={close}>...</Modal>
+```
+
+The docs preview “Desktop / Mobile” toggle injects `previewDevice` so you can compare both layouts on one page.
+
+## SSR
+
+The server renders the desktop layout by default; the client hydrates to the real viewport. For mobile-first landings:
+
+```text
+<KoiProvider ssrMode="mobile">...</KoiProvider>
+```

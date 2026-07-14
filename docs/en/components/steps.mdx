@@ -1,0 +1,37 @@
+# Steps
+
+## Basic usage
+
+```tsx preview
+import { Steps } from '@koi-ui/core';
+export default () => <Steps current={1} items={[{ title: 'Done' }, { title: 'In progress' }, { title: 'Pending' }]} />;
+```
+
+## Completed steps
+
+```tsx preview
+import { Steps } from '@koi-ui/core';
+export default () => (
+  <Steps
+    current={3}
+    items={[
+      { title: 'Fill in details', description: 'Done' },
+      { title: 'Confirm order', description: 'Done' },
+      { title: 'Pay', description: 'Done' },
+      { title: 'Done' },
+    ]}
+  />
+);
+```
+
+## API
+
+### Steps
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| items | Items | `StepItem[]` **(required)** | `-` |
+| current | Current | `number \|​ undefined` | `0` |
+| direction | Direction | `enum` | `horizontal` |
+| onChange | Change callback | `((current: number) => void) \|​ undefined` | `-` |
+| size | Size | `enum` | `-` |

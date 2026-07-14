@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "TabBar",
+    "zh": "标签栏"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    }
+  }
+}

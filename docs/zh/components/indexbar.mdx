@@ -1,0 +1,24 @@
+# IndexBar 索引栏
+
+## 基础用法
+
+```tsx preview
+import { IndexBar } from '@koi-ui/core';
+const groups = [{ index:'A', items:['Apple','Ant','Avocado'] }, { index:'B', items:['Banana','Blueberry'] }, { index:'C', items:['Cherry','Coconut'] }, { index:'D', items:['Date','Dragonfruit'] }];
+export default () => (
+  <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
+    <IndexBar className="min-h-0 min-w-0 flex-1" groups={groups} renderItem={(item) => <span>{item}</span>} />
+  </div>
+);
+```
+
+## API
+
+### IndexBar
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| groups | - | `IndexBarGroup<T>[]` **(必填)** | `-` |
+| renderItem | - | `(item: T,​ index: number) => ReactNode` **(必填)** | `-` |
+| onIndexChange | - | `((index: string) => void) \|​ undefined` | `-` |
+| stickyOffset | - | `number \|​ undefined` | `0` |

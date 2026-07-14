@@ -1,0 +1,21 @@
+# Notification 通知提醒
+
+## 基础用法
+
+```tsx preview
+import { Notification } from '@koi-ui/core';
+export default () => <Notification title="通知" description="这是一条通知" />;
+```
+
+## API
+
+### Notification
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| description | 描述内容 | `ReactNode` | `-` |
+| onClose | 关闭回调 | `(() => void) \|​ undefined` | `-` |
+| open | 是否显示 | `boolean \|​ undefined` | `true` |
+| placement | 弹出位置 | `enum` | `topRight` |
+| title | 标题 | `ReactNode` | `-` |
+| type | - | `enum` | `-` |

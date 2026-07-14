@@ -1,0 +1,35 @@
+# Alert 警告提示
+
+## 基础用法
+
+```tsx preview
+import { Alert } from '@koi-ui/core';
+export default () => <Alert variant="info" title="提示" description="这是一条提示信息" />;
+```
+
+## 不同类型
+
+```tsx preview
+import { Alert, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Alert variant="info" title="信息" description="常规提示" />
+    <Alert variant="success" title="成功" description="操作已完成" />
+    <Alert variant="warning" title="警告" description="请检查输入" />
+    <Alert variant="error" title="错误" description="提交失败" />
+  </Stack>
+);
+```
+
+## API
+
+### Alert
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| closable | 是否可关闭 | `boolean \|​ undefined` | `-` |
+| description | 描述内容 | `ReactNode` | `-` |
+| icon | 图标 | `ReactNode` | `-` |
+| onClose | 关闭回调 | `(() => void) \|​ undefined` | `-` |
+| title | 标题 | `ReactNode` | `-` |
+| variant | 变体 | `enum` | `-` |

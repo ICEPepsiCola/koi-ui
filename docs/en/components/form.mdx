@@ -1,0 +1,41 @@
+# Form
+
+## Basic usage
+
+```tsx preview
+import { Form, FormItem, Input, Button } from '@koi-ui/core';
+export default () => (
+  <Form layout="vertical"><FormItem label="Username"><Input placeholder="Enter text" /></FormItem><Button variant="primary">Submit</Button></Form>
+);
+```
+
+## Horizontal layout
+
+```tsx preview
+import { Form, FormItem, Input, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Form layout="horizontal">
+    <FormItem label="Email"><Input placeholder="name@example.com" /></FormItem>
+    <FormItem label="Password"><Input type="password" placeholder="Enter password" /></FormItem>
+    <Space><Button variant="primary">Sign in</Button><Button variant="secondary">Sign up</Button></Space>
+  </Form>
+);
+```
+
+## API
+
+### Form
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| layout | Layout | `enum` | `horizontal` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+
+### FormItem
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| className | Class name | `string \|​ undefined` | `-` |
+| label | Label | `ReactNode` | `-` |
+| name | Name | `string \|​ undefined` | `-` |
+| required | Required | `boolean \|​ undefined` | `-` |

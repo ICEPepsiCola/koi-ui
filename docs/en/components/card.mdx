@@ -1,0 +1,33 @@
+# Card
+
+## Basic usage
+
+```tsx preview
+import { Card, Text } from '@koi-ui/core';
+export default () => <Card title="Card title"><Text>Card content</Text></Card>;
+```
+
+## With footer
+
+```tsx preview
+import { Card, Button, Text } from '@koi-ui/core';
+export default () => (
+  <Card
+    title="Project overview"
+    footer={<Button size="sm" variant="primary">View details</Button>}
+  >
+    <Text>A card sample with a footer action area.</Text>
+  </Card>
+);
+```
+
+## API
+
+### Card
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| footer | Footer | `ReactNode` | `-` |
+| hoverable | - | `boolean \|​ undefined` | `-` |
+| padding | - | `enum` | `-` |
+| title | Title | `ReactNode` | `-` |

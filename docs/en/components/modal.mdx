@@ -1,0 +1,50 @@
+# Modal
+
+## Basic usage
+
+```tsx preview
+import { Modal, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Open modal</Button><Modal open={o} onClose={()=>setO(false)} title="Title">Content</Modal></>; };
+```
+
+## With footer actions
+
+```tsx preview
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Confirm</Button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Confirm delete"
+        footer={
+          <Space>
+            <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="destructive" onClick={() => setOpen(false)}>Delete</Button>
+          </Space>
+        }
+      >
+        Delete this record?？
+      </Modal>
+    </>
+  );
+};
+```
+
+## API
+
+### Modal
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| onClose | Close callback | `() => void` **(required)** | `-` |
+| open | Open | `boolean` **(required)** | `-` |
+| footer | Footer | `ReactNode` | `-` |
+| mobileFullscreen | Mobile fullscreen | `boolean \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `-` |
+| title | Title | `ReactNode` | `-` |

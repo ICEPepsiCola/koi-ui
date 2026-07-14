@@ -1,0 +1,60 @@
+# Getting started
+
+## Install
+
+Install the main package (it pulls in `@koi-ui/hooks` and `@koi-ui/tokens`):
+
+```bash
+pnpm add @koi-ui/core
+```
+
+## Styles
+
+```css
+@import "@koi-ui/core/styles.css";
+```
+
+## Basic usage
+
+Wrap your app with `KoiProvider`:
+
+```tsx preview
+import { KoiProvider, Button, Stack } from '@koi-ui/core';
+
+export default () => (
+  <KoiProvider>
+    <Stack direction="row" gap={4}>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+    </Stack>
+  </KoiProvider>
+);
+```
+
+## Adaptive components
+
+The same API switches layouts between desktop and mobile:
+
+- `Table` → card list on mobile
+- `Modal` → bottom sheet on mobile
+- `Form` → stacked labels on mobile
+- `Select` / `Picker` → bottom picker on mobile
+
+Pass `responsive={false}` to lock the desktop layout.
+
+## Imperative toast
+
+```ts
+import { toast } from '@koi-ui/core';
+
+toast.success('Saved');
+```
+
+## Advanced: hooks / tokens only
+
+Most apps never need this. Install separately only if you want breakpoint hooks or standalone tokens:
+
+```bash
+pnpm add @koi-ui/hooks
+pnpm add @koi-ui/tokens
+```

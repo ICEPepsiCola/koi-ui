@@ -1,0 +1,21 @@
+# Ellipsis 文本省略
+
+## 基础用法
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => <Ellipsis content="这是一段很长的文字，用来演示文本省略效果：当内容宽度超过容器时，超出部分会被省略显示，并在末尾展示省略号，方便在列表、卡片等有限空间里保留可读性。" rows={1} />;
+```
+
+## API
+
+### Ellipsis
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| content | 内容 | `ReactNode` **(必填)** | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| collapseText | - | `string \|​ undefined` | `收起` |
+| expandable | - | `boolean \|​ undefined` | `true` |
+| expandText | - | `string \|​ undefined` | `展开` |
+| rows | 行数 | `number \|​ undefined` | `1` |

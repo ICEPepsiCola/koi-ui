@@ -1,0 +1,26 @@
+# AutoComplete
+
+## Basic usage
+
+```tsx preview
+import { AutoComplete } from '@koi-ui/core';
+export default () => <AutoComplete options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder="Search" />;
+```
+
+## API
+
+### AutoComplete
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| options | Options | `AutoCompleteOption[]` **(required)** | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultValue | Default value | `string \|​ undefined` | `` |
+| disabled | Disabled | `boolean \|​ undefined` | `false` |
+| error | Error message | `string \|​ undefined` | `-` |
+| filterOption | - | `((input: string,​ option: AutoCompleteOption) => boolean) \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| onSelect | Select callback | `((option: AutoCompleteOption) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `Enter text` |
+| size | Size | `enum` | `md` |
+| value | Value | `string \|​ undefined` | `-` |

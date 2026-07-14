@@ -1,0 +1,36 @@
+# NavBar 导航栏
+
+## 基础用法
+
+```tsx preview
+import { NavBar } from '@koi-ui/core';
+export default () => <NavBar title="页面标题" onBack={() => {}} />;
+```
+
+## 带右侧操作
+
+```tsx preview
+import { NavBar, Button } from '@koi-ui/core';
+export default () => (
+  <NavBar
+    title="详情页"
+    onBack={() => {}}
+    right={<Button size="sm" variant="ghost">分享</Button>}
+  />
+);
+```
+
+## API
+
+### NavBar
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| backIcon | - | `ReactNode` | `-` |
+| bordered | - | `boolean \|​ undefined` | `-` |
+| fixed | 是否固定在视口顶部。 文档预览（KoiProvider.previewDevice）下默认 false，避免脱出演示容器。 | `boolean \|​ undefined` | `-` |
+| left | - | `ReactNode` | `-` |
+| onBack | - | `(() => void) \|​ undefined` | `-` |
+| right | - | `ReactNode` | `-` |
+| safeArea | - | `boolean \|​ undefined` | `-` |
+| title | 标题 | `ReactNode` | `-` |

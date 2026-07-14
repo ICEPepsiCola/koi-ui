@@ -1,0 +1,26 @@
+# Stepper
+
+## Basic usage
+
+```tsx preview
+import { Stepper } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(1); return <Stepper value={v} onChange={setV} />; };
+```
+
+## API
+
+### Stepper
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultValue | Default value | `number \|​ undefined` | `0` |
+| disabled | Disabled | `boolean \|​ undefined` | `false` |
+| label | Label | `string \|​ undefined` | `-` |
+| max | - | `number \|​ undefined` | `-` |
+| min | - | `number \|​ undefined` | `-` |
+| onChange | Change callback | `((value: number) => void) \|​ undefined` | `-` |
+| size | Size | `enum` | `md` |
+| step | - | `number \|​ undefined` | `1` |
+| value | Value | `number \|​ undefined` | `-` |

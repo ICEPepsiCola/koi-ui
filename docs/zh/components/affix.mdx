@@ -1,0 +1,25 @@
+# Affix 固钉
+
+## 基础用法
+
+```tsx preview
+import { Affix, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-3 pb-8 text-sm text-muted-foreground">
+    <p className="font-medium text-surface-foreground">向下滚动查看固钉效果</p>
+    <Affix offsetTop={0}><Button>固定在顶部</Button></Affix>
+    {Array.from({ length: 40 }, (_, i) => (<p key={i}>内容行 {i + 1}</p>))}
+  </div>
+);
+```
+
+## API
+
+### Affix
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| offsetBottom | - | `number \|​ undefined` | `-` |
+| offsetTop | - | `number \|​ undefined` | `0` |
+| onChange | 变化回调 | `((affixed: boolean) => void) \|​ undefined` | `-` |
+| target | - | `(() => HTMLElement \|​ Window \|​ null) \|​ undefined` | `-` |

@@ -1,0 +1,51 @@
+# Radio 单选框
+
+## 基础用法
+
+```tsx preview
+import { Radio, RadioGroup } from '@koi-ui/core';
+export default () => <RadioGroup defaultValue="a"><Radio radioValue="a" label="选项A" /><Radio radioValue="b" label="选项B" /></RadioGroup>;
+```
+
+## 受控单选
+
+```tsx preview
+import { Radio, RadioGroup, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('a');
+  return (
+    <div>
+      <RadioGroup value={value} onChange={setValue}>
+        <Radio radioValue="a" label="方案 A" />
+        <Radio radioValue="b" label="方案 B" />
+      </RadioGroup>
+      <Text muted className="mt-2 block text-sm">当前：{value}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### Radio
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| radioValue | - | `string` **(必填)** | `-` |
+| label | 标签 | `ReactNode` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `md` |
+
+### RadioGroup
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| className | 类名 | `string \|​ undefined` | `-` |
+| defaultValue | 默认值 | `string \|​ undefined` | `-` |
+| direction | 排列方向 | `enum` | `vertical` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| name | 字段名 | `string \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `md` |
+| value | 当前值 | `string \|​ undefined` | `-` |

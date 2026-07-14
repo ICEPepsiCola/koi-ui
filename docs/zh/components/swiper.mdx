@@ -1,0 +1,25 @@
+# Swiper 滑块视图
+
+## 基础用法
+
+```tsx preview
+import { Swiper } from '@koi-ui/core';
+export default () => <Swiper><div className="h-24 bg-muted flex items-center justify-center">Slide 1</div><div className="h-24 bg-primary/10 flex items-center justify-center">Slide 2</div></Swiper>;
+```
+
+## API
+
+### Swiper
+
+滑块视图：Pointer 跟手拖拽，可选箭头 / 指示点。
+loop 时用首尾克隆做无缝循环，避免末页硬切回首页。
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| autoplay | - | `boolean \|​ undefined` | `false` |
+| interval | - | `number \|​ undefined` | `3000` |
+| loop | - | `boolean \|​ undefined` | `true` |
+| onChange | 变化回调 | `((index: number) => void) \|​ undefined` | `-` |
+| showArrows | - | `boolean \|​ undefined` | `false` |
+| showDots | - | `boolean \|​ undefined` | `true` |
+| threshold | 滑动切换阈值（px），默认 40 | `number \|​ undefined` | `40` |

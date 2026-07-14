@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "IndexBar",
+    "zh": "索引栏"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    }
+  }
+}

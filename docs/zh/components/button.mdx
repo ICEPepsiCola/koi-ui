@@ -1,0 +1,53 @@
+# Button 按钮
+
+## 基础用法
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Button variant="primary">主要</Button>
+    <Button variant="secondary">次要</Button>
+  </Space>
+);
+```
+
+## 按钮类型
+
+```tsx preview
+import { Button, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={2}>
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="destructive">Destructive</Button>
+  </Stack>
+);
+```
+
+## 尺寸与状态
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button size="sm">Small</Button>
+    <Button size="md">Medium</Button>
+    <Button size="lg">Large</Button>
+    <Button loading>加载中</Button>
+    <Button disabled>禁用</Button>
+  </Space>
+);
+```
+
+## API
+
+### Button
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| loading | 加载中 | `boolean \|​ undefined` | `false` |
+| responsiveSize | 尺寸响应式 | `boolean \|​ undefined` | `true` |
+| size | 尺寸 | `enum` | `md` |
+| variant | 变体 | `enum` | `-` |

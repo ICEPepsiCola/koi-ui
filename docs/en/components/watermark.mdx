@@ -1,0 +1,21 @@
+# Watermark
+
+## Basic usage
+
+```tsx preview
+import { Watermark } from '@koi-ui/core';
+export default () => <Watermark content="Koi UI"><div className="h-32 flex items-center justify-center border border-border rounded-md">Watermark area</div></Watermark>;
+```
+
+## API
+
+### Watermark
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| content | Content | `ReactNode` | `Koi UI` |
+| fontColor | - | `string \|​ undefined` | `rgba(0,0,0,0.08)` |
+| fontSize | - | `number \|​ undefined` | `14` |
+| gap | Gap | `[number,​ number] \|​ undefined` | `[100, 100]` |
+| rotate | - | `number \|​ undefined` | `-22` |
+| zIndex | - | `number \|​ undefined` | `9` |

@@ -1,0 +1,17 @@
+[
+  {
+    "type": "file",
+    "name": "getting-started",
+    "label": "sidebar.gettingStarted"
+  },
+  {
+    "type": "file",
+    "name": "theming",
+    "label": "sidebar.theming"
+  },
+  {
+    "type": "file",
+    "name": "responsive",
+    "label": "sidebar.responsive"
+  }
+]

@@ -1,0 +1,62 @@
+# Typography
+
+## Basic usage
+
+```tsx preview
+import { Typography } from '@koi-ui/core';
+const { Title, Text, Paragraph } = Typography;
+export default () => (
+  <div>
+    <Title level={3}>Title</Title>
+    <Paragraph>Paragraph text</Paragraph>
+    <Text muted>Secondary text</Text>
+  </div>
+);
+```
+
+## Heading levels
+
+```tsx preview
+import { Typography } from '@koi-ui/core';
+const { Title } = Typography;
+export default () => (
+  <div>
+    <Title level={1}>H1 Title</Title>
+    <Title level={3}>H3 Title</Title>
+    <Title level={5}>H5 Title</Title>
+  </div>
+);
+```
+
+## API
+
+### Title
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| ellipsis | - | `boolean \|​ undefined` | `-` |
+| level | Level | `enum` | `1` |
+
+### Text
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| as | - | `enum` | `span` |
+| ellipsis | - | `boolean \|​ undefined` | `-` |
+| size | Size | `enum` | `-` |
+| strong | - | `boolean \|​ undefined` | `-` |
+| type | - | `enum` | `-` |
+
+### Paragraph
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| ellipsis | - | `boolean \|​ undefined` | `-` |
+| type | - | `enum` | `-` |
+
+### Link
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| href | - | `string \|​ undefined` | `#` |

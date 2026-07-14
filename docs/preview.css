@@ -1,0 +1,6 @@
+@import "@koi-ui/tokens/theme.css";
+@import "@koi-ui/tokens/reset.css";
+@import "tailwindcss";
+@source "../packages/core/src/**/*.{ts,tsx}";
+@import "./mockups/mockup.css";
+@import "./mockups/demo-frame.css";

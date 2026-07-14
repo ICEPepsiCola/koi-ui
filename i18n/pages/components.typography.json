@@ -1,0 +1,16 @@
+{
+  "title": {
+    "en": "Typography",
+    "zh": "排版"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    },
+    "headingLevels": {
+      "en": "Heading levels",
+      "zh": "标题层级"
+    }
+  }
+}

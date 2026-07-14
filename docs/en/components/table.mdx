@@ -1,0 +1,35 @@
+# Table
+
+## Basic usage
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+export default () => <Table columns={[{key:'name',title:'Name'},{key:'age',title:'Age'}]} data={[{name:'Alice',age:'20'},{name:'Bob',age:'25'}]} />;
+```
+
+## Empty data
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+export default () => (
+  <Table
+    columns={[{ key: 'name', title: 'Name' }, { key: 'role', title: 'Role' }]}
+    data={[]}
+    emptyText="No members"
+  />
+);
+```
+
+## API
+
+### Table
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| columns | Columns | `ColumnDef<T>[]` **(required)** | `-` |
+| data | Data source | `T[]` **(required)** | `-` |
+| emptyText | - | `string \|​ undefined` | `-` |
+| loading | Loading | `boolean \|​ undefined` | `-` |
+| mobileFields | - | `(keyof T)[] \|​ undefined` | `-` |
+| onRowClick | - | `((row: T) => void) \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |

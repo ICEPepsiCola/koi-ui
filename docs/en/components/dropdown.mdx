@@ -1,0 +1,40 @@
+# Dropdown
+
+## Basic usage
+
+```tsx preview
+import { Dropdown, Button } from '@koi-ui/core';
+export default () => (
+  <Dropdown trigger={<Button>Dropdown</Button>} items={[{ key: '1', label: 'Option 1' }, { key: '2', label: 'Option 2' }]} />
+);
+```
+
+## Disabled items
+
+```tsx preview
+import { Dropdown, Button } from '@koi-ui/core';
+export default () => (
+  <Dropdown
+    trigger={<Button>Actions</Button>}
+    items={[
+      { key: 'edit', label: 'Edit' },
+      { key: 'copy', label: 'Copy' },
+      { key: 'delete', label: 'Delete', disabled: true },
+    ]}
+  />
+);
+```
+
+## API
+
+### Dropdown
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| items | Items | `DropdownItem[]` **(required)** | `-` |
+| trigger | Trigger | `ReactNode` **(required)** | `-` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| onSelect | Select callback | `((key: string) => void) \|​ undefined` | `-` |
+| placement | Placement | `enum` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+| title | Title | `ReactNode` | `-` |

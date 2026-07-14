@@ -1,0 +1,21 @@
+# Cascader 级联选择
+
+## 基础用法
+
+```tsx preview
+import { Cascader } from '@koi-ui/core';
+export default () => <Cascader options={[{label:'浙江',value:'zj',children:[{label:'杭州',value:'hz'}]}]} placeholder="选择地区" />;
+```
+
+## API
+
+### Cascader
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| options | 选项列表 | `CascaderOption[]` **(必填)** | `-` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string[],​ labels: string[]) => void) \|​ undefined` | `-` |
+| placeholder | 占位文本 | `string \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+| value | 当前值 | `string[] \|​ undefined` | `-` |

@@ -1,0 +1,40 @@
+# SearchBar
+
+## Basic usage
+
+```tsx preview
+import { SearchBar } from '@koi-ui/core';
+export default () => <SearchBar placeholder="Search" />;
+```
+
+## Controlled search
+
+```tsx preview
+import { SearchBar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [keyword, setKeyword] = useState('');
+  return (
+    <div>
+      <SearchBar value={keyword} onChange={setKeyword} placeholder="Search products" />
+      <Text muted className="mt-2 block text-sm">Keyword: {keyword || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### SearchBar
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultValue | Default value | `string \|​ undefined` | `-` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| onSearch | - | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+| showCancel | - | `boolean \|​ undefined` | `-` |
+| value | Value | `string \|​ undefined` | `-` |

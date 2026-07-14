@@ -1,0 +1,23 @@
+# Tree 树形控件
+
+## 基础用法
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+export default () => <Tree data={[{ key:'1', title:'父节点', children:[{ key:'1-1', title:'子节点' }] }]} />;
+```
+
+## API
+
+### Tree
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| data | 数据源 | `TreeNode[]` **(必填)** | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| defaultExpandedKeys | - | `string[] \|​ undefined` | `[]` |
+| expandedKeys | - | `string[] \|​ undefined` | `-` |
+| onExpand | - | `((keys: string[]) => void) \|​ undefined` | `-` |
+| onSelect | 选择回调 | `((keys: string[]) => void) \|​ undefined` | `-` |
+| selectedKeys | - | `string[] \|​ undefined` | `[]` |
+| showLine | - | `boolean \|​ undefined` | `false` |

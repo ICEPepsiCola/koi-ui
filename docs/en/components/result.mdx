@@ -1,0 +1,34 @@
+# Result
+
+## Basic usage
+
+```tsx preview
+import { Result, Button } from '@koi-ui/core';
+export default () => <Result status="success" title="Submitted" extra={<Button>Back</Button>} />;
+```
+
+## Error result
+
+```tsx preview
+import { Result, Button } from '@koi-ui/core';
+export default () => (
+  <Result
+    status="error"
+    title="Submit failed"
+    subTitle="Check your network and retry"
+    extra={<Button variant="primary">Retry</Button>}
+  />
+);
+```
+
+## API
+
+### Result
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| extra | Extra | `ReactNode` | `-` |
+| icon | Icon | `ReactNode` | `-` |
+| status | Status | `enum` | `-` |
+| subTitle | - | `ReactNode` | `-` |
+| title | Title | `ReactNode` | `-` |

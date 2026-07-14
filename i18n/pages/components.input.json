@@ -1,0 +1,20 @@
+{
+  "title": {
+    "en": "Input",
+    "zh": "输入框"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    },
+    "errorState": {
+      "en": "Error state",
+      "zh": "错误提示"
+    },
+    "controlledInput": {
+      "en": "Controlled input",
+      "zh": "受控输入"
+    }
+  }
+}

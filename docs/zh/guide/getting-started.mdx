@@ -1,0 +1,60 @@
+# 快速开始
+
+## 安装
+
+只需安装主包（会自动带上 `@koi-ui/hooks`、`@koi-ui/tokens`）：
+
+```bash
+pnpm add @koi-ui/core
+```
+
+## 引入样式
+
+```css
+@import "@koi-ui/core/styles.css";
+```
+
+## 基础用法
+
+根节点包一层 `KoiProvider`，即可使用组件：
+
+```tsx preview
+import { KoiProvider, Button, Stack } from '@koi-ui/core';
+
+export default () => (
+  <KoiProvider>
+    <Stack direction="row" gap={4}>
+      <Button variant="primary">主要按钮</Button>
+      <Button variant="secondary">次要按钮</Button>
+    </Stack>
+  </KoiProvider>
+);
+```
+
+## 自适应组件
+
+同一 API 在桌面与移动端自动切换布局，无需再写两套代码：
+
+- `Table` → 移动端卡片列表
+- `Modal` → 移动端底部抽屉
+- `Form` → 移动端标签竖排
+- `Select` / `Picker` 等 → 移动端底部选择器
+
+临时固定某一端布局时，可传 `responsive={false}`。
+
+## 命令式提示
+
+```ts
+import { toast } from '@koi-ui/core';
+
+toast.success('保存成功');
+```
+
+## 进阶：单独使用 hooks / tokens
+
+绝大多数场景不需要。若只要断点 hook，或要单独覆盖 Design Tokens：
+
+```bash
+pnpm add @koi-ui/hooks
+pnpm add @koi-ui/tokens
+```

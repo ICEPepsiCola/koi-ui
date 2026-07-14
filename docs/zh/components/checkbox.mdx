@@ -1,0 +1,50 @@
+# Checkbox 多选框
+
+## 基础用法
+
+```tsx preview
+import { Checkbox, CheckboxGroup } from '@koi-ui/core';
+export default () => <CheckboxGroup defaultValue={['a']}><Checkbox checkboxValue="a" label="选项A" /><Checkbox checkboxValue="b" label="选项B" /></CheckboxGroup>;
+```
+
+## 受控多选
+
+```tsx preview
+import { Checkbox, CheckboxGroup, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [values, setValues] = useState(['read']);
+  return (
+    <div>
+      <CheckboxGroup value={values} onChange={setValues}>
+        <Checkbox checkboxValue="read" label="阅读" />
+        <Checkbox checkboxValue="write" label="写作" />
+        <Checkbox checkboxValue="code" label="编程" />
+      </CheckboxGroup>
+      <Text muted className="mt-2 block text-sm">已选：{values.join(', ') || '无'}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### Checkbox
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| checkboxValue | - | `string \|​ undefined` | `-` |
+| label | 标签 | `ReactNode` | `-` |
+| onChange | 变化回调 | `((checked: boolean) => void) \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `md` |
+
+### CheckboxGroup
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| className | 类名 | `string \|​ undefined` | `-` |
+| defaultValue | 默认值 | `string[] \|​ undefined` | `[]` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string[]) => void) \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `md` |
+| value | 当前值 | `string[] \|​ undefined` | `-` |

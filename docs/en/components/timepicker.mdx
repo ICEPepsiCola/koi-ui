@@ -1,0 +1,22 @@
+# TimePicker
+
+## Basic usage
+
+```tsx preview
+import { TimePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(''); return <TimePicker value={v} onChange={setV} placeholder="Select time" />; };
+```
+
+## API
+
+### TimePicker
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| format | - | `enum` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+| value | Value | `string \|​ undefined` | `-` |

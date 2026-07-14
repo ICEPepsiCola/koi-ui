@@ -1,0 +1,43 @@
+# Grid 栅格
+
+## 基础用法
+
+```tsx preview
+import { Row, Col } from '@koi-ui/core';
+export default () => (
+  <Row gutter={16}>
+    <Col span={12}><div className="bg-muted p-4 rounded-md">col-12</div></Col>
+    <Col span={12}><div className="bg-muted p-4 rounded-md">col-12</div></Col>
+  </Row>
+);
+```
+
+## 栅格偏移
+
+```tsx preview
+import { Row, Col } from '@koi-ui/core';
+export default () => (
+  <Row gutter={16}>
+    <Col span={8}><div className="bg-muted p-4 rounded-md">span-8</div></Col>
+    <Col span={8} offset={8}><div className="bg-muted p-4 rounded-md">offset-8</div></Col>
+  </Row>
+);
+```
+
+## API
+
+### Row
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| align | - | `enum` | `-` |
+| gutter | 栅格间隔 | `"md" \|​ "none" \|​ "sm" \|​ "lg" \|​ [number,​ number] \|​ undefined` | `md` |
+| justify | - | `enum` | `-` |
+
+### Col
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| gutter | 栅格间隔 | `"md" \|​ "none" \|​ "sm" \|​ "lg" \|​ [number,​ number] \|​ undefined` | `md` |
+| offset | 栅格偏移 | `number \|​ undefined` | `0` |
+| span | 栅格占位 | `number \|​ undefined` | `24` |

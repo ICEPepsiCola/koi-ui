@@ -1,0 +1,66 @@
+{
+  "hero": {
+    "name": {
+      "en": "Koi UI",
+      "zh": "Koi UI"
+    },
+    "text": {
+      "en": "Adaptive React components for desktop and mobile",
+      "zh": "PC + 移动端自适应组件库"
+    },
+    "tagline": {
+      "en": "One API that switches layouts automatically across breakpoints.",
+      "zh": "同一 API，自动适配桌面与移动布局"
+    },
+    "actionStart": {
+      "en": "Get started",
+      "zh": "快速开始"
+    },
+    "actionComponents": {
+      "en": "Components",
+      "zh": "查看组件"
+    }
+  },
+  "features": {
+    "adaptive": {
+      "title": {
+        "en": "Adaptive core",
+        "zh": "自适应内核"
+      },
+      "details": {
+        "en": "Table, Modal, Form, Select and more switch desktop / mobile layouts by breakpoint.",
+        "zh": "Table、Modal、Form、Select 等组件按断点自动切换桌面 / 移动布局"
+      }
+    },
+    "tokens": {
+      "title": {
+        "en": "Tailwind CSS v4",
+        "zh": "Tailwind CSS v4"
+      },
+      "details": {
+        "en": "Design tokens with CSS variables and first-class dark mode overrides.",
+        "zh": "基于 Design Tokens，支持 CSS 变量主题与暗色覆盖"
+      }
+    },
+    "react": {
+      "title": {
+        "en": "React 19",
+        "zh": "React 19"
+      },
+      "details": {
+        "en": "Built for modern React with strict TypeScript types.",
+        "zh": "使用较新的 React 能力，TypeScript 严格类型"
+      }
+    },
+    "docs": {
+      "title": {
+        "en": "Live docs",
+        "zh": "Rspress 文档"
+      },
+      "details": {
+        "en": "Component previews include desktop and phone side-by-side.",
+        "zh": "组件预览内置桌面 / 手机双端对照"
+      }
+    }
+  }
+}

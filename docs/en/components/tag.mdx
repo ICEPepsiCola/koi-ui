@@ -1,0 +1,35 @@
+# Tag
+
+## Basic usage
+
+```tsx preview
+import { Tag, Space } from '@koi-ui/core';
+export default () => <Space><Tag>Default</Tag><Tag variant="success">Success</Tag><Tag variant="destructive">Danger</Tag></Space>;
+```
+
+## Closable tags
+
+```tsx preview
+import { Tag, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [tags, setTags] = useState(['React', 'TypeScript', 'Tailwind']);
+  return (
+    <Space wrap>
+      {tags.map((tag) => (
+        <Tag key={tag} closable onClose={() => setTags(tags.filter((t) => t !== tag))}>{tag}</Tag>
+      ))}
+    </Space>
+  );
+};
+```
+
+## API
+
+### Tag
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| closable | Closable | `boolean \|​ undefined` | `-` |
+| onClose | Close callback | `(() => void) \|​ undefined` | `-` |
+| variant | Variant | `enum` | `-` |

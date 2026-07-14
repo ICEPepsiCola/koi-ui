@@ -1,0 +1,21 @@
+# Ellipsis
+
+## Basic usage
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => <Ellipsis content="This is a long paragraph used to demonstrate text ellipsis: when content exceeds the container width, the overflow is truncated with an ellipsis so lists and cards stay readable." rows={1} />;
+```
+
+## API
+
+### Ellipsis
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| content | Content | `ReactNode` **(required)** | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| collapseText | - | `string \|​ undefined` | `Collapse` |
+| expandable | - | `boolean \|​ undefined` | `true` |
+| expandText | - | `string \|​ undefined` | `Expand` |
+| rows | Rows | `number \|​ undefined` | `1` |

@@ -1,0 +1,42 @@
+# Drawer
+
+## Basic usage
+
+```tsx preview
+import { Drawer, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Open drawer</Button><Drawer open={o} onClose={()=>setO(false)} title="Drawer title">Content</Drawer></>; };
+```
+
+## Bottom drawer
+
+```tsx preview
+import { Drawer, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open bottom</Button>
+      <Drawer open={open} onClose={() => setOpen(false)} title="Filter" placement="bottom">
+        Filter panel content
+      </Drawer>
+    </>
+  );
+};
+```
+
+## API
+
+### Drawer
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| onClose | Close callback | `() => void` **(required)** | `-` |
+| open | Open | `boolean` **(required)** | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| footer | Footer | `ReactNode` | `-` |
+| maskClosable | Close on mask click | `boolean \|​ undefined` | `true` |
+| placement | Placement | `enum` | `right` |
+| size | Size | `enum` | `md` |
+| title | Title | `ReactNode` | `-` |

@@ -1,0 +1,25 @@
+# Affix
+
+## Basic usage
+
+```tsx preview
+import { Affix, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-3 pb-8 text-sm text-muted-foreground">
+    <p className="font-medium text-surface-foreground">Scroll down to see Affix</p>
+    <Affix offsetTop={0}><Button>Pin to top</Button></Affix>
+    {Array.from({ length: 40 }, (_, i) => (<p key={i}>Row {i + 1}</p>))}
+  </div>
+);
+```
+
+## API
+
+### Affix
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| offsetBottom | - | `number \|​ undefined` | `-` |
+| offsetTop | - | `number \|​ undefined` | `0` |
+| onChange | Change callback | `((affixed: boolean) => void) \|​ undefined` | `-` |
+| target | - | `(() => HTMLElement \|​ Window \|​ null) \|​ undefined` | `-` |

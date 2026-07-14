@@ -1,0 +1,8 @@
+packages:
+  - 'packages/*'
+
+overrides:
+  style-to-js: 2.0.2
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'

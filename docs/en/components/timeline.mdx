@@ -1,0 +1,18 @@
+# Timeline
+
+## Basic usage
+
+```tsx preview
+import { Timeline } from '@koi-ui/core';
+export default () => <Timeline items={[{ key:'1', children:'Create project' }, { key:'2', children:'Release' }, { key:'3', children:'Keep iterating' }]} />;
+```
+
+## API
+
+### Timeline
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| items | Items | `TimelineItem[]` **(required)** | `-` |
+| mode | - | `enum` | `-` |
+| pending | - | `ReactNode` | `-` |

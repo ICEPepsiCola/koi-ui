@@ -1,0 +1,22 @@
+# TimePicker 时间选择
+
+## 基础用法
+
+```tsx preview
+import { TimePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(''); return <TimePicker value={v} onChange={setV} placeholder="选择时间" />; };
+```
+
+## API
+
+### TimePicker
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| format | - | `enum` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | 占位文本 | `string \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+| value | 当前值 | `string \|​ undefined` | `-` |

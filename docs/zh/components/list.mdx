@@ -1,0 +1,20 @@
+# List 列表
+
+## 基础用法
+
+```tsx preview
+import { List } from '@koi-ui/core';
+export default () => <List items={[{ key:'1', title:'标题一', description:'描述一' }, { key:'2', title:'标题二', description:'描述二' }]} />;
+```
+
+## API
+
+### List
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| items | 数据项 | `ListItem[]` **(必填)** | `-` |
+| bordered | - | `boolean \|​ undefined` | `-` |
+| footer | 底部区域 | `ReactNode` | `-` |
+| header | - | `ReactNode` | `-` |
+| size | 尺寸 | `enum` | `md` |

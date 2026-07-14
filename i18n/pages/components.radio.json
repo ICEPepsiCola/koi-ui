@@ -1,0 +1,16 @@
+{
+  "title": {
+    "en": "Radio",
+    "zh": "单选框"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    },
+    "controlledRadio": {
+      "en": "Controlled radio group",
+      "zh": "受控单选"
+    }
+  }
+}

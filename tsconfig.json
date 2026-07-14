@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "ES2022"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "useDefineForClassFields": true,
+    "declaration": true,
+    "declarationMap": true,
+    "paths": {
+      "@koi-ui/core": ["./packages/core/src"],
+      "@koi-ui/hooks": ["./packages/hooks/src"],
+      "@koi-ui/tokens/*": ["./packages/tokens/src/*"]
+    }
+  },
+  "include": [
+    "packages/*/src",
+    "packages/*/tests",
+    "docs",
+    "rspress.config.ts"
+  ]
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "type": "file",
+    "name": "index",
+    "label": "home"
+  },
+  {
+    "type": "dir",
+    "name": "guide",
+    "label": "nav.guide",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "dir",
+    "name": "components",
+    "label": "nav.components",
+    "collapsible": true,
+    "collapsed": false
+  }
+]

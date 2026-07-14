@@ -1,0 +1,33 @@
+# Card 卡片
+
+## 基础用法
+
+```tsx preview
+import { Card, Text } from '@koi-ui/core';
+export default () => <Card title="卡片标题"><Text>卡片内容</Text></Card>;
+```
+
+## 带底部区域
+
+```tsx preview
+import { Card, Button, Text } from '@koi-ui/core';
+export default () => (
+  <Card
+    title="项目概览"
+    footer={<Button size="sm" variant="primary">查看详情</Button>}
+  >
+    <Text>这是一个带底部操作区的卡片示例。</Text>
+  </Card>
+);
+```
+
+## API
+
+### Card
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| footer | 底部区域 | `ReactNode` | `-` |
+| hoverable | - | `boolean \|​ undefined` | `-` |
+| padding | - | `enum` | `-` |
+| title | 标题 | `ReactNode` | `-` |

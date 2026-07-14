@@ -1,0 +1,20 @@
+# TextArea 文本域
+
+## 基础用法
+
+```tsx preview
+import { TextArea } from '@koi-ui/core';
+export default () => <TextArea placeholder="请输入多行文本" rows={3} />;
+```
+
+## API
+
+### TextArea
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| error | 错误信息 | `string \|​ undefined` | `-` |
+| maxLength | - | `number \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| showCount | - | `boolean \|​ undefined` | `false` |
+| size | 尺寸 | `enum` | `-` |

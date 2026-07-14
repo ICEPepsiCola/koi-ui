@@ -1,0 +1,24 @@
+# FloatingPanel 浮动面板
+
+## 基础用法
+
+```tsx preview
+import { FloatingPanel } from '@koi-ui/core';
+export default () => <FloatingPanel title="面板"><div className="p-4">可拖拽面板内容</div></FloatingPanel>;
+```
+
+## API
+
+### FloatingPanel
+
+底部浮动面板：按锚点比例吸附高度。
+在文档预览里以 portal 根高度为基准；Pointer Events 支持触控与鼠标拖拽。
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| anchors | - | `number[] \|​ undefined` | `[0.4, 0.7]` |
+| defaultAnchor | - | `number \|​ undefined` | `0.4` |
+| onClose | 关闭回调 | `(() => void) \|​ undefined` | `-` |
+| open | 是否显示 | `boolean \|​ undefined` | `true` |
+| showOverlay | - | `boolean \|​ undefined` | `true` |
+| title | 标题 | `ReactNode` | `-` |

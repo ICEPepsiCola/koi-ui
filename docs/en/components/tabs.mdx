@@ -1,0 +1,40 @@
+# Tabs
+
+## Basic usage
+
+```tsx preview
+import { Tabs, Text } from '@koi-ui/core';
+export default () => <Tabs items={[{ key:'1', label:'Tab1', children:<Text>Content 1</Text> }, { key:'2', label:'Tab2', children:<Text>Content 2</Text> }]} />;
+```
+
+## Controlled tabs
+
+```tsx preview
+import { Tabs, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [key, setKey] = useState('profile');
+  return (
+    <Tabs
+      activeKey={key}
+      onChange={setKey}
+      items={[
+        { key: 'profile', label: 'Profile', children: <Text>Profile panel</Text> },
+        { key: 'settings', label: 'Settings', children: <Text>Settings panel</Text> },
+      ]}
+    />
+  );
+};
+```
+
+## API
+
+### Tabs
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| items | Items | `TabItem[]` **(required)** | `-` |
+| activeKey | Active key | `string \|​ undefined` | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultActiveKey | - | `string \|​ undefined` | `-` |
+| onChange | Change callback | `((key: string) => void) \|​ undefined` | `-` |

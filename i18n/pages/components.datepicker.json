@@ -1,0 +1,16 @@
+{
+  "title": {
+    "en": "DatePicker",
+    "zh": "日期选择"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    },
+    "controlledDate": {
+      "en": "Controlled date",
+      "zh": "受控日期"
+    }
+  }
+}

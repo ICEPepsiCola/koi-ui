@@ -1,0 +1,47 @@
+# Select 选择器
+
+## 基础用法
+
+```tsx preview
+import { Select } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(''); return <Select options={[{label:'北京',value:'bj'},{label:'上海',value:'sh'}]} value={v} onChange={setV} placeholder="选择城市" />; };
+```
+
+## 受控选择
+
+```tsx preview
+import { Select, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [city, setCity] = useState('sh');
+  return (
+    <div>
+      <Select
+        value={city}
+        onChange={setCity}
+        placeholder="选择城市"
+        options={[
+          { label: '北京', value: 'bj' },
+          { label: '上海', value: 'sh' },
+          { label: '广州', value: 'gz' },
+        ]}
+      />
+      <Text muted className="mt-2 block text-sm">当前：{city}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### Select
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| options | 选项列表 | `SelectOption[]` **(必填)** | `-` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | 占位文本 | `string \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+| value | 当前值 | `string \|​ undefined` | `-` |

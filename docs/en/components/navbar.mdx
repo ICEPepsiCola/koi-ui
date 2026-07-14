@@ -1,0 +1,36 @@
+# NavBar
+
+## Basic usage
+
+```tsx preview
+import { NavBar } from '@koi-ui/core';
+export default () => <NavBar title="Page title" onBack={() => {}} />;
+```
+
+## With right action
+
+```tsx preview
+import { NavBar, Button } from '@koi-ui/core';
+export default () => (
+  <NavBar
+    title="Details"
+    onBack={() => {}}
+    right={<Button size="sm" variant="ghost">Share</Button>}
+  />
+);
+```
+
+## API
+
+### NavBar
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| backIcon | - | `ReactNode` | `-` |
+| bordered | - | `boolean \|​ undefined` | `-` |
+| fixed | - | `boolean \|​ undefined` | `-` |
+| left | - | `ReactNode` | `-` |
+| onBack | - | `(() => void) \|​ undefined` | `-` |
+| right | - | `ReactNode` | `-` |
+| safeArea | - | `boolean \|​ undefined` | `-` |
+| title | Title | `ReactNode` | `-` |

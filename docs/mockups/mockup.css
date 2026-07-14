@@ -1,0 +1,282 @@
+/**
+ * daisyUI Mockup — 逐属性对照抄自 daisyUI 5.6.17 components/mockup/object.js
+ *
+ * ① mockup-code
+ * ② mockup-window
+ * ③ mockup-browser (+ toolbar / .input)
+ * ④ mockup-phone (+ camera / display)
+ *
+ * MIT © daisyUI — https://daisyui.com/components/mockup-browser/
+ */
+
+/* —— mockup 主题变量（与文档亮/暗色同步） —— */
+:root {
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(98% 0 0);
+  --color-base-300: oklch(95% 0 0);
+  --color-base-content: oklch(21% 0.006 285.885);
+  --color-neutral: oklch(14% 0.005 285.823);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --radius-box: 0.5rem;
+  --radius-field: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+}
+
+html.dark,
+html.rp-dark {
+  --color-base-100: oklch(22% 0.01 285);
+  --color-base-200: oklch(26% 0.012 285);
+  --color-base-300: oklch(32% 0.014 285);
+  --color-base-content: oklch(96% 0.004 286);
+  --color-neutral: oklch(28% 0.012 285);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+}
+
+/* —— browser 地址栏：daisyUI .input 基础形态（mockup 内会再覆盖 bg/font-size 等） —— */
+.mockup-browser-toolbar > .input {
+  appearance: none;
+  background-color: var(--color-base-100);
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: text;
+  width: clamp(3rem, 20rem, 100%);
+  height: calc(var(--size-field, 0.25rem) * 10);
+  font-size: 0.875rem;
+  border: var(--border) solid color-mix(in oklab, var(--color-base-content) 20%, transparent);
+  border-radius: var(--radius-field);
+  padding-inline: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 1;
+  position: relative;
+  box-shadow:
+    0 1px color-mix(in oklab, color-mix(in oklab, var(--color-base-content) 20%, transparent) calc(var(--depth) * 10%), transparent) inset,
+    0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+}
+
+/* 官方示例常用的 border / w-full 辅助（不引入 Tailwind） */
+.mockup-browser.border,
+.mockup-window.border {
+  border: var(--border) solid var(--color-base-300);
+}
+
+.mockup-browser.w-full,
+.mockup-window.w-full,
+.mockup-code.w-full {
+  width: 100%;
+}
+
+/* ========== 以下逐条抄自 mockup/object.js ========== */
+
+.mockup-code {
+  position: relative;
+  overflow: hidden;
+  overflow-x: auto;
+  border-radius: var(--radius-box);
+  background-color: var(--color-neutral);
+  padding-block: calc(0.25rem * 5);
+  color: var(--color-neutral-content);
+  font-size: 0.875rem;
+  direction: ltr;
+}
+
+.mockup-code:before {
+  content: "";
+  margin-bottom: calc(0.25rem * 4);
+  display: block;
+  height: calc(0.25rem * 3);
+  width: calc(0.25rem * 3);
+  border-radius: calc(infinity * 1px);
+  opacity: 30%;
+  box-shadow: 1.4em 0, 2.8em 0, 4.2em 0;
+}
+
+.mockup-code pre {
+  padding-right: calc(0.25rem * 5);
+  width: max-content;
+  min-width: 100%;
+}
+
+.mockup-code pre:before {
+  content: "";
+  margin-right: 2ch;
+}
+
+.mockup-code pre[data-prefix]:before {
+  --tw-content: attr(data-prefix);
+  content: var(--tw-content);
+  display: inline-block;
+  width: calc(0.25rem * 8);
+  text-align: right;
+  opacity: 50%;
+}
+
+.mockup-window {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-x: auto;
+  border-radius: var(--radius-box);
+  padding-top: calc(0.25rem * 5);
+}
+
+.mockup-window:before {
+  content: "";
+  margin-bottom: calc(0.25rem * 4);
+  display: block;
+  aspect-ratio: 1 / 1;
+  height: calc(0.25rem * 3);
+  flex-shrink: 0;
+  align-self: flex-start;
+  border-radius: calc(infinity * 1px);
+  opacity: 30%;
+  box-shadow: 1.4em 0, 2.8em 0, 4.2em 0;
+}
+
+[dir="rtl"] .mockup-window:before {
+  align-self: flex-end;
+}
+
+.mockup-window pre[data-prefix]:before {
+  --tw-content: attr(data-prefix);
+  content: var(--tw-content);
+  display: inline-block;
+  text-align: right;
+}
+
+.mockup-browser {
+  position: relative;
+  overflow: hidden;
+  overflow-x: auto;
+  border-radius: var(--radius-box);
+}
+
+.mockup-browser pre[data-prefix]:before {
+  --tw-content: attr(data-prefix);
+  content: var(--tw-content);
+  display: inline-block;
+  text-align: right;
+}
+
+.mockup-browser .mockup-browser-toolbar {
+  margin-block: calc(0.25rem * 3);
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  padding-right: 1.4em;
+}
+
+.mockup-browser .mockup-browser-toolbar:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
+  flex-direction: row-reverse;
+}
+
+.mockup-browser .mockup-browser-toolbar:before {
+  content: "";
+  margin-right: 4.8rem;
+  display: inline-block;
+  aspect-ratio: 1 / 1;
+  height: calc(0.25rem * 3);
+  border-radius: calc(infinity * 1px);
+  opacity: 30%;
+  box-shadow: 1.4em 0, 2.8em 0, 4.2em 0;
+}
+
+.mockup-browser .mockup-browser-toolbar .input {
+  margin-inline: auto;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: calc(0.25rem * 2);
+  overflow: hidden;
+  background-color: var(--color-base-200);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  direction: ltr;
+}
+
+.mockup-browser .mockup-browser-toolbar .input:before {
+  content: "";
+  width: calc(0.25rem * 4);
+  height: calc(0.25rem * 4);
+  opacity: 50%;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z' clip-rule='evenodd' /%3E%3C/svg%3E") no-repeat center;
+  mask-size: contain;
+}
+
+/*
+ * Phone — 逻辑分辨率按常见最小机型 375×812（≈ iPhone X），
+ * 比例与圆角从 daisyUI 462×978 等比缩放到 375。
+ * 用「单格 grid + 尺寸锁死」避免 demo 内容把比例撑破。
+ */
+.mockup-phone {
+  box-sizing: border-box;
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  justify-items: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 375px;
+  aspect-ratio: 375 / 812;
+  height: auto;
+  padding: 5px;
+  overflow: hidden;
+  background-color: #000;
+  border: 4px solid #6b6b6b;
+  border-radius: 52px;
+}
+
+@supports (corner-shape: superellipse(1.45)) {
+  .mockup-phone {
+    border-radius: 72px;
+    corner-shape: superellipse(1.45);
+  }
+}
+
+.mockup-phone-camera {
+  box-sizing: border-box;
+  grid-area: 1 / 1 / 1 / 1;
+  z-index: 2;
+  justify-self: center;
+  align-self: start;
+  width: 28%;
+  height: 3.7%;
+  margin-top: 3%; /* CSS：百分比 margin-top 相对 containing block 宽度 */
+  border-radius: 14px;
+  background: #000;
+  pointer-events: none;
+}
+
+.mockup-phone-display {
+  box-sizing: border-box;
+  grid-area: 1 / 1 / 1 / 1;
+  justify-self: stretch;
+  align-self: stretch;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 44px;
+}
+
+@supports (corner-shape: superellipse(1.87)) {
+  .mockup-phone-display {
+    border-radius: 82px;
+    corner-shape: superellipse(1.87);
+  }
+}
+
+.mockup-phone-display > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+

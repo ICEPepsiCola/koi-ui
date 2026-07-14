@@ -1,0 +1,40 @@
+# Flex
+
+## Basic usage
+
+```tsx preview
+import { Flex, Button } from '@koi-ui/core';
+export default () => (
+  <Flex justify="between" align="center" className="p-4 border border-border rounded-md">
+    <span>Left</span>
+    <Button size="sm">Action</Button>
+  </Flex>
+);
+```
+
+## Alignment
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <Flex justify="between" align="center" className="h-20 rounded-md border border-border px-4">
+    <Tag>Left</Tag>
+    <Tag color="primary">Right</Tag>
+  </Flex>
+);
+```
+
+## API
+
+### Flex
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| align | - | `enum` | `-` |
+| direction | Direction | `enum` | `-` |
+| gap | Gap | `enum` | `-` |
+| inline | - | `boolean \|​ undefined` | `-` |
+| justify | - | `enum` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `false` |
+| vertical | - | `boolean \|​ undefined` | `-` |
+| wrap | Wrap | `enum` | `-` |

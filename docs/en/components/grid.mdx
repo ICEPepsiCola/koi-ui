@@ -1,0 +1,43 @@
+# Grid
+
+## Basic usage
+
+```tsx preview
+import { Row, Col } from '@koi-ui/core';
+export default () => (
+  <Row gutter={16}>
+    <Col span={12}><div className="bg-muted p-4 rounded-md">col-12</div></Col>
+    <Col span={12}><div className="bg-muted p-4 rounded-md">col-12</div></Col>
+  </Row>
+);
+```
+
+## Column offset
+
+```tsx preview
+import { Row, Col } from '@koi-ui/core';
+export default () => (
+  <Row gutter={16}>
+    <Col span={8}><div className="bg-muted p-4 rounded-md">span-8</div></Col>
+    <Col span={8} offset={8}><div className="bg-muted p-4 rounded-md">offset-8</div></Col>
+  </Row>
+);
+```
+
+## API
+
+### Row
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| align | - | `enum` | `-` |
+| gutter | Gutter | `"md" \|​ "none" \|​ "sm" \|​ "lg" \|​ [number,​ number] \|​ undefined` | `md` |
+| justify | - | `enum` | `-` |
+
+### Col
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| gutter | Gutter | `"md" \|​ "none" \|​ "sm" \|​ "lg" \|​ [number,​ number] \|​ undefined` | `md` |
+| offset | Offset | `number \|​ undefined` | `0` |
+| span | Span | `number \|​ undefined` | `24` |

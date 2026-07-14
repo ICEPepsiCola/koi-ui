@@ -1,0 +1,37 @@
+# Steps 步骤条
+
+## 基础用法
+
+```tsx preview
+import { Steps } from '@koi-ui/core';
+export default () => <Steps current={1} items={[{ title: '完成' }, { title: '进行中' }, { title: '待进行' }]} />;
+```
+
+## 完成态
+
+```tsx preview
+import { Steps } from '@koi-ui/core';
+export default () => (
+  <Steps
+    current={3}
+    items={[
+      { title: '填写信息', description: '已完成' },
+      { title: '确认订单', description: '已完成' },
+      { title: '支付', description: '已完成' },
+      { title: '完成' },
+    ]}
+  />
+);
+```
+
+## API
+
+### Steps
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| items | 数据项 | `StepItem[]` **(必填)** | `-` |
+| current | 当前步骤/页码 | `number \|​ undefined` | `0` |
+| direction | 排列方向 | `enum` | `horizontal` |
+| onChange | 变化回调 | `((current: number) => void) \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `-` |

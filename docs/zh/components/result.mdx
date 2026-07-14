@@ -1,0 +1,34 @@
+# Result 结果
+
+## 基础用法
+
+```tsx preview
+import { Result, Button } from '@koi-ui/core';
+export default () => <Result status="success" title="提交成功" extra={<Button>返回</Button>} />;
+```
+
+## 失败结果
+
+```tsx preview
+import { Result, Button } from '@koi-ui/core';
+export default () => (
+  <Result
+    status="error"
+    title="提交失败"
+    subTitle="请检查网络后重试"
+    extra={<Button variant="primary">重试</Button>}
+  />
+);
+```
+
+## API
+
+### Result
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| extra | 额外操作 | `ReactNode` | `-` |
+| icon | 图标 | `ReactNode` | `-` |
+| status | 状态 | `enum` | `-` |
+| subTitle | - | `ReactNode` | `-` |
+| title | 标题 | `ReactNode` | `-` |

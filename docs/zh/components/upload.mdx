@@ -1,0 +1,31 @@
+# Upload 上传
+
+## 基础用法
+
+```tsx preview
+import { Upload } from '@koi-ui/core';
+export default () => <Upload accept="image/*" />;
+```
+
+## 自定义提示
+
+```tsx preview
+import { Upload } from '@koi-ui/core';
+export default () => <Upload accept="image/*" hint="支持 JPG/PNG，单文件不超过 5MB" />;
+```
+
+## API
+
+### Upload
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| accept | 接受的文件类型 | `string \|​ undefined` | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| defaultValue | 默认值 | `UploadFileItem[] \|​ undefined` | `[]` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `false` |
+| hint | - | `string \|​ undefined` | `点击或拖拽文件到此处上传` |
+| maxCount | - | `number \|​ undefined` | `-` |
+| multiple | - | `boolean \|​ undefined` | `false` |
+| onChange | 变化回调 | `((files: UploadFileItem[]) => void) \|​ undefined` | `-` |
+| value | 当前值 | `UploadFileItem[] \|​ undefined` | `-` |

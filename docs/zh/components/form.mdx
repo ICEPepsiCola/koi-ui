@@ -1,0 +1,41 @@
+# Form 表单
+
+## 基础用法
+
+```tsx preview
+import { Form, FormItem, Input, Button } from '@koi-ui/core';
+export default () => (
+  <Form layout="vertical"><FormItem label="用户名"><Input placeholder="请输入" /></FormItem><Button variant="primary">提交</Button></Form>
+);
+```
+
+## 水平布局
+
+```tsx preview
+import { Form, FormItem, Input, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Form layout="horizontal">
+    <FormItem label="邮箱"><Input placeholder="name@example.com" /></FormItem>
+    <FormItem label="密码"><Input type="password" placeholder="请输入密码" /></FormItem>
+    <Space><Button variant="primary">登录</Button><Button variant="secondary">注册</Button></Space>
+  </Form>
+);
+```
+
+## API
+
+### Form
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| layout | 布局方式 | `enum` | `horizontal` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+
+### FormItem
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| className | 类名 | `string \|​ undefined` | `-` |
+| label | 标签 | `ReactNode` | `-` |
+| name | 字段名 | `string \|​ undefined` | `-` |
+| required | 是否必填 | `boolean \|​ undefined` | `-` |

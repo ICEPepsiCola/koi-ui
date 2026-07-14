@@ -1,0 +1,42 @@
+# Input 输入框
+
+## 基础用法
+
+```tsx preview
+import { Input } from '@koi-ui/core';
+export default () => <Input placeholder="请输入" />;
+```
+
+## 错误提示
+
+```tsx preview
+import { Input, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Input placeholder="正常" />
+    <Input placeholder="出错" error="请输入有效内容" />
+    <Input placeholder="禁用" disabled />
+  </Stack>
+);
+```
+
+## 受控输入
+
+```tsx preview
+import { Input } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('');
+  return <Input value={value} onChange={setValue} placeholder="输入同步" />;
+};
+```
+
+## API
+
+### Input
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| error | 错误信息 | `string \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `-` |

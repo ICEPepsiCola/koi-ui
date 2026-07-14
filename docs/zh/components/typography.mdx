@@ -1,0 +1,62 @@
+# Typography 排版
+
+## 基础用法
+
+```tsx preview
+import { Typography } from '@koi-ui/core';
+const { Title, Text, Paragraph } = Typography;
+export default () => (
+  <div>
+    <Title level={3}>标题</Title>
+    <Paragraph>段落文字</Paragraph>
+    <Text muted>辅助文字</Text>
+  </div>
+);
+```
+
+## 标题层级
+
+```tsx preview
+import { Typography } from '@koi-ui/core';
+const { Title } = Typography;
+export default () => (
+  <div>
+    <Title level={1}>H1 标题</Title>
+    <Title level={3}>H3 标题</Title>
+    <Title level={5}>H5 标题</Title>
+  </div>
+);
+```
+
+## API
+
+### Title
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| ellipsis | - | `boolean \|​ undefined` | `-` |
+| level | 标题级别 | `enum` | `1` |
+
+### Text
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| as | - | `enum` | `span` |
+| ellipsis | - | `boolean \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `-` |
+| strong | - | `boolean \|​ undefined` | `-` |
+| type | - | `enum` | `-` |
+
+### Paragraph
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| ellipsis | - | `boolean \|​ undefined` | `-` |
+| type | - | `enum` | `-` |
+
+### Link
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| href | - | `string \|​ undefined` | `#` |

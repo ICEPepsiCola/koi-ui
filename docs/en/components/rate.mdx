@@ -1,0 +1,23 @@
+# Rate
+
+## Basic usage
+
+```tsx preview
+import { Rate } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(3); return <Rate value={v} onChange={setV} />; };
+```
+
+## API
+
+### Rate
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| allowHalf | - | `boolean \|​ undefined` | `false` |
+| className | Class name | `string \|​ undefined` | `-` |
+| count | Count | `number \|​ undefined` | `5` |
+| defaultValue | Default value | `number \|​ undefined` | `0` |
+| disabled | Disabled | `boolean \|​ undefined` | `false` |
+| onChange | Change callback | `((value: number) => void) \|​ undefined` | `-` |
+| value | Value | `number \|​ undefined` | `-` |

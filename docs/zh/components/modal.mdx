@@ -1,0 +1,50 @@
+# Modal 对话框
+
+## 基础用法
+
+```tsx preview
+import { Modal, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>打开弹窗</Button><Modal open={o} onClose={()=>setO(false)} title="标题">内容</Modal></>; };
+```
+
+## 带底部操作
+
+```tsx preview
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>确认操作</Button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="删除确认"
+        footer={
+          <Space>
+            <Button variant="secondary" onClick={() => setOpen(false)}>取消</Button>
+            <Button variant="destructive" onClick={() => setOpen(false)}>删除</Button>
+          </Space>
+        }
+      >
+        确定要删除这条记录吗？
+      </Modal>
+    </>
+  );
+};
+```
+
+## API
+
+### Modal
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| onClose | 关闭回调 | `() => void` **(必填)** | `-` |
+| open | 是否显示 | `boolean` **(必填)** | `-` |
+| footer | 底部区域 | `ReactNode` | `-` |
+| mobileFullscreen | 移动端全屏 | `boolean \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `-` |
+| title | 标题 | `ReactNode` | `-` |

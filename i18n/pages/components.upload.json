@@ -1,0 +1,16 @@
+{
+  "title": {
+    "en": "Upload",
+    "zh": "上传"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    },
+    "customHint": {
+      "en": "Custom hint",
+      "zh": "自定义提示"
+    }
+  }
+}

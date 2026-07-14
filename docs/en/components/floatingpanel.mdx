@@ -1,0 +1,21 @@
+# FloatingPanel
+
+## Basic usage
+
+```tsx preview
+import { FloatingPanel } from '@koi-ui/core';
+export default () => <FloatingPanel title="Panel"><div className="p-4">Draggable panel content</div></FloatingPanel>;
+```
+
+## API
+
+### FloatingPanel
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| anchors | - | `number[] \|​ undefined` | `[0.4, 0.7]` |
+| defaultAnchor | - | `number \|​ undefined` | `0.4` |
+| onClose | Close callback | `(() => void) \|​ undefined` | `-` |
+| open | Open | `boolean \|​ undefined` | `true` |
+| showOverlay | - | `boolean \|​ undefined` | `true` |
+| title | Title | `ReactNode` | `-` |

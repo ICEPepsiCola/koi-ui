@@ -1,0 +1,23 @@
+# Popconfirm
+
+## Basic usage
+
+```tsx preview
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => <Popconfirm title="Delete this item?" onConfirm={() => {}}><Button variant="destructive">Delete</Button></Popconfirm>;
+```
+
+## API
+
+### Popconfirm
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| title | Title | `ReactNode` **(required)** | `-` |
+| cancelText | - | `string \|​ undefined` | `Cancel` |
+| confirmText | - | `string \|​ undefined` | `OK` |
+| description | Description | `ReactNode` | `-` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| okType | - | `enum` | `primary` |
+| onCancel | Cancel callback | `(() => void) \|​ undefined` | `-` |
+| onConfirm | Confirm callback | `(() => void) \|​ undefined` | `-` |

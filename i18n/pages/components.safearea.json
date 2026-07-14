@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "SafeArea",
+    "zh": "安全区"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    }
+  }
+}

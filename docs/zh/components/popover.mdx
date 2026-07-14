@@ -1,0 +1,23 @@
+# Popover 气泡卡片
+
+## 基础用法
+
+```tsx preview
+import { Popover, Button } from '@koi-ui/core';
+export default () => <Popover content="气泡内容"><Button>悬停查看</Button></Popover>;
+```
+
+## API
+
+### Popover
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| content | 内容 | `ReactNode` **(必填)** | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| defaultOpen | - | `boolean \|​ undefined` | `false` |
+| onOpenChange | - | `((open: boolean) => void) \|​ undefined` | `-` |
+| open | 是否显示 | `boolean \|​ undefined` | `-` |
+| placement | 弹出位置 | `enum` | `bottom` |
+| title | 标题 | `ReactNode` | `-` |
+| trigger | 触发元素 | `enum` | `click` |

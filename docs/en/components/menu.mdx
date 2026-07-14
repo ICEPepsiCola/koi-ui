@@ -1,0 +1,23 @@
+# Menu
+
+## Basic usage
+
+```tsx preview
+import { Menu } from '@koi-ui/core';
+export default () => <Menu items={[{ key: '1', label: 'Nav 1' }, { key: '2', label: 'Nav 2' }]} defaultSelectedKey="1" />;
+```
+
+## API
+
+### Menu
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| items | Items | `MenuItemType[]` **(required)** | `-` |
+| defaultOpenKeys | - | `string[] \|​ undefined` | `[]` |
+| defaultSelectedKey | - | `string \|​ undefined` | `-` |
+| mode | - | `enum` | `vertical` |
+| onOpenChange | - | `((openKeys: string[]) => void) \|​ undefined` | `-` |
+| onSelect | Select callback | `((key: string) => void) \|​ undefined` | `-` |
+| openKeys | - | `string[] \|​ undefined` | `-` |
+| selectedKey | - | `string \|​ undefined` | `-` |

@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "PullToRefresh",
+    "zh": "下拉刷新"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    }
+  }
+}

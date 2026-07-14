@@ -1,0 +1,37 @@
+# Layout
+
+## Basic usage
+
+```tsx preview
+import { Layout } from '@koi-ui/core';
+const { Header, Content, Footer } = Layout;
+export default () => (
+  <Layout className="border border-border rounded-md overflow-hidden">
+    <Header className="bg-muted px-4 py-2">Header</Header>
+    <Content className="px-4 py-6">Content</Content>
+    <Footer className="bg-muted px-4 py-2 text-center text-sm">Footer</Footer>
+  </Layout>
+);
+```
+
+## API
+
+### Layout
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| hasSider | - | `boolean \|​ undefined` | `-` |
+
+### Layout.Sider
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| collapsed | - | `boolean \|​ undefined` | `-` |
+| width | Width | `string \|​ number \|​ undefined` | `-` |
+
+### Sider
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| collapsed | - | `boolean \|​ undefined` | `-` |
+| width | Width | `string \|​ number \|​ undefined` | `-` |

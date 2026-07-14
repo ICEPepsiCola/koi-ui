@@ -1,0 +1,35 @@
+# Table 表格
+
+## 基础用法
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+export default () => <Table columns={[{key:'name',title:'姓名'},{key:'age',title:'年龄'}]} data={[{name:'张三',age:'20'},{name:'李四',age:'25'}]} />;
+```
+
+## 空数据
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+export default () => (
+  <Table
+    columns={[{ key: 'name', title: '姓名' }, { key: 'role', title: '角色' }]}
+    data={[]}
+    emptyText="暂无成员"
+  />
+);
+```
+
+## API
+
+### Table
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| columns | 列配置 | `ColumnDef<T>[]` **(必填)** | `-` |
+| data | 数据源 | `T[]` **(必填)** | `-` |
+| emptyText | - | `string \|​ undefined` | `-` |
+| loading | 加载中 | `boolean \|​ undefined` | `-` |
+| mobileFields | - | `(keyof T)[] \|​ undefined` | `-` |
+| onRowClick | - | `((row: T) => void) \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |

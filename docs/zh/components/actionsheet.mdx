@@ -1,0 +1,48 @@
+# ActionSheet 动作面板
+
+## 基础用法
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>打开</Button><ActionSheet open={o} onClose={()=>setO(false)} actions={[{ key:'1', text:'选项一' }, { key:'2', text:'选项二' }]} /></>; };
+```
+
+## 带标题描述
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>更多操作</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="分享到"
+        description="选择一个平台"
+        actions={[
+          { key: 'wechat', text: '微信' },
+          { key: 'link', text: '复制链接' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
+## API
+
+### ActionSheet
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| actions | 操作项 | `ActionSheetAction[]` **(必填)** | `-` |
+| onClose | 关闭回调 | `() => void` **(必填)** | `-` |
+| open | 是否显示 | `boolean` **(必填)** | `-` |
+| cancelText | - | `ReactNode` | `取消` |
+| closeOnAction | - | `boolean \|​ undefined` | `true` |
+| description | 描述内容 | `ReactNode` | `-` |
+| title | 标题 | `ReactNode` | `-` |

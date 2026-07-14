@@ -1,0 +1,22 @@
+# Swiper
+
+## Basic usage
+
+```tsx preview
+import { Swiper } from '@koi-ui/core';
+export default () => <Swiper><div className="h-24 bg-muted flex items-center justify-center">Slide 1</div><div className="h-24 bg-primary/10 flex items-center justify-center">Slide 2</div></Swiper>;
+```
+
+## API
+
+### Swiper
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| autoplay | - | `boolean \|​ undefined` | `false` |
+| interval | - | `number \|​ undefined` | `3000` |
+| loop | - | `boolean \|​ undefined` | `true` |
+| onChange | Change callback | `((index: number) => void) \|​ undefined` | `-` |
+| showArrows | - | `boolean \|​ undefined` | `false` |
+| showDots | - | `boolean \|​ undefined` | `true` |
+| threshold | - | `number \|​ undefined` | `40` |

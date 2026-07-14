@@ -1,0 +1,27 @@
+# InputNumber 数字输入
+
+## 基础用法
+
+```tsx preview
+import { InputNumber } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(1); return <InputNumber value={v} onChange={setV} />; };
+```
+
+## API
+
+### InputNumber
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| className | 类名 | `string \|​ undefined` | `-` |
+| defaultValue | 默认值 | `number \|​ undefined` | `-` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `false` |
+| error | 错误信息 | `string \|​ undefined` | `-` |
+| max | - | `number \|​ undefined` | `-` |
+| min | - | `number \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: number \|​ undefined) => void) \|​ undefined` | `-` |
+| placeholder | 占位文本 | `string \|​ undefined` | `-` |
+| size | 尺寸 | `enum` | `md` |
+| step | - | `number \|​ undefined` | `1` |
+| value | 当前值 | `number \|​ undefined` | `-` |

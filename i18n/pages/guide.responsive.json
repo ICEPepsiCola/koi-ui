@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Responsive",
+    "zh": "响应式原理"
+  },
+  "body": {
+    "en": "## Breakpoints\n\n| Breakpoint | Width |\n|------------|-------|\n| sm | 640px |\n| md | 768px |\n| lg | 1024px (default desktop / mobile split) |\n| xl | 1280px |\n| 2xl | 1536px |\n\n## Component behavior\n\nMost feedback / form / data components support `responsive`:\n\n- Default `true`: switch between desktop and mobile layouts by viewport\n- `false`: always use the desktop layout\n\n```text\n<Table responsive={false} columns={cols} data={data} />\n<Modal responsive={false} open={open} onClose={close}>...</Modal>\n```\n\nThe docs preview “Desktop / Mobile” toggle injects `previewDevice` so you can compare both layouts on one page.\n\n## SSR\n\nThe server renders the desktop layout by default; the client hydrates to the real viewport. For mobile-first landings:\n\n```text\n<KoiProvider ssrMode=\"mobile\">...</KoiProvider>\n```\n",
+    "zh": "## 断点\n\n| 断点 | 宽度 |\n|------|------|\n| sm | 640px |\n| md | 768px |\n| lg | 1024px（默认桌面 / 移动分界） |\n| xl | 1280px |\n| 2xl | 1536px |\n\n## 组件侧行为\n\n大部分反馈 / 表单 / 数据组件支持 `responsive`：\n\n- 默认 `true`：按视口在桌面布局与移动布局间自动切换\n- `false`：始终使用桌面布局（便于嵌入已有移动壳或固定样式）\n\n```text\n<Table responsive={false} columns={cols} data={data} />\n<Modal responsive={false} open={open} onClose={close}>...</Modal>\n```\n\n文档预览里的「桌面端 / 移动端」开关会注入 `previewDevice`，便于在同一页面对照两端效果。\n\n## SSR\n\n服务端默认按桌面渲染，客户端 hydrate 后按真实视口切换。若落地页以移动为主，可用：\n\n```text\n<KoiProvider ssrMode=\"mobile\">...</KoiProvider>\n```\n"
+  }
+}

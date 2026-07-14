@@ -1,0 +1,48 @@
+# ActionSheet
+
+## Basic usage
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Open</Button><ActionSheet open={o} onClose={()=>setO(false)} actions={[{ key:'1', text:'Option 1' }, { key:'2', text:'Option 2' }]} /></>; };
+```
+
+## Title and description
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>More</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Share to"
+        description="Pick a platform"
+        actions={[
+          { key: 'wechat', text: 'WeChat' },
+          { key: 'link', text: 'Copy link' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
+## API
+
+### ActionSheet
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| actions | Actions | `ActionSheetAction[]` **(required)** | `-` |
+| onClose | Close callback | `() => void` **(required)** | `-` |
+| open | Open | `boolean` **(required)** | `-` |
+| cancelText | - | `ReactNode` | `Cancel` |
+| closeOnAction | - | `boolean \|​ undefined` | `true` |
+| description | Description | `ReactNode` | `-` |
+| title | Title | `ReactNode` | `-` |

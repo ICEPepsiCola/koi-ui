@@ -1,0 +1,40 @@
+# SearchBar 搜索栏
+
+## 基础用法
+
+```tsx preview
+import { SearchBar } from '@koi-ui/core';
+export default () => <SearchBar placeholder="搜索" />;
+```
+
+## 受控搜索
+
+```tsx preview
+import { SearchBar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [keyword, setKeyword] = useState('');
+  return (
+    <div>
+      <SearchBar value={keyword} onChange={setKeyword} placeholder="搜索商品" />
+      <Text muted className="mt-2 block text-sm">关键词：{keyword || '无'}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### SearchBar
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| className | 类名 | `string \|​ undefined` | `-` |
+| defaultValue | 默认值 | `string \|​ undefined` | `-` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| onSearch | - | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | 占位文本 | `string \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+| showCancel | - | `boolean \|​ undefined` | `-` |
+| value | 当前值 | `string \|​ undefined` | `-` |

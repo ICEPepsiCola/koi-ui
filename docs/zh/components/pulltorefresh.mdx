@@ -1,0 +1,22 @@
+# PullToRefresh 下拉刷新
+
+## 基础用法
+
+```tsx preview
+import { PullToRefresh, List } from '@koi-ui/core';
+export default () => <PullToRefresh onRefresh={async()=>{}}><List items={[{key:'1',title:'项目1'},{key:'2',title:'项目2'}]} /></PullToRefresh>;
+```
+
+## API
+
+### PullToRefresh
+
+下拉刷新：Pointer Events 同时支持触控与鼠标拖拽。
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| onRefresh | - | `() => void \|​ Promise<void>` **(必填)** | `-` |
+| pullingText | - | `ReactNode` | `下拉刷新` |
+| refreshingText | - | `ReactNode` | `刷新中...` |
+| releaseText | - | `ReactNode` | `释放刷新` |
+| threshold | - | `number \|​ undefined` | `60` |

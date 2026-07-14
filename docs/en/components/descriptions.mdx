@@ -1,0 +1,38 @@
+# Descriptions
+
+## Basic usage
+
+```tsx preview
+import { Descriptions } from '@koi-ui/core';
+export default () => <Descriptions items={[{ key:'name', label:'Name', children:'Alice' }, { key:'phone', label:'Phone', children:'138****0000' }]} />;
+```
+
+## Multi-column
+
+```tsx preview
+import { Descriptions } from '@koi-ui/core';
+export default () => (
+  <Descriptions
+    column={2}
+    items={[
+      { key: 'name', label: 'Name', children: 'Alice' },
+      { key: 'phone', label: 'Phone', children: '138****0000' },
+      { key: 'city', label: 'City', children: 'Shanghai' },
+      { key: 'role', label: 'Role', children: 'Admin' },
+    ]}
+  />
+);
+```
+
+## API
+
+### Descriptions
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| items | Items | `DescriptionItem[]` **(required)** | `-` |
+| bordered | - | `boolean \|​ undefined` | `false` |
+| column | - | `number \|​ undefined` | `3` |
+| layout | Layout | `enum` | `horizontal` |
+| size | Size | `enum` | `md` |
+| title | Title | `ReactNode` | `-` |

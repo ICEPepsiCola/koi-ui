@@ -1,0 +1,12 @@
+[
+  {
+    "text": "nav.guide",
+    "link": "/guide/getting-started",
+    "activeMatch": "/guide/"
+  },
+  {
+    "text": "nav.components",
+    "link": "/components/button",
+    "activeMatch": "/components/"
+  }
+]

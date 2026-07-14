@@ -1,0 +1,21 @@
+# TabBar 标签栏
+
+## 基础用法
+
+```tsx preview
+import { TabBar } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [k,setK]=useState('home'); return <TabBar activeKey={k} onChange={setK} items={[{ key:'home', label:'首页' }, { key:'mine', label:'我的' }]} />; };
+```
+
+## API
+
+### TabBar
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| items | 数据项 | `TabBarItem[]` **(必填)** | `-` |
+| activeKey | 当前激活项 | `string \|​ undefined` | `-` |
+| defaultActiveKey | - | `string \|​ undefined` | `-` |
+| onChange | 变化回调 | `((key: string) => void) \|​ undefined` | `-` |
+| safeArea | - | `boolean \|​ undefined` | `-` |

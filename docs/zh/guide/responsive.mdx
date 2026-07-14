@@ -1,0 +1,33 @@
+# 响应式原理
+
+## 断点
+
+| 断点 | 宽度 |
+|------|------|
+| sm | 640px |
+| md | 768px |
+| lg | 1024px（默认桌面 / 移动分界） |
+| xl | 1280px |
+| 2xl | 1536px |
+
+## 组件侧行为
+
+大部分反馈 / 表单 / 数据组件支持 `responsive`：
+
+- 默认 `true`：按视口在桌面布局与移动布局间自动切换
+- `false`：始终使用桌面布局（便于嵌入已有移动壳或固定样式）
+
+```text
+<Table responsive={false} columns={cols} data={data} />
+<Modal responsive={false} open={open} onClose={close}>...</Modal>
+```
+
+文档预览里的「桌面端 / 移动端」开关会注入 `previewDevice`，便于在同一页面对照两端效果。
+
+## SSR
+
+服务端默认按桌面渲染，客户端 hydrate 后按真实视口切换。若落地页以移动为主，可用：
+
+```text
+<KoiProvider ssrMode="mobile">...</KoiProvider>
+```

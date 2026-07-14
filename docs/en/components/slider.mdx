@@ -1,0 +1,24 @@
+# Slider
+
+## Basic usage
+
+```tsx preview
+import { Slider } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(30); return <Slider value={v} onChange={setV} />; };
+```
+
+## API
+
+### Slider
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| defaultValue | Default value | `number \|​ undefined` | `0` |
+| max | - | `number \|​ undefined` | `100` |
+| min | - | `number \|​ undefined` | `0` |
+| onChange | Change callback | `((value: number) => void) \|​ undefined` | `-` |
+| showValue | - | `boolean \|​ undefined` | `false` |
+| size | Size | `enum` | `-` |
+| step | - | `number \|​ undefined` | `1` |
+| value | Value | `number \|​ undefined` | `-` |

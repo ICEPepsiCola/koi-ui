@@ -1,0 +1,21 @@
+# Picker 选择器(移动)
+
+## 基础用法
+
+```tsx preview
+import { Picker } from '@koi-ui/core';
+export default () => <Picker columns={[{ options: [{label:'周一',value:'1'},{label:'周二',value:'2'}] }]} placeholder="选择" />;
+```
+
+## API
+
+### Picker
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| columns | 列配置 | `PickerColumn[]` **(必填)** | `-` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string[]) => void) \|​ undefined` | `-` |
+| placeholder | 占位文本 | `string \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+| value | 当前值 | `string[] \|​ undefined` | `-` |

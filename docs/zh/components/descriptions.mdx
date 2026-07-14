@@ -1,0 +1,38 @@
+# Descriptions 描述列表
+
+## 基础用法
+
+```tsx preview
+import { Descriptions } from '@koi-ui/core';
+export default () => <Descriptions items={[{ key:'name', label:'姓名', children:'张三' }, { key:'phone', label:'手机', children:'138****0000' }]} />;
+```
+
+## 多列布局
+
+```tsx preview
+import { Descriptions } from '@koi-ui/core';
+export default () => (
+  <Descriptions
+    column={2}
+    items={[
+      { key: 'name', label: '姓名', children: '张三' },
+      { key: 'phone', label: '手机', children: '138****0000' },
+      { key: 'city', label: '城市', children: '上海' },
+      { key: 'role', label: '角色', children: '管理员' },
+    ]}
+  />
+);
+```
+
+## API
+
+### Descriptions
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| items | 数据项 | `DescriptionItem[]` **(必填)** | `-` |
+| bordered | - | `boolean \|​ undefined` | `false` |
+| column | - | `number \|​ undefined` | `3` |
+| layout | 布局方式 | `enum` | `horizontal` |
+| size | 尺寸 | `enum` | `md` |
+| title | 标题 | `ReactNode` | `-` |

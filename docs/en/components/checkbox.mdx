@@ -1,0 +1,50 @@
+# Checkbox
+
+## Basic usage
+
+```tsx preview
+import { Checkbox, CheckboxGroup } from '@koi-ui/core';
+export default () => <CheckboxGroup defaultValue={['a']}><Checkbox checkboxValue="a" label="Option A" /><Checkbox checkboxValue="b" label="Option B" /></CheckboxGroup>;
+```
+
+## Controlled checkbox group
+
+```tsx preview
+import { Checkbox, CheckboxGroup, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [values, setValues] = useState(['read']);
+  return (
+    <div>
+      <CheckboxGroup value={values} onChange={setValues}>
+        <Checkbox checkboxValue="read" label="Read" />
+        <Checkbox checkboxValue="write" label="Write" />
+        <Checkbox checkboxValue="code" label="Code" />
+      </CheckboxGroup>
+      <Text muted className="mt-2 block text-sm">Selected: {values.join(', ') || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### Checkbox
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| checkboxValue | - | `string \|​ undefined` | `-` |
+| label | Label | `ReactNode` | `-` |
+| onChange | Change callback | `((checked: boolean) => void) \|​ undefined` | `-` |
+| size | Size | `enum` | `md` |
+
+### CheckboxGroup
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultValue | Default value | `string[] \|​ undefined` | `[]` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string[]) => void) \|​ undefined` | `-` |
+| size | Size | `enum` | `md` |
+| value | Value | `string[] \|​ undefined` | `-` |

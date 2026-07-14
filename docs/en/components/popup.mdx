@@ -1,0 +1,33 @@
+# Popup
+
+## Basic usage
+
+```tsx preview
+import { Popup, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Popup</Button><Popup open={o} onClose={()=>setO(false)}>Popup content</Popup></>; };
+```
+
+## API
+
+### Popup
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| onClose | Close callback | `() => void` **(required)** | `-` |
+| open | Open | `boolean` **(required)** | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| closeOnMask | Close on mask click | `boolean \|​ undefined` | `true` |
+| footer | Footer | `ReactNode` | `-` |
+| title | Title | `ReactNode` | `-` |
+
+### PopupView
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| onClose | Close callback | `() => void` **(required)** | `-` |
+| open | Open | `boolean` **(required)** | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| closeOnMask | Close on mask click | `boolean \|​ undefined` | `-` |
+| footer | Footer | `ReactNode` | `-` |
+| title | Title | `ReactNode` | `-` |

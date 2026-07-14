@@ -1,0 +1,55 @@
+@import "@koi-ui/tokens/theme.css";
+@import "@koi-ui/tokens/reset.css";
+@import "@koi-ui/core/styles.css";
+@import "./mockups/mockup.css";
+@import "./mockups/demo-frame.css";
+
+/* Home hero CTAs: Rspress big buttons ship with 0 padding */
+.rp-home-hero__actions .rp-button,
+.rp-home-hero__action {
+  padding-inline: 1.25rem !important;
+  min-width: auto !important;
+  box-sizing: border-box;
+}
+
+.rp-home-feature__detail,
+.rp-home-hero__tagline,
+.rp-home-hero__subtitle,
+[class*='home-feature'] p,
+[class*='home-hero'] p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Long EN copy / API type unions should scroll, not blow the layout */
+.rspress-doc table,
+.rp-doc table,
+article table,
+.markdown table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.rspress-doc pre,
+.rp-doc pre,
+article pre,
+.markdown pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.rspress-doc code,
+.rp-doc code,
+article code,
+.markdown code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.rp-sidebar-item,
+.rp-sidebar-item__link,
+[class*='sidebar'] a {
+  overflow-wrap: anywhere;
+}

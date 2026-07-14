@@ -1,0 +1,39 @@
+# DatePicker
+
+## Basic usage
+
+```tsx preview
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(''); return <DatePicker value={v} onChange={setV} placeholder="Select date" />; };
+```
+
+## Controlled date
+
+```tsx preview
+import { DatePicker, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [date, setDate] = useState('2026-07-12');
+  return (
+    <div>
+      <DatePicker value={date} onChange={setDate} placeholder="Select date" />
+      <Text muted className="mt-2 block text-sm">Selected: {date || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### DatePicker
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| max | - | `string \|​ undefined` | `-` |
+| min | - | `string \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+| value | Value | `string \|​ undefined` | `-` |

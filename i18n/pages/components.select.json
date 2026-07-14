@@ -1,0 +1,16 @@
+{
+  "title": {
+    "en": "Select",
+    "zh": "选择器"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    },
+    "controlledSelect": {
+      "en": "Controlled select",
+      "zh": "受控选择"
+    }
+  }
+}

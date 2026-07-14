@@ -1,0 +1,23 @@
+# Popconfirm 气泡确认
+
+## 基础用法
+
+```tsx preview
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => <Popconfirm title="确定删除吗？" onConfirm={() => {}}><Button variant="destructive">删除</Button></Popconfirm>;
+```
+
+## API
+
+### Popconfirm
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| title | 标题 | `ReactNode` **(必填)** | `-` |
+| cancelText | - | `string \|​ undefined` | `取消` |
+| confirmText | - | `string \|​ undefined` | `确定` |
+| description | 描述内容 | `ReactNode` | `-` |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| okType | - | `enum` | `primary` |
+| onCancel | 取消回调 | `(() => void) \|​ undefined` | `-` |
+| onConfirm | 确认回调 | `(() => void) \|​ undefined` | `-` |

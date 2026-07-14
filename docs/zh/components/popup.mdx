@@ -1,0 +1,33 @@
+# Popup 弹出层
+
+## 基础用法
+
+```tsx preview
+import { Popup, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>弹出</Button><Popup open={o} onClose={()=>setO(false)}>弹出内容</Popup></>; };
+```
+
+## API
+
+### Popup
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| onClose | 关闭回调 | `() => void` **(必填)** | `-` |
+| open | 是否显示 | `boolean` **(必填)** | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| closeOnMask | 点击遮罩关闭 | `boolean \|​ undefined` | `true` |
+| footer | 底部区域 | `ReactNode` | `-` |
+| title | 标题 | `ReactNode` | `-` |
+
+### PopupView
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| onClose | 关闭回调 | `() => void` **(必填)** | `-` |
+| open | 是否显示 | `boolean` **(必填)** | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| closeOnMask | 点击遮罩关闭 | `boolean \|​ undefined` | `-` |
+| footer | 底部区域 | `ReactNode` | `-` |
+| title | 标题 | `ReactNode` | `-` |

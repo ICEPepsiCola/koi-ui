@@ -1,0 +1,784 @@
+[
+  {
+    "lang": "en",
+    "label": "English",
+    "title": "Koi UI",
+    "description": "Adaptive React components for desktop and mobile",
+    "nav": [
+      {
+        "text": "Guide",
+        "link": "/guide/getting-started",
+        "activeMatch": "/guide/"
+      },
+      {
+        "text": "Components",
+        "link": "/components/button",
+        "activeMatch": "/components/"
+      }
+    ],
+    "sidebar": {
+      "/guide/": [
+        {
+          "text": "Getting started",
+          "link": "/guide/getting-started"
+        },
+        {
+          "text": "Theming",
+          "link": "/guide/theming"
+        },
+        {
+          "text": "Responsive",
+          "link": "/guide/responsive"
+        }
+      ],
+      "/components/": [
+        {
+          "text": "General",
+          "items": [
+            {
+              "text": "Button",
+              "link": "/components/button"
+            },
+            {
+              "text": "Icon",
+              "link": "/components/icon"
+            },
+            {
+              "text": "Typography",
+              "link": "/components/typography"
+            }
+          ]
+        },
+        {
+          "text": "Layout",
+          "items": [
+            {
+              "text": "Divider",
+              "link": "/components/divider"
+            },
+            {
+              "text": "Grid",
+              "link": "/components/grid"
+            },
+            {
+              "text": "Layout",
+              "link": "/components/layout"
+            },
+            {
+              "text": "Space",
+              "link": "/components/space"
+            },
+            {
+              "text": "Flex",
+              "link": "/components/flex"
+            },
+            {
+              "text": "Stack",
+              "link": "/components/stack"
+            },
+            {
+              "text": "Box",
+              "link": "/components/box"
+            },
+            {
+              "text": "SafeArea",
+              "link": "/components/safearea"
+            }
+          ]
+        },
+        {
+          "text": "Navigation",
+          "items": [
+            {
+              "text": "Affix",
+              "link": "/components/affix"
+            },
+            {
+              "text": "Breadcrumb",
+              "link": "/components/breadcrumb"
+            },
+            {
+              "text": "Dropdown",
+              "link": "/components/dropdown"
+            },
+            {
+              "text": "Menu",
+              "link": "/components/menu"
+            },
+            {
+              "text": "Pagination",
+              "link": "/components/pagination"
+            },
+            {
+              "text": "Steps",
+              "link": "/components/steps"
+            },
+            {
+              "text": "Tabs",
+              "link": "/components/tabs"
+            },
+            {
+              "text": "NavBar",
+              "link": "/components/navbar"
+            },
+            {
+              "text": "TabBar",
+              "link": "/components/tabbar"
+            },
+            {
+              "text": "IndexBar",
+              "link": "/components/indexbar"
+            }
+          ]
+        },
+        {
+          "text": "Data entry",
+          "items": [
+            {
+              "text": "AutoComplete",
+              "link": "/components/autocomplete"
+            },
+            {
+              "text": "Checkbox",
+              "link": "/components/checkbox"
+            },
+            {
+              "text": "DatePicker",
+              "link": "/components/datepicker"
+            },
+            {
+              "text": "Form",
+              "link": "/components/form"
+            },
+            {
+              "text": "Input",
+              "link": "/components/input"
+            },
+            {
+              "text": "InputNumber",
+              "link": "/components/inputnumber"
+            },
+            {
+              "text": "Radio",
+              "link": "/components/radio"
+            },
+            {
+              "text": "Rate",
+              "link": "/components/rate"
+            },
+            {
+              "text": "Select",
+              "link": "/components/select"
+            },
+            {
+              "text": "Slider",
+              "link": "/components/slider"
+            },
+            {
+              "text": "Switch",
+              "link": "/components/switch"
+            },
+            {
+              "text": "TextArea",
+              "link": "/components/textarea"
+            },
+            {
+              "text": "TimePicker",
+              "link": "/components/timepicker"
+            },
+            {
+              "text": "Upload",
+              "link": "/components/upload"
+            },
+            {
+              "text": "Cascader",
+              "link": "/components/cascader"
+            },
+            {
+              "text": "Picker",
+              "link": "/components/picker"
+            },
+            {
+              "text": "SearchBar",
+              "link": "/components/searchbar"
+            },
+            {
+              "text": "Stepper",
+              "link": "/components/stepper"
+            }
+          ]
+        },
+        {
+          "text": "Data display",
+          "items": [
+            {
+              "text": "Avatar",
+              "link": "/components/avatar"
+            },
+            {
+              "text": "Badge",
+              "link": "/components/badge"
+            },
+            {
+              "text": "Calendar",
+              "link": "/components/calendar"
+            },
+            {
+              "text": "Card",
+              "link": "/components/card"
+            },
+            {
+              "text": "Collapse",
+              "link": "/components/collapse"
+            },
+            {
+              "text": "Descriptions",
+              "link": "/components/descriptions"
+            },
+            {
+              "text": "Empty",
+              "link": "/components/empty"
+            },
+            {
+              "text": "Image",
+              "link": "/components/image"
+            },
+            {
+              "text": "List",
+              "link": "/components/list"
+            },
+            {
+              "text": "Popover",
+              "link": "/components/popover"
+            },
+            {
+              "text": "Segmented",
+              "link": "/components/segmented"
+            },
+            {
+              "text": "Statistic",
+              "link": "/components/statistic"
+            },
+            {
+              "text": "Table",
+              "link": "/components/table"
+            },
+            {
+              "text": "Tag",
+              "link": "/components/tag"
+            },
+            {
+              "text": "Timeline",
+              "link": "/components/timeline"
+            },
+            {
+              "text": "Tooltip",
+              "link": "/components/tooltip"
+            },
+            {
+              "text": "Tree",
+              "link": "/components/tree"
+            },
+            {
+              "text": "NoticeBar",
+              "link": "/components/noticebar"
+            },
+            {
+              "text": "Swiper",
+              "link": "/components/swiper"
+            },
+            {
+              "text": "Ellipsis",
+              "link": "/components/ellipsis"
+            }
+          ]
+        },
+        {
+          "text": "Feedback",
+          "items": [
+            {
+              "text": "Alert",
+              "link": "/components/alert"
+            },
+            {
+              "text": "Drawer",
+              "link": "/components/drawer"
+            },
+            {
+              "text": "Modal",
+              "link": "/components/modal"
+            },
+            {
+              "text": "Notification",
+              "link": "/components/notification"
+            },
+            {
+              "text": "Popconfirm",
+              "link": "/components/popconfirm"
+            },
+            {
+              "text": "Progress",
+              "link": "/components/progress"
+            },
+            {
+              "text": "Result",
+              "link": "/components/result"
+            },
+            {
+              "text": "Skeleton",
+              "link": "/components/skeleton"
+            },
+            {
+              "text": "Spin",
+              "link": "/components/spin"
+            },
+            {
+              "text": "Toast",
+              "link": "/components/toast"
+            },
+            {
+              "text": "Popup",
+              "link": "/components/popup"
+            },
+            {
+              "text": "ActionSheet",
+              "link": "/components/actionsheet"
+            },
+            {
+              "text": "Loading",
+              "link": "/components/loading"
+            },
+            {
+              "text": "Mask",
+              "link": "/components/mask"
+            },
+            {
+              "text": "Watermark",
+              "link": "/components/watermark"
+            }
+          ]
+        },
+        {
+          "text": "Other",
+          "items": [
+            {
+              "text": "BackTop",
+              "link": "/components/backtop"
+            },
+            {
+              "text": "FloatButton",
+              "link": "/components/floatbutton"
+            },
+            {
+              "text": "PullToRefresh",
+              "link": "/components/pulltorefresh"
+            },
+            {
+              "text": "Footer",
+              "link": "/components/footer"
+            },
+            {
+              "text": "FloatingPanel",
+              "link": "/components/floatingpanel"
+            },
+            {
+              "text": "InfiniteScroll",
+              "link": "/components/infinitescroll"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "lang": "zh",
+    "label": "简体中文",
+    "title": "Koi UI",
+    "description": "PC + 移动端自适应组件库",
+    "nav": [
+      {
+        "text": "指南",
+        "link": "/zh/guide/getting-started",
+        "activeMatch": "/zh/guide/"
+      },
+      {
+        "text": "组件",
+        "link": "/zh/components/button",
+        "activeMatch": "/zh/components/"
+      }
+    ],
+    "sidebar": {
+      "/zh/guide/": [
+        {
+          "text": "快速开始",
+          "link": "/zh/guide/getting-started"
+        },
+        {
+          "text": "主题定制",
+          "link": "/zh/guide/theming"
+        },
+        {
+          "text": "响应式原理",
+          "link": "/zh/guide/responsive"
+        }
+      ],
+      "/zh/components/": [
+        {
+          "text": "通用",
+          "items": [
+            {
+              "text": "Button 按钮",
+              "link": "/zh/components/button"
+            },
+            {
+              "text": "Icon 图标",
+              "link": "/zh/components/icon"
+            },
+            {
+              "text": "Typography 排版",
+              "link": "/zh/components/typography"
+            }
+          ]
+        },
+        {
+          "text": "布局",
+          "items": [
+            {
+              "text": "Divider 分割线",
+              "link": "/zh/components/divider"
+            },
+            {
+              "text": "Grid 栅格",
+              "link": "/zh/components/grid"
+            },
+            {
+              "text": "Layout 布局",
+              "link": "/zh/components/layout"
+            },
+            {
+              "text": "Space 间距",
+              "link": "/zh/components/space"
+            },
+            {
+              "text": "Flex 弹性布局",
+              "link": "/zh/components/flex"
+            },
+            {
+              "text": "Stack 堆叠",
+              "link": "/zh/components/stack"
+            },
+            {
+              "text": "Box 容器",
+              "link": "/zh/components/box"
+            },
+            {
+              "text": "SafeArea 安全区",
+              "link": "/zh/components/safearea"
+            }
+          ]
+        },
+        {
+          "text": "导航",
+          "items": [
+            {
+              "text": "Affix 固钉",
+              "link": "/zh/components/affix"
+            },
+            {
+              "text": "Breadcrumb 面包屑",
+              "link": "/zh/components/breadcrumb"
+            },
+            {
+              "text": "Dropdown 下拉菜单",
+              "link": "/zh/components/dropdown"
+            },
+            {
+              "text": "Menu 菜单",
+              "link": "/zh/components/menu"
+            },
+            {
+              "text": "Pagination 分页",
+              "link": "/zh/components/pagination"
+            },
+            {
+              "text": "Steps 步骤条",
+              "link": "/zh/components/steps"
+            },
+            {
+              "text": "Tabs 标签页",
+              "link": "/zh/components/tabs"
+            },
+            {
+              "text": "NavBar 导航栏",
+              "link": "/zh/components/navbar"
+            },
+            {
+              "text": "TabBar 标签栏",
+              "link": "/zh/components/tabbar"
+            },
+            {
+              "text": "IndexBar 索引栏",
+              "link": "/zh/components/indexbar"
+            }
+          ]
+        },
+        {
+          "text": "数据录入",
+          "items": [
+            {
+              "text": "AutoComplete 自动完成",
+              "link": "/zh/components/autocomplete"
+            },
+            {
+              "text": "Checkbox 多选框",
+              "link": "/zh/components/checkbox"
+            },
+            {
+              "text": "DatePicker 日期选择",
+              "link": "/zh/components/datepicker"
+            },
+            {
+              "text": "Form 表单",
+              "link": "/zh/components/form"
+            },
+            {
+              "text": "Input 输入框",
+              "link": "/zh/components/input"
+            },
+            {
+              "text": "InputNumber 数字输入",
+              "link": "/zh/components/inputnumber"
+            },
+            {
+              "text": "Radio 单选框",
+              "link": "/zh/components/radio"
+            },
+            {
+              "text": "Rate 评分",
+              "link": "/zh/components/rate"
+            },
+            {
+              "text": "Select 选择器",
+              "link": "/zh/components/select"
+            },
+            {
+              "text": "Slider 滑动输入",
+              "link": "/zh/components/slider"
+            },
+            {
+              "text": "Switch 开关",
+              "link": "/zh/components/switch"
+            },
+            {
+              "text": "TextArea 文本域",
+              "link": "/zh/components/textarea"
+            },
+            {
+              "text": "TimePicker 时间选择",
+              "link": "/zh/components/timepicker"
+            },
+            {
+              "text": "Upload 上传",
+              "link": "/zh/components/upload"
+            },
+            {
+              "text": "Cascader 级联选择",
+              "link": "/zh/components/cascader"
+            },
+            {
+              "text": "Picker 选择器(移动)",
+              "link": "/zh/components/picker"
+            },
+            {
+              "text": "SearchBar 搜索栏",
+              "link": "/zh/components/searchbar"
+            },
+            {
+              "text": "Stepper 步进器",
+              "link": "/zh/components/stepper"
+            }
+          ]
+        },
+        {
+          "text": "数据展示",
+          "items": [
+            {
+              "text": "Avatar 头像",
+              "link": "/zh/components/avatar"
+            },
+            {
+              "text": "Badge 徽标",
+              "link": "/zh/components/badge"
+            },
+            {
+              "text": "Calendar 日历",
+              "link": "/zh/components/calendar"
+            },
+            {
+              "text": "Card 卡片",
+              "link": "/zh/components/card"
+            },
+            {
+              "text": "Collapse 折叠面板",
+              "link": "/zh/components/collapse"
+            },
+            {
+              "text": "Descriptions 描述列表",
+              "link": "/zh/components/descriptions"
+            },
+            {
+              "text": "Empty 空状态",
+              "link": "/zh/components/empty"
+            },
+            {
+              "text": "Image 图片",
+              "link": "/zh/components/image"
+            },
+            {
+              "text": "List 列表",
+              "link": "/zh/components/list"
+            },
+            {
+              "text": "Popover 气泡卡片",
+              "link": "/zh/components/popover"
+            },
+            {
+              "text": "Segmented 分段控制器",
+              "link": "/zh/components/segmented"
+            },
+            {
+              "text": "Statistic 统计数值",
+              "link": "/zh/components/statistic"
+            },
+            {
+              "text": "Table 表格",
+              "link": "/zh/components/table"
+            },
+            {
+              "text": "Tag 标签",
+              "link": "/zh/components/tag"
+            },
+            {
+              "text": "Timeline 时间轴",
+              "link": "/zh/components/timeline"
+            },
+            {
+              "text": "Tooltip 文字提示",
+              "link": "/zh/components/tooltip"
+            },
+            {
+              "text": "Tree 树形控件",
+              "link": "/zh/components/tree"
+            },
+            {
+              "text": "NoticeBar 通告栏",
+              "link": "/zh/components/noticebar"
+            },
+            {
+              "text": "Swiper 滑块视图",
+              "link": "/zh/components/swiper"
+            },
+            {
+              "text": "Ellipsis 文本省略",
+              "link": "/zh/components/ellipsis"
+            }
+          ]
+        },
+        {
+          "text": "反馈",
+          "items": [
+            {
+              "text": "Alert 警告提示",
+              "link": "/zh/components/alert"
+            },
+            {
+              "text": "Drawer 抽屉",
+              "link": "/zh/components/drawer"
+            },
+            {
+              "text": "Modal 对话框",
+              "link": "/zh/components/modal"
+            },
+            {
+              "text": "Notification 通知提醒",
+              "link": "/zh/components/notification"
+            },
+            {
+              "text": "Popconfirm 气泡确认",
+              "link": "/zh/components/popconfirm"
+            },
+            {
+              "text": "Progress 进度条",
+              "link": "/zh/components/progress"
+            },
+            {
+              "text": "Result 结果",
+              "link": "/zh/components/result"
+            },
+            {
+              "text": "Skeleton 骨架屏",
+              "link": "/zh/components/skeleton"
+            },
+            {
+              "text": "Spin 加载中",
+              "link": "/zh/components/spin"
+            },
+            {
+              "text": "Toast 轻提示",
+              "link": "/zh/components/toast"
+            },
+            {
+              "text": "Popup 弹出层",
+              "link": "/zh/components/popup"
+            },
+            {
+              "text": "ActionSheet 动作面板",
+              "link": "/zh/components/actionsheet"
+            },
+            {
+              "text": "Loading 加载",
+              "link": "/zh/components/loading"
+            },
+            {
+              "text": "Mask 背景蒙层",
+              "link": "/zh/components/mask"
+            },
+            {
+              "text": "Watermark 水印",
+              "link": "/zh/components/watermark"
+            }
+          ]
+        },
+        {
+          "text": "其他",
+          "items": [
+            {
+              "text": "BackTop 回到顶部",
+              "link": "/zh/components/backtop"
+            },
+            {
+              "text": "FloatButton 悬浮按钮",
+              "link": "/zh/components/floatbutton"
+            },
+            {
+              "text": "PullToRefresh 下拉刷新",
+              "link": "/zh/components/pulltorefresh"
+            },
+            {
+              "text": "Footer 页脚",
+              "link": "/zh/components/footer"
+            },
+            {
+              "text": "FloatingPanel 浮动面板",
+              "link": "/zh/components/floatingpanel"
+            },
+            {
+              "text": "InfiniteScroll 无限滚动",
+              "link": "/zh/components/infinitescroll"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

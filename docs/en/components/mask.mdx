@@ -1,0 +1,20 @@
+# Mask
+
+## Basic usage
+
+```tsx preview
+import { Mask, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Show mask</Button><Mask open={o} onClick={()=>setO(false)} /></>; };
+```
+
+## API
+
+### Mask
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| onClick | Click callback | `(() => void) \|​ undefined` | `-` |
+| open | Open | `boolean \|​ undefined` | `-` |
+| visible | - | `boolean \|​ undefined` | `true` |
+| zIndex | - | `number \|​ undefined` | `50` |

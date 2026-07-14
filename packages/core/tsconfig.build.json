@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "noEmit": false,
+    "paths": {
+      "@koi-ui/hooks": ["../hooks/dist/index.d.ts"],
+      "@koi-ui/tokens/*": ["../tokens/src/*"]
+    }
+  },
+  "include": ["src"]
+}

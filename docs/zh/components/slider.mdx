@@ -1,0 +1,24 @@
+# Slider 滑动输入
+
+## 基础用法
+
+```tsx preview
+import { Slider } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(30); return <Slider value={v} onChange={setV} />; };
+```
+
+## API
+
+### Slider
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| defaultValue | 默认值 | `number \|​ undefined` | `0` |
+| max | - | `number \|​ undefined` | `100` |
+| min | - | `number \|​ undefined` | `0` |
+| onChange | 变化回调 | `((value: number) => void) \|​ undefined` | `-` |
+| showValue | - | `boolean \|​ undefined` | `false` |
+| size | 尺寸 | `enum` | `-` |
+| step | - | `number \|​ undefined` | `1` |
+| value | 当前值 | `number \|​ undefined` | `-` |

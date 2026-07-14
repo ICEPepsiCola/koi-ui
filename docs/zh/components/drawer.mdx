@@ -1,0 +1,42 @@
+# Drawer 抽屉
+
+## 基础用法
+
+```tsx preview
+import { Drawer, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>打开抽屉</Button><Drawer open={o} onClose={()=>setO(false)} title="抽屉标题">内容</Drawer></>; };
+```
+
+## 底部抽屉
+
+```tsx preview
+import { Drawer, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>底部弹出</Button>
+      <Drawer open={open} onClose={() => setOpen(false)} title="筛选" placement="bottom">
+        筛选面板内容
+      </Drawer>
+    </>
+  );
+};
+```
+
+## API
+
+### Drawer
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| onClose | 关闭回调 | `() => void` **(必填)** | `-` |
+| open | 是否显示 | `boolean` **(必填)** | `-` |
+| className | 类名 | `string \|​ undefined` | `-` |
+| footer | 底部区域 | `ReactNode` | `-` |
+| maskClosable | 点击遮罩关闭 | `boolean \|​ undefined` | `true` |
+| placement | 弹出位置 | `enum` | `right` |
+| size | 尺寸 | `enum` | `md` |
+| title | 标题 | `ReactNode` | `-` |

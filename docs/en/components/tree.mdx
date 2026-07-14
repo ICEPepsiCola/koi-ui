@@ -1,0 +1,23 @@
+# Tree
+
+## Basic usage
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+export default () => <Tree data={[{ key:'1', title:'Parent', children:[{ key:'1-1', title:'Child' }] }]} />;
+```
+
+## API
+
+### Tree
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| data | Data source | `TreeNode[]` **(required)** | `-` |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultExpandedKeys | - | `string[] \|​ undefined` | `[]` |
+| expandedKeys | - | `string[] \|​ undefined` | `-` |
+| onExpand | - | `((keys: string[]) => void) \|​ undefined` | `-` |
+| onSelect | Select callback | `((keys: string[]) => void) \|​ undefined` | `-` |
+| selectedKeys | - | `string[] \|​ undefined` | `[]` |
+| showLine | - | `boolean \|​ undefined` | `false` |

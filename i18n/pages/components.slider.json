@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Slider",
+    "zh": "滑动输入"
+  },
+  "demos": {
+    "basic": {
+      "en": "Basic usage",
+      "zh": "基础用法"
+    }
+  }
+}

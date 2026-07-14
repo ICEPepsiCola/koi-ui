@@ -1,0 +1,51 @@
+# Radio
+
+## Basic usage
+
+```tsx preview
+import { Radio, RadioGroup } from '@koi-ui/core';
+export default () => <RadioGroup defaultValue="a"><Radio radioValue="a" label="Option A" /><Radio radioValue="b" label="Option B" /></RadioGroup>;
+```
+
+## Controlled radio group
+
+```tsx preview
+import { Radio, RadioGroup, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('a');
+  return (
+    <div>
+      <RadioGroup value={value} onChange={setValue}>
+        <Radio radioValue="a" label="Plan A" />
+        <Radio radioValue="b" label="Plan B" />
+      </RadioGroup>
+      <Text muted className="mt-2 block text-sm">Current: {value}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### Radio
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| radioValue | - | `string` **(required)** | `-` |
+| label | Label | `ReactNode` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| size | Size | `enum` | `md` |
+
+### RadioGroup
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultValue | Default value | `string \|​ undefined` | `-` |
+| direction | Direction | `enum` | `vertical` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| name | Name | `string \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
+| size | Size | `enum` | `md` |
+| value | Value | `string \|​ undefined` | `-` |

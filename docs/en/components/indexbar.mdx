@@ -1,0 +1,24 @@
+# IndexBar
+
+## Basic usage
+
+```tsx preview
+import { IndexBar } from '@koi-ui/core';
+const groups = [{ index:'A', items:['Apple','Ant','Avocado'] }, { index:'B', items:['Banana','Blueberry'] }, { index:'C', items:['Cherry','Coconut'] }, { index:'D', items:['Date','Dragonfruit'] }];
+export default () => (
+  <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
+    <IndexBar className="min-h-0 min-w-0 flex-1" groups={groups} renderItem={(item) => <span>{item}</span>} />
+  </div>
+);
+```
+
+## API
+
+### IndexBar
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| groups | - | `IndexBarGroup<T>[]` **(required)** | `-` |
+| renderItem | - | `(item: T,​ index: number) => ReactNode` **(required)** | `-` |
+| onIndexChange | - | `((index: string) => void) \|​ undefined` | `-` |
+| stickyOffset | - | `number \|​ undefined` | `0` |

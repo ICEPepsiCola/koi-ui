@@ -1,0 +1,34 @@
+# Progress
+
+## Basic usage
+
+```tsx preview
+import { Progress } from '@koi-ui/core';
+export default () => <Progress percent={60} />;
+```
+
+## Styles
+
+```tsx preview
+import { Progress, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={4}>
+    <Progress percent={30} showInfo />
+    <Progress percent={70} variant="success" showInfo />
+    <Progress percent={100} showInfo />
+    <Progress percent={50} variant="destructive" showInfo />
+  </Stack>
+);
+```
+
+## API
+
+### Progress
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| percent | Percent | `number \|​ undefined` | `0` |
+| showInfo | - | `boolean \|​ undefined` | `false` |
+| size | Size | `enum` | `-` |
+| strokeColor | - | `string \|​ undefined` | `-` |
+| variant | Variant | `enum` | `-` |

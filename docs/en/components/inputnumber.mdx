@@ -1,0 +1,27 @@
+# InputNumber
+
+## Basic usage
+
+```tsx preview
+import { InputNumber } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(1); return <InputNumber value={v} onChange={setV} />; };
+```
+
+## API
+
+### InputNumber
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| className | Class name | `string \|​ undefined` | `-` |
+| defaultValue | Default value | `number \|​ undefined` | `-` |
+| disabled | Disabled | `boolean \|​ undefined` | `false` |
+| error | Error message | `string \|​ undefined` | `-` |
+| max | - | `number \|​ undefined` | `-` |
+| min | - | `number \|​ undefined` | `-` |
+| onChange | Change callback | `((value: number \|​ undefined) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `-` |
+| size | Size | `enum` | `md` |
+| step | - | `number \|​ undefined` | `1` |
+| value | Value | `number \|​ undefined` | `-` |

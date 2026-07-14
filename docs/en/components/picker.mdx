@@ -1,0 +1,21 @@
+# Picker
+
+## Basic usage
+
+```tsx preview
+import { Picker } from '@koi-ui/core';
+export default () => <Picker columns={[{ options: [{label:'Mon',value:'1'},{label:'Tue',value:'2'}] }]} placeholder="Select" />;
+```
+
+## API
+
+### Picker
+
+| Property | Description | Type | Default |
+| :---: | :---: | :---: | :---: |
+| columns | Columns | `PickerColumn[]` **(required)** | `-` |
+| disabled | Disabled | `boolean \|​ undefined` | `-` |
+| onChange | Change callback | `((value: string[]) => void) \|​ undefined` | `-` |
+| placeholder | Placeholder | `string \|​ undefined` | `-` |
+| responsive | Responsive | `boolean \|​ undefined` | `true` |
+| value | Value | `string[] \|​ undefined` | `-` |

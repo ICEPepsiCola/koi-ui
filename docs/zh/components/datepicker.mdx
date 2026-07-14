@@ -1,0 +1,39 @@
+# DatePicker 日期选择
+
+## 基础用法
+
+```tsx preview
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(''); return <DatePicker value={v} onChange={setV} placeholder="选择日期" />; };
+```
+
+## 受控日期
+
+```tsx preview
+import { DatePicker, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [date, setDate] = useState('2026-07-12');
+  return (
+    <div>
+      <DatePicker value={date} onChange={setDate} placeholder="选择日期" />
+      <Text muted className="mt-2 block text-sm">选中：{date || '未选择'}</Text>
+    </div>
+  );
+};
+```
+
+## API
+
+### DatePicker
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
+| max | - | `string \|​ undefined` | `-` |
+| min | - | `string \|​ undefined` | `-` |
+| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
+| placeholder | 占位文本 | `string \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+| value | 当前值 | `string \|​ undefined` | `-` |
