@@ -1,5 +1,7 @@
-import type { ReactNode } from 'react';
+import type { KeyboardEvent, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { useKoiContext } from '../../provider/context';
+import { isActivationKey } from '../../utils/keyboard';
 export interface ColumnDef<T> {
   key: keyof T & string;
   title: ReactNode;
@@ -18,13 +20,22 @@ export function TableView<T extends Record<string, unknown>>({
   columns,
   data,
   loading = false,
-  emptyText = '暂无数据',
+  emptyText,
   onRowClick,
 }: TableViewProps<T>) {
+  const { messages } = useKoiContext();
+  const resolvedEmptyText = emptyText ?? messages.emptyText;
+
+  const handleRowKeyDown = (event: KeyboardEvent<HTMLTableRowElement>, row: T) => {
+    if (!onRowClick || !isActivationKey(event.key)) return;
+    event.preventDefault();
+    onRowClick(row);
+  };
+
   if (loading) {
     return (
       <div className="flex h-32 items-center justify-center text-muted-foreground">
-        加载中...
+        {messages.loadingText}
       </div>
     );
   }
@@ -32,7 +43,7 @@ export function TableView<T extends Record<string, unknown>>({
   if (data.length === 0) {
     return (
       <div className="flex h-32 items-center justify-center text-muted-foreground">
-        {emptyText}
+        {resolvedEmptyText}
       </div>
     );
   }
@@ -58,9 +69,11 @@ export function TableView<T extends Record<string, unknown>>({
               key={i}
               className={cn(
                 'border-t border-border',
-                onRowClick && 'cursor-pointer hover:bg-muted/50',
+                onRowClick && 'cursor-pointer hover:bg-muted/50 focus-within:bg-muted/50',
               )}
+              tabIndex={onRowClick ? 0 : undefined}
               onClick={() => onRowClick?.(row)}
+              onKeyDown={(event) => handleRowKeyDown(event, row)}
             >
               {columns.map((col) => (
                 <td key={col.key} className="px-4 py-3">

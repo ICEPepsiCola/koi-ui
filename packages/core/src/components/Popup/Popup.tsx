@@ -1,5 +1,7 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useId, useRef, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
@@ -24,19 +26,19 @@ export function Popup({
   className,
 }: PopupProps) {
   const popupRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const descriptionId = useId();
 
   useScrollLock(open);
-
-  useEffect(() => {
-    if (!open) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [open, onClose]);
+  useDismissibleLayer({
+    open,
+    onDismiss: onClose,
+    containerRef: popupRef,
+  });
+  useFocusTrap({
+    active: open,
+    containerRef: popupRef,
+  });
 
   if (!open) return null;
 
@@ -48,6 +50,9 @@ export function Popup({
             ref={popupRef}
             role="dialog"
             aria-modal="true"
+            aria-labelledby={title ? titleId : undefined}
+            aria-describedby={descriptionId}
+            tabIndex={-1}
             className={cn(
               'w-full max-w-sm rounded-xl border border-border bg-surface shadow-lg',
               className,
@@ -55,11 +60,16 @@ export function Popup({
             onClick={(e) => e.stopPropagation()}
           >
             {title ? (
-              <div className="px-4 py-3 text-center text-base font-semibold">
+              <div
+                id={titleId}
+                className="px-4 py-3 text-center text-base font-semibold"
+              >
                 {title}
               </div>
             ) : null}
-            <div className="px-4 py-2 text-center text-sm">{children}</div>
+            <div id={descriptionId} className="px-4 py-2 text-center text-sm">
+              {children}
+            </div>
             {footer ? (
               <div className="border-t border-border">{footer}</div>
             ) : null}

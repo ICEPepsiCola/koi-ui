@@ -1,6 +1,7 @@
-import { useState, type ReactNode } from 'react';
+import { useState, type KeyboardEvent, type ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
 
 const segmentedVariants = tv({
   base: 'inline-flex rounded-lg bg-muted p-1',
@@ -45,13 +46,43 @@ export function Segmented({
   block,
 }: SegmentedProps) {
   const [internal, setInternal] = useState(
-    defaultValue ?? options[0]?.value ?? '',
+    defaultValue ?? options[findEnabledIndex(options)]?.value ?? options[0]?.value ?? '',
   );
   const active = value ?? internal;
+  const activeIndex = Math.max(
+    options.findIndex((option) => option.value === active),
+    0,
+  );
 
   const handleChange = (v: string) => {
     if (value === undefined) setInternal(v);
     onChange?.(v);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      event.preventDefault();
+      handleChange(options[findNextEnabledIndex(options, index, 1)]!.value);
+      return;
+    }
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      handleChange(options[findNextEnabledIndex(options, index, -1)]!.value);
+      return;
+    }
+    if (event.key === 'Home') {
+      event.preventDefault();
+      const nextIndex = findEnabledIndex(options);
+      if (nextIndex >= 0) handleChange(options[nextIndex]!.value);
+      return;
+    }
+    if (event.key === 'End') {
+      event.preventDefault();
+      const reversedIndex = [...options].reverse().findIndex((option) => !option.disabled);
+      if (reversedIndex >= 0) {
+        handleChange(options[options.length - reversedIndex - 1]!.value);
+      }
+    }
   };
 
   return (
@@ -59,13 +90,14 @@ export function Segmented({
       className={cn(segmentedVariants({ size, block }), className)}
       role="tablist"
     >
-      {options.map((opt) => (
+      {options.map((opt, index) => (
         <button
           key={opt.value}
           type="button"
           role="tab"
           disabled={opt.disabled}
           aria-selected={opt.value === active}
+          tabIndex={index === activeIndex ? 0 : -1}
           className={cn(
             'rounded-md px-3 py-1.5 font-medium transition-colors',
             block && 'flex-1',
@@ -75,6 +107,7 @@ export function Segmented({
             opt.disabled && 'cursor-not-allowed opacity-50',
           )}
           onClick={() => !opt.disabled && handleChange(opt.value)}
+          onKeyDown={(event) => handleKeyDown(event, index)}
         >
           {opt.label}
         </button>

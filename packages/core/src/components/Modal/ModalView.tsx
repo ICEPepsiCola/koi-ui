@@ -1,5 +1,7 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useId, useRef, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
@@ -20,22 +22,19 @@ export function ModalView({
   footer,
 }: ModalViewProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const descriptionId = useId();
 
   useScrollLock(open);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [open, onClose]);
+  useDismissibleLayer({
+    open,
+    onDismiss: onClose,
+    containerRef: dialogRef,
+  });
+  useFocusTrap({
+    active: open,
+    containerRef: dialogRef,
+  });
 
   if (!open) return null;
 
@@ -47,7 +46,9 @@ export function ModalView({
             ref={dialogRef}
             role="dialog"
             aria-modal="true"
-            aria-labelledby={title ? 'koi-modal-title' : undefined}
+            aria-labelledby={title ? titleId : undefined}
+            aria-describedby={descriptionId}
+            tabIndex={-1}
             className={cn(
               'w-full max-w-lg rounded-lg border border-border bg-surface shadow-md',
             )}
@@ -55,13 +56,15 @@ export function ModalView({
           >
             {title ? (
               <div
-                id="koi-modal-title"
+                id={titleId}
                 className="border-b border-border px-6 py-4 text-lg font-semibold"
               >
                 {title}
               </div>
             ) : null}
-            <div className="px-6 py-4">{children}</div>
+            <div id={descriptionId} className="px-6 py-4">
+              {children}
+            </div>
             {footer ? (
               <div className="flex justify-end gap-2 border-t border-border px-6 py-4">
                 {footer}

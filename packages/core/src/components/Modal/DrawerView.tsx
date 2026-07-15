@@ -1,5 +1,7 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useId, useRef, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
@@ -22,22 +24,19 @@ export function DrawerView({
   mobileFullscreen = true,
 }: DrawerViewProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const descriptionId = useId();
 
   useScrollLock(open);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [open, onClose]);
+  useDismissibleLayer({
+    open,
+    onDismiss: onClose,
+    containerRef: drawerRef,
+  });
+  useFocusTrap({
+    active: open,
+    containerRef: drawerRef,
+  });
 
   if (!open) return null;
 
@@ -48,7 +47,9 @@ export function DrawerView({
           ref={drawerRef}
           role="dialog"
           aria-modal="true"
-          aria-labelledby={title ? 'koi-drawer-title' : undefined}
+          aria-labelledby={title ? titleId : undefined}
+          aria-describedby={descriptionId}
+          tabIndex={-1}
           className={cn(
             'w-full rounded-t-lg border border-border bg-surface shadow-md transition-transform',
             mobileFullscreen ? 'max-h-[90vh]' : 'max-h-[70vh]',
@@ -58,13 +59,15 @@ export function DrawerView({
           <div className="mx-auto my-2 h-1 w-10 rounded-full bg-border" />
           {title ? (
             <div
-              id="koi-drawer-title"
+              id={titleId}
               className="border-b border-border px-4 py-3 text-lg font-semibold"
             >
               {title}
             </div>
           ) : null}
-          <div className="overflow-y-auto px-4 py-4">{children}</div>
+          <div id={descriptionId} className="overflow-y-auto px-4 py-4">
+            {children}
+          </div>
           {footer ? (
             <div className="flex justify-end gap-2 border-t border-border px-4 py-3">
               {footer}

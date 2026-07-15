@@ -1,6 +1,12 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type {
+  HTMLAttributes,
+  KeyboardEvent,
+  MouseEvent as ReactMouseEvent,
+  ReactNode,
+} from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { isActivationKey } from '../../utils/keyboard';
 
 const card = tv({
   base: 'rounded-lg border border-border bg-surface shadow-sm',
@@ -37,10 +43,30 @@ export function Card({
   title,
   footer,
   children,
+  onClick,
+  onKeyDown,
+  tabIndex,
+  role,
   ...props
 }: CardProps) {
+  const interactive = typeof onClick === 'function';
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(event);
+    if (event.defaultPrevented || !interactive || !isActivationKey(event.key)) return;
+    event.preventDefault();
+    onClick?.(event as unknown as ReactMouseEvent<HTMLDivElement>);
+  };
+
   return (
-    <div className={cn(card({ padding, hoverable }), className)} {...props}>
+    <div
+      className={cn(card({ padding, hoverable }), className)}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role={role ?? (interactive ? 'button' : undefined)}
+      tabIndex={tabIndex ?? (interactive ? 0 : undefined)}
+      {...props}
+    >
       {title ? (
         <div className="mb-3 text-base font-semibold text-surface-foreground">
           {title}

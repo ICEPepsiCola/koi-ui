@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Card } from '../Card/Card';
+import { useKoiContext } from '../../provider/context';
 import { Stack } from '../../primitives/Stack';
 import { Text } from '../../primitives/Text';
 import type { ColumnDef } from './TableView';
@@ -18,16 +19,18 @@ export function CardListView<T extends Record<string, unknown>>({
   data,
   mobileFields,
   loading = false,
-  emptyText = '暂无数据',
+  emptyText,
   onRowClick,
 }: CardListViewProps<T>) {
+  const { messages } = useKoiContext();
+  const resolvedEmptyText = emptyText ?? messages.emptyText;
   const fields =
     mobileFields ?? columns.slice(0, 3).map((c) => c.key as keyof T);
 
   if (loading) {
     return (
       <div className="flex h-32 items-center justify-center text-muted-foreground">
-        加载中...
+        {messages.loadingText}
       </div>
     );
   }
@@ -35,7 +38,7 @@ export function CardListView<T extends Record<string, unknown>>({
   if (data.length === 0) {
     return (
       <div className="flex h-32 items-center justify-center text-muted-foreground">
-        {emptyText}
+        {resolvedEmptyText}
       </div>
     );
   }

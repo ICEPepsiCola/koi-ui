@@ -13,5 +13,6 @@ export function mockWidth(width: number) {
 
 afterEach(() => {
   cleanup();
+  document.body.innerHTML = '';
   mockWidth(BREAKPOINTS.lg);
 });

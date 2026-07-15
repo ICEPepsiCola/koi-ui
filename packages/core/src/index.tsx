@@ -1,6 +1,6 @@
 import './styles.css';
 
-export { KoiProvider, useKoiContext, type KoiProviderProps, type KoiTheme } from './provider';
+export { KoiProvider, useKoiContext, type KoiLocale, type KoiMessages, type KoiProviderProps, type KoiTheme } from './provider';
 export { AdaptiveRender, type AdaptiveRenderProps } from './adaptive';
 export { Box, Stack, Text, type BoxProps, type StackProps, type TextProps } from './primitives';
 export { cn } from './utils/cn';

@@ -1,6 +1,7 @@
-import { useState, type HTMLAttributes, type ReactNode } from 'react';
+import { useState, type HTMLAttributes, type KeyboardEvent, type ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
 
 const tabBarVariants = tv({
   base: 'fixed inset-x-0 bottom-0 z-40 flex border-t border-border bg-surface',
@@ -60,13 +61,43 @@ export function TabBar({
   ...props
 }: TabBarProps) {
   const [internalKey, setInternalKey] = useState(
-    defaultActiveKey ?? items[0]?.key ?? '',
+    defaultActiveKey ?? items[findEnabledIndex(items)]?.key ?? items[0]?.key ?? '',
   );
   const activeKey = controlledKey ?? internalKey;
+  const activeIndex = Math.max(
+    items.findIndex((item) => item.key === activeKey),
+    0,
+  );
 
   const handleChange = (key: string) => {
     if (controlledKey === undefined) setInternalKey(key);
     onChange?.(key);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      event.preventDefault();
+      handleChange(items[findNextEnabledIndex(items, index, 1)]!.key);
+      return;
+    }
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      handleChange(items[findNextEnabledIndex(items, index, -1)]!.key);
+      return;
+    }
+    if (event.key === 'Home') {
+      event.preventDefault();
+      const nextIndex = findEnabledIndex(items);
+      if (nextIndex >= 0) handleChange(items[nextIndex]!.key);
+      return;
+    }
+    if (event.key === 'End') {
+      event.preventDefault();
+      const reversedIndex = [...items].reverse().findIndex((item) => !item.disabled);
+      if (reversedIndex >= 0) {
+        handleChange(items[items.length - reversedIndex - 1]!.key);
+      }
+    }
   };
 
   return (
@@ -75,12 +106,13 @@ export function TabBar({
       role="tablist"
       {...props}
     >
-      {items.map((item) => (
+      {items.map((item, index) => (
         <button
           key={item.key}
           type="button"
           role="tab"
           aria-selected={item.key === activeKey}
+          tabIndex={index === activeIndex ? 0 : -1}
           disabled={item.disabled}
           className={cn(
             tabItemVariants({
@@ -89,6 +121,7 @@ export function TabBar({
             }),
           )}
           onClick={() => !item.disabled && handleChange(item.key)}
+          onKeyDown={(event) => handleKeyDown(event, index)}
         >
           <span className="relative">
             {item.icon}

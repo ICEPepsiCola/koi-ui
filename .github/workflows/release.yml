@@ -50,6 +50,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm push:check
+      - run: pnpm test:coverage
+      - run: pnpm coverage:check
+      - run: pnpm generated:check
+      - run: pnpm doc:build
 
       - name: Release
         env:

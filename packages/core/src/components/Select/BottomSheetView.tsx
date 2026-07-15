@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { cn } from '../../utils/cn';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
+import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
 import type { SelectOption } from './SelectView';
@@ -17,13 +20,26 @@ export function BottomSheetView({
   options,
   value,
   onChange,
-  placeholder = '请选择',
+  placeholder,
   disabled = false,
 }: BottomSheetViewProps) {
+  const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
   const selected = options.find((o) => o.value === value);
+  const resolvedPlaceholder = placeholder ?? messages.selectPlaceholder;
 
   useScrollLock(open);
+  useDismissibleLayer({
+    open,
+    onDismiss: () => setOpen(false),
+    containerRef: sheetRef,
+  });
+  useFocusTrap({
+    active: open,
+    containerRef: sheetRef,
+  });
 
   return (
     <>
@@ -37,7 +53,7 @@ export function BottomSheetView({
         onClick={() => !disabled && setOpen(true)}
       >
         <span className={selected ? '' : 'text-muted-foreground'}>
-          {selected?.label ?? placeholder}
+          {selected?.label ?? resolvedPlaceholder}
         </span>
         <span className="text-muted-foreground">▾</span>
       </button>
@@ -46,11 +62,19 @@ export function BottomSheetView({
           <Overlay open onClick={() => setOpen(false)}>
             <div className="flex h-full items-end">
               <div
+                ref={sheetRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={titleId}
+                tabIndex={-1}
                 className="max-h-[70vh] w-full overflow-y-auto rounded-t-lg bg-surface"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="border-b border-border px-4 py-3 text-center font-medium">
-                  {placeholder}
+                <div
+                  id={titleId}
+                  className="border-b border-border px-4 py-3 text-center font-medium"
+                >
+                  {resolvedPlaceholder}
                 </div>
                 {options.map((opt) => (
                   <button

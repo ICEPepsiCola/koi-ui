@@ -18,6 +18,8 @@
     "push:check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "docs:generate": "node scripts/generate-docs.mjs",
     "tests:generate": "node scripts/generate-tests.mjs",
+    "generated:check": "node scripts/check-generated.mjs",
+    "coverage:check": "node scripts/check-coverage.mjs",
     "release": "semantic-release",
     "prepare": "husky"
   },

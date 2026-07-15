@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { tv } from 'tailwind-variants';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 
 const mobileSearchVariants = tv({
@@ -26,13 +27,15 @@ export function MobileSearchView({
   defaultValue = '',
   onChange,
   onSearch,
-  placeholder = '搜索',
+  placeholder,
   disabled = false,
   className,
   showCancel = true,
 }: MobileSearchViewProps) {
+  const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
   const [active, setActive] = useState(false);
+  const resolvedPlaceholder = placeholder ?? messages.searchPlaceholder;
 
   const submit = () => onSearch?.(internal);
 
@@ -42,7 +45,7 @@ export function MobileSearchView({
         type="search"
         className={mobileInputVariants()}
         value={internal}
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         disabled={disabled}
         onFocus={() => setActive(true)}
         onChange={(e) => setInternal(e.target.value)}
@@ -60,7 +63,7 @@ export function MobileSearchView({
             onSearch?.('');
           }}
         >
-          取消
+          {messages.cancelActionText}
         </button>
       ) : (
         <button
@@ -69,7 +72,7 @@ export function MobileSearchView({
           disabled={disabled}
           onClick={submit}
         >
-          搜索
+          {messages.searchActionText}
         </button>
       )}
     </div>

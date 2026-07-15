@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
+import { useKoiContext } from '../../provider/context';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { cn } from '../../utils/cn';
+import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
 
 export interface SelectOption {
   label: string;
@@ -19,36 +22,43 @@ export function SelectView({
   options,
   value,
   onChange,
-  placeholder = '请选择',
+  placeholder,
   disabled = false,
 }: SelectViewProps) {
+  const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(() =>
+    Math.max(
+      options.findIndex((option) => option.value === value && !option.disabled),
+      findEnabledIndex(options),
+    ),
+  );
   const containerRef = useRef<HTMLDivElement>(null);
+  const listboxId = useId();
   const selected = options.find((o) => o.value === value);
+  const resolvedPlaceholder = placeholder ?? messages.selectPlaceholder;
 
-  useEffect(() => {
-    if (!open) return;
+  useDismissibleLayer({
+    open,
+    onDismiss: () => setOpen(false),
+    containerRef,
+    closeOnPointerDownOutside: true,
+  });
 
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
+  const commitValue = (nextValue: string) => {
+    onChange?.(nextValue);
+    setOpen(false);
+  };
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [open]);
+  const openListbox = () => {
+    setOpen(true);
+    const selectedIndex = options.findIndex(
+      (option) => option.value === value && !option.disabled,
+    );
+    setActiveIndex(
+      selectedIndex >= 0 ? selectedIndex : Math.max(findEnabledIndex(options), 0),
+    );
+  };
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -60,34 +70,92 @@ export function SelectView({
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
           disabled && 'cursor-not-allowed opacity-50',
         )}
-        onClick={() => !disabled && setOpen((v) => !v)}
+        onClick={() => {
+          if (disabled) return;
+          if (open) {
+            setOpen(false);
+            return;
+          }
+          openListbox();
+        }}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            if (!open) {
+              openListbox();
+              return;
+            }
+            setActiveIndex((current) =>
+              findNextEnabledIndex(
+                options,
+                current < 0 ? 0 : current,
+                event.key === 'ArrowDown' ? 1 : -1,
+              ),
+            );
+            return;
+          }
+          if (event.key === 'Home') {
+            event.preventDefault();
+            setActiveIndex(Math.max(findEnabledIndex(options), 0));
+            if (!open) openListbox();
+            return;
+          }
+          if (event.key === 'End') {
+            event.preventDefault();
+            const reversedIndex = [...options]
+              .reverse()
+              .findIndex((option) => !option.disabled);
+            const nextIndex =
+              reversedIndex >= 0 ? options.length - reversedIndex - 1 : -1;
+            if (nextIndex >= 0) setActiveIndex(nextIndex);
+            if (!open) openListbox();
+            return;
+          }
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            if (!open) {
+              openListbox();
+              return;
+            }
+            const activeOption = options[activeIndex];
+            if (activeOption && !activeOption.disabled) {
+              commitValue(activeOption.value);
+            }
+          }
+        }}
         aria-haspopup="listbox"
         aria-expanded={open}
+        aria-controls={open ? listboxId : undefined}
       >
         <span className={selected ? '' : 'text-muted-foreground'}>
-          {selected?.label ?? placeholder}
+          {selected?.label ?? resolvedPlaceholder}
         </span>
         <span className="text-muted-foreground">▾</span>
       </button>
       {open ? (
         <ul
+          id={listboxId}
           role="listbox"
           className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-border bg-surface py-1 shadow-md"
         >
-          {options.map((opt) => (
+          {options.map((opt, index) => (
             <li
               key={opt.value}
               role="option"
               aria-selected={opt.value === value}
               className={cn(
-                'cursor-pointer px-3 py-2 text-sm hover:bg-muted',
+                'px-3 py-2 text-sm',
                 opt.disabled && 'cursor-not-allowed opacity-50',
-                opt.value === value && 'bg-muted font-medium',
+                !opt.disabled && 'cursor-pointer hover:bg-muted',
+                (opt.value === value || index === activeIndex) && 'bg-muted font-medium',
               )}
+              onMouseEnter={() => {
+                if (!opt.disabled) setActiveIndex(index);
+              }}
               onClick={() => {
                 if (opt.disabled) return;
-                onChange?.(opt.value);
-                setOpen(false);
+                commitValue(opt.value);
               }}
             >
               {opt.label}

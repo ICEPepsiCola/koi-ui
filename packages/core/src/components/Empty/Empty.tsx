@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 
 export interface EmptyProps extends HTMLAttributes<HTMLDivElement> {
@@ -9,11 +10,13 @@ export interface EmptyProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Empty({
   className,
-  description = '暂无数据',
+  description,
   image,
   children,
   ...props
 }: EmptyProps) {
+  const { messages } = useKoiContext();
+
   return (
     <div
       className={cn(
@@ -27,7 +30,9 @@ export function Empty({
           ∅
         </div>
       )}
-      <p className="text-sm text-muted-foreground">{description}</p>
+      <p className="text-sm text-muted-foreground">
+        {description ?? messages.emptyText}
+      </p>
       {children ? <div className="mt-4">{children}</div> : null}
     </div>
   );

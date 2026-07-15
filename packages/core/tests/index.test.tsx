@@ -10,6 +10,7 @@ import { KoiProvider } from '../src/provider';
 import { AdaptiveRender } from '../src/adaptive/AdaptiveRender';
 import { Select } from '../src/components/Select';
 import { Swiper } from '../src/components/Swiper';
+import { Tabs } from '../src/components/Tabs';
 import { toast } from '../src/components/Toast';
 import { mockWidth } from './setup';
 
@@ -72,6 +73,29 @@ test('Table renders card list on mobile', () => {
   expect(screen.getByText('李四')).toBeInTheDocument();
 });
 
+test('Table rows are keyboard-operable when clickable', () => {
+  mockWidth(BREAKPOINTS.lg);
+  let clicked = '';
+  const columns = [
+    { key: 'name' as const, title: '姓名' },
+    { key: 'age' as const, title: '年龄' },
+  ];
+  const data = [{ name: '张三', age: '20' }];
+
+  render(
+    <KoiProvider>
+      <Table columns={columns} data={data} onRowClick={(row) => {
+        clicked = row.name;
+      }} />
+    </KoiProvider>,
+  );
+
+  const row = screen.getByText('张三').closest('tr');
+  expect(row).toHaveAttribute('tabindex', '0');
+  fireEvent.keyDown(row!, { key: 'Enter' });
+  expect(clicked).toBe('张三');
+});
+
 test('Modal renders when open', () => {
   render(
     <KoiProvider>
@@ -80,8 +104,50 @@ test('Modal renders when open', () => {
       </Modal>
     </KoiProvider>,
   );
-  expect(screen.getByRole('dialog')).toBeInTheDocument();
+  const dialog = screen.getByRole('dialog');
+  expect(dialog).toBeInTheDocument();
+  expect(dialog).toHaveAttribute('aria-modal', 'true');
   expect(screen.getByText('内容')).toBeInTheDocument();
+});
+
+test('Modal traps focus and restores trigger focus on close', async () => {
+  function Harness() {
+    const [open, setOpen] = useState(false);
+    return (
+      <KoiProvider>
+        <button type="button" onClick={() => setOpen(true)}>
+          打开
+        </button>
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          title="标题"
+          footer={<button type="button">确认</button>}
+        >
+          <button type="button">内容按钮</button>
+        </Modal>
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+
+  const trigger = screen.getByText('打开');
+  trigger.focus();
+  fireEvent.click(trigger);
+
+  await waitFor(() => {
+    expect(screen.getByRole('dialog')).toContainElement(
+      document.activeElement as HTMLElement | null,
+    );
+  });
+
+  fireEvent.keyDown(document, { key: 'Escape' });
+
+  await waitFor(() => {
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(document.activeElement).toBe(trigger);
+  });
 });
 
 test('useBreakpoint detects mobile', () => {
@@ -116,6 +182,25 @@ test('AdaptiveRender respects previewDevice override', () => {
     </KoiProvider>,
   );
   expect(screen.getByTestId('view')).toHaveTextContent('mobile');
+});
+
+test('Tabs support arrow-key navigation', () => {
+  render(
+    <Tabs
+      items={[
+        { key: 'a', label: 'Tab A', children: 'A' },
+        { key: 'b', label: 'Tab B', children: 'B' },
+      ]}
+    />,
+  );
+
+  const firstTab = screen.getByRole('tab', { name: 'Tab A' });
+  fireEvent.keyDown(firstTab, { key: 'ArrowRight' });
+  expect(screen.getByRole('tab', { name: 'Tab B' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
+  expect(screen.getByRole('tabpanel')).toHaveTextContent('B');
 });
 
 test('Modal portals into preview container on mobile preview', async () => {
@@ -215,6 +300,51 @@ test('useScrollLock restores mobile preview viewport scroll after picker closes'
   await waitFor(() => {
     expect(viewport.style.overflow).toBe('');
   });
+});
+
+test('Select supports keyboard selection on desktop', async () => {
+  mockWidth(BREAKPOINTS.xl);
+
+  function Harness() {
+    const [value, setValue] = useState('');
+    return (
+      <KoiProvider>
+        <Select
+          value={value}
+          options={[
+            { value: 'a', label: 'Option A' },
+            { value: 'b', label: 'Option B' },
+          ]}
+          onChange={setValue}
+        />
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+
+  const trigger = screen.getByRole('button');
+  fireEvent.keyDown(trigger, { key: 'ArrowDown' });
+  fireEvent.keyDown(trigger, { key: 'ArrowDown' });
+  fireEvent.keyDown(trigger, { key: 'Enter' });
+
+  await waitFor(() => {
+    expect(trigger).toHaveTextContent('Option B');
+  });
+});
+
+test('Provider locale messages flow into runtime strings', () => {
+  render(
+    <KoiProvider locale="en-US">
+      <>
+        <Select options={[]} />
+        <Table columns={[{ key: 'name' as const, title: 'Name' }]} data={[]} />
+      </>
+    </KoiProvider>,
+  );
+
+  expect(screen.getByRole('button')).toHaveTextContent('Please select');
+  expect(screen.getByText('No data')).toBeInTheDocument();
 });
 
 test('Swiper switches slide on pointer swipe', () => {

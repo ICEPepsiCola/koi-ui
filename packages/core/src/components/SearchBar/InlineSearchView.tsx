@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { tv } from 'tailwind-variants';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button/Button';
 
@@ -31,12 +32,14 @@ export function InlineSearchView({
   defaultValue = '',
   onChange,
   onSearch,
-  placeholder = '搜索',
+  placeholder,
   disabled = false,
   className,
 }: InlineSearchViewProps) {
+  const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
   const [focused, setFocused] = useState(false);
+  const resolvedPlaceholder = placeholder ?? messages.searchPlaceholder;
 
   const submit = () => onSearch?.(internal);
 
@@ -48,7 +51,7 @@ export function InlineSearchView({
           type="search"
           className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
           value={internal}
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           disabled={disabled}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -63,7 +66,7 @@ export function InlineSearchView({
           disabled={disabled}
           onClick={submit}
         >
-          搜索
+          {messages.searchActionText}
         </Button>
       </div>
     </div>

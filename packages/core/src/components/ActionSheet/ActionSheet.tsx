@@ -1,6 +1,9 @@
-import { useRef, type ReactNode } from 'react';
+import { useId, useRef, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
+import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
 
@@ -28,12 +31,25 @@ export function ActionSheet({
   title,
   description,
   actions,
-  cancelText = '取消',
+  cancelText,
   closeOnAction = true,
 }: ActionSheetProps) {
+  const { messages } = useKoiContext();
   const sheetRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const descriptionId = useId();
+  const resolvedCancelText = cancelText ?? messages.cancelActionText;
 
   useScrollLock(open);
+  useDismissibleLayer({
+    open,
+    onDismiss: onClose,
+    containerRef: sheetRef,
+  });
+  useFocusTrap({
+    active: open,
+    containerRef: sheetRef,
+  });
 
   if (!open) return null;
 
@@ -45,13 +61,21 @@ export function ActionSheet({
             ref={sheetRef}
             role="dialog"
             aria-modal="true"
+            aria-labelledby={title ? titleId : undefined}
+            aria-describedby={title || description ? descriptionId : undefined}
+            tabIndex={-1}
             className="w-full rounded-t-xl bg-surface pb-safe"
             onClick={(e) => e.stopPropagation()}
           >
             {title || description ? (
-              <div className="border-b border-border px-4 py-3 text-center">
+              <div
+                id={title || description ? descriptionId : undefined}
+                className="border-b border-border px-4 py-3 text-center"
+              >
                 {title ? (
-                  <div className="text-sm font-medium">{title}</div>
+                  <div id={titleId} className="text-sm font-medium">
+                    {title}
+                  </div>
                 ) : null}
                 {description ? (
                   <div className="mt-1 text-xs text-muted-foreground">
@@ -85,7 +109,7 @@ export function ActionSheet({
               className="mt-2 w-full border-t border-border px-4 py-3.5 text-center text-base font-medium"
               onClick={onClose}
             >
-              {cancelText}
+              {resolvedCancelText}
             </button>
           </div>
         </div>
