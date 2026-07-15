@@ -275,7 +275,18 @@ const CATEGORIES = {
       { name: 'Tooltip', demo: `import { Tooltip, Button } from '@koi-ui/core';\nexport default () => <Tooltip content="提示文字"><Button>悬停</Button></Tooltip>;` },
       { name: 'Tree', demo: `import { Tree } from '@koi-ui/core';\nexport default () => <Tree data={[{ key:'1', title:'父节点', children:[{ key:'1-1', title:'子节点' }] }]} />;` },
       { name: 'NoticeBar', demo: `import { NoticeBar } from '@koi-ui/core';\nexport default () => <NoticeBar content="这是一条滚动通告信息" />;` },
-      { name: 'Swiper', demo: `import { Swiper } from '@koi-ui/core';\nexport default () => <Swiper><div className="h-24 bg-muted flex items-center justify-center">Slide 1</div><div className="h-24 bg-primary/10 flex items-center justify-center">Slide 2</div></Swiper>;` },
+      {
+        name: 'Swiper',
+        demo: `import { Swiper } from '@koi-ui/core';
+export default () => (
+  <Swiper>
+    <div className="h-32 bg-muted flex items-center justify-center text-lg font-medium">Slide 1</div>
+    <div className="h-32 bg-primary/10 flex items-center justify-center text-lg font-medium">Slide 2</div>
+    <div className="h-32 bg-muted/80 flex items-center justify-center text-lg font-medium">Slide 3</div>
+    <div className="h-32 bg-primary/20 flex items-center justify-center text-lg font-medium">Slide 4</div>
+  </Swiper>
+);`,
+      },
       { name: 'Ellipsis', demo: `import { Ellipsis } from '@koi-ui/core';\nexport default () => <Ellipsis content="这是一段很长的文字，用来演示文本省略效果：当内容宽度超过容器时，超出部分会被省略显示，并在末尾展示省略号，方便在列表、卡片等有限空间里保留可读性。" rows={1} />;` },
     ],
   },

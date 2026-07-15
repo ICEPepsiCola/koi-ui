@@ -7,6 +7,10 @@
     "basic": {
       "en": "Basic usage",
       "zh": "基础用法"
+    },
+    "withArrows": {
+      "en": "Arrow navigation",
+      "zh": "箭头切换"
     }
   }
 }

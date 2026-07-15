@@ -21,15 +21,33 @@
   word-break: break-word;
 }
 
-/* Long EN copy / API type unions should scroll, not blow the layout */
+/* API tables: keep table layout (display:block left a huge empty gutter) */
+.rspress-doc,
+.rp-doc,
+article.rspress-doc,
+.markdown {
+  overflow-x: auto;
+}
+
 .rspress-doc table,
 .rp-doc table,
 article table,
 .markdown table {
-  display: block;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  table-layout: auto;
+}
+
+.rspress-doc th,
+.rspress-doc td,
+.rp-doc th,
+.rp-doc td,
+article th,
+article td,
+.markdown th,
+.markdown td {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .rspress-doc pre,

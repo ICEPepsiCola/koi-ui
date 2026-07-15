@@ -457,4 +457,18 @@ export default () => {
 };`,
     },
   ],
+  Swiper: [
+    {
+      key: 'withArrows',
+      code: `import { Swiper } from '@koi-ui/core';
+export default () => (
+  <Swiper showArrows>
+    <div className="h-32 bg-muted flex items-center justify-center text-lg font-medium">Slide 1</div>
+    <div className="h-32 bg-primary/10 flex items-center justify-center text-lg font-medium">Slide 2</div>
+    <div className="h-32 bg-muted/80 flex items-center justify-center text-lg font-medium">Slide 3</div>
+    <div className="h-32 bg-primary/20 flex items-center justify-center text-lg font-medium">Slide 4</div>
+  </Swiper>
+);`,
+    },
+  ],
 };
