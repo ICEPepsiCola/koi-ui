@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "pnpm --filter @koi-ui/core dev",
     "build": "pnpm -r build",
-    "doc": "pnpm docs:generate && KOI_DOC_DEV=1 rspress dev --port 8877",
-    "doc:build": "pnpm docs:generate && rspress build",
+    "doc": "KOI_DOC_DEV=1 rspress dev --port 8877",
+    "doc:build": "rspress build",
     "doc:preview": "rspress preview --port 8878",
     "test": "pnpm -r test",
     "test:watch": "pnpm --filter @koi-ui/core test:watch",
@@ -17,6 +17,7 @@
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm doc:build",
     "push:check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "docs:generate": "node scripts/generate-docs.mjs",
+    "docs:generate:force": "node scripts/generate-docs.mjs --force",
     "tests:generate": "node scripts/generate-tests.mjs",
     "generated:check": "node scripts/check-generated.mjs",
     "coverage:check": "node scripts/check-coverage.mjs",

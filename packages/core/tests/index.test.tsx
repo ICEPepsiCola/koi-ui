@@ -9,6 +9,7 @@ import { Modal } from '../src/components/Modal';
 import { KoiProvider } from '../src/provider';
 import { AdaptiveRender } from '../src/adaptive/AdaptiveRender';
 import { Select } from '../src/components/Select';
+import { Picker } from '../src/components/Picker';
 import { Swiper } from '../src/components/Swiper';
 import { Tabs } from '../src/components/Tabs';
 import { toast } from '../src/components/Toast';
@@ -330,6 +331,155 @@ test('Select supports keyboard selection on desktop', async () => {
 
   await waitFor(() => {
     expect(trigger).toHaveTextContent('Option B');
+  });
+});
+
+test('Picker desktop opens floating multi-column wheel panel', async () => {
+  mockWidth(BREAKPOINTS.xl);
+  let selected: string[] = [];
+
+  function Harness() {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <KoiProvider>
+        <Picker
+          value={value}
+          placeholder="选择"
+          columns={[
+            {
+              options: [
+                { label: '周一', value: '1' },
+                { label: '周二', value: '2' },
+              ],
+            },
+            {
+              options: [
+                { label: '上午', value: 'am' },
+                { label: '下午', value: 'pm' },
+              ],
+            },
+          ]}
+          onChange={(next) => {
+            selected = next;
+            setValue(next);
+          }}
+        />
+      </KoiProvider>
+    );
+  }
+
+  const { container } = render(<Harness />);
+  fireEvent.click(screen.getByRole('button', { name: /选择/ }));
+
+  const panel = container.querySelector('[data-picker-panel="desktop"]');
+  expect(panel).toBeTruthy();
+  expect(panel?.className).toContain('absolute');
+  expect(panel?.className).toContain('top-full');
+  expect(panel?.querySelectorAll('[data-picker-column]').length).toBe(2);
+
+  fireEvent.click(screen.getByRole('button', { name: '周二' }));
+  fireEvent.click(screen.getByRole('button', { name: '下午' }));
+  fireEvent.click(screen.getByRole('button', { name: '确定' }));
+
+  await waitFor(() => {
+    expect(selected).toEqual(['2', 'pm']);
+    expect(screen.getByRole('button', { name: /周二 下午/ })).toBeInTheDocument();
+  });
+});
+
+test('Picker keeps draft selection when columns prop is inline', async () => {
+  mockWidth(BREAKPOINTS.xl);
+
+  function Harness() {
+    const [, setTick] = useState(0);
+    return (
+      <KoiProvider>
+        <button type="button" onClick={() => setTick((n) => n + 1)}>
+          rerender
+        </button>
+        <Picker
+          placeholder="选日"
+          columns={[
+            {
+              options: [
+                { label: '一', value: '1' },
+                { label: '二', value: '2' },
+                { label: '三', value: '3' },
+              ],
+            },
+          ]}
+        />
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+  fireEvent.click(screen.getByRole('button', { name: /选日/ }));
+  fireEvent.click(screen.getByRole('button', { name: '三' }));
+
+  // Parent re-render with a fresh columns[] reference must not wipe draft
+  fireEvent.click(screen.getByRole('button', { name: 'rerender' }));
+
+  expect(screen.getByRole('button', { name: '三' }).querySelector('span'))
+    .toHaveClass('text-primary');
+});
+
+test('Picker mobile commits draft from wheel scroll', async () => {
+  mockWidth(BREAKPOINTS.md);
+
+  let selected: string[] = [];
+
+  function Harness() {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <KoiProvider>
+        <Picker
+          value={value}
+          placeholder="滑动选择"
+          columns={[
+            {
+              options: [
+                { label: '一', value: '1' },
+                { label: '二', value: '2' },
+                { label: '三', value: '3' },
+              ],
+            },
+          ]}
+          onChange={(next) => {
+            selected = next;
+            setValue(next);
+          }}
+        />
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+  fireEvent.click(screen.getByRole('button', { name: /滑动选择/ }));
+
+  const column = document.querySelector(
+    '[data-picker-panel="mobile"] [data-picker-column]',
+  ) as HTMLDivElement | null;
+  expect(column).toBeTruthy();
+
+  Object.defineProperty(column!, 'scrollTop', {
+    configurable: true,
+    get: () => 80,
+    set: () => undefined,
+  });
+  fireEvent.scroll(column!);
+
+  await waitFor(() => {
+    expect(screen.getByRole('option', { name: '三' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+  });
+
+  fireEvent.click(screen.getByRole('button', { name: '确定' }));
+
+  await waitFor(() => {
+    expect(selected).toEqual(['3']);
   });
 });
 

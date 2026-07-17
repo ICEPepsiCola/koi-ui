@@ -9,7 +9,6 @@ const GENERATED_TARGETS = [
   'docs/en',
   'docs/zh',
   'i18n.json',
-  'packages/core/src/index.tsx',
   'packages/core/tests/components',
 ];
 

@@ -206,9 +206,10 @@
   padding: 1rem;
 }
 
-/* DatePicker / TimePicker：给悬浮面板预留可视高度，避免贴底被裁切 */
+/* DatePicker / TimePicker / Picker：给悬浮面板预留可视高度，避免贴底被裁切 */
 .mockup-browser .koi-demo__content:has(.koi-datepicker-demo),
-.mockup-browser .koi-demo__content:has(.koi-timepicker-demo) {
+.mockup-browser .koi-demo__content:has(.koi-timepicker-demo),
+.mockup-browser .koi-demo__content:has(.koi-picker-demo) {
   min-height: 24rem;
   align-content: start;
 }

@@ -1,10 +1,10 @@
 /**
- * One-shot / idempotent seeder for i18n/pages/*.json and EXTRA_DEMOS key migration.
+ * One-shot / idempotent seeder for i18n/pages/*.json.
  * Run: node scripts/seed-i18n-pages.mjs
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { EXTRA_DEMOS } from './docs-extra-demos.mjs';
+import { DEMOS } from './docs-demos.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const PAGES = path.join(ROOT, 'i18n/pages');
@@ -167,13 +167,10 @@ for (const [name, zhTitle] of Object.entries(COMPONENT_ZH)) {
   const pageId = `components.${name.toLowerCase()}`;
   const demos = { basic: { en: DEMO_EN.basic, zh: '基础用法' } };
 
-  for (const demo of EXTRA_DEMOS[name] ?? []) {
-    const key = ZH_DEMO_TO_KEY[demo.title];
-    if (!key) {
-      console.warn(`Missing demo key for ${name}: ${demo.title}`);
-      continue;
-    }
-    demos[key] = { en: DEMO_EN[key] ?? key, zh: demo.title };
+  for (const demo of DEMOS[name] ?? []) {
+    if (demo.key === 'basic') continue;
+    const key = demo.key;
+    demos[key] = { en: DEMO_EN[key] ?? key, zh: DEMO_EN[key] ?? key };
   }
 
   // Alert uses 不同类型 -> variants key already; Button also has variants — OK per page
@@ -541,22 +538,6 @@ The server renders the desktop layout by default; the client hydrates to the rea
   },
 });
 
-// --- Rewrite EXTRA_DEMOS to use key instead of Chinese title ---
-const demosPath = path.join(ROOT, 'scripts/docs-extra-demos.mjs');
-let source = fs.readFileSync(demosPath, 'utf8');
-source = source.replace(
-  /\/\*\* @type \{Record<string, Array<\{ title: string; code: string \}>>\} \*\//,
-  '/** @type {Record<string, Array<{ key: string; code: string }>>} */',
-);
-
-for (const [zh, key] of Object.entries(ZH_DEMO_TO_KEY)) {
-  if (zh === '基础用法') continue;
-  // Only replace title: 'zh' patterns carefully
-  source = source.replaceAll(`title: '${zh}'`, `key: '${key}'`);
-}
-
-fs.writeFileSync(demosPath, source);
-
 console.log(
-  `Seeded ${Object.keys(COMPONENT_ZH).length} component pages + home + 3 guides; migrated EXTRA_DEMOS keys`,
+  `Seeded ${Object.keys(COMPONENT_ZH).length} component pages + home + 3 guides`,
 );

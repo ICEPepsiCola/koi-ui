@@ -4,7 +4,15 @@
 
 ```tsx preview
 import { Picker } from '@koi-ui/core';
-export default () => <Picker columns={[{ options: [{label:'Mon',value:'1'},{label:'Tue',value:'2'}] }]} placeholder="Select" />;
+export default () => (
+  <Picker
+    placeholder="Select"
+    columns={[
+      { options: [{ label: 'Mon', value: '1' }, { label: 'Tue', value: '2' }, { label: 'Wed', value: '3' }] },
+      { options: [{ label: 'AM', value: 'am' }, { label: 'PM', value: 'pm' }] },
+    ]}
+  />
+);
 ```
 
 ## API
