@@ -120,9 +120,6 @@ importers:
       react-dom:
         specifier: ^19.2.7
         version: 19.2.7(react@19.2.7)
-      rsbuild-plugin-workspace-dev:
-        specifier: ^1.0.0
-        version: 1.0.0(@rsbuild/core@2.1.5)
       semantic-release:
         specifier: ^25.0.6
         version: 25.0.6(typescript@6.0.3)
@@ -582,18 +579,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@manypkg/find-root@3.1.0':
-    resolution: {integrity: sha512-BcSqCyKhBVZ5YkSzOiheMCV41kqAFptW6xGqYSTjkVTl9XQpr+pqHhwgGCOHQtjDCv7Is6EFyA14Sm5GVbVABA==}
-    engines: {node: '>=20.0.0'}
-
-  '@manypkg/get-packages@3.1.0':
-    resolution: {integrity: sha512-0TbBVyvPrP7xGYBI/cP8UP+yl/z+HtbTttAD7FMAJgn/kXOTwh5/60TsqP9ZYY710forNfyV0N8P/IE/ujGZJg==}
-    engines: {node: '>=20.0.0'}
-
-  '@manypkg/tools@2.1.2':
-    resolution: {integrity: sha512-6QEf6yqFbETdwGITKq57aYoPfX/3K8XFNwsAlx0C1M7o8cb79sv1M3w+tWuWvIcSbNqrLF7OD7YpZMVVz335hQ==}
-    engines: {node: '>=20.0.0'}
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
@@ -2062,9 +2047,6 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  graphlib@2.1.8:
-    resolution: {integrity: sha512-jcLLfkpoVGmH7/InMC/1hIvOPSUh38oJtGhvrOFGzioE1DZ+0YW16RgmOJhHiuWTvGiJQ9Z1Ik43JvkRPRvE+A==}
-
   handlebars@4.7.9:
     resolution: {integrity: sha512-4E71E0rpOaQuJR2A3xDZ+GM1HyWYv1clR58tC8emQNeQe3RH7MAzSbat+V0wG78LQBo6m6bzSG/L4pBuCsgnUQ==}
     engines: {node: '>=0.4.7'}
@@ -2325,9 +2307,6 @@ packages:
   jiti@2.7.0:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
-
-  jju@1.4.0:
-    resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -3325,14 +3304,6 @@ packages:
       typescript:
         optional: true
 
-  rsbuild-plugin-workspace-dev@1.0.0:
-    resolution: {integrity: sha512-R7Cp4J1uZmTZw1rTq+Cm9TR1/INsMT104ukLX6rkZDS3nTqqkTvo4Y3QF+ru6BIoybmCNcefFvXCQCMpNHsYsg==}
-    peerDependencies:
-      '@rsbuild/core': ^1.0.0 || ^2.0.0-0
-    peerDependenciesMeta:
-      '@rsbuild/core':
-        optional: true
-
   safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
 
@@ -3780,11 +3751,6 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
-
-  yaml@2.9.0:
-    resolution: {integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==}
-    engines: {node: '>= 14.6'}
-    hasBin: true
 
   yargs-parser@20.2.9:
     resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
@@ -4244,21 +4210,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@manypkg/find-root@3.1.0':
-    dependencies:
-      '@manypkg/tools': 2.1.2
-
-  '@manypkg/get-packages@3.1.0':
-    dependencies:
-      '@manypkg/find-root': 3.1.0
-      '@manypkg/tools': 2.1.2
-
-  '@manypkg/tools@2.1.2':
-    dependencies:
-      jju: 1.4.0
-      tinyglobby: 0.2.17
-      yaml: 2.9.0
 
   '@mdx-js/mdx@3.1.1':
     dependencies:
@@ -5798,10 +5749,6 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  graphlib@2.1.8:
-    dependencies:
-      lodash: 4.18.1
-
   handlebars@4.7.9:
     dependencies:
       minimist: 1.2.8
@@ -6118,8 +6065,6 @@ snapshots:
   jiti@2.6.1: {}
 
   jiti@2.7.0: {}
-
-  jju@1.4.0: {}
 
   js-tokens@4.0.0: {}
 
@@ -7319,15 +7264,6 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  rsbuild-plugin-workspace-dev@1.0.0(@rsbuild/core@2.1.5):
-    dependencies:
-      '@manypkg/get-packages': 3.1.0
-      chalk: 5.6.2
-      graphlib: 2.1.8
-      json5: 2.2.3
-    optionalDependencies:
-      '@rsbuild/core': 2.1.5
-
   safe-buffer@5.1.2: {}
 
   scheduler@0.27.0: {}
@@ -7771,8 +7707,6 @@ snapshots:
   y18n@5.0.8: {}
 
   yallist@3.1.1: {}
-
-  yaml@2.9.0: {}
 
   yargs-parser@20.2.9: {}
 

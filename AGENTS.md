@@ -4,7 +4,7 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 
 ## Commands
 
-- `pnpm build` - Build the library for production
+- `pnpm build` - Build the library for production（发布前 / CI；本地 doc/test 直接消费源码，不必先 build）
 - `pnpm dev` - Turn on watch mode, watch for changes and rebuild the library
 - `pnpm lint` - Run ESLint + Oxlint (required after code changes)
 - `pnpm typecheck` - Run TypeScript 6 type checking (required after code changes)
@@ -18,6 +18,7 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 - `pnpm docs:generate` - 手动编译文档：`i18n/` + `scripts/docs-catalog.mjs` + `scripts/docs-demos.mjs` → `docs/en`、`docs/zh`（改文案 / demo / props 后跑；`pnpm doc` / `doc:build` 不再自动生成）。`packages/core/src/index.tsx` 手写维护，不由此脚本生成。
 - Commit messages must follow Conventional Commits (enforced by husky + commitlint). Release mapping: `feat`→minor, `fix`/`perf`→patch, `BREAKING CHANGE`/`!`→major; `docs`/`chore`/`ci`/`test`/`refactor` 默认不发版。
 - Docs site: default `en`, `localeRedirect: 'auto'`, navbar language switch; do not hand-edit generated `docs/en/**` / `docs/zh/**`（改完跑 `pnpm docs:generate` 并提交产物）。
+- Packages use source `exports` locally; `publishConfig.exports` remaps to `dist` on `pnpm publish`（必须用 pnpm，勿改 npm publish）。
 
 ## Quality requirements
 

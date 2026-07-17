@@ -9,17 +9,25 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./src/index.tsx",
+      "import": "./src/index.tsx"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./src/styles.css"
   },
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.tsx",
   "files": [
     "dist"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      },
+      "./styles.css": "./dist/styles.css"
+    },
+    "types": "./dist/index.d.ts"
   },
   "scripts": {
     "build": "rslib",

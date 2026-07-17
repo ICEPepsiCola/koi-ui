@@ -2,14 +2,11 @@ import * as path from 'node:path';
 import { pluginReact } from '@rsbuild/plugin-react';
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
-import { pluginWorkspaceDev } from 'rsbuild-plugin-workspace-dev';
 import tailwindcss from '@tailwindcss/postcss';
 
 import themeLocales from './docs/.generated/theme-locales.json' with { type: 'json' };
 
 const DOC_DEV_PORT = 8877;
-const isDocDev =
-  process.env.KOI_DOC_DEV === '1' || process.env.npm_lifecycle_event === 'doc';
 
 const previewBuilderConfig = {
   plugins: [pluginReact()],
@@ -93,17 +90,7 @@ export default defineConfig({
       port: DOC_DEV_PORT,
       strictPort: true,
     },
-    plugins: [
-      pluginReact(),
-      ...(isDocDev
-        ? [
-            pluginWorkspaceDev({
-              startCurrent: true,
-              cwd: path.join(__dirname, 'packages/core'),
-            }),
-          ]
-        : []),
-    ],
+    plugins: [pluginReact()],
     tools: {
       postcss: {
         postcssOptions: {

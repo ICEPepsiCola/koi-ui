@@ -6,16 +6,23 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
     }
   },
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      }
+    },
+    "types": "./dist/index.d.ts"
   },
   "scripts": {
     "build": "rslib",
