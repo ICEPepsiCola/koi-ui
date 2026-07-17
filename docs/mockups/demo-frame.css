@@ -192,8 +192,7 @@
   pointer-events: auto;
 }
 
-/* 桌面端预览：限制高度，保证 Affix / BackTop 等在视口内滚动；
-   同时给 DatePicker / TimePicker 留出展开面板空间 */
+/* 桌面端预览：限制高度，保证 Affix / BackTop 等在视口内滚动 */
 .mockup-browser > .koi-demo__frame {
   max-height: 36rem;
 }
@@ -207,9 +206,10 @@
   padding: 1rem;
 }
 
-/* TimePicker：展开面板较高，预览区给足纵向空间 */
+/* DatePicker / TimePicker：给悬浮面板预留可视高度，避免贴底被裁切 */
+.mockup-browser .koi-demo__content:has(.koi-datepicker-demo),
 .mockup-browser .koi-demo__content:has(.koi-timepicker-demo) {
-  min-height: 22rem;
+  min-height: 24rem;
   align-content: start;
 }
 

@@ -124,10 +124,9 @@ export function TimeDropdownView({
       </button>
 
       {open ? (
-        /* 文档流展开，避免预览 overflow 裁切绝对定位面板 */
         <div
           className={cn(
-            'relative z-20 mt-1.5 w-full overflow-hidden rounded-lg border border-border bg-surface',
+            'absolute left-0 top-full z-50 mt-1.5 w-full overflow-hidden rounded-lg border border-border bg-surface',
             'shadow-[0_6px_16px_0_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12),0_9px_28px_8px_rgba(0,0,0,0.05)]',
           )}
         >

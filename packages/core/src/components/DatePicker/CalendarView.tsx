@@ -87,8 +87,7 @@ export function CalendarView({
         <span className="text-muted-foreground">📅</span>
       </button>
       {open ? (
-        /* 文档流展开，避免预览 overflow 裁切绝对定位面板 */
-        <div className="relative z-10 mt-2 w-full max-w-72 rounded-lg border border-border bg-surface p-3 shadow-md">
+        <div className="absolute left-0 top-full z-50 mt-1 w-full max-w-72 rounded-lg border border-border bg-surface p-3 shadow-md">
           <div className="mb-3 flex items-center justify-between">
             <button
               type="button"
