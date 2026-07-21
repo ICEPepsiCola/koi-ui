@@ -5,6 +5,7 @@ import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
+import { ClearButton } from '../shared/ClearButton';
 import { Overlay } from '../shared/Overlay';
 import type { SelectOption } from './SelectView';
 
@@ -14,6 +15,7 @@ export interface BottomSheetViewProps {
   onChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  clearable?: boolean;
 }
 
 export function BottomSheetView({
@@ -22,6 +24,7 @@ export function BottomSheetView({
   onChange,
   placeholder,
   disabled = false,
+  clearable = false,
 }: BottomSheetViewProps) {
   const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
@@ -29,6 +32,7 @@ export function BottomSheetView({
   const titleId = useId();
   const selected = options.find((o) => o.value === value);
   const resolvedPlaceholder = placeholder ?? messages.selectPlaceholder;
+  const showClear = clearable && !disabled && value !== undefined && value !== '';
 
   useScrollLock(open);
   useDismissibleLayer({
@@ -43,20 +47,38 @@ export function BottomSheetView({
 
   return (
     <>
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
           disabled && 'cursor-not-allowed opacity-50',
         )}
         onClick={() => !disabled && setOpen(true)}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
       >
         <span className={selected ? '' : 'text-muted-foreground'}>
           {selected?.label ?? resolvedPlaceholder}
         </span>
-        <span className="text-muted-foreground">▾</span>
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.('');
+                setOpen(false);
+              }}
+            />
+          ) : null}
+          <span>▾</span>
+        </span>
+      </div>
       {open ? (
         <Portal>
           <Overlay open onClick={() => setOpen(false)}>

@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { ClearButton } from '../shared/ClearButton';
 import type { CascaderOption } from './Cascader';
 
 export interface CascaderDropdownViewProps {
@@ -8,6 +10,7 @@ export interface CascaderDropdownViewProps {
   onChange?: (value: string[], labels: string[]) => void;
   placeholder?: string;
   disabled?: boolean;
+  clearable?: boolean;
 }
 
 function getOptionPath(options: CascaderOption[], values: string[]) {
@@ -28,7 +31,9 @@ export function CascaderDropdownView({
   onChange,
   placeholder = '请选择',
   disabled = false,
+  clearable = false,
 }: CascaderDropdownViewProps) {
+  const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
   const [activePath, setActivePath] = useState<string[]>(value);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,6 +41,7 @@ export function CascaderDropdownView({
     () => getOptionPath(options, value),
     [options, value],
   );
+  const showClear = clearable && !disabled && value.length > 0;
 
   const columns = useMemo(() => {
     const cols: CascaderOption[][] = [options];
@@ -75,21 +81,40 @@ export function CascaderDropdownView({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
           disabled && 'cursor-not-allowed opacity-50',
         )}
         onClick={() => !disabled && setOpen((v) => !v)}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen((v) => !v);
+          }
+        }}
       >
         <span className={labels.length ? '' : 'text-muted-foreground'}>
           {labels.length ? labels.join(' / ') : placeholder}
         </span>
-        <span className="text-muted-foreground">▾</span>
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.([], []);
+                setOpen(false);
+                setActivePath([]);
+              }}
+            />
+          ) : null}
+          <span>▾</span>
+        </span>
+      </div>
       {open ? (
         <div className="absolute z-10 mt-1 flex rounded-md border border-border bg-surface shadow-md">
           {columns.map((col, level) => (

@@ -9,6 +9,7 @@ export interface DatePickerProps {
   disabled?: boolean;
   min?: string;
   max?: string;
+  clearable?: boolean;
   responsive?: boolean;
 }
 

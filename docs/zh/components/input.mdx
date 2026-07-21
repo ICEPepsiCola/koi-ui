@@ -31,12 +31,24 @@ export default () => {
 };
 ```
 
+## clearable
+
+```tsx preview
+import { Input } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('可清除内容');
+  return <Input value={value} onChange={setValue} clearable placeholder="可清除输入" />;
+};
+```
+
 ## API
 
 ### Input
 
 | 属性 | 描述 | 类型 | 默认值 |
 | :---: | :---: | :---: | :---: |
+| clearable | - | `boolean \|​ undefined` | `false` |
 | error | 错误信息 | `string \|​ undefined` | `-` |
 | onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
 | size | 尺寸 | `enum` | `-` |

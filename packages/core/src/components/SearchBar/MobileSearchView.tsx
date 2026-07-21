@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { MagnifyingGlassIcon } from '@koi-ui/icons';
 import { tv } from 'tailwind-variants';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { ClearButton } from '../shared/ClearButton';
 
 const mobileSearchVariants = tv({
   base: 'flex w-full items-center gap-2',
@@ -20,6 +22,7 @@ export interface MobileSearchViewProps {
   disabled?: boolean;
   className?: string;
   showCancel?: boolean;
+  clearable?: boolean;
 }
 
 export function MobileSearchView({
@@ -31,28 +34,40 @@ export function MobileSearchView({
   disabled = false,
   className,
   showCancel = true,
+  clearable = false,
 }: MobileSearchViewProps) {
   const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
   const [active, setActive] = useState(false);
   const resolvedPlaceholder = placeholder ?? messages.searchPlaceholder;
+  const showClear = clearable && !disabled && internal.length > 0;
 
   const submit = () => onSearch?.(internal);
 
   return (
     <div className={cn(mobileSearchVariants(), className)}>
-      <input
-        type="search"
-        className={mobileInputVariants()}
-        value={internal}
-        placeholder={resolvedPlaceholder}
-        disabled={disabled}
-        onFocus={() => setActive(true)}
-        onChange={(e) => setInternal(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') submit();
-        }}
-      />
+      <div className="relative flex-1">
+        <MagnifyingGlassIcon className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <input
+          type="search"
+          className={cn(mobileInputVariants(), 'pl-10', showClear && 'pr-10')}
+          value={internal}
+          placeholder={resolvedPlaceholder}
+          disabled={disabled}
+          onFocus={() => setActive(true)}
+          onChange={(e) => setInternal(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') submit();
+          }}
+        />
+        {showClear ? (
+          <ClearButton
+            label={messages.clearActionText}
+            className="absolute right-3 top-1/2 -translate-y-1/2"
+            onClear={() => setInternal('')}
+          />
+        ) : null}
+      </div>
       {showCancel && active ? (
         <button
           type="button"

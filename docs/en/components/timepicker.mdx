@@ -8,12 +8,21 @@ import { useState } from 'react';
 export default () => { const [v,setV]=useState(''); return <TimePicker value={v} onChange={setV} placeholder="Select time" />; };
 ```
 
+## clearable
+
+```tsx preview
+import { TimePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState('09:30'); return <TimePicker value={v} onChange={setV} clearable placeholder="Select time" />; };
+```
+
 ## API
 
 ### TimePicker
 
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
+| clearable | - | `boolean \|​ undefined` | `-` |
 | disabled | Disabled | `boolean \|​ undefined` | `-` |
 | format | - | `enum` | `-` |
 | onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |

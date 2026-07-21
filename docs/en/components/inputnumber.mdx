@@ -8,6 +8,14 @@ import { useState } from 'react';
 export default () => { const [v,setV]=useState(1); return <InputNumber value={v} onChange={setV} />; };
 ```
 
+## clearable
+
+```tsx preview
+import { InputNumber } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState(12); return <InputNumber value={v} onChange={setV} clearable />; };
+```
+
 ## API
 
 ### InputNumber
@@ -15,6 +23,7 @@ export default () => { const [v,setV]=useState(1); return <InputNumber value={v}
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
 | className | Class name | `string \|​ undefined` | `-` |
+| clearable | - | `boolean \|​ undefined` | `false` |
 | defaultValue | Default value | `number \|​ undefined` | `-` |
 | disabled | Disabled | `boolean \|​ undefined` | `false` |
 | error | Error message | `string \|​ undefined` | `-` |

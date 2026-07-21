@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { ClearButton } from '../shared/ClearButton';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
 import { useScrollLock } from '../../hooks/useScrollLock';
@@ -11,6 +13,7 @@ export interface TimeWheelViewProps {
   placeholder?: string;
   disabled?: boolean;
   format?: 'HH:mm' | 'HH:mm:ss';
+  clearable?: boolean;
 }
 
 function parseTime(value?: string) {
@@ -39,7 +42,9 @@ export function TimeWheelView({
   placeholder = '选择时间',
   disabled = false,
   format = 'HH:mm',
+  clearable = false,
 }: TimeWheelViewProps) {
+  const { messages } = useKoiContext();
   const withSeconds = format === 'HH:mm:ss';
   const parsed = parseTime(value);
   const [open, setOpen] = useState(false);
@@ -49,6 +54,7 @@ export function TimeWheelView({
 
   const hours = Array.from({ length: 24 }, (_, i) => pad2(i));
   const minutes = Array.from({ length: 60 }, (_, i) => pad2(i));
+  const showClear = clearable && !disabled && Boolean(value);
 
   useScrollLock(open);
 
@@ -67,20 +73,38 @@ export function TimeWheelView({
 
   return (
     <>
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
           disabled && 'cursor-not-allowed opacity-50',
         )}
         onClick={() => !disabled && setOpen(true)}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
       >
         <span className={value ? '' : 'text-muted-foreground'}>
           {value ?? placeholder}
         </span>
-        <span className="text-muted-foreground">🕒</span>
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.('');
+                setOpen(false);
+              }}
+            />
+          ) : null}
+          <span>🕒</span>
+        </span>
+      </div>
       {open ? (
         <Portal>
           <Overlay

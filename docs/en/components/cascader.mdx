@@ -7,6 +7,18 @@ import { Cascader } from '@koi-ui/core';
 export default () => <Cascader options={[{label:'Zhejiang',value:'zj',children:[{label:'Hangzhou',value:'hz'}]}]} placeholder="Select region" />;
 ```
 
+## clearable
+
+```tsx preview
+import { Cascader } from '@koi-ui/core';
+import { useState } from 'react';
+const options = [{ label:'Zhejiang', value:'zj', children:[{ label:'Hangzhou', value:'hz' }] }];
+export default () => {
+  const [value, setValue] = useState(['zj', 'hz']);
+  return <Cascader value={value} onChange={setValue} options={options} clearable placeholder="Select region" />;
+};
+```
+
 ## API
 
 ### Cascader
@@ -14,6 +26,7 @@ export default () => <Cascader options={[{label:'Zhejiang',value:'zj',children:[
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
 | options | Options | `CascaderOption[]` **(required)** | `-` |
+| clearable | - | `boolean \|​ undefined` | `-` |
 | disabled | Disabled | `boolean \|​ undefined` | `-` |
 | onChange | Change callback | `((value: string[],​ labels: string[]) => void) \|​ undefined` | `-` |
 | placeholder | Placeholder | `string \|​ undefined` | `-` |

@@ -17,6 +17,9 @@ importers:
       '@koi-ui/hooks':
         specifier: workspace:*
         version: link:packages/hooks
+      '@koi-ui/icons':
+        specifier: workspace:*
+        version: link:packages/icons
       '@koi-ui/tokens':
         specifier: workspace:*
         version: link:packages/tokens
@@ -138,6 +141,9 @@ importers:
       '@koi-ui/hooks':
         specifier: workspace:*
         version: link:../hooks
+      '@koi-ui/icons':
+        specifier: workspace:*
+        version: link:../icons
       '@koi-ui/tokens':
         specifier: workspace:*
         version: link:../tokens
@@ -220,6 +226,24 @@ importers:
       react:
         specifier: ^19.2.7
         version: 19.2.7
+
+  packages/icons:
+    devDependencies:
+      '@rsbuild/plugin-react':
+        specifier: ^2.1.0
+        version: 2.1.0(@rsbuild/core@2.1.5)(@rspack/core@2.1.3(@swc/helpers@0.5.23))
+      '@rslib/core':
+        specifier: ^0.23.2
+        version: 0.23.2(typescript@6.0.3)
+      '@types/react':
+        specifier: ^19.2.17
+        version: 19.2.17
+      react:
+        specifier: ^19.2.7
+        version: 19.2.7
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
   packages/tokens: {}
 

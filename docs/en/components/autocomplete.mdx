@@ -7,6 +7,17 @@ import { AutoComplete } from '@koi-ui/core';
 export default () => <AutoComplete options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder="Search" />;
 ```
 
+## clearable
+
+```tsx preview
+import { AutoComplete } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('apple');
+  return <AutoComplete value={value} onChange={setValue} clearable options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder="Search" />;
+};
+```
+
 ## API
 
 ### AutoComplete
@@ -15,6 +26,7 @@ export default () => <AutoComplete options={[{ value:'apple', label:'Apple' }, {
 | :---: | :---: | :---: | :---: |
 | options | Options | `AutoCompleteOption[]` **(required)** | `-` |
 | className | Class name | `string \|​ undefined` | `-` |
+| clearable | - | `boolean \|​ undefined` | `false` |
 | defaultValue | Default value | `string \|​ undefined` | `` |
 | disabled | Disabled | `boolean \|​ undefined` | `false` |
 | error | Error message | `string \|​ undefined` | `-` |

@@ -5,7 +5,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { ClearButton } from '../shared/ClearButton';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
 import { useScrollLock } from '../../hooks/useScrollLock';
@@ -17,6 +19,7 @@ export interface PickerWheelViewProps {
   onChange?: (value: string[]) => void;
   placeholder?: string;
   disabled?: boolean;
+  clearable?: boolean;
 }
 
 const EMPTY_VALUE: string[] = [];
@@ -44,7 +47,9 @@ export function PickerWheelView({
   onChange,
   placeholder = '请选择',
   disabled = false,
+  clearable = false,
 }: PickerWheelViewProps) {
+  const { messages } = useKoiContext();
   const resolvedValue = value ?? EMPTY_VALUE;
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<string[]>(() =>
@@ -56,6 +61,7 @@ export function PickerWheelView({
     [columns, resolvedValue],
   );
   const valueKey = resolvedValue.join('\0');
+  const showClear = clearable && !disabled && resolvedValue.length > 0;
 
   useScrollLock(open);
 
@@ -76,20 +82,38 @@ export function PickerWheelView({
 
   return (
     <>
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
           disabled && 'cursor-not-allowed opacity-50',
         )}
         onClick={() => !disabled && setOpen(true)}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
       >
         <span className={display.length ? '' : 'text-muted-foreground'}>
           {display.length ? display.join(' ') : placeholder}
         </span>
-        <span className="text-muted-foreground">▾</span>
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.([]);
+                setOpen(false);
+              }}
+            />
+          ) : null}
+          <span>▾</span>
+        </span>
+      </div>
       {open ? (
         <Portal>
           <Overlay

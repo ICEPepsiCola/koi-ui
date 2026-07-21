@@ -11,6 +11,7 @@ export interface SearchBarProps {
   disabled?: boolean;
   className?: string;
   showCancel?: boolean;
+  clearable?: boolean;
   responsive?: boolean;
 }
 

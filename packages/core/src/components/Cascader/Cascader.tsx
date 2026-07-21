@@ -15,6 +15,7 @@ export interface CascaderProps {
   onChange?: (value: string[], labels: string[]) => void;
   placeholder?: string;
   disabled?: boolean;
+  clearable?: boolean;
   responsive?: boolean;
 }
 

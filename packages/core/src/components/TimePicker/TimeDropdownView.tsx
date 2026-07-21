@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { ClearButton } from '../shared/ClearButton';
 import { pad2 } from '../DatePicker/dateUtils';
 
 export interface TimeDropdownViewProps {
@@ -8,6 +10,7 @@ export interface TimeDropdownViewProps {
   placeholder?: string;
   disabled?: boolean;
   format?: 'HH:mm' | 'HH:mm:ss';
+  clearable?: boolean;
 }
 
 const CELL_H = 28;
@@ -42,7 +45,9 @@ export function TimeDropdownView({
   placeholder = '选择时间',
   disabled = false,
   format = 'HH:mm',
+  clearable = false,
 }: TimeDropdownViewProps) {
+  const { messages } = useKoiContext();
   const withSeconds = format === 'HH:mm:ss';
   const parsed = parseTime(value);
   const [open, setOpen] = useState(false);
@@ -53,6 +58,7 @@ export function TimeDropdownView({
 
   const hours = Array.from({ length: 24 }, (_, i) => pad2(i));
   const minutes = Array.from({ length: 60 }, (_, i) => pad2(i));
+  const showClear = clearable && !disabled && Boolean(value);
 
   useEffect(() => {
     if (!open) return;
@@ -100,9 +106,9 @@ export function TimeDropdownView({
         withSeconds ? 'max-w-[240px]' : 'max-w-[200px]',
       )}
     >
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between gap-2 rounded-md border border-border bg-surface px-3 text-sm',
           'transition-colors hover:border-primary',
@@ -111,6 +117,13 @@ export function TimeDropdownView({
           disabled && 'cursor-not-allowed opacity-50',
         )}
         onClick={() => !disabled && setOpen((v) => !v)}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen((v) => !v);
+          }
+        }}
       >
         <span
           className={cn(
@@ -120,8 +133,19 @@ export function TimeDropdownView({
         >
           {value ?? placeholder}
         </span>
-        <ClockIcon className={cn(open && 'text-primary')} />
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.('');
+                setOpen(false);
+              }}
+            />
+          ) : null}
+          <ClockIcon className={cn(open && 'text-primary')} />
+        </span>
+      </div>
 
       {open ? (
         <div

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../utils/cn';
+import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
+import { ClearButton } from '../shared/ClearButton';
 import { Overlay } from '../shared/Overlay';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { getDaysInMonth, pad2, parseDate } from './dateUtils';
@@ -12,6 +14,7 @@ export interface BottomPickerViewProps {
   disabled?: boolean;
   min?: string;
   max?: string;
+  clearable?: boolean;
 }
 
 function buildYears(min?: string, max?: string) {
@@ -30,7 +33,9 @@ export function BottomPickerView({
   disabled = false,
   min,
   max,
+  clearable = false,
 }: BottomPickerViewProps) {
+  const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
   const parsed = parseDate(value) ?? new Date();
   const [year, setYear] = useState(parsed.getFullYear());
@@ -41,6 +46,7 @@ export function BottomPickerView({
   const days = Array.from({ length: getDaysInMonth(year, month) }, (_, i) =>
     pad2(i + 1),
   );
+  const showClear = clearable && !disabled && Boolean(value);
 
   useScrollLock(open);
 
@@ -66,20 +72,38 @@ export function BottomPickerView({
 
   return (
     <>
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
           disabled && 'cursor-not-allowed opacity-50',
         )}
         onClick={() => !disabled && setOpen(true)}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen(true);
+          }
+        }}
       >
         <span className={value ? '' : 'text-muted-foreground'}>
           {value ?? placeholder}
         </span>
-        <span className="text-muted-foreground">📅</span>
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.('');
+                setOpen(false);
+              }}
+            />
+          ) : null}
+          <span>📅</span>
+        </span>
+      </div>
       {open ? (
         <Portal>
           <Overlay

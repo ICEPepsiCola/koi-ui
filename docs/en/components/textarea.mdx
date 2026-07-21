@@ -7,12 +7,24 @@ import { TextArea } from '@koi-ui/core';
 export default () => <TextArea placeholder="Enter multiple lines" rows={3} />;
 ```
 
+## clearable
+
+```tsx preview
+import { TextArea } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('这段Content可以一键清除');
+  return <TextArea value={value} onChange={setValue} clearable placeholder="Enter multiple lines" rows={3} />;
+};
+```
+
 ## API
 
 ### TextArea
 
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
+| clearable | - | `boolean \|​ undefined` | `false` |
 | error | Error message | `string \|​ undefined` | `-` |
 | maxLength | - | `number \|​ undefined` | `-` |
 | onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |

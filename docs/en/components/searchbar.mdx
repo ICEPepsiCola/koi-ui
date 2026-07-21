@@ -23,6 +23,17 @@ export default () => {
 };
 ```
 
+## clearable
+
+```tsx preview
+import { SearchBar } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [keyword, setKeyword] = useState('耳机');
+  return <SearchBar value={keyword} onChange={setKeyword} clearable placeholder="Search products" />;
+};
+```
+
 ## API
 
 ### SearchBar
@@ -30,6 +41,7 @@ export default () => {
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
 | className | Class name | `string \|​ undefined` | `-` |
+| clearable | - | `boolean \|​ undefined` | `-` |
 | defaultValue | Default value | `string \|​ undefined` | `-` |
 | disabled | Disabled | `boolean \|​ undefined` | `-` |
 | onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |

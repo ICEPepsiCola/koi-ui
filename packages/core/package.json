@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@koi-ui/hooks": "workspace:*",
+    "@koi-ui/icons": "workspace:*",
     "@koi-ui/tokens": "workspace:*",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.3.1",

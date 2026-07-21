@@ -10,6 +10,8 @@ import { KoiProvider } from '../src/provider';
 import { AdaptiveRender } from '../src/adaptive/AdaptiveRender';
 import { Select } from '../src/components/Select';
 import { Picker } from '../src/components/Picker';
+import { InputNumber } from '../src/components/InputNumber';
+import { Cascader } from '../src/components/Cascader';
 import { Swiper } from '../src/components/Swiper';
 import { Tabs } from '../src/components/Tabs';
 import { toast } from '../src/components/Toast';
@@ -40,6 +42,50 @@ test('Input calls onChange', () => {
 test('Input shows error message', () => {
   render(<Input error="必填项" />);
   expect(screen.getByText('必填项')).toBeInTheDocument();
+});
+
+test('Input clears controlled value', () => {
+  function Harness() {
+    const [value, setValue] = useState('hello');
+    return <Input value={value} onChange={setValue} clearable />;
+  }
+
+  render(
+    <KoiProvider>
+      <Harness />
+    </KoiProvider>,
+  );
+
+  fireEvent.click(screen.getByLabelText('清除'));
+  expect(screen.getByRole('textbox')).toHaveValue('');
+});
+
+test('InputNumber clears to undefined', () => {
+  let selected: number | undefined = 3;
+
+  function Harness() {
+    const [value, setValue] = useState<number | undefined>(3);
+    return (
+      <InputNumber
+        value={value}
+        clearable
+        onChange={(next) => {
+          selected = next;
+          setValue(next);
+        }}
+      />
+    );
+  }
+
+  render(
+    <KoiProvider>
+      <Harness />
+    </KoiProvider>,
+  );
+
+  fireEvent.click(screen.getByLabelText('清除'));
+  expect(selected).toBeUndefined();
+  expect(screen.getByRole('spinbutton')).toHaveValue(null);
 });
 
 test('Table renders desktop view on wide screen', () => {
@@ -334,6 +380,39 @@ test('Select supports keyboard selection on desktop', async () => {
   });
 });
 
+test('Select clears controlled value without opening options', () => {
+  mockWidth(BREAKPOINTS.xl);
+  let selected = 'sh';
+
+  function Harness() {
+    const [value, setValue] = useState('sh');
+    return (
+      <KoiProvider>
+        <Select
+          value={value}
+          clearable
+          placeholder="选择城市"
+          options={[
+            { value: 'bj', label: '北京' },
+            { value: 'sh', label: '上海' },
+          ]}
+          onChange={(next) => {
+            selected = next;
+            setValue(next);
+          }}
+        />
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+
+  fireEvent.click(screen.getByLabelText('清除'));
+  expect(selected).toBe('');
+  expect(screen.getByRole('button', { name: /选择城市/ })).toBeInTheDocument();
+  expect(screen.queryByText('北京')).not.toBeInTheDocument();
+});
+
 test('Picker desktop opens floating multi-column wheel panel', async () => {
   mockWidth(BREAKPOINTS.xl);
   let selected: string[] = [];
@@ -481,6 +560,45 @@ test('Picker mobile commits draft from wheel scroll', async () => {
   await waitFor(() => {
     expect(selected).toEqual(['3']);
   });
+});
+
+test('Cascader clears value and labels on desktop', () => {
+  mockWidth(BREAKPOINTS.xl);
+  let selected: string[] = ['zj', 'hz'];
+  let labels: string[] = ['浙江', '杭州'];
+
+  function Harness() {
+    const [value, setValue] = useState(['zj', 'hz']);
+    return (
+      <KoiProvider>
+        <Cascader
+          value={value}
+          clearable
+          placeholder="选择地区"
+          options={[
+            {
+              value: 'zj',
+              label: '浙江',
+              children: [{ value: 'hz', label: '杭州' }],
+            },
+          ]}
+          onChange={(next, nextLabels) => {
+            selected = next;
+            labels = nextLabels;
+            setValue(next);
+          }}
+        />
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+
+  fireEvent.click(screen.getByLabelText('清除'));
+  expect(selected).toEqual([]);
+  expect(labels).toEqual([]);
+  expect(screen.getByRole('button', { name: /选择地区/ })).toBeInTheDocument();
+  expect(screen.queryByText('浙江')).not.toBeInTheDocument();
 });
 
 test('Provider locale messages flow into runtime strings', () => {

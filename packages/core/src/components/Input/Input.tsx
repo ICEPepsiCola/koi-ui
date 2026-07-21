@@ -1,7 +1,9 @@
-import type { InputHTMLAttributes } from 'react';
+import { useState, type InputHTMLAttributes } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
+import { useKoiContext } from '../../provider/context';
+import { ClearButton } from '../shared/ClearButton';
 
 const inputVariants = tv({
   base: 'w-full rounded-md border border-border bg-surface px-3 text-surface-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
@@ -28,6 +30,7 @@ export interface InputProps
   onChange?: (value: string) => void;
   error?: string;
   size?: 'sm' | 'md' | 'lg';
+  clearable?: boolean;
 }
 
 export function Input({
@@ -35,17 +38,47 @@ export function Input({
   size,
   error,
   onChange,
+  value,
+  defaultValue,
+  disabled,
+  clearable = false,
   ...props
 }: InputProps) {
+  const { messages } = useKoiContext();
   const hasError = Boolean(error);
+  const [internal, setInternal] = useState(
+    (defaultValue as string | undefined) ?? '',
+  );
+  const current = value !== undefined ? String(value) : internal;
+  const showClear = clearable && !disabled && current.length > 0;
+
+  const update = (next: string) => {
+    if (value === undefined) setInternal(next);
+    onChange?.(next);
+  };
 
   return (
     <div className="w-full">
-      <input
-        className={cn(inputVariants({ size, error: hasError }), className)}
-        onChange={(e) => onChange?.(e.target.value)}
-        {...props}
-      />
+      <div className="relative">
+        <input
+          className={cn(
+            inputVariants({ size, error: hasError }),
+            showClear && 'pr-10',
+            className,
+          )}
+          value={current}
+          disabled={disabled}
+          onChange={(e) => update(e.target.value)}
+          {...props}
+        />
+        {showClear ? (
+          <ClearButton
+            label={messages.clearActionText}
+            className="absolute right-2 top-1/2 -translate-y-1/2"
+            onClear={() => update('')}
+          />
+        ) : null}
+      </div>
       {error ? (
         <Text size="sm" className="mt-1 text-destructive">
           {error}

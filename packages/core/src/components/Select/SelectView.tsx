@@ -3,6 +3,7 @@ import { useKoiContext } from '../../provider/context';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { cn } from '../../utils/cn';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
+import { ClearButton } from '../shared/ClearButton';
 
 export interface SelectOption {
   label: string;
@@ -16,6 +17,7 @@ export interface SelectViewProps {
   onChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  clearable?: boolean;
 }
 
 export function SelectView({
@@ -24,6 +26,7 @@ export function SelectView({
   onChange,
   placeholder,
   disabled = false,
+  clearable = false,
 }: SelectViewProps) {
   const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
@@ -37,6 +40,7 @@ export function SelectView({
   const listboxId = useId();
   const selected = options.find((o) => o.value === value);
   const resolvedPlaceholder = placeholder ?? messages.selectPlaceholder;
+  const showClear = clearable && !disabled && value !== undefined && value !== '';
 
   useDismissibleLayer({
     open,
@@ -62,9 +66,9 @@ export function SelectView({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
@@ -131,8 +135,19 @@ export function SelectView({
         <span className={selected ? '' : 'text-muted-foreground'}>
           {selected?.label ?? resolvedPlaceholder}
         </span>
-        <span className="text-muted-foreground">▾</span>
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.('');
+                setOpen(false);
+              }}
+            />
+          ) : null}
+          <span>▾</span>
+        </span>
+      </div>
       {open ? (
         <ul
           id={listboxId}

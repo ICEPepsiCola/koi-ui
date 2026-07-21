@@ -15,6 +15,21 @@ export default () => (
 );
 ```
 
+## clearable
+
+```tsx preview
+import { Picker } from '@koi-ui/core';
+import { useState } from 'react';
+const columns = [
+  { options: [{ label: 'Mon', value: '1' }, { label: 'Tue', value: '2' }, { label: 'Wed', value: '3' }] },
+  { options: [{ label: 'AM', value: 'am' }, { label: 'PM', value: 'pm' }] },
+];
+export default () => {
+  const [value, setValue] = useState(['2', 'pm']);
+  return <Picker value={value} onChange={setValue} columns={columns} clearable placeholder="Select time段" />;
+};
+```
+
 ## API
 
 ### Picker
@@ -22,6 +37,7 @@ export default () => (
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
 | columns | Columns | `PickerColumn[]` **(required)** | `-` |
+| clearable | - | `boolean \|​ undefined` | `-` |
 | disabled | Disabled | `boolean \|​ undefined` | `-` |
 | onChange | Change callback | `((value: string[]) => void) \|​ undefined` | `-` |
 | placeholder | Placeholder | `string \|​ undefined` | `-` |

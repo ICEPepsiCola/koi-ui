@@ -17,7 +17,7 @@ export default defineConfig({
   ],
   output: {
     target: 'web',
-    externals: ['react', 'react-dom', '@koi-ui/hooks'],
+    externals: ['react', 'react-dom', '@koi-ui/hooks', '@koi-ui/icons'],
   },
   plugins: [pluginReact()],
 });

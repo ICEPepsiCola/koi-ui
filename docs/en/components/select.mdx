@@ -33,6 +33,29 @@ export default () => {
 };
 ```
 
+## clearable
+
+```tsx preview
+import { Select } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [city, setCity] = useState('sh');
+  return (
+    <Select
+      value={city}
+      onChange={setCity}
+      clearable
+      placeholder="Select city"
+      options={[
+        { label: 'Beijing', value: 'bj' },
+        { label: 'Shanghai', value: 'sh' },
+        { label: 'Guangzhou', value: 'gz' },
+      ]}
+    />
+  );
+};
+```
+
 ## API
 
 ### Select
@@ -40,6 +63,7 @@ export default () => {
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
 | options | Options | `SelectOption[]` **(required)** | `-` |
+| clearable | - | `boolean \|​ undefined` | `-` |
 | disabled | Disabled | `boolean \|​ undefined` | `-` |
 | onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
 | placeholder | Placeholder | `string \|​ undefined` | `-` |

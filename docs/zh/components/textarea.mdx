@@ -7,12 +7,24 @@ import { TextArea } from '@koi-ui/core';
 export default () => <TextArea placeholder="请输入多行文本" rows={3} />;
 ```
 
+## clearable
+
+```tsx preview
+import { TextArea } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('这段内容可以一键清除');
+  return <TextArea value={value} onChange={setValue} clearable placeholder="请输入多行文本" rows={3} />;
+};
+```
+
 ## API
 
 ### TextArea
 
 | 属性 | 描述 | 类型 | 默认值 |
 | :---: | :---: | :---: | :---: |
+| clearable | - | `boolean \|​ undefined` | `false` |
 | error | 错误信息 | `string \|​ undefined` | `-` |
 | maxLength | - | `number \|​ undefined` | `-` |
 | onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |

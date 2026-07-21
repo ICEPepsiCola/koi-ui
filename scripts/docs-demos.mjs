@@ -170,6 +170,10 @@ export const DEMOS = {
     {
       "key": "basic",
       "code": "import { AutoComplete } from '@koi-ui/core';\nexport default () => <AutoComplete options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder=\"搜索\" />;"
+    },
+    {
+      "key": "clearable",
+      "code": "import { AutoComplete } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [value, setValue] = useState('apple');\n  return <AutoComplete value={value} onChange={setValue} clearable options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder=\"搜索\" />;\n};"
     }
   ],
   "Checkbox": [
@@ -190,6 +194,10 @@ export const DEMOS = {
     {
       "key": "controlledDate",
       "code": "import { DatePicker, Text } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [date, setDate] = useState('2026-07-12');\n  return (\n    <div>\n      <DatePicker value={date} onChange={setDate} placeholder=\"选择日期\" />\n      <Text muted className=\"mt-2 block text-sm\">选中：{date || '未选择'}</Text>\n    </div>\n  );\n};"
+    },
+    {
+      "key": "clearable",
+      "code": "import { DatePicker } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => { const [v,setV]=useState('2026-07-12'); return <DatePicker value={v} onChange={setV} clearable placeholder=\"选择日期\" />; };"
     }
   ],
   "Form": [
@@ -214,12 +222,20 @@ export const DEMOS = {
     {
       "key": "controlledInput",
       "code": "import { Input } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [value, setValue] = useState('');\n  return <Input value={value} onChange={setValue} placeholder=\"输入同步\" />;\n};"
+    },
+    {
+      "key": "clearable",
+      "code": "import { Input } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [value, setValue] = useState('可清除内容');\n  return <Input value={value} onChange={setValue} clearable placeholder=\"可清除输入\" />;\n};"
     }
   ],
   "InputNumber": [
     {
       "key": "basic",
       "code": "import { InputNumber } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => { const [v,setV]=useState(1); return <InputNumber value={v} onChange={setV} />; };"
+    },
+    {
+      "key": "clearable",
+      "code": "import { InputNumber } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => { const [v,setV]=useState(12); return <InputNumber value={v} onChange={setV} clearable />; };"
     }
   ],
   "Radio": [
@@ -246,6 +262,10 @@ export const DEMOS = {
     {
       "key": "controlledSelect",
       "code": "import { Select, Text } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [city, setCity] = useState('sh');\n  return (\n    <div>\n      <Select\n        value={city}\n        onChange={setCity}\n        placeholder=\"选择城市\"\n        options={[\n          { label: '北京', value: 'bj' },\n          { label: '上海', value: 'sh' },\n          { label: '广州', value: 'gz' },\n        ]}\n      />\n      <Text muted className=\"mt-2 block text-sm\">当前：{city}</Text>\n    </div>\n  );\n};"
+    },
+    {
+      "key": "clearable",
+      "code": "import { Select } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [city, setCity] = useState('sh');\n  return (\n    <Select\n      value={city}\n      onChange={setCity}\n      clearable\n      placeholder=\"选择城市\"\n      options={[\n        { label: '北京', value: 'bj' },\n        { label: '上海', value: 'sh' },\n        { label: '广州', value: 'gz' },\n      ]}\n    />\n  );\n};"
     }
   ],
   "Slider": [
@@ -264,12 +284,20 @@ export const DEMOS = {
     {
       "key": "basic",
       "code": "import { TextArea } from '@koi-ui/core';\nexport default () => <TextArea placeholder=\"请输入多行文本\" rows={3} />;"
+    },
+    {
+      "key": "clearable",
+      "code": "import { TextArea } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [value, setValue] = useState('这段内容可以一键清除');\n  return <TextArea value={value} onChange={setValue} clearable placeholder=\"请输入多行文本\" rows={3} />;\n};"
     }
   ],
   "TimePicker": [
     {
       "key": "basic",
       "code": "import { TimePicker } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => { const [v,setV]=useState(''); return <TimePicker value={v} onChange={setV} placeholder=\"选择时间\" />; };"
+    },
+    {
+      "key": "clearable",
+      "code": "import { TimePicker } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => { const [v,setV]=useState('09:30'); return <TimePicker value={v} onChange={setV} clearable placeholder=\"选择时间\" />; };"
     }
   ],
   "Upload": [
@@ -286,12 +314,20 @@ export const DEMOS = {
     {
       "key": "basic",
       "code": "import { Cascader } from '@koi-ui/core';\nexport default () => <Cascader options={[{label:'浙江',value:'zj',children:[{label:'杭州',value:'hz'}]}]} placeholder=\"选择地区\" />;"
+    },
+    {
+      "key": "clearable",
+      "code": "import { Cascader } from '@koi-ui/core';\nimport { useState } from 'react';\nconst options = [{ label:'浙江', value:'zj', children:[{ label:'杭州', value:'hz' }] }];\nexport default () => {\n  const [value, setValue] = useState(['zj', 'hz']);\n  return <Cascader value={value} onChange={setValue} options={options} clearable placeholder=\"选择地区\" />;\n};"
     }
   ],
   "Picker": [
     {
       "key": "basic",
       "code": "import { Picker } from '@koi-ui/core';\nexport default () => (\n  <Picker\n    placeholder=\"选择\"\n    columns={[\n      { options: [{ label: '周一', value: '1' }, { label: '周二', value: '2' }, { label: '周三', value: '3' }] },\n      { options: [{ label: '上午', value: 'am' }, { label: '下午', value: 'pm' }] },\n    ]}\n  />\n);"
+    },
+    {
+      "key": "clearable",
+      "code": "import { Picker } from '@koi-ui/core';\nimport { useState } from 'react';\nconst columns = [\n  { options: [{ label: '周一', value: '1' }, { label: '周二', value: '2' }, { label: '周三', value: '3' }] },\n  { options: [{ label: '上午', value: 'am' }, { label: '下午', value: 'pm' }] },\n];\nexport default () => {\n  const [value, setValue] = useState(['2', 'pm']);\n  return <Picker value={value} onChange={setValue} columns={columns} clearable placeholder=\"选择时间段\" />;\n};"
     }
   ],
   "SearchBar": [
@@ -302,6 +338,10 @@ export const DEMOS = {
     {
       "key": "controlledSearch",
       "code": "import { SearchBar, Text } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [keyword, setKeyword] = useState('');\n  return (\n    <div>\n      <SearchBar value={keyword} onChange={setKeyword} placeholder=\"搜索商品\" />\n      <Text muted className=\"mt-2 block text-sm\">关键词：{keyword || '无'}</Text>\n    </div>\n  );\n};"
+    },
+    {
+      "key": "clearable",
+      "code": "import { SearchBar } from '@koi-ui/core';\nimport { useState } from 'react';\nexport default () => {\n  const [keyword, setKeyword] = useState('耳机');\n  return <SearchBar value={keyword} onChange={setKeyword} clearable placeholder=\"搜索商品\" />;\n};"
     }
   ],
   "Stepper": [

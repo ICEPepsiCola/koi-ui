@@ -12,6 +12,7 @@
     "test:watch": "pnpm --filter @koi-ui/core test:watch",
     "test:coverage": "pnpm -r test:coverage",
     "typecheck": "pnpm -r typecheck && tsc --noEmit -p tsconfig.json",
+    "icons:generate": "node scripts/generate-icons.mjs",
     "lint": "eslint . --max-warnings 0 && oxlint . --deny-warnings",
     "lint:fix": "eslint . --fix --max-warnings 0 && oxlint . --fix --deny-warnings",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm doc:build",
@@ -27,6 +28,7 @@
   "dependencies": {
     "@koi-ui/core": "workspace:*",
     "@koi-ui/hooks": "workspace:*",
+    "@koi-ui/icons": "workspace:*",
     "@koi-ui/tokens": "workspace:*"
   },
   "devDependencies": {

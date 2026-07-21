@@ -8,6 +8,7 @@ const DEFAULT_MESSAGES: Record<KoiLocale, KoiMessages> = {
     searchPlaceholder: '搜索',
     searchActionText: '搜索',
     cancelActionText: '取消',
+    clearActionText: '清除',
   },
   'en-US': {
     emptyText: 'No data',
@@ -16,6 +17,7 @@ const DEFAULT_MESSAGES: Record<KoiLocale, KoiMessages> = {
     searchPlaceholder: 'Search',
     searchActionText: 'Search',
     cancelActionText: 'Cancel',
+    clearActionText: 'Clear',
   },
 };
 

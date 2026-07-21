@@ -24,12 +24,21 @@ export default () => {
 };
 ```
 
+## clearable
+
+```tsx preview
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => { const [v,setV]=useState('2026-07-12'); return <DatePicker value={v} onChange={setV} clearable placeholder="Select date" />; };
+```
+
 ## API
 
 ### DatePicker
 
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
+| clearable | - | `boolean \|​ undefined` | `-` |
 | disabled | Disabled | `boolean \|​ undefined` | `-` |
 | max | - | `string \|​ undefined` | `-` |
 | min | - | `string \|​ undefined` | `-` |

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
+import { useKoiContext } from '../../provider/context';
+import { ClearButton } from '../shared/ClearButton';
 
 const autoCompleteVariants = tv({
   base: 'w-full rounded-md border border-border bg-surface px-3 text-sm text-surface-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
@@ -40,6 +42,7 @@ export interface AutoCompleteProps {
   error?: string;
   className?: string;
   filterOption?: (input: string, option: AutoCompleteOption) => boolean;
+  clearable?: boolean;
 }
 
 export function AutoComplete({
@@ -54,7 +57,9 @@ export function AutoComplete({
   error,
   className,
   filterOption,
+  clearable = false,
 }: AutoCompleteProps) {
+  const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,11 +90,16 @@ export function AutoComplete({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [open]);
 
+  const showClear = clearable && !disabled && internal.length > 0;
+
   return (
     <div ref={containerRef} className={cn('relative w-full', className)}>
       <input
         type="text"
-        className={autoCompleteVariants({ size, error: Boolean(error) })}
+        className={cn(
+          autoCompleteVariants({ size, error: Boolean(error) }),
+          showClear && 'pr-10',
+        )}
         value={internal}
         placeholder={placeholder}
         disabled={disabled}
@@ -101,6 +111,16 @@ export function AutoComplete({
         aria-autocomplete="list"
         aria-expanded={open}
       />
+      {showClear ? (
+        <ClearButton
+          label={messages.clearActionText}
+          className="absolute right-2 top-1/2 -translate-y-1/2"
+          onClear={() => {
+            setInternal('');
+            setOpen(false);
+          }}
+        />
+      ) : null}
       {open && filtered.length > 0 ? (
         <ul
           role="listbox"

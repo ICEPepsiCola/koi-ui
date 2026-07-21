@@ -10,6 +10,7 @@ export interface SelectProps {
   onChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  clearable?: boolean;
   responsive?: boolean;
 }
 

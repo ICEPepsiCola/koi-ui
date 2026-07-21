@@ -58,6 +58,7 @@ export default defineConfig({
       '**/superpowers/**',
       '**/Demo.tsx',
       '**/DevicePreviewShell.tsx',
+      '**/IconGallery.tsx',
       '**/mockups/**',
       '**/.generated/**',
     ],

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { ClearButton } from '../shared/ClearButton';
 import {
   formatDate,
   getMonthMatrix,
@@ -14,6 +16,7 @@ export interface CalendarViewProps {
   disabled?: boolean;
   min?: string;
   max?: string;
+  clearable?: boolean;
 }
 
 export function CalendarView({
@@ -23,7 +26,9 @@ export function CalendarView({
   disabled = false,
   min,
   max,
+  clearable = false,
 }: CalendarViewProps) {
+  const { messages } = useKoiContext();
   const selected = parseDate(value);
   const today = new Date();
   const [open, setOpen] = useState(false);
@@ -35,6 +40,7 @@ export function CalendarView({
   );
   const containerRef = useRef<HTMLDivElement>(null);
   const weeks = getMonthMatrix(viewYear, viewMonth);
+  const showClear = clearable && !disabled && Boolean(value);
 
   useEffect(() => {
     if (!open) return;
@@ -71,21 +77,39 @@ export function CalendarView({
 
   return (
     <div ref={containerRef} className="koi-datepicker-demo relative w-full">
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
           disabled && 'cursor-not-allowed opacity-50',
         )}
         onClick={() => !disabled && setOpen((v) => !v)}
+        onKeyDown={(event) => {
+          if (disabled) return;
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setOpen((v) => !v);
+          }
+        }}
       >
         <span className={value ? '' : 'text-muted-foreground'}>
           {value ?? placeholder}
         </span>
-        <span className="text-muted-foreground">📅</span>
-      </button>
+        <span className="flex items-center gap-1 text-muted-foreground">
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              onClear={() => {
+                onChange?.('');
+                setOpen(false);
+              }}
+            />
+          ) : null}
+          <span>📅</span>
+        </span>
+      </div>
       {open ? (
         <div className="absolute left-0 top-full z-50 mt-1 w-full max-w-72 rounded-lg border border-border bg-surface p-3 shadow-md">
           <div className="mb-3 flex items-center justify-between">

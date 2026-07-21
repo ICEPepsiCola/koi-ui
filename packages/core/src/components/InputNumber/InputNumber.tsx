@@ -2,6 +2,8 @@ import { useCallback, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
+import { useKoiContext } from '../../provider/context';
+import { ClearButton } from '../shared/ClearButton';
 
 const inputNumberVariants = tv({
   slots: {
@@ -40,6 +42,7 @@ export interface InputNumberProps {
   error?: string;
   className?: string;
   placeholder?: string;
+  clearable?: boolean;
 }
 
 export function InputNumber({
@@ -54,12 +57,15 @@ export function InputNumber({
   error,
   className,
   placeholder,
+  clearable = false,
 }: InputNumberProps) {
+  const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
   const { root, input, button } = inputNumberVariants({
     size,
     error: Boolean(error),
   });
+  const showClear = clearable && !disabled && internal !== undefined;
 
   const clamp = useCallback(
     (n: number) => {
@@ -93,25 +99,34 @@ export function InputNumber({
         >
           −
         </button>
-        <input
-          type="number"
-          className={input()}
-          value={internal ?? ''}
-          placeholder={placeholder}
-          disabled={disabled}
-          min={min}
-          max={max}
-          step={step}
-          onChange={(e) => {
-            const raw = e.target.value;
-            if (raw === '') {
-              update(undefined);
-              return;
-            }
-            const parsed = Number(raw);
-            if (!Number.isNaN(parsed)) update(clamp(parsed));
-          }}
-        />
+        <div className="relative flex-1">
+          <input
+            type="number"
+            className={cn(input(), showClear && 'pr-9')}
+            value={internal ?? ''}
+            placeholder={placeholder}
+            disabled={disabled}
+            min={min}
+            max={max}
+            step={step}
+            onChange={(e) => {
+              const raw = e.target.value;
+              if (raw === '') {
+                update(undefined);
+                return;
+              }
+              const parsed = Number(raw);
+              if (!Number.isNaN(parsed)) update(clamp(parsed));
+            }}
+          />
+          {showClear ? (
+            <ClearButton
+              label={messages.clearActionText}
+              className="absolute right-2 top-1/2 -translate-y-1/2"
+              onClear={() => update(undefined)}
+            />
+          ) : null}
+        </div>
         <button
           type="button"
           className={cn(button(), 'border-l')}

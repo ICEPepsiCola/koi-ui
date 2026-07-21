@@ -13,6 +13,7 @@ export interface KoiMessages {
   searchPlaceholder: string;
   searchActionText: string;
   cancelActionText: string;
+  clearActionText: string;
 }
 
 export type KoiLocale = 'zh-CN' | 'en-US';
@@ -40,6 +41,7 @@ const defaultValue: KoiContextValue = {
     searchPlaceholder: '搜索',
     searchActionText: '搜索',
     cancelActionText: '取消',
+    clearActionText: '清除',
   },
   previewDevice: undefined,
   portalContainer: undefined,

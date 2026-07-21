@@ -10,6 +10,7 @@ const GENERATED_TARGETS = [
   'docs/zh',
   'i18n.json',
   'packages/core/tests/components',
+  'packages/icons/src',
 ];
 
 function run(command, args) {
@@ -50,6 +51,7 @@ function getChangedFiles(before, after) {
 const files = listTrackedFiles();
 const before = buildSignature(files);
 
+run('pnpm', ['icons:generate']);
 run('pnpm', ['tests:generate']);
 run('pnpm', ['docs:generate']);
 

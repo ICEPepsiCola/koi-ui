@@ -1,0 +1,17 @@
+import * as React from 'react';
+
+export interface ArrowRightCircleIconProps extends React.SVGProps<SVGSVGElement> {
+  title?: string;
+  titleId?: string;
+}
+
+export const ArrowRightCircleIcon = React.forwardRef<SVGSVGElement, ArrowRightCircleIconProps>(
+  ({ title, titleId, ...props }, ref) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden={title ? undefined : true} data-slot="icon" ref={ref} aria-labelledby={titleId} {...props}>
+      {title ? <title id={titleId}>{title}</title> : null}
+      <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM6.75 9.25a.75.75 0 0 0 0 1.5h4.59l-2.1 1.95a.75.75 0 0 0 1.02 1.1l3.5-3.25a.75.75 0 0 0 0-1.1l-3.5-3.25a.75.75 0 1 0-1.02 1.1l2.1 1.95H6.75Z" clipRule="evenodd" />
+    </svg>
+  ),
+);
+
+ArrowRightCircleIcon.displayName = 'ArrowRightCircleIcon';

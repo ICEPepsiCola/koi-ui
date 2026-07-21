@@ -8,6 +8,7 @@ export interface TimePickerProps {
   placeholder?: string;
   disabled?: boolean;
   format?: 'HH:mm' | 'HH:mm:ss';
+  clearable?: boolean;
   responsive?: boolean;
 }
 
