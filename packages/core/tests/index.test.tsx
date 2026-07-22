@@ -398,6 +398,48 @@ test('useScrollLock restores mobile preview viewport scroll after picker closes'
   });
 });
 
+test('mobile Select focus trap does not scroll the page', async () => {
+  mockWidth(BREAKPOINTS.xl);
+  window.scrollTo(0, 480);
+  const scrollBefore = window.scrollY;
+
+  function PreviewHarness() {
+    const [portalContainer, setPortalContainer] = useState<HTMLDivElement | null>(
+      null,
+    );
+
+    return (
+      <KoiProvider previewDevice="mobile" portalContainer={portalContainer}>
+        <div className="koi-device-viewport" data-testid="viewport">
+          <Select
+            options={[
+              { value: 'a', label: '选项 A' },
+              { value: 'b', label: '选项 B' },
+            ]}
+          />
+          <div ref={setPortalContainer} className="koi-device-portal" />
+        </div>
+      </KoiProvider>
+    );
+  }
+
+  render(<PreviewHarness />);
+  fireEvent.click(screen.getByRole('button'));
+
+  await waitFor(() => {
+    expect(document.querySelector('[role="dialog"]')).toBeTruthy();
+  });
+
+  expect(window.scrollY).toBe(scrollBefore);
+
+  fireEvent.click(screen.getByText('选项 A'));
+  await waitFor(() => {
+    expect(document.querySelector('[role="dialog"]')).toBeFalsy();
+  });
+
+  expect(window.scrollY).toBe(scrollBefore);
+});
+
 test('Select supports keyboard selection on desktop', async () => {
   mockWidth(BREAKPOINTS.xl);
 

@@ -15,6 +15,15 @@ function getFocusableElements(container: HTMLElement) {
   );
 }
 
+/** Avoid scroll jumps when trapping/restoring focus inside overlays. */
+function focusWithoutScroll(element: HTMLElement) {
+  try {
+    element.focus({ preventScroll: true });
+  } catch {
+    element.focus();
+  }
+}
+
 export interface UseFocusTrapOptions {
   active: boolean;
   containerRef: RefObject<HTMLElement | null>;
@@ -40,12 +49,12 @@ export function useFocusTrap({
     queueMicrotask(() => {
       const initialFocus = initialFocusRef?.current;
       if (initialFocus) {
-        initialFocus.focus();
+        focusWithoutScroll(initialFocus);
         return;
       }
 
       const focusable = getFocusableElements(container);
-      (focusable[0] ?? container).focus();
+      focusWithoutScroll(focusable[0] ?? container);
     });
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -54,7 +63,7 @@ export function useFocusTrap({
       const focusable = getFocusableElements(container);
       if (focusable.length === 0) {
         event.preventDefault();
-        container.focus();
+        focusWithoutScroll(container);
         return;
       }
 
@@ -65,14 +74,14 @@ export function useFocusTrap({
       if (event.shiftKey) {
         if (activeElement === first || activeElement === container) {
           event.preventDefault();
-          last.focus();
+          focusWithoutScroll(last);
         }
         return;
       }
 
       if (activeElement === last) {
         event.preventDefault();
-        first.focus();
+        focusWithoutScroll(first);
       }
     };
 
@@ -81,7 +90,7 @@ export function useFocusTrap({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       if (restoreFocus && previousFocus?.isConnected) {
-        previousFocus.focus();
+        focusWithoutScroll(previousFocus);
       }
     };
   }, [active, containerRef, initialFocusRef, restoreFocus]);

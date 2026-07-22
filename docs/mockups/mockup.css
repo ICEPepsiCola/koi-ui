@@ -210,8 +210,7 @@ html.rp-dark {
 }
 
 /*
- * Phone — 逻辑分辨率按常见最小机型 375×812（≈ iPhone X），
- * 比例与圆角从 daisyUI 462×978 等比缩放到 375。
+ * Phone — 预览机壳固定 320×550，圆角从 daisyUI 等比缩放。
  * 用「单格 grid + 尺寸锁死」避免 demo 内容把比例撑破。
  */
 .mockup-phone {
@@ -222,9 +221,8 @@ html.rp-dark {
   justify-items: center;
   align-items: stretch;
   width: 100%;
-  max-width: 375px;
-  aspect-ratio: 375 / 812;
-  height: auto;
+  max-width: 320px;
+  height: 550px;
   padding: 5px;
   overflow: hidden;
   background-color: #000;

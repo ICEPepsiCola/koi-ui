@@ -253,14 +253,15 @@
 }
 
 .koi-demo__phone-wrap .mockup-phone {
-  width: 375px;
-  max-width: 375px;
-  max-height: none;
+  width: 320px;
+  max-width: 320px;
+  height: 550px;
+  max-height: 550px;
   flex-shrink: 0;
 }
 
 /* 预览区宽度不够时等比缩放（保留圆角观感） */
-@media (max-width: 420px) {
+@media (max-width: 360px) {
   .koi-demo__phone-wrap .mockup-phone {
     zoom: 0.86;
   }
