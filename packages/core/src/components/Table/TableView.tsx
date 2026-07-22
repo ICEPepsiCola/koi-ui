@@ -2,6 +2,8 @@ import type { KeyboardEvent, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import { useKoiContext } from '../../provider/context';
 import { isActivationKey } from '../../utils/keyboard';
+import { LoadingHint } from '../shared/LoadingHint';
+import { Empty } from '../Empty/Empty';
 export interface ColumnDef<T> {
   key: keyof T & string;
   title: ReactNode;
@@ -33,19 +35,11 @@ export function TableView<T extends Record<string, unknown>>({
   };
 
   if (loading) {
-    return (
-      <div className="flex h-32 items-center justify-center text-muted-foreground">
-        {messages.loadingText}
-      </div>
-    );
+    return <LoadingHint />;
   }
 
   if (data.length === 0) {
-    return (
-      <div className="flex h-32 items-center justify-center text-muted-foreground">
-        {resolvedEmptyText}
-      </div>
-    );
+    return <Empty description={resolvedEmptyText} className="py-8" />;
   }
 
   return (

@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { useBreakpoint, BREAKPOINTS } from '@koi-ui/hooks';
 import { Button } from '../src/components/Button';
+import { Empty } from '../src/components/Empty';
 import { Input } from '../src/components/Input';
 import { Table } from '../src/components/Table';
 import { Modal } from '../src/components/Modal';
@@ -25,6 +26,53 @@ test('Button renders children', () => {
 test('Button shows loading state', () => {
   render(<Button loading>提交</Button>);
   expect(screen.getByText('提交')).toBeInTheDocument();
+});
+
+test('Button soft and outline variants render', () => {
+  render(
+    <>
+      <Button variant="soft">Soft</Button>
+      <Button variant="outline">Outline</Button>
+    </>,
+  );
+  expect(screen.getByText('Soft')).toBeInTheDocument();
+  expect(screen.getByText('Outline')).toBeInTheDocument();
+});
+
+test('KoiProvider applies data-theme and CSS overrides', () => {
+  const { container } = render(
+    <KoiProvider theme={{ name: 'ocean', primaryColor: 'hsl(200 80% 40%)' }}>
+      <Button>主题</Button>
+    </KoiProvider>,
+  );
+  const root = container.querySelector('.koi-theme-root');
+  expect(root).toHaveAttribute('data-theme', 'ocean');
+  expect(root).toHaveStyle({ '--color-primary': 'hsl(200 80% 40%)' });
+});
+
+test('Empty uses illustration instead of empty-set glyph', () => {
+  const { container } = render(
+    <KoiProvider>
+      <Empty description="暂无" />
+    </KoiProvider>,
+  );
+  expect(container.textContent).not.toContain('∅');
+  expect(container.querySelector('svg')).toBeTruthy();
+  expect(screen.getByText('暂无')).toBeInTheDocument();
+});
+
+test('Table loading shows spinner status', () => {
+  render(
+    <KoiProvider>
+      <Table
+        columns={[{ key: 'name', title: 'Name' }]}
+        data={[]}
+        loading
+      />
+    </KoiProvider>,
+  );
+  expect(screen.getByRole('status')).toBeInTheDocument();
+  expect(screen.getByText('加载中...')).toBeInTheDocument();
 });
 
 test('Input calls onChange', () => {

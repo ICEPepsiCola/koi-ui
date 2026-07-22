@@ -1,5 +1,37 @@
-import { IconGallery } from '../../IconGallery';
-
 # Icon 图标
 
-<IconGallery locale="zh" />
+## 基础用法
+
+```tsx preview
+import { Icon, Space } from '@koi-ui/core';
+export default () => (
+  <Space gap={4}>
+    <Icon name="search" />
+    <Icon name="check" />
+    <Icon name="close" />
+  </Space>
+);
+```
+
+## 常用图标
+
+```tsx preview
+import { Icon, Space } from '@koi-ui/core';
+export default () => (
+  <Space gap={6}>
+    <Icon name="home" />
+    <Icon name="user" />
+    <Icon name="settings" />
+    <Icon name="bell" />
+  </Space>
+);
+```
+
+## API
+
+### Icon
+
+| 属性 | 描述 | 类型 | 默认值 |
+| :---: | :---: | :---: | :---: |
+| name | 字段名 | `enum` **(必填)** | `-` |
+| size | 尺寸 | `enum` | `-` |

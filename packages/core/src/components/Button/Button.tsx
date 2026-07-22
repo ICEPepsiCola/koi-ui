@@ -8,6 +8,9 @@ const buttonVariants = tv({
   variants: {
     variant: {
       primary: 'bg-primary text-primary-foreground hover:opacity-90',
+      soft: 'bg-primary/10 text-primary hover:bg-primary/15',
+      outline:
+        'border border-primary/40 bg-transparent text-primary hover:bg-primary/5',
       secondary:
         'bg-secondary text-secondary-foreground hover:bg-muted border border-border',
       ghost: 'hover:bg-muted text-surface-foreground',

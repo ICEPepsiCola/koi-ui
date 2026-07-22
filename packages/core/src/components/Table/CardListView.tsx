@@ -3,6 +3,8 @@ import { Card } from '../Card/Card';
 import { useKoiContext } from '../../provider/context';
 import { Stack } from '../../primitives/Stack';
 import { Text } from '../../primitives/Text';
+import { Empty } from '../Empty/Empty';
+import { LoadingHint } from '../shared/LoadingHint';
 import type { ColumnDef } from './TableView';
 
 export interface CardListViewProps<T extends Record<string, unknown>> {
@@ -28,19 +30,11 @@ export function CardListView<T extends Record<string, unknown>>({
     mobileFields ?? columns.slice(0, 3).map((c) => c.key as keyof T);
 
   if (loading) {
-    return (
-      <div className="flex h-32 items-center justify-center text-muted-foreground">
-        {messages.loadingText}
-      </div>
-    );
+    return <LoadingHint />;
   }
 
   if (data.length === 0) {
-    return (
-      <div className="flex h-32 items-center justify-center text-muted-foreground">
-        {resolvedEmptyText}
-      </div>
-    );
+    return <Empty description={resolvedEmptyText} className="py-8" />;
   }
 
   const getTitle = (col: ColumnDef<T>): ReactNode => col.title;

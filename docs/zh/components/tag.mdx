@@ -4,7 +4,17 @@
 
 ```tsx preview
 import { Tag, Space } from '@koi-ui/core';
-export default () => <Space><Tag>默认</Tag><Tag variant="success">成功</Tag><Tag variant="destructive">危险</Tag></Space>;
+export default () => (
+  <Space wrap>
+    <Tag>默认</Tag>
+    <Tag variant="soft">Soft</Tag>
+    <Tag variant="outline">Outline</Tag>
+    <Tag variant="ghost">Ghost</Tag>
+    <Tag variant="success">成功</Tag>
+    <Tag variant="warning">警告</Tag>
+    <Tag variant="destructive">危险</Tag>
+  </Space>
+);
 ```
 
 ## 可关闭标签

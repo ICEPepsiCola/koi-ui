@@ -6,7 +6,11 @@ import {
   type ReactNode,
 } from 'react';
 import { useLang } from '@rspress/core/runtime';
-import { KoiProvider } from '@koi-ui/core';
+import {
+  KoiProvider,
+  KOI_THEME_NAMES,
+  type KoiThemeName,
+} from '@koi-ui/core';
 import { MockupBrowser, MockupPhone } from './mockups/examples';
 
 type PreviewDevice = 'desktop' | 'mobile';
@@ -17,15 +21,26 @@ const PREVIEW_COPY = {
     preview: 'Preview',
     desktop: 'Desktop',
     mobile: 'Mobile',
+    theme: 'Theme',
     noCode: '// No source',
   },
   zh: {
     preview: '预览',
     desktop: '桌面端',
     mobile: '移动端',
+    theme: '主题',
     noCode: '// 无源码',
   },
 } as const;
+
+const THEME_LABELS: Record<KoiThemeName, { en: string; zh: string }> = {
+  light: { en: 'Light', zh: '浅色' },
+  dark: { en: 'Dark', zh: '深色' },
+  ocean: { en: 'Ocean', zh: '海洋' },
+  forest: { en: 'Forest', zh: '森林' },
+  sunset: { en: 'Sunset', zh: '日落' },
+  violet: { en: 'Violet', zh: '紫藤' },
+};
 
 export function DevicePreviewShell({
   children,
@@ -39,6 +54,7 @@ export function DevicePreviewShell({
   const codeSlotRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<DemoTab>('preview');
   const [device, setDevice] = useState<PreviewDevice>('desktop');
+  const [themeName, setThemeName] = useState<KoiThemeName>('light');
   const [portalContainer, setPortalContainer] =
     useState<HTMLDivElement | null>(null);
   const [hasRspressCode, setHasRspressCode] = useState(false);
@@ -117,26 +133,49 @@ export function DevicePreviewShell({
         hidden={tab !== 'preview'}
       >
         <div className="koi-demo__preview-body">
-          <div className="koi-demo__device-switch">
-            <button
-              type="button"
-              className="koi-demo__device-btn"
-              data-active={device === 'desktop'}
-              onClick={() => setDevice('desktop')}
-            >
-              {copy.desktop}
-            </button>
-            <button
-              type="button"
-              className="koi-demo__device-btn"
-              data-active={device === 'mobile'}
-              onClick={() => setDevice('mobile')}
-            >
-              {copy.mobile}
-            </button>
+          <div className="koi-demo__toolbar">
+            <label className="koi-demo__theme">
+              <span className="koi-demo__theme-label">{copy.theme}</span>
+              <select
+                className="koi-demo__theme-select"
+                value={themeName}
+                aria-label={copy.theme}
+                onChange={(event) =>
+                  setThemeName(event.target.value as KoiThemeName)
+                }
+              >
+                {KOI_THEME_NAMES.map((name) => (
+                  <option key={name} value={name}>
+                    {THEME_LABELS[name][lang]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="koi-demo__device-switch">
+              <button
+                type="button"
+                className="koi-demo__device-btn"
+                data-active={device === 'desktop'}
+                onClick={() => setDevice('desktop')}
+              >
+                {copy.desktop}
+              </button>
+              <button
+                type="button"
+                className="koi-demo__device-btn"
+                data-active={device === 'mobile'}
+                onClick={() => setDevice('mobile')}
+              >
+                {copy.mobile}
+              </button>
+            </div>
           </div>
 
-          <KoiProvider previewDevice={device} portalContainer={portalContainer}>
+          <KoiProvider
+            previewDevice={device}
+            portalContainer={portalContainer}
+            theme={{ name: themeName }}
+          >
             {isMobile ? (
               <div className="koi-demo__phone-wrap">
                 <MockupPhone>{demo}</MockupPhone>

@@ -7,11 +7,13 @@ const tagVariants = tv({
   variants: {
     variant: {
       default: 'bg-primary/10 text-primary',
+      soft: 'bg-primary/10 text-primary',
       secondary: 'bg-secondary text-secondary-foreground',
-      success: 'bg-emerald-100 text-emerald-700',
-      warning: 'bg-amber-100 text-amber-700',
+      success: 'bg-success/15 text-success',
+      warning: 'bg-warning/15 text-warning',
       destructive: 'bg-destructive/10 text-destructive',
       outline: 'border border-border text-surface-foreground',
+      ghost: 'text-muted-foreground hover:bg-muted',
     },
     closable: {
       true: 'pr-1',

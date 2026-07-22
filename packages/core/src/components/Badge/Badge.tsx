@@ -7,9 +7,11 @@ const badgeVariants = tv({
   variants: {
     variant: {
       default: 'bg-primary text-primary-foreground',
+      soft: 'bg-primary/15 text-primary',
       secondary: 'bg-secondary text-secondary-foreground',
       destructive: 'bg-destructive text-destructive-foreground',
       outline: 'border border-border text-surface-foreground',
+      ghost: 'bg-transparent text-muted-foreground',
     },
     size: {
       sm: 'h-4 min-w-4 px-1 text-[10px] rounded-full',

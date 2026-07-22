@@ -1,8 +1,40 @@
 # Theming
 
-Koi UI defines design tokens as CSS variables. Override them in your app as needed.
+Koi UI themes are CSS variables. Pick a built-in skin with `data-theme`, or override tokens in your app.
 
-## Primary color
+## Built-in themes
+
+Six skins ship in `@koi-ui/tokens`: `light`, `dark`, `ocean`, `forest`, `sunset`, `violet`.
+
+```tsx preview
+import { KoiProvider, Button, Alert, Tag, Space } from '@koi-ui/core';
+
+export default () => (
+  <KoiProvider theme={{ name: 'ocean' }}>
+    <Space>
+      <Button>Primary</Button>
+      <Button variant="soft">Soft</Button>
+      <Button variant="outline">Outline</Button>
+      <Tag>Tag</Tag>
+      <Alert title="Ocean theme" description="data-theme applied via KoiProvider" />
+    </Space>
+  </KoiProvider>
+);
+```
+
+Docs demos also expose a theme switcher next to the desktop/mobile toggle.
+
+## Provider overrides
+
+`KoiProvider.theme` writes CSS variables on the theme root:
+
+```tsx
+<KoiProvider theme={{ name: 'violet', primaryColor: 'hsl(280 80% 50%)', radiusMd: '1rem' }}>
+  {children}
+</KoiProvider>
+```
+
+## Manual CSS
 
 ```css
 :root {
@@ -10,17 +42,20 @@ Koi UI defines design tokens as CSS variables. Override them in your app as need
   --color-primary-foreground: hsl(0 0% 100%);
   --radius-md: 0.75rem;
 }
+
+html[data-theme='ocean'] {
+  /* or any subtree */
+}
 ```
 
 ## Dark mode
 
-Built-in dark tokens follow `html.dark` / `html.rp-dark` (compatible with the Rspress dark toggle). Override under the same selectors:
+Built-in dark tokens follow `html.dark` / `html.rp-dark` / `data-theme="dark"`.
 
 ```css
 html.dark {
   --color-surface: hsl(222 47% 11%);
   --color-surface-foreground: hsl(210 40% 98%);
-  --color-border: hsl(217 33% 22%);
 }
 ```
 
@@ -30,16 +65,26 @@ html.dark {
 @import "@koi-ui/tokens/theme.css";
 ```
 
-## Common tokens
+## Semantic colors
 
-| Token | Description |
-|-------|-------------|
-| `--color-primary` | Brand color |
-| `--color-surface` | Surface background |
-| `--color-muted` | Muted background |
-| `--color-border` | Border |
+| Token | Role |
+|-------|------|
+| `--color-primary` | Brand |
+| `--color-success` / `--color-warning` / `--color-info` | Status |
+| `--color-destructive` | Danger |
+| `--color-surface` / `--color-muted` / `--color-border` | Surfaces |
 | `--radius-sm/md/lg` | Radius |
-| `--shadow-sm/md` | Shadow |
+
+## Appearance language
+
+Shared reading across controls:
+
+- **solid / primary** — filled
+- **soft** — tinted background
+- **outline** — border only
+- **ghost** — minimal / text
+
+`Button` exposes `primary | soft | outline | ghost | secondary | destructive`. `Alert` uses `appearance="soft" | "outline" | "solid"` with status `variant`.
 
 ## Breakpoint provider
 

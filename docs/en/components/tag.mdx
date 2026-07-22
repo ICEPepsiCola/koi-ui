@@ -4,7 +4,17 @@
 
 ```tsx preview
 import { Tag, Space } from '@koi-ui/core';
-export default () => <Space><Tag>Default</Tag><Tag variant="success">Success</Tag><Tag variant="destructive">Danger</Tag></Space>;
+export default () => (
+  <Space wrap>
+    <Tag>Default</Tag>
+    <Tag variant="soft">Soft</Tag>
+    <Tag variant="outline">Outline</Tag>
+    <Tag variant="ghost">Ghost</Tag>
+    <Tag variant="success">Success</Tag>
+    <Tag variant="warning">Warning</Tag>
+    <Tag variant="destructive">Danger</Tag>
+  </Space>
+);
 ```
 
 ## Closable tags

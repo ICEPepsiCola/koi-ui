@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { Breakpoint } from '@koi-ui/hooks';
 import {
   KoiContext,
@@ -20,6 +20,13 @@ export interface KoiProviderProps {
   theme?: Partial<KoiTheme>;
 }
 
+function themeToStyle(theme: KoiTheme): CSSProperties | undefined {
+  const style: Record<string, string> = {};
+  if (theme.primaryColor) style['--color-primary'] = theme.primaryColor;
+  if (theme.radiusMd) style['--radius-md'] = theme.radiusMd;
+  return Object.keys(style).length > 0 ? (style as CSSProperties) : undefined;
+}
+
 export function KoiProvider({
   children,
   breakpoint = 'lg',
@@ -30,6 +37,12 @@ export function KoiProvider({
   portalContainer,
   theme = {},
 }: KoiProviderProps) {
+  const resolvedTheme: KoiTheme = {
+    name: theme.name,
+    primaryColor: theme.primaryColor,
+    radiusMd: theme.radiusMd,
+  };
+
   return (
     <KoiContext.Provider
       value={{
@@ -39,10 +52,16 @@ export function KoiProvider({
         messages: resolveKoiMessages(locale, messages),
         previewDevice,
         portalContainer,
-        theme,
+        theme: resolvedTheme,
       }}
     >
-      {children}
+      <div
+        className="koi-theme-root"
+        data-theme={resolvedTheme.name}
+        style={{ display: 'contents', ...themeToStyle(resolvedTheme) }}
+      >
+        {children}
+      </div>
     </KoiContext.Provider>
   );
 }

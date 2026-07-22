@@ -94,6 +94,37 @@
   }
 }
 
+.koi-demo__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.koi-demo__theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-base-content, #1f2937);
+}
+
+.koi-demo__theme-label {
+  opacity: 0.7;
+}
+
+.koi-demo__theme-select {
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--koi-demo-border);
+  background: var(--koi-demo-bg);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: inherit;
+}
+
 .koi-demo__device-switch {
   display: flex;
   gap: 0.5rem;

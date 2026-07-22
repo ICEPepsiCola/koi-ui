@@ -6,18 +6,86 @@ const alertVariants = tv({
   base: 'relative flex gap-3 rounded-lg border px-4 py-3 text-sm',
   variants: {
     variant: {
-      info: 'border-primary/30 bg-primary/5 text-surface-foreground',
-      success: 'border-emerald-200 bg-emerald-50 text-emerald-800',
-      warning: 'border-amber-200 bg-amber-50 text-amber-800',
-      error: 'border-destructive/30 bg-destructive/5 text-destructive',
+      info: '',
+      success: '',
+      warning: '',
+      error: '',
+    },
+    appearance: {
+      soft: '',
+      outline: 'bg-transparent',
+      solid: 'border-transparent',
     },
     closable: {
       true: 'pr-10',
       false: '',
     },
   },
+  compoundVariants: [
+    {
+      variant: 'info',
+      appearance: 'soft',
+      class: 'border-info/30 bg-info/10 text-surface-foreground',
+    },
+    {
+      variant: 'success',
+      appearance: 'soft',
+      class: 'border-success/30 bg-success/10 text-surface-foreground',
+    },
+    {
+      variant: 'warning',
+      appearance: 'soft',
+      class: 'border-warning/30 bg-warning/10 text-surface-foreground',
+    },
+    {
+      variant: 'error',
+      appearance: 'soft',
+      class: 'border-destructive/30 bg-destructive/10 text-surface-foreground',
+    },
+    {
+      variant: 'info',
+      appearance: 'outline',
+      class: 'border-info text-info',
+    },
+    {
+      variant: 'success',
+      appearance: 'outline',
+      class: 'border-success text-success',
+    },
+    {
+      variant: 'warning',
+      appearance: 'outline',
+      class: 'border-warning text-warning',
+    },
+    {
+      variant: 'error',
+      appearance: 'outline',
+      class: 'border-destructive text-destructive',
+    },
+    {
+      variant: 'info',
+      appearance: 'solid',
+      class: 'bg-info text-info-foreground',
+    },
+    {
+      variant: 'success',
+      appearance: 'solid',
+      class: 'bg-success text-success-foreground',
+    },
+    {
+      variant: 'warning',
+      appearance: 'solid',
+      class: 'bg-warning text-warning-foreground',
+    },
+    {
+      variant: 'error',
+      appearance: 'solid',
+      class: 'bg-destructive text-destructive-foreground',
+    },
+  ],
   defaultVariants: {
     variant: 'info',
+    appearance: 'soft',
     closable: false,
   },
 });
@@ -35,6 +103,7 @@ export interface AlertProps
 export function Alert({
   className,
   variant,
+  appearance,
   closable,
   title,
   description,
@@ -44,18 +113,24 @@ export function Alert({
   ...props
 }: AlertProps) {
   const isClosable = closable || Boolean(onClose);
+  const isSolid = appearance === 'solid';
 
   return (
     <div
       role="alert"
-      className={cn(alertVariants({ variant, closable: isClosable }), className)}
+      className={cn(
+        alertVariants({ variant, appearance, closable: isClosable }),
+        className,
+      )}
       {...props}
     >
       {icon ? <span className="shrink-0">{icon}</span> : null}
       <div className="min-w-0 flex-1">
         {title ? <div className="mb-1 font-medium">{title}</div> : null}
         {description ?? children ? (
-          <div className="text-muted-foreground">{description ?? children}</div>
+          <div className={isSolid ? 'opacity-90' : 'text-muted-foreground'}>
+            {description ?? children}
+          </div>
         ) : null}
       </div>
       {isClosable ? (

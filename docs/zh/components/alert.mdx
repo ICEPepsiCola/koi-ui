@@ -17,6 +17,8 @@ export default () => (
     <Alert variant="success" title="成功" description="操作已完成" />
     <Alert variant="warning" title="警告" description="请检查输入" />
     <Alert variant="error" title="错误" description="提交失败" />
+    <Alert variant="info" appearance="outline" title="描边" description="outline appearance" />
+    <Alert variant="success" appearance="solid" title="实心" description="solid appearance" />
   </Stack>
 );
 ```
@@ -27,6 +29,7 @@ export default () => (
 
 | 属性 | 描述 | 类型 | 默认值 |
 | :---: | :---: | :---: | :---: |
+| appearance | - | `enum` | `-` |
 | closable | 是否可关闭 | `boolean \|​ undefined` | `-` |
 | description | 描述内容 | `ReactNode` | `-` |
 | icon | 图标 | `ReactNode` | `-` |

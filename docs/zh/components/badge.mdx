@@ -3,8 +3,14 @@
 ## 基础用法
 
 ```tsx preview
-import { Badge, Button } from '@koi-ui/core';
-export default () => <Badge count={5}><Button>消息</Button></Badge>;
+import { Badge, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Badge count={5}><Button>消息</Button></Badge>
+    <Badge count={3} variant="soft"><Button variant="soft">Soft</Button></Badge>
+    <Badge count={9} variant="outline"><Button variant="outline">Outline</Button></Badge>
+  </Space>
+);
 ```
 
 ## API

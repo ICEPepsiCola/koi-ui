@@ -7,7 +7,7 @@ export const DEMOS = {
     },
     {
       "key": "variants",
-      "code": "import { Button, Stack } from '@koi-ui/core';\nexport default () => (\n  <Stack gap={2}>\n    <Button variant=\"primary\">Primary</Button>\n    <Button variant=\"secondary\">Secondary</Button>\n    <Button variant=\"ghost\">Ghost</Button>\n    <Button variant=\"destructive\">Destructive</Button>\n  </Stack>\n);"
+      "code": "import { Button, Stack } from '@koi-ui/core';\nexport default () => (\n  <Stack gap={2}>\n    <Button variant=\"primary\">Primary</Button>\n    <Button variant=\"soft\">Soft</Button>\n    <Button variant=\"outline\">Outline</Button>\n    <Button variant=\"secondary\">Secondary</Button>\n    <Button variant=\"ghost\">Ghost</Button>\n    <Button variant=\"destructive\">Destructive</Button>\n  </Stack>\n);"
     },
     {
       "key": "sizeStatus",
@@ -359,7 +359,7 @@ export const DEMOS = {
   "Badge": [
     {
       "key": "basic",
-      "code": "import { Badge, Button } from '@koi-ui/core';\nexport default () => <Badge count={5}><Button>消息</Button></Badge>;"
+      "code": "import { Badge, Button, Space } from '@koi-ui/core';\nexport default () => (\n  <Space>\n    <Badge count={5}><Button>消息</Button></Badge>\n    <Badge count={3} variant=\"soft\"><Button variant=\"soft\">Soft</Button></Badge>\n    <Badge count={9} variant=\"outline\"><Button variant=\"outline\">Outline</Button></Badge>\n  </Space>\n);"
     }
   ],
   "Calendar": [
@@ -443,7 +443,7 @@ export const DEMOS = {
   "Tag": [
     {
       "key": "basic",
-      "code": "import { Tag, Space } from '@koi-ui/core';\nexport default () => <Space><Tag>默认</Tag><Tag variant=\"success\">成功</Tag><Tag variant=\"destructive\">危险</Tag></Space>;"
+      "code": "import { Tag, Space } from '@koi-ui/core';\nexport default () => (\n  <Space wrap>\n    <Tag>默认</Tag>\n    <Tag variant=\"soft\">Soft</Tag>\n    <Tag variant=\"outline\">Outline</Tag>\n    <Tag variant=\"ghost\">Ghost</Tag>\n    <Tag variant=\"success\">成功</Tag>\n    <Tag variant=\"warning\">警告</Tag>\n    <Tag variant=\"destructive\">危险</Tag>\n  </Space>\n);"
     },
     {
       "key": "closable",
@@ -497,7 +497,7 @@ export const DEMOS = {
     },
     {
       "key": "variants",
-      "code": "import { Alert, Stack } from '@koi-ui/core';\nexport default () => (\n  <Stack gap={3}>\n    <Alert variant=\"info\" title=\"信息\" description=\"常规提示\" />\n    <Alert variant=\"success\" title=\"成功\" description=\"操作已完成\" />\n    <Alert variant=\"warning\" title=\"警告\" description=\"请检查输入\" />\n    <Alert variant=\"error\" title=\"错误\" description=\"提交失败\" />\n  </Stack>\n);"
+      "code": "import { Alert, Stack } from '@koi-ui/core';\nexport default () => (\n  <Stack gap={3}>\n    <Alert variant=\"info\" title=\"信息\" description=\"常规提示\" />\n    <Alert variant=\"success\" title=\"成功\" description=\"操作已完成\" />\n    <Alert variant=\"warning\" title=\"警告\" description=\"请检查输入\" />\n    <Alert variant=\"error\" title=\"错误\" description=\"提交失败\" />\n    <Alert variant=\"info\" appearance=\"outline\" title=\"描边\" description=\"outline appearance\" />\n    <Alert variant=\"success\" appearance=\"solid\" title=\"实心\" description=\"solid appearance\" />\n  </Stack>\n);"
     }
   ],
   "Drawer": [

@@ -1,8 +1,40 @@
 # 主题定制
 
-Koi UI 通过 CSS 变量定义 Design Tokens，可在业务项目中直接覆盖。
+Koi UI 主题基于 CSS 变量。可用内置皮肤（`data-theme`），也可在业务里覆盖 Token。
 
-## 覆盖主色
+## 内置主题
+
+`@koi-ui/tokens` 提供 6 套皮肤：`light`、`dark`、`ocean`、`forest`、`sunset`、`violet`。
+
+```tsx preview
+import { KoiProvider, Button, Alert, Tag, Space } from '@koi-ui/core';
+
+export default () => (
+  <KoiProvider theme={{ name: 'ocean' }}>
+    <Space>
+      <Button>主按钮</Button>
+      <Button variant="soft">轻量</Button>
+      <Button variant="outline">描边</Button>
+      <Tag>标签</Tag>
+      <Alert title="海洋主题" description="通过 KoiProvider 应用 data-theme" />
+    </Space>
+  </KoiProvider>
+);
+```
+
+文档演示区在桌面/移动切换旁提供主题切换。
+
+## Provider 覆盖
+
+`KoiProvider.theme` 会把变量写到主题根节点：
+
+```tsx
+<KoiProvider theme={{ name: 'violet', primaryColor: 'hsl(280 80% 50%)', radiusMd: '1rem' }}>
+  {children}
+</KoiProvider>
+```
+
+## 手动覆盖 CSS
 
 ```css
 :root {
@@ -10,36 +42,49 @@ Koi UI 通过 CSS 变量定义 Design Tokens，可在业务项目中直接覆盖
   --color-primary-foreground: hsl(0 0% 100%);
   --radius-md: 0.75rem;
 }
+
+html[data-theme='ocean'] {
+  /* 或任意子树 */
+}
 ```
 
 ## 暗色模式
 
-库内置随 `html.dark` / `html.rp-dark` 切换的暗色 Token（与 Rspress 文档暗色开关兼容）。业务站若自建暗色，只要在同一选择器下覆盖变量即可：
+暗色 Token 跟随 `html.dark` / `html.rp-dark` / `data-theme="dark"`：
 
 ```css
 html.dark {
   --color-surface: hsl(222 47% 11%);
   --color-surface-foreground: hsl(210 40% 98%);
-  --color-border: hsl(217 33% 22%);
 }
 ```
 
-默认通过 `@koi-ui/core/styles.css` 引入即可；若只要 tokens：
+默认通过 `@koi-ui/core/styles.css` 引入；若只要 tokens：
 
 ```css
 @import "@koi-ui/tokens/theme.css";
 ```
 
-## 常用 Tokens
+## 语义色
 
-| Token | 说明 |
+| Token | 用途 |
 |-------|------|
-| `--color-primary` | 主色 |
-| `--color-surface` | 表面背景 |
-| `--color-muted` | 弱化背景 |
-| `--color-border` | 边框 |
+| `--color-primary` | 品牌色 |
+| `--color-success` / `--color-warning` / `--color-info` | 状态色 |
+| `--color-destructive` | 危险 |
+| `--color-surface` / `--color-muted` / `--color-border` | 表面 |
 | `--radius-sm/md/lg` | 圆角 |
-| `--shadow-sm/md` | 阴影 |
+
+## 外观读法
+
+跨组件统一：
+
+- **solid / primary** — 实心
+- **soft** — 浅底
+- **outline** — 描边
+- **ghost** — 幽灵/弱化
+
+`Button`：`primary | soft | outline | ghost | secondary | destructive`。`Alert`：`appearance="soft" | "outline" | "solid"` + 状态 `variant`。
 
 ## 断点 Provider
 

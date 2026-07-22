@@ -1,8 +1,24 @@
 import { createContext, useContext } from 'react';
 import type { Breakpoint } from '@koi-ui/hooks';
 
+/** Built-in skins applied via `data-theme`. */
+export const KOI_THEME_NAMES = [
+  'light',
+  'dark',
+  'ocean',
+  'forest',
+  'sunset',
+  'violet',
+] as const;
+
+export type KoiThemeName = (typeof KOI_THEME_NAMES)[number];
+
 export interface KoiTheme {
+  /** Named skin (`data-theme`). */
+  name?: KoiThemeName;
+  /** Override `--color-primary` (any CSS color). */
   primaryColor?: string;
+  /** Override `--radius-md`. */
   radiusMd?: string;
 }
 
