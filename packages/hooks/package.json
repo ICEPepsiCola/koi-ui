@@ -1,6 +1,6 @@
 {
   "name": "@koi-ui/hooks",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Breakpoint and adaptive hooks for Koi UI",
   "license": "MIT",
   "type": "module",
