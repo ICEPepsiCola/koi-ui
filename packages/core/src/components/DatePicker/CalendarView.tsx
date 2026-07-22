@@ -1,16 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
-import { cn } from '../../utils/cn';
-import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 import type { FieldSize } from '../../utils/interaction';
+import { CalendarMonthPanel } from '../shared/CalendarMonthPanel';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
-import {
-  formatDate,
-  getMonthMatrix,
-  parseDate,
-  WEEKDAYS,
-} from './dateUtils';
+import { formatDate, parseDate } from './dateUtils';
 
 export interface CalendarViewProps {
   value?: string;
@@ -44,7 +38,6 @@ export function CalendarView({
     (selected?.getMonth() ?? today.getMonth()) + 1,
   );
   const containerRef = useRef<HTMLDivElement>(null);
-  const weeks = getMonthMatrix(viewYear, viewMonth);
   const hasValue = Boolean(value);
 
   useEffect(() => {
@@ -61,23 +54,25 @@ export function CalendarView({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [open]);
 
-  const isDisabledDate = (day: number) => {
-    const date = formatDate(new Date(viewYear, viewMonth - 1, day));
-    if (min && date < min) return true;
-    if (max && date > max) return true;
+  useEffect(() => {
+    if (!open || !value) return;
+    const next = parseDate(value);
+    if (!next) return;
+    setViewYear(next.getFullYear());
+    setViewMonth(next.getMonth() + 1);
+  }, [open, value]);
+
+  const isDateDisabled = (date: Date) => {
+    const dateStr = formatDate(date);
+    if (min && dateStr < min) return true;
+    if (max && dateStr > max) return true;
     return false;
   };
 
-  const selectDay = (day: number) => {
-    if (isDisabledDate(day)) return;
-    onChange?.(formatDate(new Date(viewYear, viewMonth - 1, day)));
+  const selectDate = (date: Date) => {
+    if (isDateDisabled(date)) return;
+    onChange?.(formatDate(date));
     setOpen(false);
-  };
-
-  const shiftMonth = (delta: number) => {
-    const next = new Date(viewYear, viewMonth - 1 + delta, 1);
-    setViewYear(next.getFullYear());
-    setViewMonth(next.getMonth() + 1);
   };
 
   return (
@@ -104,73 +99,18 @@ export function CalendarView({
           }
         }}
       />
-      <FloatMenu open={open} className="max-w-72 p-3">
-        <div className="mb-3 flex items-center justify-between">
-          <button
-            type="button"
-            className={cn(
-              'rounded-selector px-2 py-1 text-sm hover:bg-muted',
-              controlTransition,
-              focusRing,
-              pressable,
-            )}
-            onClick={() => shiftMonth(-1)}
-          >
-            ‹
-          </button>
-          <span className="text-sm font-medium">
-            {viewYear} 年 {viewMonth} 月
-          </span>
-          <button
-            type="button"
-            className={cn(
-              'rounded-selector px-2 py-1 text-sm hover:bg-muted',
-              controlTransition,
-              focusRing,
-              pressable,
-            )}
-            onClick={() => shiftMonth(1)}
-          >
-            ›
-          </button>
-        </div>
-        <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
-          {WEEKDAYS.map((d) => (
-            <span key={d} className="py-1">
-              {d}
-            </span>
-          ))}
-        </div>
-        <div className="mt-1 grid grid-cols-7 gap-1">
-          {weeks.flat().map((day, idx) => {
-            if (!day) return <span key={`empty-${idx}`} />;
-            const dateStr = formatDate(
-              new Date(viewYear, viewMonth - 1, day),
-            );
-            const isSelected = value === dateStr;
-            const isToday = formatDate(today) === dateStr;
-            const dayDisabled = isDisabledDate(day);
-            return (
-              <button
-                key={`${viewYear}-${viewMonth}-${day}`}
-                type="button"
-                disabled={dayDisabled}
-                className={cn(
-                  'h-9 rounded-selector text-sm hover:bg-muted',
-                  controlTransition,
-                  focusRing,
-                  isSelected &&
-                    'bg-primary/10 font-medium text-primary ring-1 ring-primary/15 hover:bg-primary/10',
-                  isToday && !isSelected && 'border border-primary/40',
-                  dayDisabled && 'cursor-not-allowed opacity-40',
-                )}
-                onClick={() => selectDay(day)}
-              >
-                {day}
-              </button>
-            );
-          })}
-        </div>
+      <FloatMenu open={open} className="max-w-xs p-3">
+        <CalendarMonthPanel
+          viewYear={viewYear}
+          viewMonth={viewMonth}
+          onViewChange={(year, month) => {
+            setViewYear(year);
+            setViewMonth(month);
+          }}
+          selected={selected}
+          onSelect={selectDate}
+          isDateDisabled={isDateDisabled}
+        />
       </FloatMenu>
     </div>
   );

@@ -1,11 +1,46 @@
 
 # Calendar 日历
 
+内嵌月历面板，适合排班、签到等页内展示。表单选日期请用 [DatePicker](/zh/components/datepicker)（桌面弹层 + 移动滚轮）。
+
 ## 基础用法
 
 ```tsx preview
 import { Calendar } from '@koi-ui/core';
 export default () => <Calendar />;
+```
+
+## 受控
+
+```tsx preview
+import { Calendar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [date, setDate] = useState(new Date(2026, 6, 15));
+  return (
+    <div>
+      <Calendar value={date} onChange={setDate} />
+      <Text muted className="mt-3 block text-sm">
+        已选：{date.toLocaleDateString('zh-CN')}
+      </Text>
+    </div>
+  );
+};
+```
+
+## 禁用日期
+
+```tsx preview
+import { Calendar } from '@koi-ui/core';
+export default () => (
+  <Calendar
+    defaultValue={new Date(2026, 6, 15)}
+    disabledDate={(date) => {
+      const day = date.getDay();
+      return day === 0 || day === 6;
+    }}
+  />
+);
 ```
 
 ## API

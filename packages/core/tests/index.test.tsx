@@ -13,6 +13,7 @@ import { Select } from '../src/components/Select';
 import { Picker } from '../src/components/Picker';
 import { InputNumber } from '../src/components/InputNumber';
 import { Cascader } from '../src/components/Cascader';
+import { Calendar } from '../src/components/Calendar';
 import { Swiper } from '../src/components/Swiper';
 import { Tabs } from '../src/components/Tabs';
 import { toast } from '../src/components/Toast';
@@ -766,4 +767,39 @@ test('toast shows and clears content imperatively', async () => {
   await waitFor(() => {
     expect(screen.queryByText('保存成功')).not.toBeInTheDocument();
   });
+});
+
+test('Calendar selects a day and calls onChange', () => {
+  let selected: Date | undefined;
+  render(
+    <KoiProvider locale="en-US">
+      <Calendar
+        defaultValue={new Date(2026, 6, 1)}
+        onChange={(date) => {
+          selected = date;
+        }}
+      />
+    </KoiProvider>,
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: '7/15/2026' }));
+  expect(selected).toEqual(new Date(2026, 6, 15));
+});
+
+test('Calendar respects disabledDate', () => {
+  let selected: Date | undefined;
+  render(
+    <KoiProvider locale="en-US">
+      <Calendar
+        defaultValue={new Date(2026, 6, 1)}
+        disabledDate={(date) => date.getDate() === 15}
+        onChange={(date) => {
+          selected = date;
+        }}
+      />
+    </KoiProvider>,
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: '7/15/2026' }));
+  expect(selected).toBeUndefined();
 });

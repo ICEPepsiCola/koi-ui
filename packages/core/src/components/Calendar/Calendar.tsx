@@ -1,13 +1,7 @@
-import { useMemo, useState, type HTMLAttributes } from 'react';
+import { useEffect, useState, type HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
-import {
-  boxSurface,
-  controlTransition,
-  focusRing,
-  pressable,
-} from '../../utils/interaction';
-
-const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
+import { boxSurface } from '../../utils/interaction';
+import { CalendarMonthPanel } from '../shared/CalendarMonthPanel';
 
 export interface CalendarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
@@ -15,14 +9,6 @@ export interface CalendarProps
   defaultValue?: Date;
   onChange?: (date: Date) => void;
   disabledDate?: (date: Date) => boolean;
-}
-
-function isSameDay(a: Date, b: Date) {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
 }
 
 export function Calendar({
@@ -35,23 +21,14 @@ export function Calendar({
 }: CalendarProps) {
   const [internal, setInternal] = useState(defaultValue ?? new Date());
   const selected = value ?? internal;
-  const [viewDate, setViewDate] = useState(
-    new Date(selected.getFullYear(), selected.getMonth(), 1),
-  );
+  const [viewYear, setViewYear] = useState(selected.getFullYear());
+  const [viewMonth, setViewMonth] = useState(selected.getMonth() + 1);
 
-  const days = useMemo(() => {
-    const year = viewDate.getFullYear();
-    const month = viewDate.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const cells: (Date | null)[] = [];
-
-    for (let i = 0; i < firstDay; i++) cells.push(null);
-    for (let d = 1; d <= daysInMonth; d++) {
-      cells.push(new Date(year, month, d));
-    }
-    return cells;
-  }, [viewDate]);
+  useEffect(() => {
+    if (!value) return;
+    setViewYear(value.getFullYear());
+    setViewMonth(value.getMonth() + 1);
+  }, [value]);
 
   const handleSelect = (date: Date) => {
     if (disabledDate?.(date)) return;
@@ -59,82 +36,22 @@ export function Calendar({
     onChange?.(date);
   };
 
-  const prevMonth = () =>
-    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1));
-  const nextMonth = () =>
-    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1));
-
   return (
     <div
-      className={cn(
-        'w-full max-w-sm p-4',
-        boxSurface,
-        className,
-      )}
+      className={cn('w-full max-w-xs', boxSurface, 'p-3', className)}
       {...props}
     >
-      <div className="mb-4 flex items-center justify-between">
-        <button
-          type="button"
-          className={cn(
-            'rounded-selector px-2 py-1 text-sm hover:bg-muted',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
-          onClick={prevMonth}
-        >
-          ‹
-        </button>
-        <span className="text-sm font-medium">
-          {viewDate.getFullYear()}年{viewDate.getMonth() + 1}月
-        </span>
-        <button
-          type="button"
-          className={cn(
-            'rounded-selector px-2 py-1 text-sm hover:bg-muted',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
-          onClick={nextMonth}
-        >
-          ›
-        </button>
-      </div>
-      <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
-        {WEEKDAYS.map((d) => (
-          <div key={d} className="py-1">
-            {d}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-7 gap-1">
-        {days.map((date, i) =>
-          date ? (
-            <button
-              key={date.toISOString()}
-              type="button"
-              disabled={disabledDate?.(date)}
-              className={cn(
-                'h-8 rounded-selector text-sm',
-                controlTransition,
-                focusRing,
-                isSameDay(date, selected)
-                  ? 'bg-primary text-primary-foreground shadow-field hover:bg-primary hover:brightness-[1.04] active:brightness-[0.96]'
-                  : 'hover:bg-muted',
-                !disabledDate?.(date) && pressable,
-                disabledDate?.(date) && 'cursor-not-allowed opacity-40',
-              )}
-              onClick={() => handleSelect(date)}
-            >
-              {date.getDate()}
-            </button>
-          ) : (
-            <div key={`empty-${i}`} />
-          ),
-        )}
-      </div>
+      <CalendarMonthPanel
+        viewYear={viewYear}
+        viewMonth={viewMonth}
+        onViewChange={(year, month) => {
+          setViewYear(year);
+          setViewMonth(month);
+        }}
+        selected={selected}
+        onSelect={handleSelect}
+        isDateDisabled={disabledDate}
+      />
     </div>
   );
 }

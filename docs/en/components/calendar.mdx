@@ -1,11 +1,46 @@
 
 # Calendar
 
+Embedded month panel for dashboards, scheduling, or any inline date display. For form inputs with desktop popover and mobile wheel picker, use [DatePicker](/components/datepicker).
+
 ## Basic usage
 
 ```tsx preview
 import { Calendar } from '@koi-ui/core';
 export default () => <Calendar />;
+```
+
+## Controlled
+
+```tsx preview
+import { Calendar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [date, setDate] = useState(new Date(2026, 6, 15));
+  return (
+    <div>
+      <Calendar value={date} onChange={setDate} />
+      <Text muted className="mt-3 block text-sm">
+        Selected: {date.toLocaleDateString('en-US')}
+      </Text>
+    </div>
+  );
+};
+```
+
+## Disabled dates
+
+```tsx preview
+import { Calendar } from '@koi-ui/core';
+export default () => (
+  <Calendar
+    defaultValue={new Date(2026, 6, 15)}
+    disabledDate={(date) => {
+      const day = date.getDay();
+      return day === 0 || day === 6;
+    }}
+  />
+);
 ```
 
 ## API
