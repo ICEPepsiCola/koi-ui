@@ -4,7 +4,7 @@ import { cn } from '../../utils/cn';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
 
 const segmentedVariants = tv({
-  base: 'inline-flex rounded-lg bg-muted p-1',
+  base: 'inline-flex rounded-field bg-muted p-1',
   variants: {
     size: {
       sm: 'text-xs',
@@ -99,10 +99,10 @@ export function Segmented({
           aria-selected={opt.value === active}
           tabIndex={index === activeIndex ? 0 : -1}
           className={cn(
-            'rounded-md px-3 py-1.5 font-medium transition-colors',
+            'rounded-selector px-3 py-1.5 font-medium transition-[color,background-color,box-shadow,transform] duration-fast ease-emphasized active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100',
             block && 'flex-1',
             opt.value === active
-              ? 'bg-surface text-surface-foreground shadow-sm'
+              ? 'bg-surface text-surface-foreground shadow-field'
               : 'text-muted-foreground hover:text-surface-foreground',
             opt.disabled && 'cursor-not-allowed opacity-50',
           )}

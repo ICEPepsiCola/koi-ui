@@ -4,9 +4,13 @@ import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
 import { useKoiContext } from '../../provider/context';
 import { ClearButton } from '../shared/ClearButton';
+import { fieldBase } from '../../utils/interaction';
 
 const textAreaVariants = tv({
-  base: 'w-full resize-y rounded-md border border-border bg-surface px-3 py-2 text-surface-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+  base: cn(
+    'w-full resize-y px-3 py-2 text-surface-foreground placeholder:text-muted-foreground',
+    fieldBase,
+  ),
   variants: {
     size: {
       sm: 'min-h-20 text-sm',
@@ -14,7 +18,7 @@ const textAreaVariants = tv({
       lg: 'min-h-32 text-base',
     },
     error: {
-      true: 'border-destructive focus-visible:ring-destructive',
+      true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
       false: '',
     },
   },
@@ -23,7 +27,6 @@ const textAreaVariants = tv({
     error: false,
   },
 });
-
 export interface TextAreaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'>,
     Omit<VariantProps<typeof textAreaVariants>, 'error'> {

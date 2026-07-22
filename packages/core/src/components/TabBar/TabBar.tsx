@@ -1,6 +1,7 @@
 import { useState, type HTMLAttributes, type KeyboardEvent, type ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
 
 const tabBarVariants = tv({
@@ -17,7 +18,12 @@ const tabBarVariants = tv({
 });
 
 const tabItemVariants = tv({
-  base: 'flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs transition-colors',
+  base: cn(
+    'flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs',
+    controlTransition,
+    focusRing,
+    pressable,
+  ),
   variants: {
     active: {
       true: 'text-primary',

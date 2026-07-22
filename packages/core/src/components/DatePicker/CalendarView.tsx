@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { ClearButton } from '../shared/ClearButton';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { FloatMenu } from '../shared/FloatMenu';
 import {
   formatDate,
   getMonthMatrix,
@@ -40,7 +42,7 @@ export function CalendarView({
   );
   const containerRef = useRef<HTMLDivElement>(null);
   const weeks = getMonthMatrix(viewYear, viewMonth);
-  const showClear = clearable && !disabled && Boolean(value);
+  const hasValue = Boolean(value);
 
   useEffect(() => {
     if (!open) return;
@@ -77,14 +79,18 @@ export function CalendarView({
 
   return (
     <div ref={containerRef} className="koi-datepicker-demo relative w-full">
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={value}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.('');
+          setOpen(false);
+        }}
         onClick={() => !disabled && setOpen((v) => !v)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -93,81 +99,75 @@ export function CalendarView({
             setOpen((v) => !v);
           }
         }}
-      >
-        <span className={value ? '' : 'text-muted-foreground'}>
-          {value ?? placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.('');
-                setOpen(false);
-              }}
-            />
-          ) : null}
-          <span>📅</span>
-        </span>
-      </div>
-      {open ? (
-        <div className="absolute left-0 top-full z-50 mt-1 w-full max-w-72 rounded-lg border border-border bg-surface p-3 shadow-md">
-          <div className="mb-3 flex items-center justify-between">
-            <button
-              type="button"
-              className="rounded-md px-2 py-1 text-sm hover:bg-muted"
-              onClick={() => shiftMonth(-1)}
-            >
-              ‹
-            </button>
-            <span className="text-sm font-medium">
-              {viewYear} 年 {viewMonth} 月
-            </span>
-            <button
-              type="button"
-              className="rounded-md px-2 py-1 text-sm hover:bg-muted"
-              onClick={() => shiftMonth(1)}
-            >
-              ›
-            </button>
-          </div>
-          <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
-            {WEEKDAYS.map((d) => (
-              <span key={d} className="py-1">
-                {d}
-              </span>
-            ))}
-          </div>
-          <div className="mt-1 grid grid-cols-7 gap-1">
-            {weeks.flat().map((day, idx) => {
-              if (!day) return <span key={`empty-${idx}`} />;
-              const dateStr = formatDate(
-                new Date(viewYear, viewMonth - 1, day),
-              );
-              const isSelected = value === dateStr;
-              const isToday = formatDate(today) === dateStr;
-              const dayDisabled = isDisabledDate(day);
-              return (
-                <button
-                  key={`${viewYear}-${viewMonth}-${day}`}
-                  type="button"
-                  disabled={dayDisabled}
-                  className={cn(
-                    'h-9 rounded-md text-sm transition-colors hover:bg-muted',
-                    isSelected &&
-                      'bg-primary text-primary-foreground hover:bg-primary hover:opacity-90',
-                    isToday && !isSelected && 'border border-primary',
-                    dayDisabled && 'cursor-not-allowed opacity-40',
-                  )}
-                  onClick={() => selectDay(day)}
-                >
-                  {day}
-                </button>
-              );
-            })}
-          </div>
+      />
+      <FloatMenu open={open} className="max-w-72 p-3">
+        <div className="mb-3 flex items-center justify-between">
+          <button
+            type="button"
+            className={cn(
+              'rounded-selector px-2 py-1 text-sm hover:bg-muted',
+              controlTransition,
+              focusRing,
+              pressable,
+            )}
+            onClick={() => shiftMonth(-1)}
+          >
+            ‹
+          </button>
+          <span className="text-sm font-medium">
+            {viewYear} 年 {viewMonth} 月
+          </span>
+          <button
+            type="button"
+            className={cn(
+              'rounded-selector px-2 py-1 text-sm hover:bg-muted',
+              controlTransition,
+              focusRing,
+              pressable,
+            )}
+            onClick={() => shiftMonth(1)}
+          >
+            ›
+          </button>
         </div>
-      ) : null}
+        <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
+          {WEEKDAYS.map((d) => (
+            <span key={d} className="py-1">
+              {d}
+            </span>
+          ))}
+        </div>
+        <div className="mt-1 grid grid-cols-7 gap-1">
+          {weeks.flat().map((day, idx) => {
+            if (!day) return <span key={`empty-${idx}`} />;
+            const dateStr = formatDate(
+              new Date(viewYear, viewMonth - 1, day),
+            );
+            const isSelected = value === dateStr;
+            const isToday = formatDate(today) === dateStr;
+            const dayDisabled = isDisabledDate(day);
+            return (
+              <button
+                key={`${viewYear}-${viewMonth}-${day}`}
+                type="button"
+                disabled={dayDisabled}
+                className={cn(
+                  'h-9 rounded-selector text-sm hover:bg-muted',
+                  controlTransition,
+                  focusRing,
+                  isSelected &&
+                    'bg-primary/10 font-medium text-primary ring-1 ring-primary/15 hover:bg-primary/10',
+                  isToday && !isSelected && 'border border-primary/40',
+                  dayDisabled && 'cursor-not-allowed opacity-40',
+                )}
+                onClick={() => selectDay(day)}
+              >
+                {day}
+              </button>
+            );
+          })}
+        </div>
+      </FloatMenu>
     </div>
   );
 }

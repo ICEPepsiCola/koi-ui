@@ -10,7 +10,7 @@ import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
 
 const checkboxVariants = tv({
-  base: 'h-4 w-4 shrink-0 rounded border border-border accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+  base: 'h-4 w-4 shrink-0 rounded-selector border border-border accent-primary transition-[box-shadow,border-color] duration-fast ease-emphasized focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
   variants: {
     size: {
       sm: 'h-3.5 w-3.5',

@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { ClearButton } from '../shared/ClearButton';
+import { controlTransition } from '../../utils/interaction';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
+import { SheetChrome } from '../shared/SheetChrome';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { pad2 } from '../DatePicker/dateUtils';
 
@@ -54,7 +57,7 @@ export function TimeWheelView({
 
   const hours = Array.from({ length: 24 }, (_, i) => pad2(i));
   const minutes = Array.from({ length: 60 }, (_, i) => pad2(i));
-  const showClear = clearable && !disabled && Boolean(value);
+  const hasValue = Boolean(value);
 
   useScrollLock(open);
 
@@ -73,13 +76,18 @@ export function TimeWheelView({
 
   return (
     <>
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={value}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.('');
+          setOpen(false);
+        }}
         onClick={() => !disabled && setOpen(true)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -88,81 +96,51 @@ export function TimeWheelView({
             setOpen(true);
           }
         }}
-      >
-        <span className={value ? '' : 'text-muted-foreground'}>
-          {value ?? placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.('');
-                setOpen(false);
-              }}
-            />
-          ) : null}
-          <span>🕒</span>
-        </span>
-      </div>
-      {open ? (
-        <Portal>
-          <Overlay
-            open
-            onClick={() => setOpen(false)}
-            className="flex items-end"
-          >
-            <div
-              className="w-full rounded-t-2xl bg-surface pb-safe shadow-lg"
+      />
+      <Portal>
+        <Overlay open={open} onClick={() => setOpen(false)}>
+          <div className="flex h-full items-end">
+            <MotionPanel
+              variant="bottom"
+              className="w-full rounded-t-box border border-border/80 bg-surface pb-safe shadow-overlay"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-border" />
-              <div className="flex items-center justify-between px-4 py-3">
-                <button
-                  type="button"
-                  className="text-sm text-muted-foreground"
-                  onClick={() => setOpen(false)}
-                >
-                  取消
-                </button>
-                <span className="text-sm font-medium">{placeholder}</span>
-                <button
-                  type="button"
-                  className="text-sm font-medium text-primary"
-                  onClick={confirm}
-                >
-                  确定
-                </button>
-              </div>
-              <div
-                className={cn(
-                  'relative grid px-3 pb-5 pt-1',
-                  withSeconds ? 'grid-cols-3' : 'grid-cols-2',
-                )}
+              <SheetChrome
+                title={placeholder}
+                onCancel={() => setOpen(false)}
+                onConfirm={confirm}
+                cancelText={messages.cancelActionText}
               >
-                <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-muted/70" />
-                <WheelColumn
-                  options={hours}
-                  value={pad2(hour)}
-                  onChange={(v) => setHour(Number(v))}
-                />
-                <WheelColumn
-                  options={minutes}
-                  value={pad2(minute)}
-                  onChange={(v) => setMinute(Number(v))}
-                />
-                {withSeconds ? (
+                <div
+                  className={cn(
+                    'relative grid px-3 pb-5 pt-1',
+                    withSeconds ? 'grid-cols-3' : 'grid-cols-2',
+                  )}
+                >
+                  <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-primary/10 ring-1 ring-primary/15" />
+                  <WheelColumn
+                    options={hours}
+                    value={pad2(hour)}
+                    onChange={(v) => setHour(Number(v))}
+                  />
                   <WheelColumn
                     options={minutes}
-                    value={pad2(second)}
-                    onChange={(v) => setSecond(Number(v))}
+                    value={pad2(minute)}
+                    onChange={(v) => setMinute(Number(v))}
                   />
-                ) : null}
-              </div>
-            </div>
-          </Overlay>
-        </Portal>
-      ) : null}
+                  {withSeconds ? (
+                    <WheelColumn
+                      options={minutes}
+                      value={pad2(second)}
+                      onChange={(v) => setSecond(Number(v))}
+                    />
+                  ) : null}
+                </div>
+              </SheetChrome>
+            </MotionPanel>
+          </div>
+        </Overlay>
+      </Portal>
     </>
   );
 }
@@ -205,7 +183,8 @@ function WheelColumn({
             type="button"
             data-active={active}
             className={cn(
-              'flex h-10 w-full snap-center items-center justify-center text-base transition-colors',
+              'flex h-10 w-full snap-center items-center justify-center text-base tabular-nums',
+              controlTransition,
               active
                 ? 'font-semibold text-surface-foreground'
                 : 'text-muted-foreground',

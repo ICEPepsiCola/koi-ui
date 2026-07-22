@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
-import { cn } from '../../utils/cn';
-import { ClearButton } from '../shared/ClearButton';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { FloatMenu } from '../shared/FloatMenu';
+import { OptionRow } from '../shared/OptionRow';
 import type { CascaderOption } from './Cascader';
 
 export interface CascaderDropdownViewProps {
@@ -41,7 +42,7 @@ export function CascaderDropdownView({
     () => getOptionPath(options, value),
     [options, value],
   );
-  const showClear = clearable && !disabled && value.length > 0;
+  const hasValue = value.length > 0;
 
   const columns = useMemo(() => {
     const cols: CascaderOption[][] = [options];
@@ -81,14 +82,19 @@ export function CascaderDropdownView({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={labels.join(' / ')}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.([], []);
+          setOpen(false);
+          setActivePath([]);
+        }}
         onClick={() => !disabled && setOpen((v) => !v)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -97,48 +103,29 @@ export function CascaderDropdownView({
             setOpen((v) => !v);
           }
         }}
-      >
-        <span className={labels.length ? '' : 'text-muted-foreground'}>
-          {labels.length ? labels.join(' / ') : placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.([], []);
-                setOpen(false);
-                setActivePath([]);
-              }}
-            />
-          ) : null}
-          <span>▾</span>
-        </span>
-      </div>
-      {open ? (
-        <div className="absolute z-10 mt-1 flex rounded-md border border-border bg-surface shadow-md">
-          {columns.map((col, level) => (
-            <ul
-              key={level}
-              className="max-h-60 min-w-32 overflow-auto border-r border-border py-1 last:border-r-0"
-            >
-              {col.map((opt) => (
-                <li
-                  key={opt.value}
-                  className={cn(
-                    'cursor-pointer px-3 py-2 text-sm hover:bg-muted',
-                    activePath[level] === opt.value && 'bg-muted font-medium',
-                    opt.disabled && 'cursor-not-allowed opacity-50',
-                  )}
+      />
+      <FloatMenu open={open} className="flex w-auto overflow-hidden p-0 py-0">
+        {columns.map((col, level) => (
+          <ul
+            key={level}
+            className="max-h-60 min-w-32 overflow-auto border-r border-border/70 p-1 last:border-r-0"
+          >
+            {col.map((opt) => (
+              <li key={opt.value} className="list-none">
+                <OptionRow
+                  selected={activePath[level] === opt.value}
+                  hasChildren={Boolean(opt.children?.length)}
+                  disabled={opt.disabled}
+                  className="w-full"
                   onClick={() => selectAtLevel(level, opt)}
                 >
                   {opt.label}
-                </li>
-              ))}
-            </ul>
-          ))}
-        </div>
-      ) : null}
+                </OptionRow>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </FloatMenu>
     </div>
   );
 }

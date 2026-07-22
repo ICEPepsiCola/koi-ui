@@ -9,7 +9,7 @@ import { cn } from '../../utils/cn';
 import { isActivationKey } from '../../utils/keyboard';
 
 const card = tv({
-  base: 'rounded-lg border border-border bg-surface shadow-sm',
+  base: 'rounded-box border border-border/80 bg-surface shadow-field',
   variants: {
     padding: {
       none: 'p-0',
@@ -18,7 +18,7 @@ const card = tv({
       lg: 'p-6',
     },
     hoverable: {
-      true: 'transition-shadow hover:shadow-md cursor-pointer',
+      true: 'cursor-pointer transition-[box-shadow,transform] duration-fast ease-emphasized hover:shadow-float active:scale-[0.995] motion-reduce:transition-none motion-reduce:active:scale-100',
       false: '',
     },
   },

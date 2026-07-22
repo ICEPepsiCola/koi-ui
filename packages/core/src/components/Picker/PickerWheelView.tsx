@@ -7,9 +7,12 @@ import {
 } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { ClearButton } from '../shared/ClearButton';
+import { controlTransition } from '../../utils/interaction';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
+import { SheetChrome } from '../shared/SheetChrome';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import type { PickerColumn, PickerOption } from './Picker';
 
@@ -61,7 +64,7 @@ export function PickerWheelView({
     [columns, resolvedValue],
   );
   const valueKey = resolvedValue.join('\0');
-  const showClear = clearable && !disabled && resolvedValue.length > 0;
+  const hasValue = display.length > 0;
 
   useScrollLock(open);
 
@@ -82,13 +85,18 @@ export function PickerWheelView({
 
   return (
     <>
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={display.join(' ')}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.([]);
+          setOpen(false);
+        }}
         onClick={() => !disabled && setOpen(true)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -97,79 +105,49 @@ export function PickerWheelView({
             setOpen(true);
           }
         }}
-      >
-        <span className={display.length ? '' : 'text-muted-foreground'}>
-          {display.length ? display.join(' ') : placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.([]);
-                setOpen(false);
-              }}
-            />
-          ) : null}
-          <span>▾</span>
-        </span>
-      </div>
-      {open ? (
-        <Portal>
-          <Overlay
-            open
-            onClick={() => setOpen(false)}
-            className="flex items-end"
-          >
-            <div
+      />
+      <Portal>
+        <Overlay open={open} onClick={() => setOpen(false)}>
+          <div className="flex h-full items-end">
+            <MotionPanel
+              variant="bottom"
               data-picker-panel="mobile"
-              className="w-full rounded-t-2xl bg-surface pb-safe shadow-lg"
+              className="w-full rounded-t-box border border-border/80 bg-surface pb-safe shadow-overlay"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-border" />
-              <div className="flex items-center justify-between px-4 py-3">
-                <button
-                  type="button"
-                  className="text-sm text-muted-foreground"
-                  onClick={() => setOpen(false)}
-                >
-                  取消
-                </button>
-                <span className="font-medium">{placeholder}</span>
-                <button
-                  type="button"
-                  className="text-sm text-primary"
-                  onClick={confirm}
-                >
-                  确定
-                </button>
-              </div>
-              <div
-                className="relative grid px-2 pb-4"
-                style={{
-                  gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
-                }}
+              <SheetChrome
+                title={placeholder}
+                onCancel={() => setOpen(false)}
+                onConfirm={confirm}
+                cancelText={messages.cancelActionText}
               >
-                <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-muted/70" />
-                {columns.map((col, idx) => (
-                  <WheelColumn
-                    key={idx}
-                    options={col.options}
-                    value={draft[idx] ?? ''}
-                    onChange={(val) => {
-                      setDraft((prev) => {
-                        const next = [...prev];
-                        next[idx] = val;
-                        return next;
-                      });
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </Overlay>
-        </Portal>
-      ) : null}
+                <div
+                  className="relative grid px-2 pb-4"
+                  style={{
+                    gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
+                  }}
+                >
+                  <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-primary/10 ring-1 ring-primary/15" />
+                  {columns.map((col, idx) => (
+                    <WheelColumn
+                      key={idx}
+                      options={col.options}
+                      value={draft[idx] ?? ''}
+                      onChange={(val) => {
+                        setDraft((prev) => {
+                          const next = [...prev];
+                          next[idx] = val;
+                          return next;
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
+              </SheetChrome>
+            </MotionPanel>
+          </div>
+        </Overlay>
+      </Portal>
     </>
   );
 }
@@ -263,7 +241,8 @@ function WheelColumn({
             data-active={active}
             aria-disabled={opt.disabled || undefined}
             className={cn(
-              'flex h-10 w-full shrink-0 snap-center items-center justify-center text-base transition-colors',
+              'flex h-10 w-full shrink-0 snap-center items-center justify-center text-base',
+              controlTransition,
               active
                 ? 'font-semibold text-surface-foreground'
                 : 'text-muted-foreground',

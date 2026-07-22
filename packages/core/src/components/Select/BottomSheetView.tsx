@@ -5,8 +5,11 @@ import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
-import { ClearButton } from '../shared/ClearButton';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { MotionPanel } from '../shared/MotionPanel';
+import { OptionRow } from '../shared/OptionRow';
 import { Overlay } from '../shared/Overlay';
+import { SheetChrome } from '../shared/SheetChrome';
 import type { SelectOption } from './SelectView';
 
 export interface BottomSheetViewProps {
@@ -32,7 +35,7 @@ export function BottomSheetView({
   const titleId = useId();
   const selected = options.find((o) => o.value === value);
   const resolvedPlaceholder = placeholder ?? messages.selectPlaceholder;
-  const showClear = clearable && !disabled && value !== undefined && value !== '';
+  const hasValue = value !== undefined && value !== '' && Boolean(selected);
 
   useScrollLock(open);
   useDismissibleLayer({
@@ -47,13 +50,18 @@ export function BottomSheetView({
 
   return (
     <>
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={selected?.label}
+        placeholder={resolvedPlaceholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.('');
+          setOpen(false);
+        }}
         onClick={() => !disabled && setOpen(true)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -62,66 +70,48 @@ export function BottomSheetView({
             setOpen(true);
           }
         }}
-      >
-        <span className={selected ? '' : 'text-muted-foreground'}>
-          {selected?.label ?? resolvedPlaceholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.('');
-                setOpen(false);
-              }}
-            />
-          ) : null}
-          <span>▾</span>
-        </span>
-      </div>
-      {open ? (
-        <Portal>
-          <Overlay open onClick={() => setOpen(false)}>
-            <div className="flex h-full items-end">
-              <div
-                ref={sheetRef}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby={titleId}
-                tabIndex={-1}
-                className="max-h-[70vh] w-full overflow-y-auto rounded-t-lg bg-surface"
-                onClick={(e) => e.stopPropagation()}
+      />
+      <Portal>
+        <Overlay open={open} onClick={() => setOpen(false)}>
+          <div className="flex h-full items-end">
+            <MotionPanel
+              ref={sheetRef}
+              variant="bottom"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={titleId}
+              tabIndex={-1}
+              className="max-h-[70vh] w-full overflow-hidden rounded-t-box border border-border/80 bg-surface shadow-overlay"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <SheetChrome
+                title={<span id={titleId}>{resolvedPlaceholder}</span>}
+                onCancel={() => setOpen(false)}
+                cancelText={messages.cancelActionText}
+                showConfirm={false}
               >
-                <div
-                  id={titleId}
-                  className="border-b border-border px-4 py-3 text-center font-medium"
-                >
-                  {resolvedPlaceholder}
+                <div className="max-h-[50vh] overflow-y-auto px-2 pb-3">
+                  {options.map((opt) => (
+                    <OptionRow
+                      key={opt.value}
+                      selected={opt.value === value}
+                      disabled={opt.disabled}
+                      className={cn('mb-0.5')}
+                      onClick={() => {
+                        if (opt.disabled) return;
+                        onChange?.(opt.value);
+                        setOpen(false);
+                      }}
+                    >
+                      {opt.label}
+                    </OptionRow>
+                  ))}
                 </div>
-                {options.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    disabled={opt.disabled}
-                    className={cn(
-                      'block w-full px-4 py-3 text-left text-sm hover:bg-muted',
-                      opt.value === value && 'bg-muted font-medium',
-                      opt.disabled && 'cursor-not-allowed opacity-50',
-                    )}
-                    onClick={() => {
-                      if (opt.disabled) return;
-                      onChange?.(opt.value);
-                      setOpen(false);
-                    }}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </Overlay>
-        </Portal>
-      ) : null}
+              </SheetChrome>
+            </MotionPanel>
+          </div>
+        </Overlay>
+      </Portal>
     </>
   );
 }

@@ -5,16 +5,17 @@ import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
 
 const drawerVariants = tv({
-  base: 'fixed z-50 flex flex-col border border-border bg-surface shadow-md transition-transform',
+  base: 'fixed z-50 flex flex-col border border-border/80 bg-surface shadow-overlay',
   variants: {
     placement: {
       left: 'left-0 top-0 h-full',
       right: 'right-0 top-0 h-full',
       top: 'left-0 top-0 w-full',
-      bottom: 'bottom-0 left-0 w-full rounded-t-lg',
+      bottom: 'bottom-0 left-0 w-full rounded-t-box',
     },
     size: {
       sm: '',
@@ -59,6 +60,7 @@ export function Drawer({
   const drawerRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const descriptionId = useId();
+  const resolvedPlacement = placement ?? 'right';
 
   useScrollLock(open);
   useDismissibleLayer({
@@ -71,22 +73,21 @@ export function Drawer({
     containerRef: drawerRef,
   });
 
-  if (!open) return null;
-
-  const sizeClass = sizeMap[placement ?? 'right'][size ?? 'md'];
+  const sizeClass = sizeMap[resolvedPlacement][size ?? 'md'];
 
   return (
     <Portal>
-      <Overlay open onClick={maskClosable ? onClose : undefined}>
-        <div
+      <Overlay open={open} onClick={maskClosable ? onClose : undefined}>
+        <MotionPanel
           ref={drawerRef}
+          variant={resolvedPlacement}
           role="dialog"
           aria-modal="true"
           aria-labelledby={title ? titleId : undefined}
           aria-describedby={descriptionId}
           tabIndex={-1}
           className={cn(
-            drawerVariants({ placement, size }),
+            drawerVariants({ placement: resolvedPlacement, size }),
             sizeClass,
             placement === 'bottom' && 'items-end',
             className,
@@ -99,7 +100,7 @@ export function Drawer({
           {title ? (
             <div
               id={titleId}
-              className="border-b border-border px-4 py-3 text-lg font-semibold"
+              className="border-b border-border/80 px-4 py-3 text-lg font-semibold"
             >
               {title}
             </div>
@@ -108,11 +109,11 @@ export function Drawer({
             {children}
           </div>
           {footer ? (
-            <div className="flex justify-end gap-2 border-t border-border px-4 py-3">
+            <div className="flex justify-end gap-2 border-t border-border/80 px-4 py-3">
               {footer}
             </div>
           ) : null}
-        </div>
+        </MotionPanel>
       </Overlay>
     </Portal>
   );

@@ -1,14 +1,20 @@
 import { useCallback, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { boxSurface, controlTransition, focusRing, pressable } from '../../utils/interaction';
 import { Text } from '../../primitives/Text';
 
 const stepperVariants = tv({
   slots: {
-    root: 'inline-flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-surface px-3 py-2',
+    root: cn('inline-flex w-full items-center justify-between gap-3 px-3 py-2', boxSurface),
     value: 'min-w-0 flex-1 text-center text-lg font-medium text-surface-foreground',
-    button:
-      'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-xl font-medium text-surface-foreground transition-colors hover:bg-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+    button: cn(
+      'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-selector bg-muted text-xl font-medium text-surface-foreground',
+      controlTransition,
+      focusRing,
+      pressable,
+      'hover:bg-border disabled:cursor-not-allowed disabled:opacity-50',
+    ),
   },
   variants: {
     size: {

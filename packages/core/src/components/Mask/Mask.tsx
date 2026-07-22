@@ -18,11 +18,10 @@ export function Mask({
   ...props
 }: MaskProps) {
   const isOpen = open ?? visible;
-  if (!isOpen) return null;
 
   const mask = (
     <Overlay
-      open
+      open={isOpen}
       className={cn(className)}
       style={{ zIndex }}
       {...props}

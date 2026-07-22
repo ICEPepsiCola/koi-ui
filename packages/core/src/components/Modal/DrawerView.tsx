@@ -4,6 +4,7 @@ import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
 
 export interface DrawerViewProps {
@@ -38,20 +39,19 @@ export function DrawerView({
     containerRef: drawerRef,
   });
 
-  if (!open) return null;
-
   return (
     <Portal>
-      <Overlay open onClick={onClose} className="flex items-end">
-        <div
+      <Overlay open={open} onClick={onClose} className="flex items-end">
+        <MotionPanel
           ref={drawerRef}
+          variant="bottom"
           role="dialog"
           aria-modal="true"
           aria-labelledby={title ? titleId : undefined}
           aria-describedby={descriptionId}
           tabIndex={-1}
           className={cn(
-            'w-full rounded-t-lg border border-border bg-surface shadow-md transition-transform',
+            'w-full rounded-t-box border border-border/80 bg-surface shadow-overlay',
             mobileFullscreen ? 'max-h-[90vh]' : 'max-h-[70vh]',
           )}
           onClick={(e) => e.stopPropagation()}
@@ -60,7 +60,7 @@ export function DrawerView({
           {title ? (
             <div
               id={titleId}
-              className="border-b border-border px-4 py-3 text-lg font-semibold"
+              className="border-b border-border/80 px-4 py-3 text-lg font-semibold"
             >
               {title}
             </div>
@@ -69,11 +69,11 @@ export function DrawerView({
             {children}
           </div>
           {footer ? (
-            <div className="flex justify-end gap-2 border-t border-border px-4 py-3">
+            <div className="flex justify-end gap-2 border-t border-border/80 px-4 py-3">
               {footer}
             </div>
           ) : null}
-        </div>
+        </MotionPanel>
       </Overlay>
     </Portal>
   );

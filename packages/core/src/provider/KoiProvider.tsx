@@ -23,7 +23,10 @@ export interface KoiProviderProps {
 function themeToStyle(theme: KoiTheme): CSSProperties | undefined {
   const style: Record<string, string> = {};
   if (theme.primaryColor) style['--color-primary'] = theme.primaryColor;
-  if (theme.radiusMd) style['--radius-md'] = theme.radiusMd;
+  if (theme.radiusMd) {
+    style['--radius-md'] = theme.radiusMd;
+    style['--radius-field'] = theme.radiusMd;
+  }
   return Object.keys(style).length > 0 ? (style as CSSProperties) : undefined;
 }
 

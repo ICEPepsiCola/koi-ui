@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 import { Icon } from '../Icon/Icon';
 
 const breadcrumbVariants = tv({
@@ -8,7 +9,10 @@ const breadcrumbVariants = tv({
 });
 
 const itemVariants = tv({
-  base: 'inline-flex items-center gap-1 transition-colors',
+  base: cn(
+    'inline-flex items-center gap-1 rounded-selector',
+    controlTransition,
+  ),
   variants: {
     active: {
       true: 'font-medium text-surface-foreground',
@@ -55,7 +59,7 @@ export function Breadcrumb({
               {item.href && !isLast ? (
                 <a
                   href={item.href}
-                  className={cn(itemVariants({ active: false }))}
+                  className={cn(itemVariants({ active: false }), focusRing, pressable)}
                   onClick={item.onClick}
                 >
                   {item.title}
@@ -63,7 +67,7 @@ export function Breadcrumb({
               ) : item.onClick && !isLast ? (
                 <button
                   type="button"
-                  className={cn(itemVariants({ active: false }))}
+                  className={cn(itemVariants({ active: false }), focusRing, pressable)}
                   onClick={item.onClick}
                 >
                   {item.title}

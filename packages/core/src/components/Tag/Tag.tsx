@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 
 const tagVariants = tv({
-  base: 'inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium transition-colors',
+  base: 'inline-flex items-center gap-1 rounded-selector px-2 py-0.5 text-xs font-medium transition-[color,background-color,border-color,transform] duration-fast ease-emphasized motion-reduce:transition-none',
   variants: {
     variant: {
       default: 'bg-primary/10 text-primary',
@@ -52,7 +52,7 @@ export function Tag({
       {isClosable ? (
         <button
           type="button"
-          className="ml-0.5 rounded-sm p-0.5 hover:bg-black/5"
+          className="ml-0.5 rounded-selector p-0.5 transition-colors duration-fast ease-emphasized hover:bg-black/5 active:scale-95 motion-reduce:transition-none"
           onClick={onClose}
           aria-label="Close"
         >

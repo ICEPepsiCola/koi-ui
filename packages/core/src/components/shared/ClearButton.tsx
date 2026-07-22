@@ -19,7 +19,7 @@ export function ClearButton({ label, onClear, className }: ClearButtonProps) {
       type="button"
       aria-label={label}
       className={cn(
-        'inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-surface-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+        'inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-[color,background-color,transform] duration-fast ease-emphasized hover:bg-muted hover:text-surface-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
         className,
       )}
       onMouseDown={stopTrigger}

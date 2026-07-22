@@ -1,9 +1,10 @@
 import { useId, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
-import { cn } from '../../utils/cn';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
-import { ClearButton } from '../shared/ClearButton';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { FloatMenu } from '../shared/FloatMenu';
+import { OptionRow } from '../shared/OptionRow';
 
 export interface SelectOption {
   label: string;
@@ -40,7 +41,7 @@ export function SelectView({
   const listboxId = useId();
   const selected = options.find((o) => o.value === value);
   const resolvedPlaceholder = placeholder ?? messages.selectPlaceholder;
-  const showClear = clearable && !disabled && value !== undefined && value !== '';
+  const hasValue = value !== undefined && value !== '' && Boolean(selected);
 
   useDismissibleLayer({
     open,
@@ -66,14 +67,21 @@ export function SelectView({
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={selected?.label}
+        placeholder={resolvedPlaceholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.('');
+          setOpen(false);
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={open ? listboxId : undefined}
         onClick={() => {
           if (disabled) return;
           if (open) {
@@ -127,57 +135,44 @@ export function SelectView({
               commitValue(activeOption.value);
             }
           }
+          if (event.key === 'Escape' && open) {
+            event.preventDefault();
+            setOpen(false);
+          }
         }}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-controls={open ? listboxId : undefined}
-      >
-        <span className={selected ? '' : 'text-muted-foreground'}>
-          {selected?.label ?? resolvedPlaceholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.('');
-                setOpen(false);
-              }}
-            />
-          ) : null}
-          <span>▾</span>
-        </span>
-      </div>
-      {open ? (
-        <ul
-          id={listboxId}
-          role="listbox"
-          className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-border bg-surface py-1 shadow-md"
-        >
-          {options.map((opt, index) => (
-            <li
-              key={opt.value}
-              role="option"
-              aria-selected={opt.value === value}
-              className={cn(
-                'px-3 py-2 text-sm',
-                opt.disabled && 'cursor-not-allowed opacity-50',
-                !opt.disabled && 'cursor-pointer hover:bg-muted',
-                (opt.value === value || index === activeIndex) && 'bg-muted font-medium',
-              )}
-              onMouseEnter={() => {
-                if (!opt.disabled) setActiveIndex(index);
-              }}
-              onClick={() => {
-                if (opt.disabled) return;
-                commitValue(opt.value);
-              }}
-            >
-              {opt.label}
-            </li>
-          ))}
+      />
+      <FloatMenu open={open} className="max-h-60 overflow-auto p-1">
+        <ul id={listboxId} role="listbox" className="flex flex-col gap-0.5">
+          {options.map((opt, index) => {
+            const isSelected = opt.value === value;
+            const isActive = index === activeIndex;
+            return (
+              <li
+                key={opt.value}
+                role="option"
+                aria-selected={isSelected}
+                className="list-none"
+              >
+                <OptionRow
+                  selected={isSelected}
+                  active={isActive}
+                  disabled={opt.disabled}
+                  className="w-full"
+                  onMouseEnter={() => {
+                    if (!opt.disabled) setActiveIndex(index);
+                  }}
+                  onClick={() => {
+                    if (opt.disabled) return;
+                    commitValue(opt.value);
+                  }}
+                >
+                  {opt.label}
+                </OptionRow>
+              </li>
+            );
+          })}
         </ul>
-      ) : null}
+      </FloatMenu>
     </div>
   );
 }

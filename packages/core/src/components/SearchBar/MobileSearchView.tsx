@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from '@koi-ui/icons';
 import { tv } from 'tailwind-variants';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing } from '../../utils/interaction';
 import { ClearButton } from '../shared/ClearButton';
 
 const mobileSearchVariants = tv({
@@ -10,7 +11,13 @@ const mobileSearchVariants = tv({
 });
 
 const mobileInputVariants = tv({
-  base: 'h-10 min-w-0 flex-1 rounded-full border border-border bg-muted px-4 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+  base: cn(
+    'h-10 min-w-0 flex-1 rounded-full border border-border bg-muted px-4 text-sm outline-none shadow-field placeholder:text-muted-foreground',
+    controlTransition,
+    'hover:border-primary/35',
+    focusRing,
+    'disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
+  ),
 });
 
 export interface MobileSearchViewProps {

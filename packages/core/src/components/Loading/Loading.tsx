@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import { Portal } from '../../utils/portal';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
 import { Spinner } from '../shared/Spinner';
 
@@ -17,26 +18,39 @@ export function Loading({
   fullscreen = true,
   className,
 }: LoadingProps) {
-  if (!open) return null;
-
-  const content = (
-    <div
-      className={cn(
-        'flex flex-col items-center gap-3 rounded-lg bg-surface px-6 py-4 shadow-md',
-        className,
-      )}
-    >
+  const body = (
+    <>
       <Spinner className="h-8 w-8" />
       {tip ? <span className="text-sm text-muted-foreground">{tip}</span> : null}
-    </div>
+    </>
   );
 
-  if (!fullscreen) return content;
+  if (!fullscreen) {
+    if (!open) return null;
+    return (
+      <div
+        className={cn(
+          'flex flex-col items-center gap-3 rounded-box bg-surface px-6 py-4 shadow-float',
+          className,
+        )}
+      >
+        {body}
+      </div>
+    );
+  }
 
   return (
     <Portal>
-      <Overlay open className="flex items-center justify-center">
-        {content}
+      <Overlay open={open} className="flex items-center justify-center">
+        <MotionPanel
+          variant="center"
+          className={cn(
+            'flex flex-col items-center gap-3 rounded-box bg-surface px-6 py-4 shadow-float',
+            className,
+          )}
+        >
+          {body}
+        </MotionPanel>
       </Overlay>
     </Portal>
   );

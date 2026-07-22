@@ -7,11 +7,11 @@ import { ClearButton } from '../shared/ClearButton';
 
 const inputNumberVariants = tv({
   slots: {
-    root: 'inline-flex w-full items-stretch overflow-hidden rounded-md border border-border bg-surface',
+    root: 'inline-flex w-full items-stretch overflow-hidden rounded-field border border-border bg-surface shadow-field transition-[border-color,box-shadow] duration-fast ease-emphasized hover:border-primary/35 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-surface motion-reduce:transition-none',
     input:
       'min-w-0 flex-1 border-0 bg-transparent px-3 text-center text-sm text-surface-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
     button:
-      'inline-flex w-10 shrink-0 items-center justify-center border-border text-sm text-surface-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+      'inline-flex w-10 shrink-0 items-center justify-center border-border text-sm text-surface-foreground transition-[background-color,transform] duration-fast ease-emphasized hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
   },
   variants: {
     size: {

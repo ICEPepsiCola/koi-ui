@@ -5,9 +5,9 @@ import { cn } from '../../utils/cn';
 const switchVariants = tv({
   slots: {
     track:
-      'relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+      'relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-[background-color,box-shadow,transform] duration-fast ease-emphasized focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none motion-reduce:active:scale-100',
     thumb:
-      'pointer-events-none inline-block rounded-full bg-white shadow-sm transition-transform',
+      'pointer-events-none inline-block rounded-full bg-white shadow-sm transition-transform duration-fast ease-emphasized motion-reduce:transition-none',
   },
   variants: {
     size: {

@@ -1,6 +1,7 @@
 import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing } from '../../utils/interaction';
 
 const titleVariants = tv({
   base: 'text-surface-foreground',
@@ -76,7 +77,11 @@ const paragraphVariants = tv({
 });
 
 const linkVariants = tv({
-  base: 'text-primary underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+  base: cn(
+    'rounded-selector text-primary underline-offset-4 hover:underline',
+    controlTransition,
+    focusRing,
+  ),
   variants: {
     disabled: {
       true: 'pointer-events-none opacity-50',

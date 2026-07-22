@@ -10,7 +10,7 @@ import { cn } from '../../utils/cn';
 import { Portal } from '../../utils/portal';
 
 const notificationVariants = tv({
-  base: 'pointer-events-auto w-80 rounded-lg border border-border bg-surface p-4 shadow-md',
+  base: 'pointer-events-auto w-80 rounded-box border border-border/80 bg-surface p-4 shadow-float',
   variants: {
     type: {
       info: '',

@@ -1,8 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { ClearButton } from '../shared/ClearButton';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { MotionPanel } from '../shared/MotionPanel';
+import { Overlay } from '../shared/Overlay';
+import { OptionRow } from '../shared/OptionRow';
+import { SheetChrome } from '../shared/SheetChrome';
 import { useScrollLock } from '../../hooks/useScrollLock';
+import { Portal } from '../../utils/portal';
 import type { CascaderOption } from './Cascader';
 
 export interface CascaderSheetViewProps {
@@ -38,7 +43,7 @@ export function CascaderSheetView({
   const [open, setOpen] = useState(false);
   const [path, setPath] = useState<string[]>(value);
   const labels = useMemo(() => getOptionPath(options, value), [options, value]);
-  const showClear = clearable && !disabled && value.length > 0;
+  const hasValue = value.length > 0;
 
   const currentOptions = useMemo(() => {
     let current = options;
@@ -52,14 +57,18 @@ export function CascaderSheetView({
 
   useScrollLock(open);
 
+  const closeSheet = () => {
+    setOpen(false);
+    setPath([]);
+  };
+
   const selectOption = (opt: CascaderOption) => {
     if (opt.disabled) return;
     const nextPath = [...path, opt.value];
     setPath(nextPath);
     if (!opt.children?.length) {
       onChange?.(nextPath, getOptionPath(options, nextPath));
-      setOpen(false);
-      setPath([]);
+      closeSheet();
     }
   };
 
@@ -67,13 +76,18 @@ export function CascaderSheetView({
 
   return (
     <>
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={labels.join(' / ')}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.([], []);
+          closeSheet();
+        }}
         onClick={() => !disabled && setOpen(true)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -82,75 +96,57 @@ export function CascaderSheetView({
             setOpen(true);
           }
         }}
-      >
-        <span className={labels.length ? '' : 'text-muted-foreground'}>
-          {labels.length ? labels.join(' / ') : placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.([], []);
-                setOpen(false);
-                setPath([]);
-              }}
-            />
-          ) : null}
-          <span>▾</span>
-        </span>
-      </div>
-      {open ? (
-        <div
-          className="fixed inset-0 z-50 flex items-end bg-overlay"
-          onClick={() => {
-            setOpen(false);
-            setPath([]);
-          }}
-        >
-          <div
-            className="max-h-[70vh] w-full overflow-y-auto rounded-t-lg bg-surface"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="border-b border-border px-4 py-3 text-center font-medium">
-              {placeholder}
-            </div>
-            {breadcrumb.length > 0 ? (
-              <div className="flex items-center gap-1 border-b border-border px-4 py-2 text-sm text-muted-foreground">
-                <button type="button" onClick={() => setPath([])}>
-                  全部
-                </button>
-                {breadcrumb.map((label, idx) => (
-                  <span key={`${label}-${idx}`}>
-                    {' / '}
-                    <button
-                      type="button"
-                      onClick={() => setPath(path.slice(0, idx + 1))}
-                    >
-                      {label}
-                    </button>
-                  </span>
-                ))}
-              </div>
-            ) : null}
-            {(path.length === 0 ? options : currentOptions).map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                disabled={opt.disabled}
-                className={cn(
-                  'flex w-full items-center justify-between px-4 py-3 text-left text-sm hover:bg-muted',
-                  opt.disabled && 'cursor-not-allowed opacity-50',
-                )}
-                onClick={() => selectOption(opt)}
+      />
+      <Portal>
+        <Overlay open={open} onClick={closeSheet}>
+          <div className="flex h-full items-end">
+            <MotionPanel
+              variant="bottom"
+              className="max-h-[70vh] w-full overflow-hidden rounded-t-box border border-border/80 bg-surface shadow-overlay"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <SheetChrome
+                title={placeholder}
+                onCancel={closeSheet}
+                cancelText={messages.cancelActionText}
+                showConfirm={false}
               >
-                <span>{opt.label}</span>
-                {opt.children?.length ? <span className="text-muted-foreground">›</span> : null}
-              </button>
-            ))}
+                {breadcrumb.length > 0 ? (
+                  <div className="flex items-center gap-1 border-b border-border/80 px-4 py-2 text-sm text-muted-foreground">
+                    <button type="button" onClick={() => setPath([])}>
+                      全部
+                    </button>
+                    {breadcrumb.map((label, idx) => (
+                      <span key={`${label}-${idx}`}>
+                        {' / '}
+                        <button
+                          type="button"
+                          onClick={() => setPath(path.slice(0, idx + 1))}
+                        >
+                          {label}
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+                <div className="max-h-[50vh] overflow-y-auto px-2 pb-3 pt-1">
+                  {(path.length === 0 ? options : currentOptions).map((opt) => (
+                    <OptionRow
+                      key={opt.value}
+                      hasChildren={Boolean(opt.children?.length)}
+                      disabled={opt.disabled}
+                      className={cn('mb-0.5')}
+                      onClick={() => selectOption(opt)}
+                    >
+                      {opt.label}
+                    </OptionRow>
+                  ))}
+                </div>
+              </SheetChrome>
+            </MotionPanel>
           </div>
-        </div>
-      ) : null}
+        </Overlay>
+      </Portal>
     </>
   );
 }

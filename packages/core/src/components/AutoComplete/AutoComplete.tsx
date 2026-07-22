@@ -1,12 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { fieldBase } from '../../utils/interaction';
 import { Text } from '../../primitives/Text';
 import { useKoiContext } from '../../provider/context';
 import { ClearButton } from '../shared/ClearButton';
+import { FloatMenu } from '../shared/FloatMenu';
+import { OptionRow } from '../shared/OptionRow';
 
 const autoCompleteVariants = tv({
-  base: 'w-full rounded-md border border-border bg-surface px-3 text-sm text-surface-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+  base: cn(
+    'w-full px-3 text-sm text-surface-foreground placeholder:text-muted-foreground',
+    fieldBase,
+  ),
   variants: {
     size: {
       sm: 'h-8',
@@ -14,7 +20,7 @@ const autoCompleteVariants = tv({
       lg: 'h-12 text-base',
     },
     error: {
-      true: 'border-destructive focus-visible:ring-destructive',
+      true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
       false: '',
     },
   },
@@ -92,6 +98,7 @@ export function AutoComplete({
   }, [open]);
 
   const showClear = clearable && !disabled && internal.length > 0;
+  const showSuggestions = open && filtered.length > 0;
 
   return (
     <div ref={containerRef} className={cn('relative w-full', className)}>
@@ -110,7 +117,7 @@ export function AutoComplete({
           setOpen(true);
         }}
         aria-autocomplete="list"
-        aria-expanded={open}
+        aria-expanded={showSuggestions}
       />
       {showClear ? (
         <ClearButton
@@ -122,32 +129,31 @@ export function AutoComplete({
           }}
         />
       ) : null}
-      {open && filtered.length > 0 ? (
-        <ul
-          role="listbox"
-          className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-border bg-surface py-1 shadow-md"
-        >
+      <FloatMenu
+        open={showSuggestions}
+        className="max-h-60 overflow-auto p-1"
+      >
+        <ul role="listbox" className="flex flex-col gap-0.5">
           {filtered.map((opt) => (
-            <li
-              key={opt.value}
-              role="option"
-              className={cn(
-                'cursor-pointer px-3 py-2 text-sm hover:bg-muted',
-                opt.disabled && 'cursor-not-allowed opacity-50',
-              )}
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => {
-                if (opt.disabled) return;
-                setInternal(opt.label);
-                onSelect?.(opt);
-                setOpen(false);
-              }}
-            >
-              {opt.label}
+            <li key={opt.value} role="option" className="list-none">
+              <OptionRow
+                selected={opt.label === internal}
+                disabled={opt.disabled}
+                className="w-full"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (opt.disabled) return;
+                  setInternal(opt.label);
+                  onSelect?.(opt);
+                  setOpen(false);
+                }}
+              >
+                {opt.label}
+              </OptionRow>
             </li>
           ))}
         </ul>
-      ) : null}
+      </FloatMenu>
       {typeof error === 'string' ? (
         <Text size="sm" className="mt-1 text-destructive">
           {error}

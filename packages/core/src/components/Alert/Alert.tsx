@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 
 const alertVariants = tv({
-  base: 'relative flex gap-3 rounded-lg border px-4 py-3 text-sm',
+  base: 'relative flex gap-3 rounded-box border px-4 py-3 text-sm shadow-field',
   variants: {
     variant: {
       info: '',
@@ -136,7 +136,7 @@ export function Alert({
       {isClosable ? (
         <button
           type="button"
-          className="absolute right-3 top-3 rounded-sm p-0.5 hover:opacity-70"
+          className="absolute right-3 top-3 rounded-selector p-0.5 transition-colors duration-fast ease-emphasized hover:bg-black/5 motion-reduce:transition-none"
           onClick={onClose}
           aria-label="Close"
         >

@@ -1,7 +1,9 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { ClearButton } from '../shared/ClearButton';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { FloatMenu } from '../shared/FloatMenu';
 import type { PickerColumn, PickerOption } from './Picker';
 
 export interface PickerDropdownViewProps {
@@ -53,7 +55,7 @@ export function PickerDropdownView({
     [columns, resolvedValue],
   );
   const valueKey = resolvedValue.join('\0');
-  const showClear = clearable && !disabled && resolvedValue.length > 0;
+  const hasValue = display.length > 0;
 
   useEffect(() => {
     columnsRef.current = columns;
@@ -89,16 +91,18 @@ export function PickerDropdownView({
 
   return (
     <div ref={containerRef} className="koi-picker-demo relative w-full max-w-xs">
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between gap-2 rounded-md border border-border bg-surface px-3 text-sm',
-          'transition-colors hover:border-primary',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
-          open && 'border-primary',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={display.join(' ')}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.([]);
+          setOpen(false);
+        }}
         onClick={() => !disabled && setOpen((v) => !v)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -107,64 +111,44 @@ export function PickerDropdownView({
             setOpen((v) => !v);
           }
         }}
+      />
+      <FloatMenu
+        open={open}
+        data-picker-panel="desktop"
+        className="overflow-hidden p-0 py-0"
       >
-        <span
-          className={cn(
-            'min-w-0 flex-1 truncate text-left leading-none',
-            display.length ? 'text-surface-foreground' : 'text-muted-foreground',
-          )}
-        >
-          {display.length ? display.join(' ') : placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.([]);
-                setOpen(false);
+        <div className="flex">
+          {columns.map((col, idx) => (
+            <WheelColumnScroller
+              key={idx}
+              options={col.options}
+              value={draft[idx] ?? ''}
+              onChange={(val) => {
+                setDraft((prev) => {
+                  const next = [...prev];
+                  next[idx] = val;
+                  return next;
+                });
               }}
             />
-          ) : null}
-          <span>▾</span>
-        </span>
-      </div>
-
-      {open ? (
-        <div
-          data-picker-panel="desktop"
-          className={cn(
-            'absolute left-0 top-full z-50 mt-1.5 w-full overflow-hidden rounded-lg border border-border bg-surface',
-            'shadow-[0_6px_16px_0_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12),0_9px_28px_8px_rgba(0,0,0,0.05)]',
-          )}
-        >
-          <div className="flex">
-            {columns.map((col, idx) => (
-              <WheelColumnScroller
-                key={idx}
-                options={col.options}
-                value={draft[idx] ?? ''}
-                onChange={(val) => {
-                  setDraft((prev) => {
-                    const next = [...prev];
-                    next[idx] = val;
-                    return next;
-                  });
-                }}
-              />
-            ))}
-          </div>
-          <div className="flex items-center justify-end border-t border-border/80 px-3 py-2">
-            <button
-              type="button"
-              className="h-7 rounded px-3 text-sm text-primary-foreground bg-primary transition-opacity hover:opacity-90"
-              onClick={confirm}
-            >
-              确定
-            </button>
-          </div>
+          ))}
         </div>
-      ) : null}
+        <div className="flex items-center justify-end border-t border-border/80 px-3 py-2">
+          <button
+            type="button"
+            className={cn(
+              'h-7 rounded-field px-3 text-sm text-primary-foreground bg-primary shadow-field',
+              controlTransition,
+              focusRing,
+              pressable,
+              'hover:brightness-[1.04] active:brightness-[0.96]',
+            )}
+            onClick={confirm}
+          >
+            确定
+          </button>
+        </div>
+      </FloatMenu>
     </div>
   );
 }
@@ -221,7 +205,8 @@ function WheelColumnScroller({
           >
             <span
               className={cn(
-                'flex h-6 w-[calc(100%-12px)] items-center justify-center rounded-sm text-sm transition-colors',
+                'flex h-6 w-[calc(100%-12px)] items-center justify-center rounded-selector text-sm',
+                controlTransition,
                 active
                   ? 'bg-primary/10 font-medium text-primary'
                   : 'text-surface-foreground hover:bg-muted',

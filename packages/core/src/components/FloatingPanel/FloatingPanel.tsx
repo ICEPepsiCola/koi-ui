@@ -7,11 +7,13 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from 'react';
+import { AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/cn';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import { getPortalFixedRoot } from '../../utils/toPortalFixedPosition';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
 
 export interface FloatingPanelProps
@@ -46,6 +48,12 @@ export function FloatingPanel({
   anchors = [0.4, 0.7],
   defaultAnchor = 0.4,
   showOverlay = true,
+  onDrag: _onDrag,
+  onDragStart: _onDragStart,
+  onDragEnd: _onDragEnd,
+  onAnimationStart: _onAnimationStart,
+  onAnimationEnd: _onAnimationEnd,
+  onAnimationIteration: _onAnimationIteration,
   ...props
 }: FloatingPanelProps) {
   const { portalContainer } = useKoiContext();
@@ -84,10 +92,7 @@ export function FloatingPanel({
   );
 
   useEffect(() => {
-    if (!open) {
-      setHeightState(null);
-      return;
-    }
+    if (!open) return;
 
     const applyDefault = () => {
       const vh = resolveViewportHeight(portalContainer);
@@ -154,35 +159,65 @@ export function FloatingPanel({
     snapToAnchor(heightRef.current);
   };
 
-  if (!open || height == null) return null;
+  const panelClassName = cn(
+    'flex w-full flex-col rounded-t-box border border-border/80 bg-surface shadow-overlay',
+    className,
+  );
+
+  const panelBody = (
+    <>
+      <div
+        className="flex touch-none cursor-grab flex-col items-center py-2 active:cursor-grabbing"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={onPointerCancel}
+      >
+        <div className="h-1 w-10 rounded-full bg-border" />
+      </div>
+      {title ? (
+        <div className="border-b border-border/80 px-4 py-2 text-center text-sm font-medium">
+          {title}
+        </div>
+      ) : null}
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-2">{children}</div>
+    </>
+  );
+
+  if (!showOverlay) {
+    return (
+      <Portal>
+        <AnimatePresence>
+          {open ? (
+            <MotionPanel
+              variant="bottom"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className={cn(panelClassName, 'fixed bottom-0 left-0 right-0 z-50')}
+              style={{ height: height ?? undefined }}
+              {...props}
+            >
+              {panelBody}
+            </MotionPanel>
+          ) : null}
+        </AnimatePresence>
+      </Portal>
+    );
+  }
 
   return (
     <Portal>
-      {showOverlay ? <Overlay open onClick={onClose} /> : null}
-      <div
-        className={cn(
-          'fixed bottom-0 left-0 right-0 z-50 flex flex-col rounded-t-xl border border-border bg-surface shadow-lg',
-          className,
-        )}
-        style={{ height }}
-        {...props}
-      >
-        <div
-          className="flex touch-none cursor-grab flex-col items-center py-2 active:cursor-grabbing"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={onPointerCancel}
+      <Overlay open={open} onClick={onClose} className="flex items-end">
+        <MotionPanel
+          variant="bottom"
+          className={panelClassName}
+          style={{ height: height ?? undefined }}
+          {...props}
         >
-          <div className="h-1 w-10 rounded-full bg-border" />
-        </div>
-        {title ? (
-          <div className="border-b border-border px-4 py-2 text-center text-sm font-medium">
-            {title}
-          </div>
-        ) : null}
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-2">{children}</div>
-      </div>
+          {panelBody}
+        </MotionPanel>
+      </Overlay>
     </Portal>
   );
 }

@@ -3,14 +3,15 @@ import { MagnifyingGlassIcon } from '@koi-ui/icons';
 import { tv } from 'tailwind-variants';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import { fieldBase } from '../../utils/interaction';
 import { Button } from '../Button/Button';
 import { ClearButton } from '../shared/ClearButton';
 
 const inlineSearchVariants = tv({
-  base: 'flex w-full items-center gap-2 rounded-md border border-border bg-surface px-3 py-2',
+  base: cn('flex w-full items-center gap-2 px-3 py-2', fieldBase),
   variants: {
     focused: {
-      true: 'ring-2 ring-primary',
+      true: 'border-primary ring-2 ring-primary ring-offset-2 ring-offset-surface',
       false: '',
     },
   },

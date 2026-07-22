@@ -1,5 +1,11 @@
 import { useMemo, useState, type HTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
+import {
+  boxSurface,
+  controlTransition,
+  focusRing,
+  pressable,
+} from '../../utils/interaction';
 
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
 
@@ -61,7 +67,8 @@ export function Calendar({
   return (
     <div
       className={cn(
-        'w-full max-w-sm rounded-lg border border-border bg-surface p-4',
+        'w-full max-w-sm p-4',
+        boxSurface,
         className,
       )}
       {...props}
@@ -69,7 +76,12 @@ export function Calendar({
       <div className="mb-4 flex items-center justify-between">
         <button
           type="button"
-          className="rounded-md px-2 py-1 text-sm hover:bg-muted"
+          className={cn(
+            'rounded-selector px-2 py-1 text-sm hover:bg-muted',
+            controlTransition,
+            focusRing,
+            pressable,
+          )}
           onClick={prevMonth}
         >
           ‹
@@ -79,7 +91,12 @@ export function Calendar({
         </span>
         <button
           type="button"
-          className="rounded-md px-2 py-1 text-sm hover:bg-muted"
+          className={cn(
+            'rounded-selector px-2 py-1 text-sm hover:bg-muted',
+            controlTransition,
+            focusRing,
+            pressable,
+          )}
           onClick={nextMonth}
         >
           ›
@@ -100,10 +117,13 @@ export function Calendar({
               type="button"
               disabled={disabledDate?.(date)}
               className={cn(
-                'h-8 rounded-md text-sm transition-colors',
+                'h-8 rounded-selector text-sm',
+                controlTransition,
+                focusRing,
                 isSameDay(date, selected)
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-primary text-primary-foreground shadow-field hover:bg-primary hover:brightness-[1.04] active:brightness-[0.96]'
                   : 'hover:bg-muted',
+                !disabledDate?.(date) && pressable,
                 disabledDate?.(date) && 'cursor-not-allowed opacity-40',
               )}
               onClick={() => handleSelect(date)}

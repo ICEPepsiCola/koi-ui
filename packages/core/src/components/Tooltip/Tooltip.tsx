@@ -16,7 +16,7 @@ import {
 } from '../../utils/toPortalFixedPosition';
 
 const tooltipVariants = tv({
-  base: 'z-50 rounded-md px-2 py-1 text-xs shadow-md',
+  base: 'z-50 rounded-field px-2 py-1 text-xs shadow-float transition-[opacity,transform] duration-fast ease-emphasized',
   variants: {
     variant: {
       default: 'bg-surface-foreground text-surface',

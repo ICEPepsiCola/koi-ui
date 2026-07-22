@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../utils/cn';
+import { controlTransition } from '../../utils/interaction';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
-import { ClearButton } from '../shared/ClearButton';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
+import { SheetChrome } from '../shared/SheetChrome';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { getDaysInMonth, pad2, parseDate } from './dateUtils';
 
@@ -46,7 +49,7 @@ export function BottomPickerView({
   const days = Array.from({ length: getDaysInMonth(year, month) }, (_, i) =>
     pad2(i + 1),
   );
-  const showClear = clearable && !disabled && Boolean(value);
+  const hasValue = Boolean(value);
 
   useScrollLock(open);
 
@@ -72,13 +75,18 @@ export function BottomPickerView({
 
   return (
     <>
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between rounded-md border border-border bg-surface px-3 text-sm',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={value}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        onClear={() => {
+          onChange?.('');
+          setOpen(false);
+        }}
         onClick={() => !disabled && setOpen(true)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -87,74 +95,44 @@ export function BottomPickerView({
             setOpen(true);
           }
         }}
-      >
-        <span className={value ? '' : 'text-muted-foreground'}>
-          {value ?? placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.('');
-                setOpen(false);
-              }}
-            />
-          ) : null}
-          <span>📅</span>
-        </span>
-      </div>
-      {open ? (
-        <Portal>
-          <Overlay
-            open
-            onClick={() => setOpen(false)}
-            className="flex items-end"
-          >
-            <div
-              className="w-full rounded-t-2xl bg-surface pb-safe shadow-lg"
+      />
+      <Portal>
+        <Overlay open={open} onClick={() => setOpen(false)}>
+          <div className="flex h-full items-end">
+            <MotionPanel
+              variant="bottom"
+              className="w-full rounded-t-box border border-border/80 bg-surface pb-safe shadow-overlay"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-border" />
-              <div className="flex items-center justify-between px-4 py-3">
-                <button
-                  type="button"
-                  className="text-sm text-muted-foreground"
-                  onClick={() => setOpen(false)}
-                >
-                  取消
-                </button>
-                <span className="text-sm font-medium">{placeholder}</span>
-                <button
-                  type="button"
-                  className="text-sm font-medium text-primary"
-                  onClick={confirm}
-                >
-                  确定
-                </button>
-              </div>
-              <div className="relative grid grid-cols-3 px-3 pb-5 pt-1">
-                <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-muted/70" />
-                <WheelColumn
-                  options={years.map(String)}
-                  value={String(year)}
-                  onChange={(v) => setYear(Number(v))}
-                />
-                <WheelColumn
-                  options={Array.from({ length: 12 }, (_, i) => pad2(i + 1))}
-                  value={pad2(month)}
-                  onChange={(v) => setMonth(Number(v))}
-                />
-                <WheelColumn
-                  options={days}
-                  value={pad2(day)}
-                  onChange={(v) => setDay(Number(v))}
-                />
-              </div>
-            </div>
-          </Overlay>
-        </Portal>
-      ) : null}
+              <SheetChrome
+                title={placeholder}
+                onCancel={() => setOpen(false)}
+                onConfirm={confirm}
+                cancelText={messages.cancelActionText}
+              >
+                <div className="relative grid grid-cols-3 px-3 pb-5 pt-1">
+                  <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-primary/10 ring-1 ring-primary/15" />
+                  <WheelColumn
+                    options={years.map(String)}
+                    value={String(year)}
+                    onChange={(v) => setYear(Number(v))}
+                  />
+                  <WheelColumn
+                    options={Array.from({ length: 12 }, (_, i) => pad2(i + 1))}
+                    value={pad2(month)}
+                    onChange={(v) => setMonth(Number(v))}
+                  />
+                  <WheelColumn
+                    options={days}
+                    value={pad2(day)}
+                    onChange={(v) => setDay(Number(v))}
+                  />
+                </div>
+              </SheetChrome>
+            </MotionPanel>
+          </div>
+        </Overlay>
+      </Portal>
     </>
   );
 }
@@ -197,7 +175,8 @@ function WheelColumn({
             type="button"
             data-active={active}
             className={cn(
-              'flex h-10 w-full snap-center items-center justify-center text-base transition-colors',
+              'flex h-10 w-full snap-center items-center justify-center text-base tabular-nums',
+              controlTransition,
               active
                 ? 'font-semibold text-surface-foreground'
                 : 'text-muted-foreground',

@@ -1,6 +1,7 @@
 import { useState, type HTMLAttributes, type ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, floatPanel } from '../../utils/interaction';
 import { Icon } from '../Icon/Icon';
 
 const menuVariants = tv({
@@ -18,7 +19,10 @@ const menuVariants = tv({
 });
 
 const itemVariants = tv({
-  base: 'flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 transition-colors',
+  base: cn(
+    'flex cursor-pointer items-center gap-2 rounded-selector px-3 py-2',
+    controlTransition,
+  ),
   variants: {
     selected: {
       true: 'bg-muted font-medium text-primary',
@@ -139,7 +143,7 @@ function MenuItems({
               />
             ) : null}
             {hasChildren && isOpen && mode === 'horizontal' ? (
-              <div className="absolute left-0 top-full z-50 mt-1 min-w-40 rounded-md border border-border bg-surface py-1 shadow-md">
+              <div className={cn('absolute left-0 top-full z-50 mt-1 min-w-40', floatPanel)}>
                 <MenuItems
                   items={item.children!}
                   selectedKey={selectedKey}

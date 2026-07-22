@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import {
+  controlTransition,
+  floatPanel,
+  pressable,
+} from '../../utils/interaction';
 
 export interface DropdownItem {
   key: string;
@@ -73,7 +78,8 @@ export function DropdownView({
         <ul
           role="menu"
           className={cn(
-            'absolute z-50 min-w-40 overflow-hidden rounded-md border border-border bg-surface py-1 shadow-md',
+            'absolute z-50 min-w-40 overflow-hidden',
+            floatPanel,
             placementClasses[placement],
           )}
         >
@@ -84,7 +90,10 @@ export function DropdownView({
                 role="menuitem"
                 disabled={item.disabled}
                 className={cn(
-                  'block w-full px-3 py-2 text-left text-sm transition-colors hover:bg-muted',
+                  'block w-full px-3 py-2 text-left text-sm',
+                  controlTransition,
+                  pressable,
+                  'hover:bg-muted',
                   item.disabled && 'cursor-not-allowed opacity-50',
                   item.danger && 'text-destructive hover:bg-destructive/10',
                 )}

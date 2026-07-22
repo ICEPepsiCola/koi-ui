@@ -1,14 +1,23 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 import { Portal } from '../../utils/portal';
 
 const floatButtonVariants = tv({
-  base: 'fixed z-40 flex items-center justify-center rounded-full shadow-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+  base: cn(
+    'fixed z-40 flex items-center justify-center rounded-full shadow-float',
+    controlTransition,
+    focusRing,
+    pressable,
+    'motion-reduce:transition-none',
+  ),
   variants: {
     variant: {
-      primary: 'bg-primary text-primary-foreground hover:opacity-90',
-      secondary: 'bg-surface border border-border text-surface-foreground hover:bg-muted',
+      primary:
+        'bg-primary text-primary-foreground hover:brightness-[1.04] active:brightness-[0.96]',
+      secondary:
+        'border border-border bg-surface text-surface-foreground hover:bg-muted',
     },
     size: {
       sm: 'h-10 w-10',

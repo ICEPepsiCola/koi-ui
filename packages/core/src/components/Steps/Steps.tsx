@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 import { Icon } from '../Icon/Icon';
 
 const stepsVariants = tv({
@@ -117,7 +118,10 @@ export function Steps({
               <button
                 type="button"
                 className={cn(
-                  'relative z-[1] flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-colors',
+                  'relative z-[1] flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2',
+                  controlTransition,
+                  onChange && focusRing,
+                  onChange && pressable,
                   statusClasses[status],
                   onChange && status === 'wait' && 'hover:border-primary',
                   !onChange && 'cursor-default',

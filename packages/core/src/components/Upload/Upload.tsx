@@ -1,16 +1,23 @@
 import { useCallback, useRef, useState, type DragEvent } from 'react';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing } from '../../utils/interaction';
 import { Text } from '../../primitives/Text';
 import { Button } from '../Button/Button';
 
 const uploadVariants = tv({
   slots: {
     root: 'w-full',
-    dropzone:
-      'flex min-h-32 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-border bg-surface px-4 py-6 text-center transition-colors hover:border-primary hover:bg-muted/50',
+    dropzone: cn(
+      'flex min-h-32 cursor-pointer flex-col items-center justify-center rounded-box border-2 border-dashed border-border/80 bg-surface px-4 py-6 text-center',
+      controlTransition,
+      focusRing,
+      'hover:border-primary hover:bg-muted/50',
+    ),
     list: 'mt-3 flex flex-col gap-2',
-    item: 'flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm',
+    item: cn(
+      'flex items-center justify-between rounded-box border border-border/80 bg-surface px-3 py-2 text-sm shadow-field',
+    ),
   },
   variants: {
     dragging: {

@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { floatPanel } from '../../utils/interaction';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import {
@@ -17,7 +18,7 @@ import {
 } from '../../utils/toPortalFixedPosition';
 
 const popoverVariants = tv({
-  base: 'z-50 rounded-lg border border-border bg-surface p-3 shadow-md',
+  base: cn('z-50 p-3', floatPanel),
   variants: {
     placement: {
       top: '',

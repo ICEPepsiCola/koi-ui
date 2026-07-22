@@ -1,5 +1,6 @@
 import { useId, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing } from '../../utils/interaction';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
 
 export interface TabItem {
@@ -93,7 +94,9 @@ export function Tabs({
             tabIndex={index === activeIndex ? 0 : -1}
             disabled={item.disabled}
             className={cn(
-              'shrink-0 px-4 py-2 text-sm font-medium transition-colors',
+              'shrink-0 px-4 py-2 text-sm font-medium',
+              controlTransition,
+              focusRing,
               item.key === activeKey
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-surface-foreground',

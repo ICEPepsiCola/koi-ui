@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { flushSync } from 'react-dom';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 import { Icon } from '../Icon';
 
 export interface SwiperProps
@@ -275,7 +276,12 @@ export function Swiper({
         <>
           <button
             type="button"
-            className="absolute left-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-surface-foreground shadow-sm ring-1 ring-border/60 transition-colors hover:bg-surface"
+            className={cn(
+              'absolute left-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-surface-foreground shadow-float ring-1 ring-border/60 hover:bg-surface',
+              controlTransition,
+              focusRing,
+              pressable,
+            )}
             onClick={() => goBy(-1)}
             aria-label="Previous"
           >
@@ -283,7 +289,12 @@ export function Swiper({
           </button>
           <button
             type="button"
-            className="absolute right-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-surface-foreground shadow-sm ring-1 ring-border/60 transition-colors hover:bg-surface"
+            className={cn(
+              'absolute right-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-surface-foreground shadow-float ring-1 ring-border/60 hover:bg-surface',
+              controlTransition,
+              focusRing,
+              pressable,
+            )}
             onClick={() => goBy(1)}
             aria-label="Next"
           >
@@ -299,7 +310,10 @@ export function Swiper({
               type="button"
               tabIndex={-1}
               className={cn(
-                'pointer-events-auto h-1.5 w-1.5 rounded-full transition-colors',
+                'pointer-events-auto h-1.5 w-1.5 rounded-full',
+                controlTransition,
+                focusRing,
+                pressable,
                 i === logicalIndex ? 'bg-primary' : 'bg-border',
               )}
               onClick={() => goToLogical(i)}

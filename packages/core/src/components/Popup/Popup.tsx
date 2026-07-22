@@ -4,6 +4,7 @@ import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
+import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
 
 export interface PopupProps {
@@ -40,21 +41,20 @@ export function Popup({
     containerRef: popupRef,
   });
 
-  if (!open) return null;
-
   return (
     <Portal>
-      <Overlay open onClick={closeOnMask ? onClose : undefined}>
+      <Overlay open={open} onClick={closeOnMask ? onClose : undefined}>
         <div className="flex h-full items-center justify-center p-6">
-          <div
+          <MotionPanel
             ref={popupRef}
+            variant="center"
             role="dialog"
             aria-modal="true"
             aria-labelledby={title ? titleId : undefined}
             aria-describedby={descriptionId}
             tabIndex={-1}
             className={cn(
-              'w-full max-w-sm rounded-xl border border-border bg-surface shadow-lg',
+              'w-full max-w-sm rounded-box border border-border/80 bg-surface shadow-overlay',
               className,
             )}
             onClick={(e) => e.stopPropagation()}
@@ -71,9 +71,9 @@ export function Popup({
               {children}
             </div>
             {footer ? (
-              <div className="border-t border-border">{footer}</div>
+              <div className="border-t border-border/80">{footer}</div>
             ) : null}
-          </div>
+          </MotionPanel>
         </div>
       </Overlay>
     </Portal>

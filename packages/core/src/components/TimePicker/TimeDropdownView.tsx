@@ -1,7 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { ClearButton } from '../shared/ClearButton';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import { FieldTrigger } from '../shared/FieldTrigger';
+import { FloatMenu } from '../shared/FloatMenu';
 import { pad2 } from '../DatePicker/dateUtils';
 
 export interface TimeDropdownViewProps {
@@ -58,7 +60,7 @@ export function TimeDropdownView({
 
   const hours = Array.from({ length: 24 }, (_, i) => pad2(i));
   const minutes = Array.from({ length: 60 }, (_, i) => pad2(i));
-  const showClear = clearable && !disabled && Boolean(value);
+  const hasValue = Boolean(value);
 
   useEffect(() => {
     if (!open) return;
@@ -106,16 +108,19 @@ export function TimeDropdownView({
         withSeconds ? 'max-w-[240px]' : 'max-w-[200px]',
       )}
     >
-      <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        className={cn(
-          'flex h-10 w-full items-center justify-between gap-2 rounded-md border border-border bg-surface px-3 text-sm',
-          'transition-colors hover:border-primary',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
-          open && 'border-primary',
-          disabled && 'cursor-not-allowed opacity-50',
-        )}
+      <FieldTrigger
+        open={open}
+        disabled={disabled}
+        hasValue={hasValue}
+        display={value}
+        placeholder={placeholder}
+        clearable={clearable}
+        clearLabel={messages.clearActionText}
+        trailing={<ClockIcon className={cn(open && 'text-primary')} />}
+        onClear={() => {
+          onChange?.('');
+          setOpen(false);
+        }}
         onClick={() => !disabled && setOpen((v) => !v)}
         onKeyDown={(event) => {
           if (disabled) return;
@@ -124,73 +129,50 @@ export function TimeDropdownView({
             setOpen((v) => !v);
           }
         }}
-      >
-        <span
-          className={cn(
-            'min-w-0 flex-1 truncate text-left tabular-nums leading-none',
-            value ? 'text-surface-foreground' : 'text-muted-foreground',
-          )}
-        >
-          {value ?? placeholder}
-        </span>
-        <span className="flex items-center gap-1 text-muted-foreground">
-          {showClear ? (
-            <ClearButton
-              label={messages.clearActionText}
-              onClear={() => {
-                onChange?.('');
-                setOpen(false);
-              }}
-            />
-          ) : null}
-          <ClockIcon className={cn(open && 'text-primary')} />
-        </span>
-      </div>
-
-      {open ? (
-        <div
-          className={cn(
-            'absolute left-0 top-full z-50 mt-1.5 w-full overflow-hidden rounded-lg border border-border bg-surface',
-            'shadow-[0_6px_16px_0_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12),0_9px_28px_8px_rgba(0,0,0,0.05)]',
-          )}
-        >
-          <div className="flex">
-            <TimeColumn
-              options={hours}
-              value={pad2(hour)}
-              onChange={(v) => setHour(Number(v))}
-            />
+      />
+      <FloatMenu open={open} className="overflow-hidden p-0 py-0">
+        <div className="flex">
+          <TimeColumn
+            options={hours}
+            value={pad2(hour)}
+            onChange={(v) => setHour(Number(v))}
+          />
+          <TimeColumn
+            options={minutes}
+            value={pad2(minute)}
+            onChange={(v) => setMinute(Number(v))}
+          />
+          {withSeconds ? (
             <TimeColumn
               options={minutes}
-              value={pad2(minute)}
-              onChange={(v) => setMinute(Number(v))}
+              value={pad2(second)}
+              onChange={(v) => setSecond(Number(v))}
             />
-            {withSeconds ? (
-              <TimeColumn
-                options={minutes}
-                value={pad2(second)}
-                onChange={(v) => setSecond(Number(v))}
-              />
-            ) : null}
-          </div>
-          <div className="flex items-center justify-between border-t border-border/80 px-3 py-2">
-            <button
-              type="button"
-              className="text-sm text-primary transition-opacity hover:opacity-80"
-              onClick={pickNow}
-            >
-              此刻
-            </button>
-            <button
-              type="button"
-              className="h-7 rounded px-3 text-sm text-primary-foreground bg-primary transition-opacity hover:opacity-90"
-              onClick={() => confirm()}
-            >
-              确定
-            </button>
-          </div>
+          ) : null}
         </div>
-      ) : null}
+        <div className="flex items-center justify-between border-t border-border/80 px-3 py-2">
+          <button
+            type="button"
+            className={cn('text-sm text-primary', controlTransition, 'hover:brightness-[1.04]')}
+            onClick={pickNow}
+          >
+            此刻
+          </button>
+          <button
+            type="button"
+            className={cn(
+              'h-7 rounded-field px-3 text-sm text-primary-foreground bg-primary shadow-field',
+              controlTransition,
+              focusRing,
+              pressable,
+              'hover:brightness-[1.04] active:brightness-[0.96]',
+            )}
+            onClick={() => confirm()}
+          >
+            确定
+          </button>
+        </div>
+      </FloatMenu>
     </div>
   );
 }
@@ -237,7 +219,8 @@ function TimeColumn({
           >
             <span
               className={cn(
-                'flex h-6 w-[calc(100%-12px)] items-center justify-center rounded-sm text-sm tabular-nums transition-colors',
+                'flex h-6 w-[calc(100%-12px)] items-center justify-center rounded-selector text-sm tabular-nums',
+                controlTransition,
                 active
                   ? 'bg-primary/10 font-medium text-primary'
                   : 'text-surface-foreground hover:bg-muted',

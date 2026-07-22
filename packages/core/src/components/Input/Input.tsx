@@ -4,9 +4,13 @@ import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
 import { useKoiContext } from '../../provider/context';
 import { ClearButton } from '../shared/ClearButton';
+import { fieldBase } from '../../utils/interaction';
 
 const inputVariants = tv({
-  base: 'w-full rounded-md border border-border bg-surface px-3 text-surface-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+  base: cn(
+    'w-full px-3 text-surface-foreground placeholder:text-muted-foreground',
+    fieldBase,
+  ),
   variants: {
     size: {
       sm: 'h-8 text-sm',
@@ -14,7 +18,7 @@ const inputVariants = tv({
       lg: 'h-12 text-base',
     },
     error: {
-      true: 'border-destructive focus-visible:ring-destructive',
+      true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
       false: '',
     },
   },
@@ -23,7 +27,6 @@ const inputVariants = tv({
     error: false,
   },
 });
-
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange'>,
     Omit<VariantProps<typeof inputVariants>, 'error'> {

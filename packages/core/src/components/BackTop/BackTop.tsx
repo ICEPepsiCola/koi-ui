@@ -5,6 +5,7 @@ import {
   type ReactNode,
 } from 'react';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import { getPreviewScrollRoot } from '../../utils/toPortalFixedPosition';
@@ -70,7 +71,10 @@ export function BackTop({
       <button
         type="button"
         className={cn(
-          'fixed bottom-6 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-surface-foreground shadow-md hover:bg-muted',
+          'fixed bottom-6 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-surface-foreground shadow-float hover:bg-muted',
+          controlTransition,
+          focusRing,
+          pressable,
           className,
         )}
         onClick={(e) => {

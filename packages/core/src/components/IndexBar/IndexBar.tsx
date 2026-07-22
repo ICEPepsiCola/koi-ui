@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 
 const indexBarVariants = tv({
   base: 'relative h-full w-full min-h-0 overflow-y-auto overscroll-contain',
@@ -141,7 +142,10 @@ export function IndexBar<T>({
               key={index}
               type="button"
               className={cn(
-                'flex h-5 w-5 items-center justify-center rounded-full transition-colors hover:text-primary',
+                'flex h-5 w-5 items-center justify-center rounded-selector hover:text-primary',
+                controlTransition,
+                focusRing,
+                pressable,
                 activeIndex === index && 'bg-primary text-primary-foreground',
               )}
               onClick={() => scrollToIndex(index)}

@@ -1,13 +1,19 @@
 import { useCallback, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 
 const rateVariants = tv({
   base: 'inline-flex items-center gap-1',
 });
 
 const starVariants = tv({
-  base: 'cursor-pointer text-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm',
+  base: cn(
+    'cursor-pointer rounded-selector text-xl',
+    controlTransition,
+    focusRing,
+    pressable,
+  ),
   variants: {
     active: {
       true: 'text-primary',

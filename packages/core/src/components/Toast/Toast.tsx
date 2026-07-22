@@ -4,13 +4,13 @@ import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 
 const toastVariants = tv({
-  base: 'pointer-events-auto mx-4 mb-2 flex max-w-sm items-center justify-center rounded-lg px-4 py-3 text-sm shadow-lg',
+  base: 'pointer-events-auto mx-4 mb-2 flex max-w-sm items-center justify-center rounded-box px-4 py-3 text-sm shadow-float transition-[opacity,transform] duration-normal ease-emphasized',
   variants: {
     type: {
       default: 'bg-surface-foreground text-surface',
-      info: 'border border-border bg-surface text-surface-foreground',
-      success: 'bg-emerald-600 text-white',
-      warning: 'bg-amber-500 text-white',
+      info: 'border border-border/80 bg-surface text-surface-foreground',
+      success: 'bg-success text-success-foreground',
+      warning: 'bg-warning text-warning-foreground',
       error: 'bg-destructive text-destructive-foreground',
     },
   },
