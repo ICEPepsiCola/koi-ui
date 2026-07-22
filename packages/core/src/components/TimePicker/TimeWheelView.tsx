@@ -40,6 +40,9 @@ function formatTime(
     : `${pad2(hour)}:${pad2(minute)}`;
 }
 
+/**
+ * Mobile TimePicker — classic iOS wheel sheet.
+ */
 export function TimeWheelView({
   value,
   onChange,
@@ -130,7 +133,7 @@ export function TimeWheelView({
           <div className="flex h-full items-end">
             <MotionPanel
               variant="bottom"
-              className="w-full rounded-t-box border border-border/80 bg-surface pb-safe shadow-overlay"
+              className="w-full rounded-t-[14px] bg-surface pb-safe shadow-overlay"
               onClick={(e) => e.stopPropagation()}
             >
               <SheetChrome
@@ -138,9 +141,14 @@ export function TimeWheelView({
                 onCancel={() => setOpen(false)}
                 onConfirm={confirm}
                 cancelText={messages.cancelActionText}
+                confirmText="完成"
               >
-                <div className="px-2 pb-5 pt-1">
-                  <PickerWheels mode="drum" maxVisibleRows={5} columns={wheelColumns} />
+                <div className="px-3 pb-6 pt-1">
+                  <PickerWheels
+                    mode="drum"
+                    maxVisibleRows={5}
+                    columns={wheelColumns}
+                  />
                 </div>
               </SheetChrome>
             </MotionPanel>

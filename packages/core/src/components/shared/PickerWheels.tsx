@@ -86,7 +86,7 @@ export function PickerWheels({
           className={cn(
             'pointer-events-none absolute top-1/2 z-[1] h-8 -translate-y-1/2 rounded-md',
             inset,
-            'bg-muted/80 ring-1 ring-border/60',
+            'bg-muted/70',
           )}
         />
       ) : null}
@@ -226,14 +226,17 @@ function WheelColumn({
             data-active={active}
             aria-disabled={opt.disabled || undefined}
             className={cn(
-              'flex w-full shrink-0 items-center justify-center px-1 text-[15px] leading-none',
+              'flex w-full shrink-0 items-center justify-center px-1 leading-none',
+              drumMode ? 'text-[17px] tabular-nums' : 'text-[15px]',
               drumMode && 'snap-center',
               controlTransition,
               active
                 ? drumMode
                   ? 'font-semibold text-surface-foreground'
                   : 'rounded-md bg-muted/80 font-semibold text-surface-foreground'
-                : 'font-normal text-muted-foreground/80',
+                : drumMode
+                  ? 'font-normal text-muted-foreground/55'
+                  : 'font-normal text-muted-foreground/80',
               !drumMode && !active && 'hover:bg-muted/50',
               opt.disabled
                 ? 'cursor-not-allowed opacity-35'

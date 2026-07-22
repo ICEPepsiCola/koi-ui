@@ -1,11 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import {
+  controlTransition,
+  focusRing,
+  pressable,
+} from '../../utils/interaction';
 import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
-import { PickerWheels } from '../shared/PickerWheels';
 import { pad2 } from '../DatePicker/dateUtils';
 
 export interface TimeDropdownViewProps {
@@ -17,6 +20,9 @@ export interface TimeDropdownViewProps {
   clearable?: boolean;
   size?: FieldSize;
 }
+
+const ITEM_H = 36;
+const COL_H = 216;
 
 function parseTime(value?: string) {
   const parts = (value ?? '').split(':').map(Number);
@@ -39,7 +45,7 @@ function formatTime(
 }
 
 /**
- * Desktop TimePicker panel — shared drum wheels with Picker.
+ * Desktop TimePicker — daisyUI-style dropdown + menu columns.
  */
 export function TimeDropdownView({
   value,
@@ -101,16 +107,16 @@ export function TimeDropdownView({
     confirm(h, m, s);
   };
 
-  const wheelColumns = [
+  const columns = [
     {
       key: 'hour',
-      options: hours.map((v) => ({ value: v, label: v })),
+      options: hours,
       value: pad2(hour),
       onChange: (v: string) => setHour(Number(v)),
     },
     {
       key: 'minute',
-      options: minutes.map((v) => ({ value: v, label: v })),
+      options: minutes,
       value: pad2(minute),
       onChange: (v: string) => setMinute(Number(v)),
     },
@@ -118,7 +124,7 @@ export function TimeDropdownView({
       ? [
           {
             key: 'second',
-            options: minutes.map((v) => ({ value: v, label: v })),
+            options: minutes,
             value: pad2(second),
             onChange: (v: string) => setSecond(Number(v)),
           },
@@ -131,7 +137,7 @@ export function TimeDropdownView({
       ref={containerRef}
       className={cn(
         'koi-timepicker-demo relative w-full',
-        withSeconds ? 'max-w-[240px]' : 'max-w-[200px]',
+        withSeconds ? 'max-w-[252px]' : 'max-w-[196px]',
       )}
     >
       <FieldTrigger
@@ -139,9 +145,7 @@ export function TimeDropdownView({
         open={open}
         disabled={disabled}
         hasValue={hasValue}
-        display={
-          <span className="tabular-nums">{value}</span>
-        }
+        display={<span className="tabular-nums">{value}</span>}
         placeholder={placeholder}
         clearable={clearable}
         clearLabel={messages.clearActionText}
@@ -159,13 +163,24 @@ export function TimeDropdownView({
           }
         }}
       />
-      <FloatMenu open={open} className="overflow-hidden p-0">
-        <div className="px-1 pt-1">
-          <PickerWheels
-            density="compact"
-            maxVisibleRows={5}
-            columns={wheelColumns}
-          />
+      <FloatMenu
+        open={open}
+        className="overflow-hidden rounded-box border-border/70 p-0 shadow-sm"
+      >
+        <div
+          className="grid divide-x divide-border/60"
+          style={{
+            gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
+          }}
+        >
+          {columns.map((col) => (
+            <MenuColumn
+              key={col.key}
+              options={col.options}
+              value={col.value}
+              onChange={col.onChange}
+            />
+          ))}
         </div>
         <div className="flex items-center justify-between border-t border-border/70 px-2 py-2">
           <button
@@ -183,7 +198,7 @@ export function TimeDropdownView({
           <button
             type="button"
             className={cn(
-              'h-8 rounded-field px-3.5 text-sm font-medium text-primary-foreground bg-primary shadow-field',
+              'h-8 rounded-field bg-primary px-3.5 text-sm font-medium text-primary-foreground shadow-field',
               controlTransition,
               focusRing,
               pressable,
@@ -196,6 +211,66 @@ export function TimeDropdownView({
         </div>
       </FloatMenu>
     </div>
+  );
+}
+
+function MenuColumn({
+  options,
+  value,
+  onChange,
+}: {
+  options: string[];
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const scrollerRef = useRef<HTMLUListElement>(null);
+
+  useLayoutEffect(() => {
+    const root = scrollerRef.current;
+    if (!root) return;
+    const idx = options.indexOf(value);
+    if (idx < 0) return;
+    const selectedTop = idx * ITEM_H;
+    const viewBottom = root.scrollTop + root.clientHeight;
+    if (
+      selectedTop < root.scrollTop ||
+      selectedTop + ITEM_H > viewBottom
+    ) {
+      root.scrollTop = Math.max(0, selectedTop - (COL_H - ITEM_H) / 2);
+    }
+  }, [value, options]);
+
+  return (
+    <ul
+      ref={scrollerRef}
+      role="listbox"
+      className="h-full overflow-y-auto overscroll-contain p-1.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      style={{ height: COL_H }}
+    >
+      {options.map((opt) => {
+        const active = opt === value;
+        return (
+          <li key={opt} className="list-none">
+            <button
+              type="button"
+              role="option"
+              aria-selected={active}
+              className={cn(
+                'flex w-full items-center justify-center rounded-lg px-2 text-sm tabular-nums',
+                controlTransition,
+                active
+                  ? 'bg-primary/12 font-semibold text-primary'
+                  : 'font-normal text-surface-foreground/80 hover:bg-muted/70',
+              )}
+              style={{ height: ITEM_H }}
+              onClick={() => onChange(opt)}
+            >
+              {opt}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
