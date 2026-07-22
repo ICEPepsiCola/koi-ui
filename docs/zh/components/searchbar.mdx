@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # SearchBar 搜索栏
 
 ## 基础用法
@@ -34,19 +36,24 @@ export default () => {
 };
 ```
 
+## 与其他字段对齐
+
+```tsx preview
+import { Cascader, Input, SearchBar, Stack } from '@koi-ui/core';
+
+const options = [
+  { label: '浙江', value: 'zj', children: [{ label: '杭州', value: 'hz' }] },
+];
+
+export default () => (
+  <Stack gap={3} className="max-w-md w-full">
+    <SearchBar placeholder="搜索商品" />
+    <Cascader options={options} placeholder="选择地区" />
+    <Input placeholder="备注" />
+  </Stack>
+);
+```
+
 ## API
 
-### SearchBar
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| className | 类名 | `string \|​ undefined` | `-` |
-| clearable | - | `boolean \|​ undefined` | `-` |
-| defaultValue | 默认值 | `string \|​ undefined` | `-` |
-| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
-| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
-| onSearch | - | `((value: string) => void) \|​ undefined` | `-` |
-| placeholder | 占位文本 | `string \|​ undefined` | `-` |
-| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
-| showCancel | - | `boolean \|​ undefined` | `-` |
-| value | 当前值 | `string \|​ undefined` | `-` |
+<ApiDocs name="SearchBar" />

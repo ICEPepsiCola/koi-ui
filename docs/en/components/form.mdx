@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Form
 
 ## Basic usage
@@ -86,16 +88,56 @@ export default () => (
 );
 ```
 
+## Unified field sizes
+
+```tsx preview
+import {
+  AutoComplete,
+  Cascader,
+  Input,
+  SearchBar,
+  Select,
+  Stack,
+  Text,
+} from '@koi-ui/core';
+
+const regionOptions = [
+  { label: 'Zhejiang', value: 'zj', children: [{ label: 'Hangzhou', value: 'hz' }] },
+];
+
+export default () => (
+  <Stack gap={3} className="max-w-md w-full">
+    <Text muted size="sm">Default md — 单行表单控件统一 32px 高度（同 Ant Design medium）</Text>
+    <Input placeholder="输入框" />
+    <Select
+      placeholder="Select city"
+      options={[
+        { label: 'Beijing', value: 'bj' },
+        { label: 'Shanghai', value: 'sh' },
+      ]}
+    />
+    <Cascader options={regionOptions} placeholder="Select region" />
+    <SearchBar placeholder="Search" />
+    <AutoComplete
+      placeholder="自动Done"
+      options={[
+        { value: 'apple', label: 'Apple' },
+        { value: 'banana', label: 'Banana' },
+      ]}
+    />
+    <Text muted size="sm" className="pt-2">size="sm" — 24px</Text>
+    <Input size="sm" placeholder="输入框" />
+    <Select
+      size="sm"
+      placeholder="Select city"
+      options={[{ label: 'Beijing', value: 'bj' }, { label: 'Shanghai', value: 'sh' }]}
+    />
+    <Cascader size="sm" options={regionOptions} placeholder="Select region" />
+    <SearchBar size="sm" placeholder="Search" />
+  </Stack>
+);
+```
+
 ## API
 
-### Form
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| form | - | `FormInstance<Values> \|​ undefined` | `-` |
-| initialValues | - | `Partial<Values> \|​ undefined` | `-` |
-| layout | Layout | `enum` | `-` |
-| onFinish | - | `((values: Values) => void) \|​ undefined` | `-` |
-| onFinishFailed | - | `((errorInfo: ValidateErrorEntity<Values>) => void) \|​ undefined` | `-` |
-| onValuesChange | - | `((changed: Partial<Values>,​ allValues: Values) => void) \|​ undefined` | `-` |
-| responsive | Responsive | `boolean \|​ undefined` | `-` |
+<ApiDocs name="Form" />

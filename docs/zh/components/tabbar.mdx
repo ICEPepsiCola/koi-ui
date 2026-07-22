@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # TabBar 标签栏
 
 ## 基础用法
@@ -10,12 +12,4 @@ export default () => { const [k,setK]=useState('home'); return <TabBar activeKey
 
 ## API
 
-### TabBar
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| items | 数据项 | `TabBarItem[]` **(必填)** | `-` |
-| activeKey | 当前激活项 | `string \|​ undefined` | `-` |
-| defaultActiveKey | - | `string \|​ undefined` | `-` |
-| onChange | 变化回调 | `((key: string) => void) \|​ undefined` | `-` |
-| safeArea | - | `boolean \|​ undefined` | `-` |
+<ApiDocs name="TabBar" />

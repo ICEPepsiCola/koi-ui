@@ -1,7 +1,53 @@
+import { tv } from 'tailwind-variants';
+
 /**
  * Shared interaction / surface class fragments for consistent motion language.
  * Prefer these over one-off `transition-colors` / `opacity-90` hover hacks.
  */
+
+/** Default field control scale — aligned with Ant Design controlHeight (24 / 32 / 40). */
+export type FieldSize = 'sm' | 'md' | 'lg';
+
+export const fieldSizeVariants = tv({
+  variants: {
+    size: {
+      sm: 'h-6 text-sm',
+      md: 'h-8 text-sm',
+      lg: 'h-10 text-base',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+/** Height-only scale for composite controls (InputNumber steppers, …). */
+export const fieldHeightVariants = tv({
+  variants: {
+    size: {
+      sm: 'h-6',
+      md: 'h-8',
+      lg: 'h-10',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+/** Text-only scale for multi-line fields. */
+export const fieldTextSizeVariants = tv({
+  variants: {
+    size: {
+      sm: 'text-sm',
+      md: 'text-sm',
+      lg: 'text-base',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
 
 /** Focus ring with surface-colored offset — used by buttons, fields, switches. */
 export const focusRing =

@@ -4,7 +4,7 @@ import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
 import tailwindcss from '@tailwindcss/postcss';
 
-import themeLocales from './docs/.generated/theme-locales.json' with { type: 'json' };
+import { themeLocales } from './docs/theme-locales';
 
 const DOC_DEV_PORT = 8877;
 
@@ -60,6 +60,10 @@ export default defineConfig({
       '**/DevicePreviewShell.tsx',
       '**/IconGallery.tsx',
       '**/ThemeLab.tsx',
+      '**/ApiDocs.tsx',
+      '**/catalog.ts',
+      '**/theme-locales.ts',
+      '**/api-locale.ts',
       '**/icon-name-zh.ts',
       '**/mockups/**',
       '**/.generated/**',
@@ -84,7 +88,6 @@ export default defineConfig({
   ],
   themeConfig: {
     localeRedirect: 'auto',
-    // Per-locale sidebar keys (`/guide/` vs `/zh/guide/`) make JSON import a bad union for LocaleConfig.
     locales: themeLocales as never,
   },
   globalStyles: path.join(__dirname, 'docs/styles.css'),

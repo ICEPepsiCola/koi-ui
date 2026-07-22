@@ -2,6 +2,7 @@ import { useId, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
 import { OptionRow } from '../shared/OptionRow';
@@ -19,6 +20,7 @@ export interface SelectViewProps {
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 export function SelectView({
@@ -28,6 +30,7 @@ export function SelectView({
   placeholder,
   disabled = false,
   clearable = false,
+  size = 'md',
 }: SelectViewProps) {
   const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
@@ -68,6 +71,7 @@ export function SelectView({
   return (
     <div ref={containerRef} className="relative w-full">
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}

@@ -4,7 +4,7 @@ import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
 import { useKoiContext } from '../../provider/context';
 import { ClearButton } from '../shared/ClearButton';
-import { fieldBase } from '../../utils/interaction';
+import { fieldBase, fieldTextSizeVariants } from '../../utils/interaction';
 
 const textAreaVariants = tv({
   base: cn(
@@ -13,9 +13,9 @@ const textAreaVariants = tv({
   ),
   variants: {
     size: {
-      sm: 'min-h-20 text-sm',
-      md: 'min-h-24 text-sm',
-      lg: 'min-h-32 text-base',
+      sm: 'min-h-20',
+      md: 'min-h-24',
+      lg: 'min-h-32',
     },
     error: {
       true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
@@ -74,6 +74,7 @@ export function TextArea({
         <textarea
           className={cn(
             textAreaVariants({ size, error: hasError }),
+            fieldTextSizeVariants({ size }),
             showClear && 'pr-10',
             className,
           )}

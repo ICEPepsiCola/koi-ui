@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Rate 评分
 
 ## 基础用法
@@ -10,14 +12,4 @@ export default () => { const [v,setV]=useState(3); return <Rate value={v} onChan
 
 ## API
 
-### Rate
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| allowHalf | - | `boolean \|​ undefined` | `false` |
-| className | 类名 | `string \|​ undefined` | `-` |
-| count | 数量 | `number \|​ undefined` | `5` |
-| defaultValue | 默认值 | `number \|​ undefined` | `0` |
-| disabled | 是否禁用 | `boolean \|​ undefined` | `false` |
-| onChange | 变化回调 | `((value: number) => void) \|​ undefined` | `-` |
-| value | 当前值 | `number \|​ undefined` | `-` |
+<ApiDocs name="Rate" />

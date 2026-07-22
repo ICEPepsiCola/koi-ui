@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # PullToRefresh
 
 ## Basic usage
@@ -9,12 +11,4 @@ export default () => <PullToRefresh onRefresh={async()=>{}}><List items={[{key:'
 
 ## API
 
-### PullToRefresh
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| onRefresh | - | `() => void \|​ Promise<void>` **(required)** | `-` |
-| pullingText | - | `ReactNode` | `Pull to refresh` |
-| refreshingText | - | `ReactNode` | `Refreshing...` |
-| releaseText | - | `ReactNode` | `Release to refresh` |
-| threshold | Swipe threshold | `number \|​ undefined` | `60` |
+<ApiDocs name="PullToRefresh" />

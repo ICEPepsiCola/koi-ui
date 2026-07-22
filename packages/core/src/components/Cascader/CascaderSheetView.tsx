@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
@@ -17,6 +18,7 @@ export interface CascaderSheetViewProps {
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 function getOptionPath(options: CascaderOption[], values: string[]) {
@@ -38,6 +40,7 @@ export function CascaderSheetView({
   placeholder = '请选择',
   disabled = false,
   clearable = false,
+  size = 'md',
 }: CascaderSheetViewProps) {
   const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
@@ -77,6 +80,7 @@ export function CascaderSheetView({
   return (
     <>
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}

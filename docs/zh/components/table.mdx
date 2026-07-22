@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Table 表格
 
 ## 基础用法
@@ -22,14 +24,4 @@ export default () => (
 
 ## API
 
-### Table
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| columns | 列配置 | `ColumnDef<T>[]` **(必填)** | `-` |
-| data | 数据源 | `T[]` **(必填)** | `-` |
-| emptyText | - | `string \|​ undefined` | `-` |
-| loading | 加载中 | `boolean \|​ undefined` | `-` |
-| mobileFields | - | `(keyof T)[] \|​ undefined` | `-` |
-| onRowClick | - | `((row: T) => void) \|​ undefined` | `-` |
-| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
+<ApiDocs name="Table" />

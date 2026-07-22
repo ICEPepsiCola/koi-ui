@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Segmented 分段控制器
 
 ## 基础用法
@@ -10,14 +12,4 @@ export default () => { const [v,setV]=useState('a'); return <Segmented value={v}
 
 ## API
 
-### Segmented
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| options | 选项列表 | `SegmentedOption[]` **(必填)** | `-` |
-| block | - | `boolean \|​ undefined` | `-` |
-| className | 类名 | `string \|​ undefined` | `-` |
-| defaultValue | 默认值 | `string \|​ undefined` | `-` |
-| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
-| size | 尺寸 | `enum` | `-` |
-| value | 当前值 | `string \|​ undefined` | `-` |
+<ApiDocs name="Segmented" />

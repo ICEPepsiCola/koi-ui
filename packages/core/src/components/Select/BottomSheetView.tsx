@@ -5,6 +5,7 @@ import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { MotionPanel } from '../shared/MotionPanel';
 import { OptionRow } from '../shared/OptionRow';
@@ -19,6 +20,7 @@ export interface BottomSheetViewProps {
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 export function BottomSheetView({
@@ -28,6 +30,7 @@ export function BottomSheetView({
   placeholder,
   disabled = false,
   clearable = false,
+  size = 'md',
 }: BottomSheetViewProps) {
   const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
@@ -51,6 +54,7 @@ export function BottomSheetView({
   return (
     <>
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}

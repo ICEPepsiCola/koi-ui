@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # PullToRefresh 下拉刷新
 
 ## 基础用法
@@ -9,14 +11,4 @@ export default () => <PullToRefresh onRefresh={async()=>{}}><List items={[{key:'
 
 ## API
 
-### PullToRefresh
-
-下拉刷新：Pointer Events 同时支持触控与鼠标拖拽。
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| onRefresh | - | `() => void \|​ Promise<void>` **(必填)** | `-` |
-| pullingText | - | `ReactNode` | `下拉刷新` |
-| refreshingText | - | `ReactNode` | `刷新中...` |
-| releaseText | - | `ReactNode` | `释放刷新` |
-| threshold | 滑动切换阈值 | `number \|​ undefined` | `60` |
+<ApiDocs name="PullToRefresh" />

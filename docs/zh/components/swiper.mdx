@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Swiper 滑块视图
 
 ## 基础用法
@@ -30,17 +32,4 @@ export default () => (
 
 ## API
 
-### Swiper
-
-滑块视图：Pointer 跟手拖拽，可选箭头 / 指示点。
-loop 时用首尾克隆做无缝循环，避免末页硬切回首页。
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| autoplay | 自动播放 | `boolean \|​ undefined` | `false` |
-| interval | 自动播放间隔（毫秒） | `number \|​ undefined` | `3000` |
-| loop | 是否循环 | `boolean \|​ undefined` | `true` |
-| onChange | 变化回调 | `((index: number) => void) \|​ undefined` | `-` |
-| showArrows | 显示箭头 | `boolean \|​ undefined` | `false` |
-| showDots | 显示指示点 | `boolean \|​ undefined` | `true` |
-| threshold | 滑动切换阈值 | `number \|​ undefined` | `40` |
+<ApiDocs name="Swiper" />

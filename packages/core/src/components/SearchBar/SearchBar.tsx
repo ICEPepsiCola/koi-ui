@@ -1,4 +1,5 @@
 import { AdaptiveRender } from '../../adaptive/AdaptiveRender';
+import type { FieldSize } from '../../utils/interaction';
 import { InlineSearchView } from './InlineSearchView';
 import { MobileSearchView } from './MobileSearchView';
 
@@ -13,6 +14,7 @@ export interface SearchBarProps {
   showCancel?: boolean;
   clearable?: boolean;
   responsive?: boolean;
+  size?: FieldSize;
 }
 
 export function SearchBar({ responsive = true, ...props }: SearchBarProps) {

@@ -86,7 +86,7 @@ export default () => {
   return (
     <Stack gap={4} className="w-full">
       <Space className="w-full justify-between" wrap>
-        <SearchBar value={query} onChange={setQuery} placeholder="筛选团队" />
+        <SearchBar className="min-w-0 flex-1 max-w-md" value={query} onChange={setQuery} placeholder="筛选团队" />
         <Button variant="soft">新建团队</Button>
       </Space>
       <Table
@@ -122,6 +122,7 @@ export default () => {
 ```tsx preview
 import {
   Button,
+  Cascader,
   Form,
   Input,
   Select,
@@ -160,6 +161,22 @@ export default () => {
               { value: 'free', label: '免费' },
               { value: 'pro', label: '专业版' },
               { value: 'team', label: '团队版' },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item name="region" label="地区">
+          <Cascader
+            options={[
+              {
+                label: '华东',
+                value: 'east',
+                children: [{ label: '上海', value: 'sh' }],
+              },
+              {
+                label: '华北',
+                value: 'north',
+                children: [{ label: '北京', value: 'bj' }],
+              },
             ]}
           />
         </Form.Item>

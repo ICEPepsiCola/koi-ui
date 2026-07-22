@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
-import { fieldBase } from '../../utils/interaction';
+import { fieldBase, fieldSizeVariants } from '../../utils/interaction';
 import { Text } from '../../primitives/Text';
 import { useKoiContext } from '../../provider/context';
 import { ClearButton } from '../shared/ClearButton';
@@ -10,22 +10,16 @@ import { OptionRow } from '../shared/OptionRow';
 
 const autoCompleteVariants = tv({
   base: cn(
-    'w-full px-3 text-sm text-surface-foreground placeholder:text-muted-foreground',
+    'w-full px-3 text-surface-foreground placeholder:text-muted-foreground',
     fieldBase,
   ),
   variants: {
-    size: {
-      sm: 'h-8',
-      md: 'h-10',
-      lg: 'h-12 text-base',
-    },
     error: {
       true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
       false: '',
     },
   },
   defaultVariants: {
-    size: 'md',
     error: false,
   },
 });
@@ -105,7 +99,8 @@ export function AutoComplete({
       <input
         type="text"
         className={cn(
-          autoCompleteVariants({ size, error: Boolean(error) }),
+          autoCompleteVariants({ error: Boolean(error) }),
+          fieldSizeVariants({ size }),
           showClear && 'pr-10',
         )}
         value={internal}

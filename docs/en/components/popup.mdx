@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Popup
 
 ## Basic usage
@@ -10,24 +12,4 @@ export default () => { const [o,setO]=useState(false); return <><Button onClick=
 
 ## API
 
-### Popup
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| onClose | Close callback | `() => void` **(required)** | `-` |
-| open | Open | `boolean` **(required)** | `-` |
-| className | Class name | `string \|​ undefined` | `-` |
-| closeOnMask | Close on mask click | `boolean \|​ undefined` | `true` |
-| footer | Footer | `ReactNode` | `-` |
-| title | Title | `ReactNode` | `-` |
-
-### PopupView
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| onClose | Close callback | `() => void` **(required)** | `-` |
-| open | Open | `boolean` **(required)** | `-` |
-| className | Class name | `string \|​ undefined` | `-` |
-| closeOnMask | Close on mask click | `boolean \|​ undefined` | `-` |
-| footer | Footer | `ReactNode` | `-` |
-| title | Title | `ReactNode` | `-` |
+<ApiDocs name="Popup" />

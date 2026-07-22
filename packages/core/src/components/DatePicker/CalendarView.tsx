@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
 import {
@@ -19,6 +20,7 @@ export interface CalendarViewProps {
   min?: string;
   max?: string;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 export function CalendarView({
@@ -29,6 +31,7 @@ export function CalendarView({
   min,
   max,
   clearable = false,
+  size = 'md',
 }: CalendarViewProps) {
   const { messages } = useKoiContext();
   const selected = parseDate(value);
@@ -80,6 +83,7 @@ export function CalendarView({
   return (
     <div ref={containerRef} className="koi-datepicker-demo relative w-full">
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}

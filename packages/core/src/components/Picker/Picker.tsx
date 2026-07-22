@@ -1,4 +1,5 @@
 import { AdaptiveRender } from '../../adaptive/AdaptiveRender';
+import type { FieldSize } from '../../utils/interaction';
 import { PickerDropdownView } from './PickerDropdownView';
 import { PickerWheelView } from './PickerWheelView';
 
@@ -20,6 +21,7 @@ export interface PickerProps {
   disabled?: boolean;
   clearable?: boolean;
   responsive?: boolean;
+  size?: FieldSize;
 }
 
 export function Picker({ responsive = true, ...props }: PickerProps) {

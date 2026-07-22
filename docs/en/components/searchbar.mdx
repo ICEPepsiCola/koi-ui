@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # SearchBar
 
 ## Basic usage
@@ -34,19 +36,24 @@ export default () => {
 };
 ```
 
+## Alongside other fields
+
+```tsx preview
+import { Cascader, Input, SearchBar, Stack } from '@koi-ui/core';
+
+const options = [
+  { label: 'Zhejiang', value: 'zj', children: [{ label: 'Hangzhou', value: 'hz' }] },
+];
+
+export default () => (
+  <Stack gap={3} className="max-w-md w-full">
+    <SearchBar placeholder="Search products" />
+    <Cascader options={options} placeholder="Select region" />
+    <Input placeholder="备注" />
+  </Stack>
+);
+```
+
 ## API
 
-### SearchBar
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| className | Class name | `string \|​ undefined` | `-` |
-| clearable | - | `boolean \|​ undefined` | `-` |
-| defaultValue | Default value | `string \|​ undefined` | `-` |
-| disabled | Disabled | `boolean \|​ undefined` | `-` |
-| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
-| onSearch | - | `((value: string) => void) \|​ undefined` | `-` |
-| placeholder | Placeholder | `string \|​ undefined` | `-` |
-| responsive | Responsive | `boolean \|​ undefined` | `true` |
-| showCancel | - | `boolean \|​ undefined` | `-` |
-| value | Value | `string \|​ undefined` | `-` |
+<ApiDocs name="SearchBar" />

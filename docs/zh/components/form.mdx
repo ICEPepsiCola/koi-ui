@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Form 表单
 
 ## 基础用法
@@ -86,16 +88,56 @@ export default () => (
 );
 ```
 
+## 统一控件尺寸
+
+```tsx preview
+import {
+  AutoComplete,
+  Cascader,
+  Input,
+  SearchBar,
+  Select,
+  Stack,
+  Text,
+} from '@koi-ui/core';
+
+const regionOptions = [
+  { label: '浙江', value: 'zj', children: [{ label: '杭州', value: 'hz' }] },
+];
+
+export default () => (
+  <Stack gap={3} className="max-w-md w-full">
+    <Text muted size="sm">默认 md — 单行表单控件统一 32px 高度（同 Ant Design medium）</Text>
+    <Input placeholder="输入框" />
+    <Select
+      placeholder="选择城市"
+      options={[
+        { label: '北京', value: 'bj' },
+        { label: '上海', value: 'sh' },
+      ]}
+    />
+    <Cascader options={regionOptions} placeholder="选择地区" />
+    <SearchBar placeholder="搜索" />
+    <AutoComplete
+      placeholder="自动完成"
+      options={[
+        { value: 'apple', label: 'Apple' },
+        { value: 'banana', label: 'Banana' },
+      ]}
+    />
+    <Text muted size="sm" className="pt-2">size="sm" — 24px</Text>
+    <Input size="sm" placeholder="输入框" />
+    <Select
+      size="sm"
+      placeholder="选择城市"
+      options={[{ label: '北京', value: 'bj' }, { label: '上海', value: 'sh' }]}
+    />
+    <Cascader size="sm" options={regionOptions} placeholder="选择地区" />
+    <SearchBar size="sm" placeholder="搜索" />
+  </Stack>
+);
+```
+
 ## API
 
-### Form
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| form | - | `FormInstance<Values> \|​ undefined` | `-` |
-| initialValues | - | `Partial<Values> \|​ undefined` | `-` |
-| layout | 布局方式 | `enum` | `-` |
-| onFinish | - | `((values: Values) => void) \|​ undefined` | `-` |
-| onFinishFailed | - | `((errorInfo: ValidateErrorEntity<Values>) => void) \|​ undefined` | `-` |
-| onValuesChange | - | `((changed: Partial<Values>,​ allValues: Values) => void) \|​ undefined` | `-` |
-| responsive | 是否响应式 | `boolean \|​ undefined` | `-` |
+<ApiDocs name="Form" />

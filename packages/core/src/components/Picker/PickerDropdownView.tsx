@@ -1,10 +1,12 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
-import type { PickerColumn, PickerOption } from './Picker';
+import { PickerWheels } from '../shared/PickerWheels';
+import type { PickerColumn } from './Picker';
 
 export interface PickerDropdownViewProps {
   columns: PickerColumn[];
@@ -13,10 +15,9 @@ export interface PickerDropdownViewProps {
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
-const CELL_H = 28;
-const COL_H = 224;
 const EMPTY_VALUE: string[] = [];
 
 function getLabels(columns: PickerColumn[], values: string[]) {
@@ -32,7 +33,7 @@ function defaultDraft(columns: PickerColumn[], value: string[]) {
 }
 
 /**
- * Desktop Picker — floating multi-column wheel panel (aligned with TimePicker).
+ * Desktop Picker — floating multi-column drum panel.
  */
 export function PickerDropdownView({
   columns,
@@ -41,6 +42,7 @@ export function PickerDropdownView({
   placeholder = '请选择',
   disabled = false,
   clearable = false,
+  size = 'md',
 }: PickerDropdownViewProps) {
   const { messages } = useKoiContext();
   const resolvedValue = value ?? EMPTY_VALUE;
@@ -61,12 +63,9 @@ export function PickerDropdownView({
     columnsRef.current = columns;
   }, [columns]);
 
-  // Sync draft only when opening or when controlled value changes — never on
-  // fresh `columns={[...]}` identity from parent re-renders.
   useEffect(() => {
     if (!open) return;
     setDraft(defaultDraft(columnsRef.current, resolvedValue));
-    // valueKey tracks controlled value content without [] identity churn
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, valueKey]);
 
@@ -92,6 +91,7 @@ export function PickerDropdownView({
   return (
     <div ref={containerRef} className="koi-picker-demo relative w-full max-w-xs">
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}
@@ -115,29 +115,42 @@ export function PickerDropdownView({
       <FloatMenu
         open={open}
         data-picker-panel="desktop"
-        className="overflow-hidden p-0 py-0"
+        className="overflow-hidden p-0"
       >
-        <div className="flex">
-          {columns.map((col, idx) => (
-            <WheelColumnScroller
-              key={idx}
-              options={col.options}
-              value={draft[idx] ?? ''}
-              onChange={(val) => {
+        <div className="px-1 pt-1">
+          <PickerWheels
+            density="compact"
+            columns={columns.map((col, idx) => ({
+              key: String(idx),
+              options: col.options,
+              value: draft[idx] ?? '',
+              onChange: (val) => {
                 setDraft((prev) => {
                   const next = [...prev];
                   next[idx] = val;
                   return next;
                 });
-              }}
-            />
-          ))}
+              },
+            }))}
+          />
         </div>
-        <div className="flex items-center justify-end border-t border-border/80 px-3 py-2">
+        <div className="flex items-center justify-end gap-1 border-t border-border/70 px-2 py-2">
           <button
             type="button"
             className={cn(
-              'h-7 rounded-field px-3 text-sm text-primary-foreground bg-primary shadow-field',
+              'h-8 rounded-field px-3 text-sm text-muted-foreground',
+              controlTransition,
+              pressable,
+              'hover:bg-muted hover:text-surface-foreground',
+            )}
+            onClick={() => setOpen(false)}
+          >
+            {messages.cancelActionText}
+          </button>
+          <button
+            type="button"
+            className={cn(
+              'h-8 rounded-field px-3.5 text-sm font-medium text-primary-foreground bg-primary shadow-field',
               controlTransition,
               focusRing,
               pressable,
@@ -149,75 +162,6 @@ export function PickerDropdownView({
           </button>
         </div>
       </FloatMenu>
-    </div>
-  );
-}
-
-function WheelColumnScroller({
-  options,
-  value,
-  onChange,
-}: {
-  options: PickerOption[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const optionsKey = options.map((o) => o.value).join('\0');
-
-  useLayoutEffect(() => {
-    const root = scrollerRef.current;
-    if (!root) return;
-    const idx = options.findIndex((o) => o.value === value);
-    if (idx < 0) return;
-    const maxScroll = Math.max(0, root.scrollHeight - root.clientHeight);
-    const nextTop = Math.min(idx * CELL_H, maxScroll);
-    if (Math.abs(root.scrollTop - nextTop) > 1) {
-      root.scrollTop = nextTop;
-    }
-    // optionsKey tracks content identity without depending on array reference
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- options read from closure when key/value change
-  }, [value, optionsKey]);
-
-  return (
-    <div
-      ref={scrollerRef}
-      data-picker-column
-      className={cn(
-        'min-w-0 flex-1 overflow-y-auto overscroll-contain border-r border-border/70 last:border-r-0',
-        '[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-      )}
-      style={{ height: COL_H }}
-    >
-      {options.map((opt) => {
-        const active = opt.value === value;
-        return (
-          <button
-            key={opt.value}
-            type="button"
-            disabled={opt.disabled}
-            className="flex w-full items-center justify-center"
-            style={{ height: CELL_H }}
-            onClick={() => {
-              if (opt.disabled) return;
-              onChange(opt.value);
-            }}
-          >
-            <span
-              className={cn(
-                'flex h-6 w-[calc(100%-12px)] items-center justify-center rounded-selector text-sm',
-                controlTransition,
-                active
-                  ? 'bg-primary/10 font-medium text-primary'
-                  : 'text-surface-foreground hover:bg-muted',
-                opt.disabled && 'cursor-not-allowed opacity-40',
-              )}
-            >
-              {opt.label}
-            </span>
-          </button>
-        );
-      })}
     </div>
   );
 }

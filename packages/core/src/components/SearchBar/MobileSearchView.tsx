@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon } from '@koi-ui/icons';
 import { tv } from 'tailwind-variants';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { controlTransition, focusRing } from '../../utils/interaction';
+import { controlTransition, fieldSizeVariants, focusRing, type FieldSize } from '../../utils/interaction';
 import { ClearButton } from '../shared/ClearButton';
 
 const mobileSearchVariants = tv({
@@ -12,7 +12,7 @@ const mobileSearchVariants = tv({
 
 const mobileInputVariants = tv({
   base: cn(
-    'h-10 min-w-0 flex-1 rounded-full border border-border bg-muted px-4 text-sm outline-none shadow-field placeholder:text-muted-foreground',
+    'min-w-0 flex-1 rounded-full border border-border bg-muted px-4 outline-none shadow-field placeholder:text-muted-foreground',
     controlTransition,
     'hover:border-primary/35',
     focusRing,
@@ -30,6 +30,7 @@ export interface MobileSearchViewProps {
   className?: string;
   showCancel?: boolean;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 export function MobileSearchView({
@@ -42,6 +43,7 @@ export function MobileSearchView({
   className,
   showCancel = true,
   clearable = false,
+  size = 'md',
 }: MobileSearchViewProps) {
   const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
@@ -57,7 +59,12 @@ export function MobileSearchView({
         <MagnifyingGlassIcon className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
           type="search"
-          className={cn(mobileInputVariants(), 'pl-10', showClear && 'pr-10')}
+          className={cn(
+            mobileInputVariants(),
+            fieldSizeVariants({ size }),
+            'pl-10',
+            showClear && 'pr-10',
+          )}
           value={internal}
           placeholder={resolvedPlaceholder}
           disabled={disabled}

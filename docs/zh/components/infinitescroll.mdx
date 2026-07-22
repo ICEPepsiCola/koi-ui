@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # InfiniteScroll 无限滚动
 
 ## 基础用法
@@ -9,12 +11,4 @@ export default () => <InfiniteScroll hasMore={false} loadMore={async()=>{}}><Lis
 
 ## API
 
-### InfiniteScroll
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| hasMore | - | `boolean` **(必填)** | `-` |
-| loadMore | - | `() => void \|​ Promise<void>` **(必填)** | `-` |
-| endText | - | `ReactNode` | `没有更多了` |
-| loadingText | - | `ReactNode` | `加载中...` |
-| threshold | 滑动切换阈值 | `number \|​ undefined` | `100` |
+<ApiDocs name="InfiniteScroll" />

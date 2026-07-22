@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # DatePicker 日期选择
 
 ## 基础用法
@@ -34,15 +36,4 @@ export default () => { const [v,setV]=useState('2026-07-12'); return <DatePicker
 
 ## API
 
-### DatePicker
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| clearable | - | `boolean \|​ undefined` | `-` |
-| disabled | 是否禁用 | `boolean \|​ undefined` | `-` |
-| max | - | `string \|​ undefined` | `-` |
-| min | - | `string \|​ undefined` | `-` |
-| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
-| placeholder | 占位文本 | `string \|​ undefined` | `-` |
-| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
-| value | 当前值 | `string \|​ undefined` | `-` |
+<ApiDocs name="DatePicker" />

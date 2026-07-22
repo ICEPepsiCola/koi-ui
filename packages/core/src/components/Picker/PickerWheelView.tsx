@@ -1,20 +1,14 @@
-import {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
-import { cn } from '../../utils/cn';
-import { controlTransition } from '../../utils/interaction';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { MotionPanel } from '../shared/MotionPanel';
+import { PickerWheels } from '../shared/PickerWheels';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
 import { SheetChrome } from '../shared/SheetChrome';
 import { useScrollLock } from '../../hooks/useScrollLock';
-import type { PickerColumn, PickerOption } from './Picker';
+import type { PickerColumn } from './Picker';
 
 export interface PickerWheelViewProps {
   columns: PickerColumn[];
@@ -23,11 +17,10 @@ export interface PickerWheelViewProps {
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 const EMPTY_VALUE: string[] = [];
-/** Matches `h-10` option rows; scrollTop ≈ index * ITEM_H when centered. */
-const ITEM_H = 40;
 
 function getLabels(columns: PickerColumn[], values: string[]) {
   return values.map((val, idx) => {
@@ -51,6 +44,7 @@ export function PickerWheelView({
   placeholder = '请选择',
   disabled = false,
   clearable = false,
+  size = 'md',
 }: PickerWheelViewProps) {
   const { messages } = useKoiContext();
   const resolvedValue = value ?? EMPTY_VALUE;
@@ -86,6 +80,7 @@ export function PickerWheelView({
   return (
     <>
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}
@@ -121,27 +116,23 @@ export function PickerWheelView({
                 onConfirm={confirm}
                 cancelText={messages.cancelActionText}
               >
-                <div
-                  className="relative grid px-2 pb-4"
-                  style={{
-                    gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
-                  }}
-                >
-                  <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-primary/10 ring-1 ring-primary/15" />
-                  {columns.map((col, idx) => (
-                    <WheelColumn
-                      key={idx}
-                      options={col.options}
-                      value={draft[idx] ?? ''}
-                      onChange={(val) => {
+                <div className="px-2 pb-5 pt-1">
+                  <PickerWheels
+                    mode="drum"
+                    maxVisibleRows={5}
+                    columns={columns.map((col, idx) => ({
+                      key: String(idx),
+                      options: col.options,
+                      value: draft[idx] ?? '',
+                      onChange: (val) => {
                         setDraft((prev) => {
                           const next = [...prev];
                           next[idx] = val;
                           return next;
                         });
-                      }}
-                    />
-                  ))}
+                      },
+                    }))}
+                  />
                 </div>
               </SheetChrome>
             </MotionPanel>
@@ -149,117 +140,5 @@ export function PickerWheelView({
         </Overlay>
       </Portal>
     </>
-  );
-}
-
-function WheelColumn({
-  options,
-  value,
-  onChange,
-}: {
-  options: PickerOption[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const optionsRef = useRef(options);
-  const valueRef = useRef(value);
-  const onChangeRef = useRef(onChange);
-  const ignoreScrollRef = useRef(false);
-  const settleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const optionsKey = options.map((o) => o.value).join('\0');
-
-  useEffect(() => {
-    optionsRef.current = options;
-    valueRef.current = value;
-    onChangeRef.current = onChange;
-  });
-
-  useLayoutEffect(() => {
-    const root = scrollerRef.current;
-    if (!root) return;
-    const idx = options.findIndex((o) => o.value === value);
-    if (idx < 0) return;
-    const nextTop = idx * ITEM_H;
-    if (Math.abs(root.scrollTop - nextTop) <= 1) return;
-    ignoreScrollRef.current = true;
-    root.scrollTop = nextTop;
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        ignoreScrollRef.current = false;
-      });
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- optionsKey tracks content
-  }, [value, optionsKey]);
-
-  useEffect(() => {
-    return () => {
-      if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
-    };
-  }, []);
-
-  const commitFromScroll = () => {
-    const root = scrollerRef.current;
-    if (!root || ignoreScrollRef.current) return;
-    const idx = Math.round(root.scrollTop / ITEM_H);
-    const clamped = Math.max(0, Math.min(optionsRef.current.length - 1, idx));
-    const opt = optionsRef.current[clamped];
-    if (!opt || opt.disabled) return;
-    if (opt.value !== valueRef.current) {
-      onChangeRef.current(opt.value);
-    }
-  };
-
-  const scheduleCommit = () => {
-    if (ignoreScrollRef.current) return;
-    if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
-    settleTimerRef.current = setTimeout(commitFromScroll, 80);
-  };
-
-  return (
-    <div
-      ref={scrollerRef}
-      data-picker-column
-      role="listbox"
-      className="relative z-[2] h-48 touch-pan-y snap-y snap-mandatory overflow-y-auto overscroll-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      style={{
-        maskImage:
-          'linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent)',
-        WebkitMaskImage:
-          'linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent)',
-      }}
-      onScroll={scheduleCommit}
-    >
-      <div className="h-[calc(50%-1.25rem)] shrink-0" aria-hidden />
-      {options.map((opt) => {
-        const active = opt.value === value;
-        return (
-          <div
-            key={opt.value}
-            role="option"
-            aria-selected={active}
-            data-active={active}
-            aria-disabled={opt.disabled || undefined}
-            className={cn(
-              'flex h-10 w-full shrink-0 snap-center items-center justify-center text-base',
-              controlTransition,
-              active
-                ? 'font-semibold text-surface-foreground'
-                : 'text-muted-foreground',
-              opt.disabled
-                ? 'cursor-not-allowed opacity-40'
-                : 'cursor-pointer',
-            )}
-            onClick={() => {
-              if (opt.disabled) return;
-              onChange(opt.value);
-            }}
-          >
-            {opt.label}
-          </div>
-        );
-      })}
-      <div className="h-[calc(50%-1.25rem)] shrink-0" aria-hidden />
-    </div>
   );
 }

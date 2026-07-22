@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # AutoComplete 自动完成
 
 ## 基础用法
@@ -20,19 +22,4 @@ export default () => {
 
 ## API
 
-### AutoComplete
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| options | 选项列表 | `AutoCompleteOption[]` **(必填)** | `-` |
-| className | 类名 | `string \|​ undefined` | `-` |
-| clearable | - | `boolean \|​ undefined` | `false` |
-| defaultValue | 默认值 | `string \|​ undefined` | `` |
-| disabled | 是否禁用 | `boolean \|​ undefined` | `false` |
-| error | 错误信息 | `string \|​ boolean \|​ undefined` | `-` |
-| filterOption | - | `((input: string,​ option: AutoCompleteOption) => boolean) \|​ undefined` | `-` |
-| onChange | 变化回调 | `((value: string) => void) \|​ undefined` | `-` |
-| onSelect | 选择回调 | `((option: AutoCompleteOption) => void) \|​ undefined` | `-` |
-| placeholder | 占位文本 | `string \|​ undefined` | `请输入` |
-| size | 尺寸 | `enum` | `md` |
-| value | 当前值 | `string \|​ undefined` | `-` |
+<ApiDocs name="AutoComplete" />

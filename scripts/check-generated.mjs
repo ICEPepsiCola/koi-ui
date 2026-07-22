@@ -5,10 +5,7 @@ import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const GENERATED_TARGETS = [
-  'docs/.generated/theme-locales.json',
-  'docs/en',
-  'docs/zh',
-  'i18n.json',
+  'docs/api-data.json',
   'packages/core/tests/components',
   'packages/icons/src',
 ];
@@ -53,7 +50,7 @@ const before = buildSignature(files);
 
 run('pnpm', ['icons:generate']);
 run('pnpm', ['tests:generate']);
-run('pnpm', ['docs:generate']);
+run('pnpm', ['docs:api']);
 
 const after = buildSignature(files);
 const changedFiles = getChangedFiles(before, after);
@@ -63,7 +60,9 @@ if (changedFiles.length > 0) {
   for (const file of changedFiles) {
     console.error(`- ${file}`);
   }
-  console.error('Commit the generated outputs produced by `pnpm tests:generate` and `pnpm docs:generate`.');
+  console.error(
+    'Commit regenerated outputs from `pnpm icons:generate`, `pnpm tests:generate`, or `pnpm docs:api`.',
+  );
   process.exit(1);
 }
 

@@ -5,27 +5,23 @@ import { Text } from '../../primitives/Text';
 import { useKoiContext } from '../../provider/context';
 import { ClearButton } from '../shared/ClearButton';
 
+import { fieldHeightVariants, fieldTextSizeVariants } from '../../utils/interaction';
+
 const inputNumberVariants = tv({
   slots: {
     root: 'inline-flex w-full items-stretch overflow-hidden rounded-field border border-border bg-surface shadow-field transition-[border-color,box-shadow] duration-fast ease-emphasized hover:border-primary/35 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-surface motion-reduce:transition-none',
     input:
-      'min-w-0 flex-1 border-0 bg-transparent px-3 text-center text-sm text-surface-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+      'min-w-0 flex-1 border-0 bg-transparent px-3 text-center text-surface-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
     button:
-      'inline-flex w-10 shrink-0 items-center justify-center border-border text-sm text-surface-foreground transition-[background-color,transform] duration-fast ease-emphasized hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
+      'inline-flex w-10 shrink-0 items-center justify-center border-border text-surface-foreground transition-[background-color,transform] duration-fast ease-emphasized hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
   },
   variants: {
-    size: {
-      sm: { input: 'h-8', button: 'h-8' },
-      md: { input: 'h-10', button: 'h-10' },
-      lg: { input: 'h-12 text-base', button: 'h-12' },
-    },
     error: {
       true: { root: 'border-destructive' },
       false: {},
     },
   },
   defaultVariants: {
-    size: 'md',
     error: false,
   },
 });
@@ -63,9 +59,10 @@ export function InputNumber({
   const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
   const { root, input, button } = inputNumberVariants({
-    size,
     error: Boolean(error),
   });
+  const heightClass = fieldHeightVariants({ size });
+  const textClass = fieldTextSizeVariants({ size });
   const showClear = clearable && !disabled && internal !== undefined;
 
   const clamp = useCallback(
@@ -93,7 +90,7 @@ export function InputNumber({
       <div className={root()}>
         <button
           type="button"
-          className={cn(button(), 'border-r')}
+          className={cn(button(), heightClass, textClass, 'border-r')}
           disabled={disabled || (min !== undefined && (internal ?? 0) <= min)}
           onClick={() => stepBy(-step)}
           aria-label="减少"
@@ -103,7 +100,7 @@ export function InputNumber({
         <div className="relative flex-1">
           <input
             type="number"
-            className={cn(input(), showClear && 'pr-9')}
+            className={cn(input(), heightClass, textClass, showClear && 'pr-9')}
             value={internal ?? ''}
             placeholder={placeholder}
             disabled={disabled}
@@ -130,7 +127,7 @@ export function InputNumber({
         </div>
         <button
           type="button"
-          className={cn(button(), 'border-l')}
+          className={cn(button(), heightClass, textClass, 'border-l')}
           disabled={disabled || (max !== undefined && (internal ?? 0) >= max)}
           onClick={() => stepBy(step)}
           aria-label="增加"

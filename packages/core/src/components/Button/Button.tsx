@@ -30,9 +30,9 @@ const buttonVariants = tv({
         'bg-destructive text-destructive-foreground shadow-field hover:brightness-[1.04] active:brightness-[0.96]',
     },
     size: {
-      sm: 'h-8 px-3 text-sm',
-      md: 'h-10 px-4 text-sm',
-      lg: 'h-12 px-6 text-base',
+      sm: 'h-6 px-2.5 text-sm',
+      md: 'h-8 px-3 text-sm',
+      lg: 'h-10 px-4 text-base',
     },
   },
   defaultVariants: {

@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Popup 弹出层
 
 ## 基础用法
@@ -10,24 +12,4 @@ export default () => { const [o,setO]=useState(false); return <><Button onClick=
 
 ## API
 
-### Popup
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| onClose | 关闭回调 | `() => void` **(必填)** | `-` |
-| open | 是否显示 | `boolean` **(必填)** | `-` |
-| className | 类名 | `string \|​ undefined` | `-` |
-| closeOnMask | 点击遮罩关闭 | `boolean \|​ undefined` | `true` |
-| footer | 底部区域 | `ReactNode` | `-` |
-| title | 标题 | `ReactNode` | `-` |
-
-### PopupView
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| onClose | 关闭回调 | `() => void` **(必填)** | `-` |
-| open | 是否显示 | `boolean` **(必填)** | `-` |
-| className | 类名 | `string \|​ undefined` | `-` |
-| closeOnMask | 点击遮罩关闭 | `boolean \|​ undefined` | `-` |
-| footer | 底部区域 | `ReactNode` | `-` |
-| title | 标题 | `ReactNode` | `-` |
+<ApiDocs name="Popup" />

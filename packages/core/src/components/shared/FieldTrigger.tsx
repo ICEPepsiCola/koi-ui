@@ -8,8 +8,10 @@ import { cn } from '../../utils/cn';
 import {
   controlTransition,
   fieldBase,
+  fieldSizeVariants,
   fieldTriggerOpen,
   focusRing,
+  type FieldSize,
 } from '../../utils/interaction';
 import { ClearButton } from './ClearButton';
 
@@ -26,6 +28,7 @@ export interface FieldTriggerProps
   onClear?: () => void;
   /** Extra trailing control before the chevron (optional). */
   trailing?: ReactNode;
+  size?: FieldSize;
   onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
 }
 
@@ -42,6 +45,7 @@ export function FieldTrigger({
   clearLabel = 'Clear',
   onClear,
   trailing,
+  size = 'md',
   className,
   onKeyDown,
   ...props
@@ -54,7 +58,8 @@ export function FieldTrigger({
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled || undefined}
       className={cn(
-        'group/trigger flex h-10 w-full items-center justify-between gap-2 px-3 text-sm',
+        'group/trigger flex w-full items-center justify-between gap-2 px-3',
+        fieldSizeVariants({ size }),
         fieldBase,
         focusRing,
         open && fieldTriggerOpen,

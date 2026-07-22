@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Steps 步骤条
 
 ## 基础用法
@@ -26,12 +28,4 @@ export default () => (
 
 ## API
 
-### Steps
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| items | 数据项 | `StepItem[]` **(必填)** | `-` |
-| current | 当前步骤/页码 | `number \|​ undefined` | `0` |
-| direction | 排列方向 | `enum` | `horizontal` |
-| onChange | 变化回调 | `((current: number) => void) \|​ undefined` | `-` |
-| size | 尺寸 | `enum` | `-` |
+<ApiDocs name="Steps" />

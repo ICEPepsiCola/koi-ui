@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # TabBar
 
 ## Basic usage
@@ -10,12 +12,4 @@ export default () => { const [k,setK]=useState('home'); return <TabBar activeKey
 
 ## API
 
-### TabBar
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| items | Items | `TabBarItem[]` **(required)** | `-` |
-| activeKey | Active key | `string \|​ undefined` | `-` |
-| defaultActiveKey | - | `string \|​ undefined` | `-` |
-| onChange | Change callback | `((key: string) => void) \|​ undefined` | `-` |
-| safeArea | - | `boolean \|​ undefined` | `-` |
+<ApiDocs name="TabBar" />

@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const ICONS_DIR = path.join(ROOT, 'packages/icons');
-const VENDOR_DIR = path.join(ICONS_DIR, 'vendor/heroicons');
+const HEROICONS_DIR = path.join(ROOT, 'node_modules/heroicons');
 const SRC_DIR = path.join(ICONS_DIR, 'src');
 const GROUPS = [
   ['16', 'solid'],
@@ -84,11 +84,17 @@ const rootExports = [];
 const defaultRootExports = [];
 
 for (const [size, style] of GROUPS) {
-  const vendorGroup = path.join(VENDOR_DIR, size, style);
+  const sourceGroup = path.join(HEROICONS_DIR, size, style);
   const outGroup = path.join(SRC_DIR, size, style);
   ensureDir(outGroup);
 
-  const files = fs.readdirSync(vendorGroup)
+  if (!fs.existsSync(sourceGroup)) {
+    throw new Error(
+      `Missing Heroicons SVGs at ${sourceGroup}. Run \`pnpm install\` (devDependency: heroicons).`,
+    );
+  }
+
+  const files = fs.readdirSync(sourceGroup)
     .filter((file) => file.endsWith('.svg'))
     .sort((a, b) => a.localeCompare(b));
 
@@ -96,7 +102,7 @@ for (const [size, style] of GROUPS) {
   for (const file of files) {
     const componentName = toPascalCase(file);
     const outFile = `${componentName}.tsx`;
-    writeIcon(path.join(vendorGroup, file), path.join(outGroup, outFile), componentName);
+    writeIcon(path.join(sourceGroup, file), path.join(outGroup, outFile), componentName);
     const exportStatement = `export { ${componentName}, type ${componentName}Props } from './${componentName}';`;
     groupExports.push(exportStatement);
     if (size === '24' && style === 'outline') {

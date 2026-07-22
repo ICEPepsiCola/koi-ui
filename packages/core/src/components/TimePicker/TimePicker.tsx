@@ -1,4 +1,5 @@
 import { AdaptiveRender } from '../../adaptive/AdaptiveRender';
+import type { FieldSize } from '../../utils/interaction';
 import { TimeDropdownView } from './TimeDropdownView';
 import { TimeWheelView } from './TimeWheelView';
 
@@ -10,6 +11,7 @@ export interface TimePickerProps {
   format?: 'HH:mm' | 'HH:mm:ss';
   clearable?: boolean;
   responsive?: boolean;
+  size?: FieldSize;
 }
 
 export function TimePicker({ responsive = true, ...props }: TimePickerProps) {

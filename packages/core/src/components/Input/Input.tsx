@@ -4,7 +4,7 @@ import { cn } from '../../utils/cn';
 import { Text } from '../../primitives/Text';
 import { useKoiContext } from '../../provider/context';
 import { ClearButton } from '../shared/ClearButton';
-import { fieldBase } from '../../utils/interaction';
+import { fieldBase, fieldSizeVariants } from '../../utils/interaction';
 
 const inputVariants = tv({
   base: cn(
@@ -12,18 +12,12 @@ const inputVariants = tv({
     fieldBase,
   ),
   variants: {
-    size: {
-      sm: 'h-8 text-sm',
-      md: 'h-10 text-sm',
-      lg: 'h-12 text-base',
-    },
     error: {
       true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
       false: '',
     },
   },
   defaultVariants: {
-    size: 'md',
     error: false,
   },
 });
@@ -69,7 +63,8 @@ export function Input({
       <div className="relative">
         <input
           className={cn(
-            inputVariants({ size, error: hasError }),
+            inputVariants({ error: hasError }),
+            fieldSizeVariants({ size }),
             showClear && 'pr-10',
             className,
           )}

@@ -1,4 +1,5 @@
 import { AdaptiveRender } from '../../adaptive/AdaptiveRender';
+import type { FieldSize } from '../../utils/interaction';
 import { BottomSheetView } from './BottomSheetView';
 import { SelectView, type SelectOption } from './SelectView';
 
@@ -12,6 +13,7 @@ export interface SelectProps {
   disabled?: boolean;
   clearable?: boolean;
   responsive?: boolean;
+  size?: FieldSize;
 }
 
 export function Select({ responsive = true, ...props }: SelectProps) {

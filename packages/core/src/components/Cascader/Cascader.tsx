@@ -1,4 +1,5 @@
 import { AdaptiveRender } from '../../adaptive/AdaptiveRender';
+import type { FieldSize } from '../../utils/interaction';
 import { CascaderDropdownView } from './CascaderDropdownView';
 import { CascaderSheetView } from './CascaderSheetView';
 
@@ -17,6 +18,7 @@ export interface CascaderProps {
   disabled?: boolean;
   clearable?: boolean;
   responsive?: boolean;
+  size?: FieldSize;
 }
 
 export function Cascader({ responsive = true, ...props }: CascaderProps) {

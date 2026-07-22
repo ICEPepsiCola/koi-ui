@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Collapse
 
 ## Basic usage
@@ -9,12 +11,4 @@ export default () => <Collapse items={[{ key:'1', label:'Panel 1', children:'Con
 
 ## API
 
-### Collapse
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| items | Items | `CollapseItem[]` **(required)** | `-` |
-| accordion | - | `boolean \|​ undefined` | `false` |
-| activeKeys | - | `string[] \|​ undefined` | `-` |
-| defaultActiveKeys | - | `string[] \|​ undefined` | `[]` |
-| onChange | Change callback | `((keys: string[]) => void) \|​ undefined` | `-` |
+<ApiDocs name="Collapse" />

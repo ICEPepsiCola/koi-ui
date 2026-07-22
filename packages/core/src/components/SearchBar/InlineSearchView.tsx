@@ -3,12 +3,12 @@ import { MagnifyingGlassIcon } from '@koi-ui/icons';
 import { tv } from 'tailwind-variants';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { fieldBase } from '../../utils/interaction';
+import { fieldBase, fieldSizeVariants, type FieldSize } from '../../utils/interaction';
 import { Button } from '../Button/Button';
 import { ClearButton } from '../shared/ClearButton';
 
 const inlineSearchVariants = tv({
-  base: cn('flex w-full items-center gap-2 px-3 py-2', fieldBase),
+  base: cn('flex w-full items-center gap-2 px-3', fieldBase),
   variants: {
     focused: {
       true: 'border-primary ring-2 ring-primary ring-offset-2 ring-offset-surface',
@@ -29,6 +29,7 @@ export interface InlineSearchViewProps {
   disabled?: boolean;
   className?: string;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 export function InlineSearchView({
@@ -40,6 +41,7 @@ export function InlineSearchView({
   disabled = false,
   className,
   clearable = false,
+  size = 'md',
 }: InlineSearchViewProps) {
   const { messages } = useKoiContext();
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
@@ -51,11 +53,11 @@ export function InlineSearchView({
 
   return (
     <div className={cn('w-full', className)}>
-      <div className={inlineSearchVariants({ focused })}>
+      <div className={cn(inlineSearchVariants({ focused }), fieldSizeVariants({ size }))}>
         <MagnifyingGlassIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
         <input
           type="search"
-          className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
           value={internal}
           placeholder={resolvedPlaceholder}
           disabled={disabled}

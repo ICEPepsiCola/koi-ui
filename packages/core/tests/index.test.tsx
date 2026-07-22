@@ -504,8 +504,8 @@ test('Picker desktop opens floating multi-column wheel panel', async () => {
   expect(panel?.className).toContain('top-full');
   expect(panel?.querySelectorAll('[data-picker-column]').length).toBe(2);
 
-  fireEvent.click(screen.getByRole('button', { name: '周二' }));
-  fireEvent.click(screen.getByRole('button', { name: '下午' }));
+  fireEvent.click(screen.getByRole('option', { name: '周二' }));
+  fireEvent.click(screen.getByRole('option', { name: '下午' }));
   fireEvent.click(screen.getByRole('button', { name: '确定' }));
 
   await waitFor(() => {
@@ -542,13 +542,15 @@ test('Picker keeps draft selection when columns prop is inline', async () => {
 
   render(<Harness />);
   fireEvent.click(screen.getByRole('button', { name: /选日/ }));
-  fireEvent.click(screen.getByRole('button', { name: '三' }));
+  fireEvent.click(screen.getByRole('option', { name: '三' }));
 
   // Parent re-render with a fresh columns[] reference must not wipe draft
   fireEvent.click(screen.getByRole('button', { name: 'rerender' }));
 
-  expect(screen.getByRole('button', { name: '三' }).querySelector('span'))
-    .toHaveClass('text-primary');
+  expect(screen.getByRole('option', { name: '三' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
 });
 
 test('Picker mobile commits draft from wheel scroll', async () => {

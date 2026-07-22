@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
 import { OptionRow } from '../shared/OptionRow';
@@ -12,6 +13,7 @@ export interface CascaderDropdownViewProps {
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 function getOptionPath(options: CascaderOption[], values: string[]) {
@@ -33,6 +35,7 @@ export function CascaderDropdownView({
   placeholder = '请选择',
   disabled = false,
   clearable = false,
+  size = 'md',
 }: CascaderDropdownViewProps) {
   const { messages } = useKoiContext();
   const [open, setOpen] = useState(false);
@@ -83,6 +86,7 @@ export function CascaderDropdownView({
   return (
     <div ref={containerRef} className="relative w-full">
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}

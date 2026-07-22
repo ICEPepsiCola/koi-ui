@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Input
 
 ## Basic usage
@@ -31,24 +33,38 @@ export default () => {
 };
 ```
 
-## clearable
+## Clearable
 
 ```tsx preview
 import { Input } from '@koi-ui/core';
 import { useState } from 'react';
+
 export default () => {
-  const [value, setValue] = useState('可清除Content');
-  return <Input value={value} onChange={setValue} clearable placeholder="可清除输入" />;
+  const [value, setValue] = useState('Clearable text');
+  return (
+    <Input
+      value={value}
+      onChange={setValue}
+      clearable
+      placeholder="Clearable input"
+    />
+  );
 };
+```
+
+## Sizes
+
+```tsx preview
+import { Input, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3} className="max-w-md w-full">
+    <Input size="sm" placeholder="Small (24px)" />
+    <Input size="md" placeholder="Medium (32px)" />
+    <Input size="lg" placeholder="Large (40px)" />
+  </Stack>
+);
 ```
 
 ## API
 
-### Input
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| clearable | - | `boolean \|​ undefined` | `false` |
-| error | Error message | `string \|​ boolean \|​ undefined` | `-` |
-| onChange | Change callback | `((value: string) => void) \|​ undefined` | `-` |
-| size | Size | `enum` | `-` |
+<ApiDocs name="Input" />

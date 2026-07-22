@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
-import { cn } from '../../utils/cn';
-import { controlTransition } from '../../utils/interaction';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { MotionPanel } from '../shared/MotionPanel';
+import { PickerWheels } from '../shared/PickerWheels';
 import { Portal } from '../../utils/portal';
 import { Overlay } from '../shared/Overlay';
 import { SheetChrome } from '../shared/SheetChrome';
@@ -17,6 +17,7 @@ export interface TimeWheelViewProps {
   disabled?: boolean;
   format?: 'HH:mm' | 'HH:mm:ss';
   clearable?: boolean;
+  size?: FieldSize;
 }
 
 function parseTime(value?: string) {
@@ -46,6 +47,7 @@ export function TimeWheelView({
   disabled = false,
   format = 'HH:mm',
   clearable = false,
+  size = 'md',
 }: TimeWheelViewProps) {
   const { messages } = useKoiContext();
   const withSeconds = format === 'HH:mm:ss';
@@ -74,13 +76,39 @@ export function TimeWheelView({
     setOpen(false);
   };
 
+  const wheelColumns = [
+    {
+      key: 'hour',
+      options: hours.map((v) => ({ value: v, label: v })),
+      value: pad2(hour),
+      onChange: (v: string) => setHour(Number(v)),
+    },
+    {
+      key: 'minute',
+      options: minutes.map((v) => ({ value: v, label: v })),
+      value: pad2(minute),
+      onChange: (v: string) => setMinute(Number(v)),
+    },
+    ...(withSeconds
+      ? [
+          {
+            key: 'second',
+            options: minutes.map((v) => ({ value: v, label: v })),
+            value: pad2(second),
+            onChange: (v: string) => setSecond(Number(v)),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <>
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}
-        display={value}
+        display={<span className="tabular-nums">{value}</span>}
         placeholder={placeholder}
         clearable={clearable}
         clearLabel={messages.clearActionText}
@@ -111,30 +139,8 @@ export function TimeWheelView({
                 onConfirm={confirm}
                 cancelText={messages.cancelActionText}
               >
-                <div
-                  className={cn(
-                    'relative grid px-3 pb-5 pt-1',
-                    withSeconds ? 'grid-cols-3' : 'grid-cols-2',
-                  )}
-                >
-                  <div className="pointer-events-none absolute inset-x-3 top-1/2 z-[1] h-10 -translate-y-1/2 rounded-lg bg-primary/10 ring-1 ring-primary/15" />
-                  <WheelColumn
-                    options={hours}
-                    value={pad2(hour)}
-                    onChange={(v) => setHour(Number(v))}
-                  />
-                  <WheelColumn
-                    options={minutes}
-                    value={pad2(minute)}
-                    onChange={(v) => setMinute(Number(v))}
-                  />
-                  {withSeconds ? (
-                    <WheelColumn
-                      options={minutes}
-                      value={pad2(second)}
-                      onChange={(v) => setSecond(Number(v))}
-                    />
-                  ) : null}
+                <div className="px-2 pb-5 pt-1">
+                  <PickerWheels mode="drum" maxVisibleRows={5} columns={wheelColumns} />
                 </div>
               </SheetChrome>
             </MotionPanel>
@@ -142,60 +148,5 @@ export function TimeWheelView({
         </Overlay>
       </Portal>
     </>
-  );
-}
-
-function WheelColumn({
-  options,
-  value,
-  onChange,
-}: {
-  options: string[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const root = scrollerRef.current;
-    if (!root) return;
-    const active = root.querySelector<HTMLElement>('[data-active="true"]');
-    active?.scrollIntoView({ block: 'center' });
-  }, [value, options]);
-
-  return (
-    <div
-      ref={scrollerRef}
-      className="relative z-[2] h-48 snap-y snap-mandatory overflow-y-auto overscroll-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      style={{
-        maskImage:
-          'linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent)',
-        WebkitMaskImage:
-          'linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent)',
-      }}
-    >
-      <div className="h-[calc(50%-1.25rem)] shrink-0" />
-      {options.map((opt) => {
-        const active = opt === value;
-        return (
-          <button
-            key={opt}
-            type="button"
-            data-active={active}
-            className={cn(
-              'flex h-10 w-full snap-center items-center justify-center text-base tabular-nums',
-              controlTransition,
-              active
-                ? 'font-semibold text-surface-foreground'
-                : 'text-muted-foreground',
-            )}
-            onClick={() => onChange(opt)}
-          >
-            {opt}
-          </button>
-        );
-      })}
-      <div className="h-[calc(50%-1.25rem)] shrink-0" />
-    </div>
   );
 }

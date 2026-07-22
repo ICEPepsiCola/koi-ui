@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Pagination
 
 ## Basic usage
@@ -10,12 +12,4 @@ export default () => { const [p,setP]=useState(1); return <Pagination current={p
 
 ## API
 
-### Pagination
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| current | Current | `number` **(required)** | `-` |
-| total | Total | `number` **(required)** | `-` |
-| className | Class name | `string \|​ undefined` | `-` |
-| onChange | Change callback | `((page: number) => void) \|​ undefined` | `-` |
-| pageSize | - | `number \|​ undefined` | `10` |
+<ApiDocs name="Pagination" />

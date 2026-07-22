@@ -1,0 +1,7067 @@
+{
+  "Button": [
+    {
+      "displayName": "Button",
+      "description": "",
+      "props": {
+        "loading": {
+          "name": "loading",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsiveSize": {
+          "name": "responsiveSize",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    }
+  ],
+  "Icon": [
+    {
+      "displayName": "Icon",
+      "description": "",
+      "props": {
+        "name": {
+          "name": "name",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Typography": [
+    {
+      "displayName": "Title",
+      "description": "",
+      "props": {
+        "level": {
+          "name": "level",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "1"
+          }
+        },
+        "ellipsis": {
+          "name": "ellipsis",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "Text",
+      "description": "",
+      "props": {
+        "as": {
+          "name": "as",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "span"
+          }
+        },
+        "ellipsis": {
+          "name": "ellipsis",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "type": {
+          "name": "type",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "strong": {
+          "name": "strong",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "Paragraph",
+      "description": "",
+      "props": {
+        "ellipsis": {
+          "name": "ellipsis",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "type": {
+          "name": "type",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "Link",
+      "description": "",
+      "props": {
+        "href": {
+          "name": "href",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "#"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Divider": [
+    {
+      "displayName": "Divider",
+      "description": "",
+      "props": {
+        "orientationMargin": {
+          "name": "orientationMargin",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | number | undefined"
+          }
+        },
+        "type": {
+          "name": "type",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "horizontal"
+          }
+        },
+        "dashed": {
+          "name": "dashed",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "plain": {
+          "name": "plain",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        }
+      }
+    }
+  ],
+  "Grid": [
+    {
+      "displayName": "Row",
+      "description": "",
+      "props": {
+        "gutter": {
+          "name": "gutter",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "\"md\" | \"none\" | \"sm\" | \"lg\" | [number, number] | undefined"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        },
+        "align": {
+          "name": "align",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "justify": {
+          "name": "justify",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "Col",
+      "description": "",
+      "props": {
+        "span": {
+          "name": "span",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "24"
+          }
+        },
+        "offset": {
+          "name": "offset",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "gutter": {
+          "name": "gutter",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "\"md\" | \"none\" | \"sm\" | \"lg\" | [number, number] | undefined"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    }
+  ],
+  "Layout": [
+    {
+      "displayName": "Layout",
+      "description": "",
+      "props": {
+        "hasSider": {
+          "name": "hasSider",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "Layout.Header",
+      "description": "",
+      "props": {}
+    },
+    {
+      "displayName": "Layout.Sider",
+      "description": "",
+      "props": {
+        "width": {
+          "name": "width",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | number | undefined"
+          }
+        },
+        "collapsed": {
+          "name": "collapsed",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "Layout.Content",
+      "description": "",
+      "props": {}
+    },
+    {
+      "displayName": "Layout.Footer",
+      "description": "",
+      "props": {}
+    },
+    {
+      "displayName": "Header",
+      "description": "",
+      "props": {}
+    },
+    {
+      "displayName": "Sider",
+      "description": "",
+      "props": {
+        "width": {
+          "name": "width",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | number | undefined"
+          }
+        },
+        "collapsed": {
+          "name": "collapsed",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "Content",
+      "description": "",
+      "props": {}
+    },
+    {
+      "displayName": "Footer",
+      "description": "",
+      "props": {}
+    }
+  ],
+  "Space": [
+    {
+      "displayName": "Space",
+      "description": "",
+      "props": {
+        "split": {
+          "name": "split",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "direction": {
+          "name": "direction",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "align": {
+          "name": "align",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "wrap": {
+          "name": "wrap",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Flex": [
+    {
+      "displayName": "Flex",
+      "description": "",
+      "props": {
+        "direction": {
+          "name": "direction",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "align": {
+          "name": "align",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "justify": {
+          "name": "justify",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "wrap": {
+          "name": "wrap",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "gap": {
+          "name": "gap",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "vertical": {
+          "name": "vertical",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "inline": {
+          "name": "inline",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Stack": [
+    {
+      "displayName": "Stack",
+      "description": "",
+      "props": {
+        "direction": {
+          "name": "direction",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "gap": {
+          "name": "gap",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "align": {
+          "name": "align",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "justify": {
+          "name": "justify",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Box": [
+    {
+      "displayName": "Box",
+      "description": "",
+      "props": {
+        "p": {
+          "name": "p",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "rounded": {
+          "name": "rounded",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "bg": {
+          "name": "bg",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "border": {
+          "name": "border",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "SafeArea": [
+    {
+      "displayName": "SafeArea",
+      "description": "",
+      "props": {
+        "position": {
+          "name": "position",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "both"
+          }
+        }
+      }
+    }
+  ],
+  "Affix": [
+    {
+      "displayName": "Affix",
+      "description": "",
+      "props": {
+        "offsetTop": {
+          "name": "offsetTop",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "offsetBottom": {
+          "name": "offsetBottom",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "target": {
+          "name": "target",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => HTMLElement | Window | null) | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((affixed: boolean) => void) | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Breadcrumb": [
+    {
+      "displayName": "Breadcrumb",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "BreadcrumbItem[]"
+          }
+        },
+        "separator": {
+          "name": "separator",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          },
+          "defaultValue": {
+            "value": "/"
+          }
+        }
+      }
+    }
+  ],
+  "Dropdown": [
+    {
+      "displayName": "Dropdown",
+      "description": "",
+      "props": {
+        "trigger": {
+          "name": "trigger",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "DropdownItem[]"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "placement": {
+          "name": "placement",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "onSelect": {
+          "name": "onSelect",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((key: string) => void) | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Menu": [
+    {
+      "displayName": "Menu",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "MenuItemType[]"
+          }
+        },
+        "selectedKey": {
+          "name": "selectedKey",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "defaultSelectedKey": {
+          "name": "defaultSelectedKey",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "openKeys": {
+          "name": "openKeys",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          }
+        },
+        "defaultOpenKeys": {
+          "name": "defaultOpenKeys",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          },
+          "defaultValue": {
+            "value": "[]"
+          }
+        },
+        "onSelect": {
+          "name": "onSelect",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((key: string) => void) | undefined"
+          }
+        },
+        "onOpenChange": {
+          "name": "onOpenChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((openKeys: string[]) => void) | undefined"
+          }
+        },
+        "mode": {
+          "name": "mode",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "vertical"
+          }
+        }
+      }
+    }
+  ],
+  "Pagination": [
+    {
+      "displayName": "Pagination",
+      "description": "",
+      "props": {
+        "current": {
+          "name": "current",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "number"
+          }
+        },
+        "total": {
+          "name": "total",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "number"
+          }
+        },
+        "pageSize": {
+          "name": "pageSize",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "10"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((page: number) => void) | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Steps": [
+    {
+      "displayName": "Steps",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "StepItem[]"
+          }
+        },
+        "current": {
+          "name": "current",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((current: number) => void) | undefined"
+          }
+        },
+        "direction": {
+          "name": "direction",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "horizontal"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Tabs": [
+    {
+      "displayName": "Tabs",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "TabItem[]"
+          }
+        },
+        "defaultActiveKey": {
+          "name": "defaultActiveKey",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "activeKey": {
+          "name": "activeKey",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((key: string) => void) | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "NavBar": [
+    {
+      "displayName": "NavBar",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "left": {
+          "name": "left",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "right": {
+          "name": "right",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "onBack": {
+          "name": "onBack",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "backIcon": {
+          "name": "backIcon",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "fixed": {
+          "name": "fixed",
+          "required": false,
+          "description": "是否固定在视口顶部。\n文档预览（KoiProvider.previewDevice）下默认 false，避免脱出演示容器。",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "safeArea": {
+          "name": "safeArea",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "bordered": {
+          "name": "bordered",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "TabBar": [
+    {
+      "displayName": "TabBar",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "TabBarItem[]"
+          }
+        },
+        "activeKey": {
+          "name": "activeKey",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "defaultActiveKey": {
+          "name": "defaultActiveKey",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((key: string) => void) | undefined"
+          }
+        },
+        "safeArea": {
+          "name": "safeArea",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "IndexBar": [
+    {
+      "displayName": "IndexBar",
+      "description": "",
+      "props": {
+        "groups": {
+          "name": "groups",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "IndexBarGroup<T>[]"
+          }
+        },
+        "renderItem": {
+          "name": "renderItem",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "(item: T, index: number) => ReactNode"
+          }
+        },
+        "stickyOffset": {
+          "name": "stickyOffset",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "onIndexChange": {
+          "name": "onIndexChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((index: string) => void) | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "AutoComplete": [
+    {
+      "displayName": "AutoComplete",
+      "description": "",
+      "props": {
+        "options": {
+          "name": "options",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "AutoCompleteOption[]"
+          }
+        },
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "onSelect": {
+          "name": "onSelect",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((option: AutoCompleteOption) => void) | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "请输入"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        },
+        "error": {
+          "name": "error",
+          "required": false,
+          "description": "String shows message; boolean only styles the border (Form.Item owns copy).",
+          "type": {
+            "name": "string | boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "filterOption": {
+          "name": "filterOption",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((input: string, option: AutoCompleteOption) => boolean) | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Checkbox": [
+    {
+      "displayName": "Checkbox",
+      "description": "",
+      "props": {
+        "label": {
+          "name": "label",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((checked: boolean) => void) | undefined"
+          }
+        },
+        "checkboxValue": {
+          "name": "checkboxValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "CheckboxGroup",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          },
+          "defaultValue": {
+            "value": "[]"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string[]) => void) | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "DatePicker": [
+    {
+      "displayName": "DatePicker",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "min": {
+          "name": "min",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "max": {
+          "name": "max",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Form": [
+    {
+      "displayName": "Form",
+      "description": "",
+      "props": {
+        "form": {
+          "name": "form",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "FormInstance<Values> | undefined"
+          }
+        },
+        "initialValues": {
+          "name": "initialValues",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Partial<Values> | undefined"
+          }
+        },
+        "layout": {
+          "name": "layout",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "onValuesChange": {
+          "name": "onValuesChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((changed: Partial<Values>, allValues: Values) => void) | undefined"
+          }
+        },
+        "onFinish": {
+          "name": "onFinish",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((values: Values) => void) | undefined"
+          }
+        },
+        "onFinishFailed": {
+          "name": "onFinishFailed",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((errorInfo: ValidateErrorEntity<Values>) => void) | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Input": [
+    {
+      "displayName": "Input",
+      "description": "",
+      "props": {
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "error": {
+          "name": "error",
+          "required": false,
+          "description": "String shows message; boolean only styles the border (Form.Item owns copy).",
+          "type": {
+            "name": "string | boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "InputNumber": [
+    {
+      "displayName": "InputNumber",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: number | undefined) => void) | undefined"
+          }
+        },
+        "min": {
+          "name": "min",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "max": {
+          "name": "max",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "step": {
+          "name": "step",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "1"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        },
+        "error": {
+          "name": "error",
+          "required": false,
+          "description": "String shows message; boolean only styles the border (Form.Item owns copy).",
+          "type": {
+            "name": "string | boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Radio": [
+    {
+      "displayName": "Radio",
+      "description": "",
+      "props": {
+        "label": {
+          "name": "label",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "radioValue": {
+          "name": "radioValue",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "string"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "RadioGroup",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        },
+        "name": {
+          "name": "name",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "direction": {
+          "name": "direction",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "vertical"
+          }
+        }
+      }
+    }
+  ],
+  "Rate": [
+    {
+      "displayName": "Rate",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: number) => void) | undefined"
+          }
+        },
+        "count": {
+          "name": "count",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "5"
+          }
+        },
+        "allowHalf": {
+          "name": "allowHalf",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Select": [
+    {
+      "displayName": "Select",
+      "description": "",
+      "props": {
+        "options": {
+          "name": "options",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "SelectOption[]"
+          }
+        },
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Slider": [
+    {
+      "displayName": "Slider",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: number) => void) | undefined"
+          }
+        },
+        "min": {
+          "name": "min",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "max": {
+          "name": "max",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "100"
+          }
+        },
+        "step": {
+          "name": "step",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "1"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "showValue": {
+          "name": "showValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Switch": [
+    {
+      "displayName": "Switch",
+      "description": "",
+      "props": {
+        "checked": {
+          "name": "checked",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "defaultChecked": {
+          "name": "defaultChecked",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((checked: boolean) => void) | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    }
+  ],
+  "TextArea": [
+    {
+      "displayName": "TextArea",
+      "description": "",
+      "props": {
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "error": {
+          "name": "error",
+          "required": false,
+          "description": "String shows message; boolean only styles the border (Form.Item owns copy).",
+          "type": {
+            "name": "string | boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "showCount": {
+          "name": "showCount",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "maxLength": {
+          "name": "maxLength",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "TimePicker": [
+    {
+      "displayName": "TimePicker",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "format": {
+          "name": "format",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Upload": [
+    {
+      "displayName": "Upload",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "UploadFileItem[] | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "UploadFileItem[] | undefined"
+          },
+          "defaultValue": {
+            "value": "[]"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((files: UploadFileItem[]) => void) | undefined"
+          }
+        },
+        "accept": {
+          "name": "accept",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "multiple": {
+          "name": "multiple",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "maxCount": {
+          "name": "maxCount",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "hint": {
+          "name": "hint",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "点击或拖拽文件到此处上传"
+          }
+        }
+      }
+    }
+  ],
+  "Cascader": [
+    {
+      "displayName": "Cascader",
+      "description": "",
+      "props": {
+        "options": {
+          "name": "options",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "CascaderOption[]"
+          }
+        },
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string[], labels: string[]) => void) | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Picker": [
+    {
+      "displayName": "Picker",
+      "description": "",
+      "props": {
+        "columns": {
+          "name": "columns",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "PickerColumn[]"
+          }
+        },
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string[]) => void) | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "SearchBar": [
+    {
+      "displayName": "SearchBar",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "onSearch": {
+          "name": "onSearch",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "showCancel": {
+          "name": "showCancel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "clearable": {
+          "name": "clearable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Stepper": [
+    {
+      "displayName": "Stepper",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: number) => void) | undefined"
+          }
+        },
+        "min": {
+          "name": "min",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "max": {
+          "name": "max",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "step": {
+          "name": "step",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "1"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        },
+        "label": {
+          "name": "label",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Avatar": [
+    {
+      "displayName": "Avatar",
+      "description": "",
+      "props": {
+        "src": {
+          "name": "src",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "alt": {
+          "name": "alt",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "fallback": {
+          "name": "fallback",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "shape": {
+          "name": "shape",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Badge": [
+    {
+      "displayName": "Badge",
+      "description": "",
+      "props": {
+        "count": {
+          "name": "count",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "max": {
+          "name": "max",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "99"
+          }
+        },
+        "showZero": {
+          "name": "showZero",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "dot": {
+          "name": "dot",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Calendar": [
+    {
+      "displayName": "Calendar",
+      "description": "",
+      "props": {
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Date | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Date | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((date: Date) => void) | undefined"
+          }
+        },
+        "disabledDate": {
+          "name": "disabledDate",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((date: Date) => boolean) | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Card": [
+    {
+      "displayName": "Card",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "footer": {
+          "name": "footer",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "padding": {
+          "name": "padding",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "hoverable": {
+          "name": "hoverable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Collapse": [
+    {
+      "displayName": "Collapse",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "CollapseItem[]"
+          }
+        },
+        "defaultActiveKeys": {
+          "name": "defaultActiveKeys",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          },
+          "defaultValue": {
+            "value": "[]"
+          }
+        },
+        "activeKeys": {
+          "name": "activeKeys",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((keys: string[]) => void) | undefined"
+          }
+        },
+        "accordion": {
+          "name": "accordion",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Descriptions": [
+    {
+      "displayName": "Descriptions",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "DescriptionItem[]"
+          }
+        },
+        "column": {
+          "name": "column",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "3"
+          }
+        },
+        "bordered": {
+          "name": "bordered",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        },
+        "layout": {
+          "name": "layout",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "horizontal"
+          }
+        }
+      }
+    }
+  ],
+  "Empty": [
+    {
+      "displayName": "Empty",
+      "description": "",
+      "props": {
+        "description": {
+          "name": "description",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "image": {
+          "name": "image",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        }
+      }
+    }
+  ],
+  "Image": [
+    {
+      "displayName": "Image",
+      "description": "",
+      "props": {
+        "fallback": {
+          "name": "fallback",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "preview": {
+          "name": "preview",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "List": [
+    {
+      "displayName": "List",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ListItem[]"
+          }
+        },
+        "header": {
+          "name": "header",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "footer": {
+          "name": "footer",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "bordered": {
+          "name": "bordered",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    }
+  ],
+  "Popover": [
+    {
+      "displayName": "Popover",
+      "description": "",
+      "props": {
+        "content": {
+          "name": "content",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "open": {
+          "name": "open",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "defaultOpen": {
+          "name": "defaultOpen",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "onOpenChange": {
+          "name": "onOpenChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((open: boolean) => void) | undefined"
+          }
+        },
+        "trigger": {
+          "name": "trigger",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "click"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "placement": {
+          "name": "placement",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "bottom"
+          }
+        }
+      }
+    }
+  ],
+  "Segmented": [
+    {
+      "displayName": "Segmented",
+      "description": "",
+      "props": {
+        "options": {
+          "name": "options",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "SegmentedOption[]"
+          }
+        },
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((value: string) => void) | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "block": {
+          "name": "block",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Statistic": [
+    {
+      "displayName": "Statistic",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "value": {
+          "name": "value",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "prefix": {
+          "name": "prefix",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "suffix": {
+          "name": "suffix",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "precision": {
+          "name": "precision",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    }
+  ],
+  "Table": [
+    {
+      "displayName": "Table",
+      "description": "",
+      "props": {
+        "columns": {
+          "name": "columns",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ColumnDef<T>[]"
+          }
+        },
+        "data": {
+          "name": "data",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "T[]"
+          }
+        },
+        "mobileFields": {
+          "name": "mobileFields",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(keyof T)[] | undefined"
+          }
+        },
+        "loading": {
+          "name": "loading",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "emptyText": {
+          "name": "emptyText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "onRowClick": {
+          "name": "onRowClick",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((row: T) => void) | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        }
+      }
+    }
+  ],
+  "Tag": [
+    {
+      "displayName": "Tag",
+      "description": "",
+      "props": {
+        "onClose": {
+          "name": "onClose",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "closable": {
+          "name": "closable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Timeline": [
+    {
+      "displayName": "Timeline",
+      "description": "",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "TimelineItem[]"
+          }
+        },
+        "pending": {
+          "name": "pending",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "mode": {
+          "name": "mode",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Tooltip": [
+    {
+      "displayName": "Tooltip",
+      "description": "",
+      "props": {
+        "content": {
+          "name": "content",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "placement": {
+          "name": "placement",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "top"
+          }
+        },
+        "open": {
+          "name": "open",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "defaultOpen": {
+          "name": "defaultOpen",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Tree": [
+    {
+      "displayName": "Tree",
+      "description": "",
+      "props": {
+        "data": {
+          "name": "data",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "TreeNode[]"
+          }
+        },
+        "defaultExpandedKeys": {
+          "name": "defaultExpandedKeys",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          },
+          "defaultValue": {
+            "value": "[]"
+          }
+        },
+        "expandedKeys": {
+          "name": "expandedKeys",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          }
+        },
+        "selectedKeys": {
+          "name": "selectedKeys",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string[] | undefined"
+          },
+          "defaultValue": {
+            "value": "[]"
+          }
+        },
+        "onSelect": {
+          "name": "onSelect",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((keys: string[]) => void) | undefined"
+          }
+        },
+        "onExpand": {
+          "name": "onExpand",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((keys: string[]) => void) | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "showLine": {
+          "name": "showLine",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "NoticeBar": [
+    {
+      "displayName": "NoticeBar",
+      "description": "",
+      "props": {
+        "content": {
+          "name": "content",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "leftIcon": {
+          "name": "leftIcon",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "closable": {
+          "name": "closable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "scrollable": {
+          "name": "scrollable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Swiper": [
+    {
+      "displayName": "Swiper",
+      "description": "滑块视图：Pointer 跟手拖拽，可选箭头 / 指示点。\nloop 时用首尾克隆做无缝循环，避免末页硬切回首页。",
+      "props": {
+        "loop": {
+          "name": "loop",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "autoplay": {
+          "name": "autoplay",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "interval": {
+          "name": "interval",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "3000"
+          }
+        },
+        "threshold": {
+          "name": "threshold",
+          "required": false,
+          "description": "滑动切换阈值（px），默认 40",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "40"
+          }
+        },
+        "showDots": {
+          "name": "showDots",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "showArrows": {
+          "name": "showArrows",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "((index: number) => void) | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Ellipsis": [
+    {
+      "displayName": "Ellipsis",
+      "description": "",
+      "props": {
+        "content": {
+          "name": "content",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "rows": {
+          "name": "rows",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "1"
+          }
+        },
+        "expandable": {
+          "name": "expandable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "expandText": {
+          "name": "expandText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "展开"
+          }
+        },
+        "collapseText": {
+          "name": "collapseText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "收起"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Alert": [
+    {
+      "displayName": "Alert",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "description": {
+          "name": "description",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "icon": {
+          "name": "icon",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "appearance": {
+          "name": "appearance",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "closable": {
+          "name": "closable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Drawer": [
+    {
+      "displayName": "Drawer",
+      "description": "",
+      "props": {
+        "open": {
+          "name": "open",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "boolean"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "() => void"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "footer": {
+          "name": "footer",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "maskClosable": {
+          "name": "maskClosable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "placement": {
+          "name": "placement",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "right"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    }
+  ],
+  "Modal": [
+    {
+      "displayName": "Modal",
+      "description": "",
+      "props": {
+        "open": {
+          "name": "open",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "boolean"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "() => void"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "footer": {
+          "name": "footer",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "mobileFullscreen": {
+          "name": "mobileFullscreen",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "responsive": {
+          "name": "responsive",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Notification": [
+    {
+      "displayName": "NotificationProvider",
+      "description": "",
+      "props": {}
+    },
+    {
+      "displayName": "Notification",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "description": {
+          "name": "description",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "open": {
+          "name": "open",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "placement": {
+          "name": "placement",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "topRight"
+          }
+        },
+        "type": {
+          "name": "type",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Popconfirm": [
+    {
+      "displayName": "Popconfirm",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "description": {
+          "name": "description",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "onConfirm": {
+          "name": "onConfirm",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "onCancel": {
+          "name": "onCancel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "confirmText": {
+          "name": "confirmText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "确定"
+          }
+        },
+        "cancelText": {
+          "name": "cancelText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "取消"
+          }
+        },
+        "okType": {
+          "name": "okType",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "primary"
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Progress": [
+    {
+      "displayName": "Progress",
+      "description": "",
+      "props": {
+        "percent": {
+          "name": "percent",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "showInfo": {
+          "name": "showInfo",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "strokeColor": {
+          "name": "strokeColor",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Result": [
+    {
+      "displayName": "Result",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "subTitle": {
+          "name": "subTitle",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "icon": {
+          "name": "icon",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "extra": {
+          "name": "extra",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "status": {
+          "name": "status",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "Skeleton": [
+    {
+      "displayName": "Skeleton",
+      "description": "",
+      "props": {
+        "width": {
+          "name": "width",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | number | undefined"
+          }
+        },
+        "height": {
+          "name": "height",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | number | undefined"
+          }
+        },
+        "active": {
+          "name": "active",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "SkeletonGroup",
+      "description": "",
+      "props": {
+        "rows": {
+          "name": "rows",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "3"
+          }
+        },
+        "avatar": {
+          "name": "avatar",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Spin": [
+    {
+      "displayName": "Spin",
+      "description": "",
+      "props": {
+        "spinning": {
+          "name": "spinning",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "tip": {
+          "name": "tip",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          },
+          "defaultValue": {
+            "value": "md"
+          }
+        }
+      }
+    }
+  ],
+  "Toast": [
+    {
+      "displayName": "toast",
+      "description": "命令式轻提示：`toast('内容')` / `toast.success('成功')`。\n也可写作 `Toast.show({ content })`。",
+      "props": {}
+    },
+    {
+      "displayName": "Toast",
+      "description": "与 `toast` 同一实例，支持 `Toast.success()` 调用风格",
+      "props": {}
+    }
+  ],
+  "Popup": [
+    {
+      "displayName": "Popup",
+      "description": "",
+      "props": {
+        "open": {
+          "name": "open",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "boolean"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "() => void"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "footer": {
+          "name": "footer",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "closeOnMask": {
+          "name": "closeOnMask",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    },
+    {
+      "displayName": "PopupView",
+      "description": "",
+      "props": {
+        "open": {
+          "name": "open",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "boolean"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "() => void"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "footer": {
+          "name": "footer",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "closeOnMask": {
+          "name": "closeOnMask",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "ActionSheet": [
+    {
+      "displayName": "ActionSheet",
+      "description": "",
+      "props": {
+        "open": {
+          "name": "open",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "boolean"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "() => void"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "description": {
+          "name": "description",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "actions": {
+          "name": "actions",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "ActionSheetAction[]"
+          }
+        },
+        "cancelText": {
+          "name": "cancelText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "closeOnAction": {
+          "name": "closeOnAction",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        }
+      }
+    }
+  ],
+  "Loading": [
+    {
+      "displayName": "Loading",
+      "description": "",
+      "props": {
+        "open": {
+          "name": "open",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "tip": {
+          "name": "tip",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "fullscreen": {
+          "name": "fullscreen",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Mask": [
+    {
+      "displayName": "Mask",
+      "description": "",
+      "props": {
+        "visible": {
+          "name": "visible",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "zIndex": {
+          "name": "zIndex",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "50"
+          }
+        },
+        "open": {
+          "name": "open",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "onClick": {
+          "name": "onClick",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "durationMs": {
+          "name": "durationMs",
+          "required": false,
+          "description": "Exit animation duration in ms (kept for API compat; Motion uses seconds).",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "ref": {
+          "name": "ref",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Ref<HTMLDivElement> | undefined"
+          }
+        },
+        "key": {
+          "name": "key",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Key | null | undefined"
+          }
+        },
+        "defaultChecked": {
+          "name": "defaultChecked",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "defaultValue": {
+          "name": "defaultValue",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | number | readonly string[] | undefined"
+          }
+        },
+        "suppressContentEditableWarning": {
+          "name": "suppressContentEditableWarning",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "suppressHydrationWarning": {
+          "name": "suppressHydrationWarning",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "accessKey": {
+          "name": "accessKey",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "autoCapitalize": {
+          "name": "autoCapitalize",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "\"off\" | \"none\" | \"on\" | \"sentences\" | \"words\" | \"characters\" | (string & {}) | undefined"
+          }
+        },
+        "autoFocus": {
+          "name": "autoFocus",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "className": {
+          "name": "className",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "contentEditable": {
+          "name": "contentEditable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "\"inherit\" | Booleanish | \"plaintext-only\" | undefined"
+          }
+        },
+        "contextMenu": {
+          "name": "contextMenu",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "dir": {
+          "name": "dir",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "draggable": {
+          "name": "draggable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "enterKeyHint": {
+          "name": "enterKeyHint",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "hidden": {
+          "name": "hidden",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "id": {
+          "name": "id",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "lang": {
+          "name": "lang",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "nonce": {
+          "name": "nonce",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "slot": {
+          "name": "slot",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "spellCheck": {
+          "name": "spellCheck",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "tabIndex": {
+          "name": "tabIndex",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "translate": {
+          "name": "translate",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "radioGroup": {
+          "name": "radioGroup",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "role": {
+          "name": "role",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "AriaRole | undefined"
+          }
+        },
+        "about": {
+          "name": "about",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "content": {
+          "name": "content",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "datatype": {
+          "name": "datatype",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "inlist": {
+          "name": "inlist",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "any"
+          }
+        },
+        "prefix": {
+          "name": "prefix",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "property": {
+          "name": "property",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "rel": {
+          "name": "rel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "resource": {
+          "name": "resource",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "rev": {
+          "name": "rev",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "typeof": {
+          "name": "typeof",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "vocab": {
+          "name": "vocab",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "autoCorrect": {
+          "name": "autoCorrect",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "autoSave": {
+          "name": "autoSave",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "color": {
+          "name": "color",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "itemProp": {
+          "name": "itemProp",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "itemScope": {
+          "name": "itemScope",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "itemType": {
+          "name": "itemType",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "itemID": {
+          "name": "itemID",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "itemRef": {
+          "name": "itemRef",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "results": {
+          "name": "results",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "security": {
+          "name": "security",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "unselectable": {
+          "name": "unselectable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "popover": {
+          "name": "popover",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "popoverTargetAction": {
+          "name": "popoverTargetAction",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "popoverTarget": {
+          "name": "popoverTarget",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "inert": {
+          "name": "inert",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          }
+        },
+        "inputMode": {
+          "name": "inputMode",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "is": {
+          "name": "is",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "exportparts": {
+          "name": "exportparts",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "part": {
+          "name": "part",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-activedescendant": {
+          "name": "aria-activedescendant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-atomic": {
+          "name": "aria-atomic",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-autocomplete": {
+          "name": "aria-autocomplete",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "aria-braillelabel": {
+          "name": "aria-braillelabel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-brailleroledescription": {
+          "name": "aria-brailleroledescription",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-busy": {
+          "name": "aria-busy",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-checked": {
+          "name": "aria-checked",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | \"true\" | \"false\" | \"mixed\" | undefined"
+          }
+        },
+        "aria-colcount": {
+          "name": "aria-colcount",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-colindex": {
+          "name": "aria-colindex",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-colindextext": {
+          "name": "aria-colindextext",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-colspan": {
+          "name": "aria-colspan",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-controls": {
+          "name": "aria-controls",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-current": {
+          "name": "aria-current",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | \"page\" | \"true\" | \"false\" | \"step\" | \"location\" | \"date\" | \"time\" | undefined"
+          }
+        },
+        "aria-describedby": {
+          "name": "aria-describedby",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-description": {
+          "name": "aria-description",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-details": {
+          "name": "aria-details",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-disabled": {
+          "name": "aria-disabled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-dropeffect": {
+          "name": "aria-dropeffect",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "aria-errormessage": {
+          "name": "aria-errormessage",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-expanded": {
+          "name": "aria-expanded",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-flowto": {
+          "name": "aria-flowto",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-grabbed": {
+          "name": "aria-grabbed",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-haspopup": {
+          "name": "aria-haspopup",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | \"grid\" | \"true\" | \"false\" | \"dialog\" | \"listbox\" | \"menu\" | \"tree\" | undefined"
+          }
+        },
+        "aria-hidden": {
+          "name": "aria-hidden",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-invalid": {
+          "name": "aria-invalid",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | \"true\" | \"false\" | \"grammar\" | \"spelling\" | undefined"
+          }
+        },
+        "aria-keyshortcuts": {
+          "name": "aria-keyshortcuts",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-label": {
+          "name": "aria-label",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-labelledby": {
+          "name": "aria-labelledby",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-level": {
+          "name": "aria-level",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-live": {
+          "name": "aria-live",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "aria-modal": {
+          "name": "aria-modal",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-multiline": {
+          "name": "aria-multiline",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-multiselectable": {
+          "name": "aria-multiselectable",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-orientation": {
+          "name": "aria-orientation",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "aria-owns": {
+          "name": "aria-owns",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-placeholder": {
+          "name": "aria-placeholder",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-posinset": {
+          "name": "aria-posinset",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-pressed": {
+          "name": "aria-pressed",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | \"true\" | \"false\" | \"mixed\" | undefined"
+          }
+        },
+        "aria-readonly": {
+          "name": "aria-readonly",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-relevant": {
+          "name": "aria-relevant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "aria-required": {
+          "name": "aria-required",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-roledescription": {
+          "name": "aria-roledescription",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-rowcount": {
+          "name": "aria-rowcount",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-rowindex": {
+          "name": "aria-rowindex",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-rowindextext": {
+          "name": "aria-rowindextext",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "aria-rowspan": {
+          "name": "aria-rowspan",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-selected": {
+          "name": "aria-selected",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "Booleanish | undefined"
+          }
+        },
+        "aria-setsize": {
+          "name": "aria-setsize",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-sort": {
+          "name": "aria-sort",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "aria-valuemax": {
+          "name": "aria-valuemax",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-valuemin": {
+          "name": "aria-valuemin",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-valuenow": {
+          "name": "aria-valuenow",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          }
+        },
+        "aria-valuetext": {
+          "name": "aria-valuetext",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          }
+        },
+        "dangerouslySetInnerHTML": {
+          "name": "dangerouslySetInnerHTML",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "{ __html: string | TrustedHTML; } | undefined"
+          }
+        },
+        "onCopy": {
+          "name": "onCopy",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ClipboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCopyCapture": {
+          "name": "onCopyCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ClipboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCut": {
+          "name": "onCut",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ClipboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCutCapture": {
+          "name": "onCutCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ClipboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPaste": {
+          "name": "onPaste",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ClipboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPasteCapture": {
+          "name": "onPasteCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ClipboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCompositionEnd": {
+          "name": "onCompositionEnd",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "CompositionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCompositionEndCapture": {
+          "name": "onCompositionEndCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "CompositionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCompositionStart": {
+          "name": "onCompositionStart",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "CompositionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCompositionStartCapture": {
+          "name": "onCompositionStartCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "CompositionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCompositionUpdate": {
+          "name": "onCompositionUpdate",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "CompositionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCompositionUpdateCapture": {
+          "name": "onCompositionUpdateCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "CompositionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onFocus": {
+          "name": "onFocus",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "FocusEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onFocusCapture": {
+          "name": "onFocusCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "FocusEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onBlur": {
+          "name": "onBlur",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "FocusEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onBlurCapture": {
+          "name": "onBlurCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "FocusEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onChange": {
+          "name": "onChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ChangeEventHandler<HTMLDivElement, Element> | undefined"
+          }
+        },
+        "onChangeCapture": {
+          "name": "onChangeCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ChangeEventHandler<HTMLDivElement, Element> | undefined"
+          }
+        },
+        "onBeforeInput": {
+          "name": "onBeforeInput",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "InputEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onBeforeInputCapture": {
+          "name": "onBeforeInputCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "InputEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onInput": {
+          "name": "onInput",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "InputEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onInputCapture": {
+          "name": "onInputCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "InputEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onReset": {
+          "name": "onReset",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onResetCapture": {
+          "name": "onResetCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSubmit": {
+          "name": "onSubmit",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "SubmitEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSubmitCapture": {
+          "name": "onSubmitCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "SubmitEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onInvalid": {
+          "name": "onInvalid",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onInvalidCapture": {
+          "name": "onInvalidCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoad": {
+          "name": "onLoad",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoadCapture": {
+          "name": "onLoadCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onError": {
+          "name": "onError",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onErrorCapture": {
+          "name": "onErrorCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onKeyDown": {
+          "name": "onKeyDown",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "KeyboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onKeyDownCapture": {
+          "name": "onKeyDownCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "KeyboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onKeyPress": {
+          "name": "onKeyPress",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "KeyboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onKeyPressCapture": {
+          "name": "onKeyPressCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "KeyboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onKeyUp": {
+          "name": "onKeyUp",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "KeyboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onKeyUpCapture": {
+          "name": "onKeyUpCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "KeyboardEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAbort": {
+          "name": "onAbort",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAbortCapture": {
+          "name": "onAbortCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCanPlay": {
+          "name": "onCanPlay",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCanPlayCapture": {
+          "name": "onCanPlayCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCanPlayThrough": {
+          "name": "onCanPlayThrough",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onCanPlayThroughCapture": {
+          "name": "onCanPlayThroughCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDurationChange": {
+          "name": "onDurationChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDurationChangeCapture": {
+          "name": "onDurationChangeCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onEmptied": {
+          "name": "onEmptied",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onEmptiedCapture": {
+          "name": "onEmptiedCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onEncrypted": {
+          "name": "onEncrypted",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onEncryptedCapture": {
+          "name": "onEncryptedCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onEnded": {
+          "name": "onEnded",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onEndedCapture": {
+          "name": "onEndedCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoadedData": {
+          "name": "onLoadedData",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoadedDataCapture": {
+          "name": "onLoadedDataCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoadedMetadata": {
+          "name": "onLoadedMetadata",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoadedMetadataCapture": {
+          "name": "onLoadedMetadataCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoadStart": {
+          "name": "onLoadStart",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLoadStartCapture": {
+          "name": "onLoadStartCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPause": {
+          "name": "onPause",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPauseCapture": {
+          "name": "onPauseCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPlay": {
+          "name": "onPlay",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPlayCapture": {
+          "name": "onPlayCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPlaying": {
+          "name": "onPlaying",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPlayingCapture": {
+          "name": "onPlayingCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onProgress": {
+          "name": "onProgress",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onProgressCapture": {
+          "name": "onProgressCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onRateChange": {
+          "name": "onRateChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onRateChangeCapture": {
+          "name": "onRateChangeCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSeeked": {
+          "name": "onSeeked",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSeekedCapture": {
+          "name": "onSeekedCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSeeking": {
+          "name": "onSeeking",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSeekingCapture": {
+          "name": "onSeekingCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onStalled": {
+          "name": "onStalled",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onStalledCapture": {
+          "name": "onStalledCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSuspend": {
+          "name": "onSuspend",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSuspendCapture": {
+          "name": "onSuspendCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTimeUpdate": {
+          "name": "onTimeUpdate",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTimeUpdateCapture": {
+          "name": "onTimeUpdateCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onVolumeChange": {
+          "name": "onVolumeChange",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onVolumeChangeCapture": {
+          "name": "onVolumeChangeCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onWaiting": {
+          "name": "onWaiting",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onWaitingCapture": {
+          "name": "onWaitingCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAuxClick": {
+          "name": "onAuxClick",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAuxClickCapture": {
+          "name": "onAuxClickCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onClickCapture": {
+          "name": "onClickCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onContextMenu": {
+          "name": "onContextMenu",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onContextMenuCapture": {
+          "name": "onContextMenuCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDoubleClick": {
+          "name": "onDoubleClick",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDoubleClickCapture": {
+          "name": "onDoubleClickCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragCapture": {
+          "name": "onDragCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragEndCapture": {
+          "name": "onDragEndCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragEnter": {
+          "name": "onDragEnter",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragEnterCapture": {
+          "name": "onDragEnterCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragExit": {
+          "name": "onDragExit",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragExitCapture": {
+          "name": "onDragExitCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragLeave": {
+          "name": "onDragLeave",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragLeaveCapture": {
+          "name": "onDragLeaveCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragOver": {
+          "name": "onDragOver",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragOverCapture": {
+          "name": "onDragOverCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDragStartCapture": {
+          "name": "onDragStartCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDrop": {
+          "name": "onDrop",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onDropCapture": {
+          "name": "onDropCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "DragEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseDown": {
+          "name": "onMouseDown",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseDownCapture": {
+          "name": "onMouseDownCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseEnter": {
+          "name": "onMouseEnter",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseLeave": {
+          "name": "onMouseLeave",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseMove": {
+          "name": "onMouseMove",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseMoveCapture": {
+          "name": "onMouseMoveCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseOut": {
+          "name": "onMouseOut",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseOutCapture": {
+          "name": "onMouseOutCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseOver": {
+          "name": "onMouseOver",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseOverCapture": {
+          "name": "onMouseOverCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseUp": {
+          "name": "onMouseUp",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onMouseUpCapture": {
+          "name": "onMouseUpCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "MouseEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSelect": {
+          "name": "onSelect",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onSelectCapture": {
+          "name": "onSelectCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchCancel": {
+          "name": "onTouchCancel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchCancelCapture": {
+          "name": "onTouchCancelCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchEnd": {
+          "name": "onTouchEnd",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchEndCapture": {
+          "name": "onTouchEndCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchMove": {
+          "name": "onTouchMove",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchMoveCapture": {
+          "name": "onTouchMoveCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchStart": {
+          "name": "onTouchStart",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTouchStartCapture": {
+          "name": "onTouchStartCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TouchEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerDown": {
+          "name": "onPointerDown",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerDownCapture": {
+          "name": "onPointerDownCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerMove": {
+          "name": "onPointerMove",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerMoveCapture": {
+          "name": "onPointerMoveCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerUp": {
+          "name": "onPointerUp",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerUpCapture": {
+          "name": "onPointerUpCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerCancel": {
+          "name": "onPointerCancel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerCancelCapture": {
+          "name": "onPointerCancelCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerEnter": {
+          "name": "onPointerEnter",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerLeave": {
+          "name": "onPointerLeave",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerOver": {
+          "name": "onPointerOver",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerOverCapture": {
+          "name": "onPointerOverCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerOut": {
+          "name": "onPointerOut",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onPointerOutCapture": {
+          "name": "onPointerOutCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onGotPointerCapture": {
+          "name": "onGotPointerCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onGotPointerCaptureCapture": {
+          "name": "onGotPointerCaptureCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLostPointerCapture": {
+          "name": "onLostPointerCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onLostPointerCaptureCapture": {
+          "name": "onLostPointerCaptureCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "PointerEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onScroll": {
+          "name": "onScroll",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "UIEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onScrollCapture": {
+          "name": "onScrollCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "UIEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onScrollEnd": {
+          "name": "onScrollEnd",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "UIEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onScrollEndCapture": {
+          "name": "onScrollEndCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "UIEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onWheel": {
+          "name": "onWheel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "WheelEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onWheelCapture": {
+          "name": "onWheelCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "WheelEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAnimationStartCapture": {
+          "name": "onAnimationStartCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "AnimationEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAnimationEnd": {
+          "name": "onAnimationEnd",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "AnimationEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAnimationEndCapture": {
+          "name": "onAnimationEndCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "AnimationEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAnimationIteration": {
+          "name": "onAnimationIteration",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "AnimationEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onAnimationIterationCapture": {
+          "name": "onAnimationIterationCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "AnimationEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onToggle": {
+          "name": "onToggle",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ToggleEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onBeforeToggle": {
+          "name": "onBeforeToggle",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ToggleEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionCancel": {
+          "name": "onTransitionCancel",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionCancelCapture": {
+          "name": "onTransitionCancelCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionEnd": {
+          "name": "onTransitionEnd",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionEndCapture": {
+          "name": "onTransitionEndCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionRun": {
+          "name": "onTransitionRun",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionRunCapture": {
+          "name": "onTransitionRunCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionStart": {
+          "name": "onTransitionStart",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        },
+        "onTransitionStartCapture": {
+          "name": "onTransitionStartCapture",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "TransitionEventHandler<HTMLDivElement> | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "Watermark": [
+    {
+      "displayName": "Watermark",
+      "description": "",
+      "props": {
+        "content": {
+          "name": "content",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          },
+          "defaultValue": {
+            "value": "Koi UI"
+          }
+        },
+        "gap": {
+          "name": "gap",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "[number, number] | undefined"
+          },
+          "defaultValue": {
+            "value": "[100, 100]"
+          }
+        },
+        "rotate": {
+          "name": "rotate",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "-22"
+          }
+        },
+        "fontSize": {
+          "name": "fontSize",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "14"
+          }
+        },
+        "fontColor": {
+          "name": "fontColor",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "string | undefined"
+          },
+          "defaultValue": {
+            "value": "rgba(0,0,0,0.08)"
+          }
+        },
+        "zIndex": {
+          "name": "zIndex",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "9"
+          }
+        }
+      }
+    }
+  ],
+  "BackTop": [
+    {
+      "displayName": "BackTop",
+      "description": "",
+      "props": {
+        "visibilityHeight": {
+          "name": "visibilityHeight",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "400"
+          }
+        },
+        "target": {
+          "name": "target",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => HTMLElement | Window | null) | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "FloatButton": [
+    {
+      "displayName": "FloatButton",
+      "description": "",
+      "props": {
+        "icon": {
+          "name": "icon",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "description": {
+          "name": "description",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        },
+        "placement": {
+          "name": "placement",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "enum"
+          }
+        }
+      }
+    }
+  ],
+  "PullToRefresh": [
+    {
+      "displayName": "PullToRefresh",
+      "description": "下拉刷新：Pointer Events 同时支持触控与鼠标拖拽。",
+      "props": {
+        "onRefresh": {
+          "name": "onRefresh",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "() => void | Promise<void>"
+          }
+        },
+        "pullingText": {
+          "name": "pullingText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          },
+          "defaultValue": {
+            "value": "下拉刷新"
+          }
+        },
+        "releaseText": {
+          "name": "releaseText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          },
+          "defaultValue": {
+            "value": "释放刷新"
+          }
+        },
+        "refreshingText": {
+          "name": "refreshingText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          },
+          "defaultValue": {
+            "value": "刷新中..."
+          }
+        },
+        "threshold": {
+          "name": "threshold",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "60"
+          }
+        }
+      }
+    }
+  ],
+  "Footer": [
+    {
+      "displayName": "Footer",
+      "description": "",
+      "props": {
+        "copyright": {
+          "name": "copyright",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "links": {
+          "name": "links",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "{ key: string; label: ReactNode; href?: string | undefined; }[] | undefined"
+          }
+        }
+      }
+    }
+  ],
+  "FloatingPanel": [
+    {
+      "displayName": "FloatingPanel",
+      "description": "底部浮动面板：按锚点比例吸附高度。\n在文档预览里以 portal 根高度为基准；Pointer Events 支持触控与鼠标拖拽。",
+      "props": {
+        "open": {
+          "name": "open",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        },
+        "onClose": {
+          "name": "onClose",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "(() => void) | undefined"
+          }
+        },
+        "title": {
+          "name": "title",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          }
+        },
+        "anchors": {
+          "name": "anchors",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number[] | undefined"
+          },
+          "defaultValue": {
+            "value": "[0.4, 0.7]"
+          }
+        },
+        "defaultAnchor": {
+          "name": "defaultAnchor",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "0.4"
+          }
+        },
+        "showOverlay": {
+          "name": "showOverlay",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "boolean | undefined"
+          },
+          "defaultValue": {
+            "value": "true"
+          }
+        }
+      }
+    }
+  ],
+  "InfiniteScroll": [
+    {
+      "displayName": "InfiniteScroll",
+      "description": "",
+      "props": {
+        "loadMore": {
+          "name": "loadMore",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "() => void | Promise<void>"
+          }
+        },
+        "hasMore": {
+          "name": "hasMore",
+          "required": true,
+          "description": "",
+          "type": {
+            "name": "boolean"
+          }
+        },
+        "threshold": {
+          "name": "threshold",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "number | undefined"
+          },
+          "defaultValue": {
+            "value": "100"
+          }
+        },
+        "loadingText": {
+          "name": "loadingText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          },
+          "defaultValue": {
+            "value": "加载中..."
+          }
+        },
+        "endText": {
+          "name": "endText",
+          "required": false,
+          "description": "",
+          "type": {
+            "name": "ReactNode"
+          },
+          "defaultValue": {
+            "value": "没有更多了"
+          }
+        }
+      }
+    }
+  ]
+}

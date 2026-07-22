@@ -15,9 +15,8 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 - `pnpm push:check` - Pre-push gate: lint → typecheck → test → build
 - `pnpm release` - semantic-release（CI：push `main` 自动；也可 Actions 手动触发）
 - 手动发版：Actions → **Release** → bump 选 `auto` / `patch` / `minor` / `major`（与自动同一套流程，手动仅多强制 bump 级别）
-- `pnpm docs:generate` - 手动编译文档：`i18n/` + `scripts/docs-catalog.mjs` + `scripts/docs-demos.mjs` → `docs/en`、`docs/zh`（改文案 / demo / props 后跑；`pnpm doc` / `doc:build` 不再自动生成）。`packages/core/src/index.tsx` 手写维护，不由此脚本生成。
 - Commit messages must follow Conventional Commits (enforced by husky + commitlint). Release mapping: `feat`→minor, `fix`/`perf`→patch, `BREAKING CHANGE`/`!`→major; `docs`/`chore`/`ci`/`test`/`refactor` 默认不发版。
-- Docs site: default `en`, `localeRedirect: 'auto'`, navbar language switch; do not hand-edit generated `docs/en/**` / `docs/zh/**`（改完跑 `pnpm docs:generate` 并提交产物）。
+- Docs: hand-write `docs/{en,zh}/**/*.mdx`. API tables use `<ApiDocs name="Button" />`（`pnpm doc` / `doc:build` 会自动跑 `docs:api` 刷新 `docs/api-data.json`）. Sidebar：`docs/catalog.ts` + `docs/theme-locales.ts`.
 - Packages use source `exports` locally; `publishConfig.exports` remaps to `dist` on `pnpm publish`（必须用 pnpm，勿改 npm publish）。
 
 ## Quality requirements

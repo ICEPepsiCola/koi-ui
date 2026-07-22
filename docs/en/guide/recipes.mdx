@@ -88,7 +88,7 @@ export default () => {
   return (
     <Stack gap={4} className="w-full">
       <Space className="w-full justify-between" wrap>
-        <SearchBar value={query} onChange={setQuery} placeholder="Filter teams" />
+        <SearchBar className="min-w-0 flex-1 max-w-md" value={query} onChange={setQuery} placeholder="Filter teams" />
         <Button variant="soft">New team</Button>
       </Space>
       <Table
@@ -124,6 +124,7 @@ export default () => {
 ```tsx preview
 import {
   Button,
+  Cascader,
   Form,
   Input,
   Select,
@@ -162,6 +163,22 @@ export default () => {
               { value: 'free', label: 'Free' },
               { value: 'pro', label: 'Pro' },
               { value: 'team', label: 'Team' },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item name="region" label="Region">
+          <Cascader
+            options={[
+              {
+                label: 'East',
+                value: 'east',
+                children: [{ label: 'Shanghai', value: 'sh' }],
+              },
+              {
+                label: 'North',
+                value: 'north',
+                children: [{ label: 'Beijing', value: 'bj' }],
+              },
             ]}
           />
         </Form.Item>

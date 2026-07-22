@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # IndexBar 索引栏
 
 ## 基础用法
@@ -14,11 +16,4 @@ export default () => (
 
 ## API
 
-### IndexBar
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| groups | - | `IndexBarGroup<T>[]` **(必填)** | `-` |
-| renderItem | - | `(item: T,​ index: number) => ReactNode` **(必填)** | `-` |
-| onIndexChange | - | `((index: string) => void) \|​ undefined` | `-` |
-| stickyOffset | - | `number \|​ undefined` | `0` |
+<ApiDocs name="IndexBar" />

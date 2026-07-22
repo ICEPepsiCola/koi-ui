@@ -1,9 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
+import { PickerWheels } from '../shared/PickerWheels';
 import { pad2 } from '../DatePicker/dateUtils';
 
 export interface TimeDropdownViewProps {
@@ -13,10 +15,8 @@ export interface TimeDropdownViewProps {
   disabled?: boolean;
   format?: 'HH:mm' | 'HH:mm:ss';
   clearable?: boolean;
+  size?: FieldSize;
 }
-
-const CELL_H = 28;
-const COL_H = 224;
 
 function parseTime(value?: string) {
   const parts = (value ?? '').split(':').map(Number);
@@ -39,7 +39,7 @@ function formatTime(
 }
 
 /**
- * Desktop TimePicker panel — width matches trigger, columns share space evenly.
+ * Desktop TimePicker panel — shared drum wheels with Picker.
  */
 export function TimeDropdownView({
   value,
@@ -48,6 +48,7 @@ export function TimeDropdownView({
   disabled = false,
   format = 'HH:mm',
   clearable = false,
+  size = 'md',
 }: TimeDropdownViewProps) {
   const { messages } = useKoiContext();
   const withSeconds = format === 'HH:mm:ss';
@@ -100,6 +101,31 @@ export function TimeDropdownView({
     confirm(h, m, s);
   };
 
+  const wheelColumns = [
+    {
+      key: 'hour',
+      options: hours.map((v) => ({ value: v, label: v })),
+      value: pad2(hour),
+      onChange: (v: string) => setHour(Number(v)),
+    },
+    {
+      key: 'minute',
+      options: minutes.map((v) => ({ value: v, label: v })),
+      value: pad2(minute),
+      onChange: (v: string) => setMinute(Number(v)),
+    },
+    ...(withSeconds
+      ? [
+          {
+            key: 'second',
+            options: minutes.map((v) => ({ value: v, label: v })),
+            value: pad2(second),
+            onChange: (v: string) => setSecond(Number(v)),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <div
       ref={containerRef}
@@ -109,10 +135,13 @@ export function TimeDropdownView({
       )}
     >
       <FieldTrigger
+        size={size}
         open={open}
         disabled={disabled}
         hasValue={hasValue}
-        display={value}
+        display={
+          <span className="tabular-nums">{value}</span>
+        }
         placeholder={placeholder}
         clearable={clearable}
         clearLabel={messages.clearActionText}
@@ -130,30 +159,23 @@ export function TimeDropdownView({
           }
         }}
       />
-      <FloatMenu open={open} className="overflow-hidden p-0 py-0">
-        <div className="flex">
-          <TimeColumn
-            options={hours}
-            value={pad2(hour)}
-            onChange={(v) => setHour(Number(v))}
+      <FloatMenu open={open} className="overflow-hidden p-0">
+        <div className="px-1 pt-1">
+          <PickerWheels
+            density="compact"
+            maxVisibleRows={5}
+            columns={wheelColumns}
           />
-          <TimeColumn
-            options={minutes}
-            value={pad2(minute)}
-            onChange={(v) => setMinute(Number(v))}
-          />
-          {withSeconds ? (
-            <TimeColumn
-              options={minutes}
-              value={pad2(second)}
-              onChange={(v) => setSecond(Number(v))}
-            />
-          ) : null}
         </div>
-        <div className="flex items-center justify-between border-t border-border/80 px-3 py-2">
+        <div className="flex items-center justify-between border-t border-border/70 px-2 py-2">
           <button
             type="button"
-            className={cn('text-sm text-primary', controlTransition, 'hover:brightness-[1.04]')}
+            className={cn(
+              'h-8 rounded-field px-2.5 text-sm text-primary',
+              controlTransition,
+              pressable,
+              'hover:bg-primary/5',
+            )}
             onClick={pickNow}
           >
             此刻
@@ -161,7 +183,7 @@ export function TimeDropdownView({
           <button
             type="button"
             className={cn(
-              'h-7 rounded-field px-3 text-sm text-primary-foreground bg-primary shadow-field',
+              'h-8 rounded-field px-3.5 text-sm font-medium text-primary-foreground bg-primary shadow-field',
               controlTransition,
               focusRing,
               pressable,
@@ -173,64 +195,6 @@ export function TimeDropdownView({
           </button>
         </div>
       </FloatMenu>
-    </div>
-  );
-}
-
-function TimeColumn({
-  options,
-  value,
-  onChange,
-}: {
-  options: string[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const root = scrollerRef.current;
-    if (!root) return;
-    const idx = options.indexOf(value);
-    if (idx < 0) return;
-    // 滚到选中项即可，不追加尾部空白（antd 为让末项贴顶会垫高一截）
-    const maxScroll = Math.max(0, root.scrollHeight - root.clientHeight);
-    root.scrollTop = Math.min(idx * CELL_H, maxScroll);
-  }, [value, options]);
-
-  return (
-    <div
-      ref={scrollerRef}
-      className={cn(
-        'min-w-0 flex-1 overflow-y-auto border-r border-border/70 last:border-r-0',
-        '[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-      )}
-      style={{ height: COL_H }}
-    >
-      {options.map((opt) => {
-        const active = opt === value;
-        return (
-          <button
-            key={opt}
-            type="button"
-            className="flex w-full items-center justify-center"
-            style={{ height: CELL_H }}
-            onClick={() => onChange(opt)}
-          >
-            <span
-              className={cn(
-                'flex h-6 w-[calc(100%-12px)] items-center justify-center rounded-selector text-sm tabular-nums',
-                controlTransition,
-                active
-                  ? 'bg-primary/10 font-medium text-primary'
-                  : 'text-surface-foreground hover:bg-muted',
-              )}
-            >
-              {opt}
-            </span>
-          </button>
-        );
-      })}
     </div>
   );
 }

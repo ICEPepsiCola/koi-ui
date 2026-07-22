@@ -9,7 +9,7 @@ const stepperVariants = tv({
     root: cn('inline-flex w-full items-center justify-between gap-3 px-3 py-2', boxSurface),
     value: 'min-w-0 flex-1 text-center text-lg font-medium text-surface-foreground',
     button: cn(
-      'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-selector bg-muted text-xl font-medium text-surface-foreground',
+      'inline-flex shrink-0 items-center justify-center rounded-selector bg-muted font-medium text-surface-foreground',
       controlTransition,
       focusRing,
       pressable,
@@ -18,9 +18,9 @@ const stepperVariants = tv({
   },
   variants: {
     size: {
-      sm: { button: 'h-8 w-8 text-lg', value: 'text-base' },
-      md: { button: 'h-10 w-10 text-xl', value: 'text-lg' },
-      lg: { button: 'h-12 w-12 text-2xl', value: 'text-xl' },
+      sm: { button: 'h-6 w-6 text-base', value: 'text-base' },
+      md: { button: 'h-8 w-8 text-lg', value: 'text-lg' },
+      lg: { button: 'h-10 w-10 text-xl', value: 'text-xl' },
     },
   },
   defaultVariants: {

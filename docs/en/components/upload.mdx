@@ -1,3 +1,5 @@
+import { ApiDocs } from '../../ApiDocs';
+
 # Upload
 
 ## Basic usage
@@ -16,16 +18,4 @@ export default () => <Upload accept="image/*" hint="JPG/PNG only, max 5MB per fi
 
 ## API
 
-### Upload
-
-| Property | Description | Type | Default |
-| :---: | :---: | :---: | :---: |
-| accept | Accepted types | `string \|​ undefined` | `-` |
-| className | Class name | `string \|​ undefined` | `-` |
-| defaultValue | Default value | `UploadFileItem[] \|​ undefined` | `[]` |
-| disabled | Disabled | `boolean \|​ undefined` | `false` |
-| hint | - | `string \|​ undefined` | `Click or drag files here to upload` |
-| maxCount | - | `number \|​ undefined` | `-` |
-| multiple | - | `boolean \|​ undefined` | `false` |
-| onChange | Change callback | `((files: UploadFileItem[]) => void) \|​ undefined` | `-` |
-| value | Value | `UploadFileItem[] \|​ undefined` | `-` |
+<ApiDocs name="Upload" />
