@@ -14,6 +14,7 @@
     "paths": {
       "@koi-ui/core": ["./packages/core/src"],
       "@koi-ui/hooks": ["./packages/hooks/src"],
+      "@koi-ui/rspress-plugin-api-table": ["./packages/rspress-plugin-api-table/src"],
       "@koi-ui/tokens/*": ["./packages/tokens/src/*"]
     }
   },
@@ -21,6 +22,7 @@
     "packages/*/src",
     "packages/*/tests",
     "docs",
-    "rspress.config.ts"
+    "rspress.config.ts",
+    "packages/rspress-plugin-api-table/src/virtual-module.d.ts"
   ]
 }

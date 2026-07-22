@@ -5,7 +5,6 @@ import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const GENERATED_TARGETS = [
-  'docs/api-data.json',
   'packages/core/tests/components',
   'packages/icons/src',
 ];
@@ -50,7 +49,6 @@ const before = buildSignature(files);
 
 run('pnpm', ['icons:generate']);
 run('pnpm', ['tests:generate']);
-run('pnpm', ['docs:api']);
 
 const after = buildSignature(files);
 const changedFiles = getChangedFiles(before, after);
@@ -61,7 +59,7 @@ if (changedFiles.length > 0) {
     console.error(`- ${file}`);
   }
   console.error(
-    'Commit regenerated outputs from `pnpm icons:generate`, `pnpm tests:generate`, or `pnpm docs:api`.',
+    'Commit regenerated outputs from `pnpm icons:generate` or `pnpm tests:generate`.',
   );
   process.exit(1);
 }

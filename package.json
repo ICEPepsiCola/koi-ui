@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "pnpm --filter @koi-ui/core dev",
     "build": "pnpm -r build",
-    "doc": "node scripts/extract-api.mjs && rspress dev --port 8877",
-    "doc:build": "node scripts/extract-api.mjs && rspress build",
+    "doc": "rspress dev --port 8877",
+    "doc:build": "rspress build",
     "doc:preview": "rspress preview --port 8878",
-    "docs:api": "node scripts/extract-api.mjs",
     "test": "pnpm -r test",
     "test:watch": "pnpm --filter @koi-ui/core test:watch",
     "test:coverage": "pnpm -r test:coverage",
@@ -28,6 +27,7 @@
     "@koi-ui/core": "workspace:*",
     "@koi-ui/hooks": "workspace:*",
     "@koi-ui/icons": "workspace:*",
+    "@koi-ui/rspress-plugin-api-table": "workspace:*",
     "@koi-ui/tokens": "workspace:*"
   },
   "devDependencies": {
@@ -65,6 +65,7 @@
     "react": "^19.2.7",
     "react-docgen-typescript": "^2.4.0",
     "react-dom": "^19.2.7",
+    "rsbuild-plugin-virtual-module": "0.4.2",
     "semantic-release": "^25.0.6",
     "tailwindcss": "^4.1.11",
     "typescript": "^6.0.3",

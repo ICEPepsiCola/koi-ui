@@ -1,12 +1,25 @@
 import * as path from 'node:path';
 import { pluginReact } from '@rsbuild/plugin-react';
+import {
+  createApiTableVirtualModulePlugin,
+  pluginApiTable,
+} from '@koi-ui/rspress-plugin-api-table';
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
 import tailwindcss from '@tailwindcss/postcss';
 
+import { allComponentNames } from './docs/catalog';
 import { themeLocales } from './docs/theme-locales';
 
 const DOC_DEV_PORT = 8877;
+const WORKSPACE_ROOT = __dirname;
+
+const apiTableOptions = {
+  getComponentNames: allComponentNames,
+  coreTsconfig: 'packages/core/tsconfig.json',
+  watchFiles: ['docs/catalog.ts'],
+  debug: process.env.API_TABLE_DEBUG === '1',
+};
 
 const previewBuilderConfig = {
   plugins: [pluginReact()],
@@ -60,10 +73,8 @@ export default defineConfig({
       '**/DevicePreviewShell.tsx',
       '**/IconGallery.tsx',
       '**/ThemeLab.tsx',
-      '**/ApiDocs.tsx',
       '**/catalog.ts',
       '**/theme-locales.ts',
-      '**/api-locale.ts',
       '**/icon-name-zh.ts',
       '**/mockups/**',
       '**/.generated/**',
@@ -96,7 +107,10 @@ export default defineConfig({
       port: DOC_DEV_PORT,
       strictPort: true,
     },
-    plugins: [pluginReact()],
+    plugins: [
+      pluginReact(),
+      createApiTableVirtualModulePlugin(apiTableOptions, WORKSPACE_ROOT),
+    ],
     tools: {
       postcss: {
         postcssOptions: {
@@ -106,6 +120,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    pluginApiTable(apiTableOptions),
     pluginPreview({
       defaultPreviewMode: 'internal',
       // Require `tsx preview` meta — bare `tsx` snippets must not SSG as live demos.
