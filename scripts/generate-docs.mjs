@@ -30,7 +30,7 @@ const API_DISK_CACHE_DIR = path.join(ROOT, 'node_modules/.cache/koi-docs-api');
 const forceApiRefresh = process.argv.includes('--force');
 const DEFAULT_LANG = 'en';
 const PRIMITIVE_COMPONENTS = new Set(['Box', 'Stack']);
-const GUIDE_SLUGS = ['getting-started', 'theming', 'responsive'];
+const GUIDE_SLUGS = ['getting-started', 'theming', 'responsive', 'recipes'];
 
 const flat = loadI18nTree(I18N_DIR);
 
@@ -239,7 +239,14 @@ function renderDemoSections(pageId, demos, lang) {
 
 function clearGeneratedLocale(lang) {
   const localeRoot = path.join(DOCS_DIR, lang);
-  for (const rel of ['components', 'guide', 'index.md', '_nav.json', '_meta.json']) {
+  for (const rel of [
+    'components',
+    'guide',
+    'index.md',
+    'index.mdx',
+    '_nav.json',
+    '_meta.json',
+  ]) {
     const target = path.join(localeRoot, rel);
     if (!fs.existsSync(target)) continue;
     fs.rmSync(target, { recursive: true, force: true });
@@ -252,7 +259,7 @@ function generateLocaleDocs(lang) {
   ensureDir(localeRoot);
 
   writeFile(
-    path.join(localeRoot, 'index.md'),
+    path.join(localeRoot, 'index.mdx'),
     `---
 pageType: home
 
@@ -264,6 +271,9 @@ hero:
     - theme: brand
       text: ${yamlScalar(t(flat, 'pages.home.hero.actionStart', lang))}
       link: ${localePath(lang, '/guide/getting-started')}
+    - theme: alt
+      text: ${yamlScalar(t(flat, 'pages.home.hero.actionRecipes', lang))}
+      link: ${localePath(lang, '/guide/recipes')}
     - theme: alt
       text: ${yamlScalar(t(flat, 'pages.home.hero.actionComponents', lang))}
       link: ${localePath(lang, '/components/button')}
@@ -278,6 +288,12 @@ features:
   - title: ${yamlScalar(t(flat, 'pages.home.features.docs.title', lang))}
     details: ${yamlScalar(t(flat, 'pages.home.features.docs.details', lang))}
 ---
+
+import { ThemeLab } from '../ThemeLab';
+
+<div className="koi-home-lab">
+  <ThemeLab />
+</div>
 `,
   );
 
@@ -335,6 +351,7 @@ features:
         { type: 'file', name: 'getting-started', label: 'sidebar.gettingStarted' },
         { type: 'file', name: 'theming', label: 'sidebar.theming' },
         { type: 'file', name: 'responsive', label: 'sidebar.responsive' },
+        { type: 'file', name: 'recipes', label: 'sidebar.recipes' },
       ],
       null,
       2,
@@ -345,7 +362,13 @@ features:
     const pageId = `guide.${slug}`;
     const title = t(flat, `pages.${pageId}.title`, lang);
     const body = t(flat, `pages.${pageId}.body`, lang, '');
-    writeFile(path.join(guideDir, `${slug}.mdx`), `# ${title}\n\n${body.trim()}\n`);
+    const prefix =
+      slug === 'theming' ? `import { ThemeLab } from '../../ThemeLab';\n\n` : '';
+    const suffix = slug === 'theming' ? '\n\n<ThemeLab />\n' : '\n';
+    writeFile(
+      path.join(guideDir, `${slug}.mdx`),
+      `${prefix}# ${title}\n\n${body.trim()}${suffix}`,
+    );
   }
 
   const componentsDir = path.join(localeRoot, 'components');
@@ -383,6 +406,7 @@ const rspressI18n = {
   'sidebar.gettingStarted': flat['common.sidebar.gettingStarted'],
   'sidebar.theming': flat['common.sidebar.theming'],
   'sidebar.responsive': flat['common.sidebar.responsive'],
+  'sidebar.recipes': flat['common.sidebar.recipes'],
   home: {
     en: t(flat, 'pages.home.hero.name', 'en'),
     zh: t(flat, 'pages.home.hero.name', 'zh'),
@@ -421,6 +445,10 @@ const themeLocales = LANGS.map((lang) => ({
       {
         text: t(flat, 'common.sidebar.responsive', lang),
         link: localePath(lang, '/guide/responsive'),
+      },
+      {
+        text: t(flat, 'common.sidebar.recipes', lang),
+        link: localePath(lang, '/guide/recipes'),
       },
     ],
     [localePath(lang, '/components/')]: buildComponentSidebar(lang),

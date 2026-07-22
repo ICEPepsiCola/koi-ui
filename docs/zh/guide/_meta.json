@@ -13,5 +13,10 @@
     "type": "file",
     "name": "responsive",
     "label": "sidebar.responsive"
+  },
+  {
+    "type": "file",
+    "name": "recipes",
+    "label": "sidebar.recipes"
   }
 ]

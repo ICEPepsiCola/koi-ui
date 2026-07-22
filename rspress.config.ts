@@ -59,6 +59,7 @@ export default defineConfig({
       '**/Demo.tsx',
       '**/DevicePreviewShell.tsx',
       '**/IconGallery.tsx',
+      '**/ThemeLab.tsx',
       '**/mockups/**',
       '**/.generated/**',
     ],

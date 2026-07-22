@@ -1,0 +1,192 @@
+# Recipes
+
+Finished-feeling slices you can copy. Switch theme / desktop / mobile in the preview toolbar.
+
+## Sign in
+
+```tsx preview
+import { useState } from 'react';
+import {
+  Alert,
+  Button,
+  Card,
+  Checkbox,
+  Form,
+  FormItem,
+  Input,
+  Space,
+  Stack,
+  Text,
+} from '@koi-ui/core';
+
+export default () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  return (
+    <Card className="max-w-md w-full">
+      <Stack gap={4}>
+        <div>
+          <Text className="text-lg font-semibold">Welcome back</Text>
+          <Text className="text-sm text-muted-foreground">Sign in to continue</Text>
+        </div>
+        {error ? <Alert variant="error" appearance="soft" title={error} /> : null}
+        <Form layout="vertical">
+          <FormItem label="Email" required>
+            <Input
+              value={email}
+              onChange={setEmail}
+              placeholder="name@company.com"
+              clearable
+            />
+          </FormItem>
+          <FormItem label="Password" required>
+            <Input
+              type="password"
+              value={password}
+              onChange={setPassword}
+              placeholder="••••••••"
+              clearable
+            />
+          </FormItem>
+          <Checkbox label="Remember me" />
+          <Space>
+            <Button
+              variant="primary"
+              onClick={() =>
+                setError(email && password ? '' : 'Enter email and password')
+              }
+            >
+              Sign in
+            </Button>
+            <Button variant="ghost">Create account</Button>
+          </Space>
+        </Form>
+      </Stack>
+    </Card>
+  );
+};
+```
+
+## Data list
+
+```tsx preview
+import { useState } from 'react';
+import {
+  Badge,
+  Button,
+  SearchBar,
+  Space,
+  Stack,
+  Table,
+  Tag,
+} from '@koi-ui/core';
+
+const rows = [
+  { id: '1', name: 'North Harbor', status: 'active', owners: 12 },
+  { id: '2', name: 'Cedar Labs', status: 'trial', owners: 4 },
+  { id: '3', name: 'Moonlight Co', status: 'paused', owners: 7 },
+];
+
+export default () => {
+  const [query, setQuery] = useState('');
+  const data = rows.filter((row) =>
+    row.name.toLowerCase().includes(query.trim().toLowerCase()),
+  );
+
+  return (
+    <Stack gap={4} className="w-full">
+      <Space className="w-full justify-between" wrap>
+        <SearchBar value={query} onChange={setQuery} placeholder="Filter teams" />
+        <Button variant="soft">New team</Button>
+      </Space>
+      <Table
+        columns={[
+          { key: 'name', title: 'Team' },
+          {
+            key: 'status',
+            title: 'Status',
+            render: (value) =>
+              value === 'active' ? (
+                <Tag variant="success">Active</Tag>
+              ) : value === 'trial' ? (
+                <Tag variant="warning">Trial</Tag>
+              ) : (
+                <Tag variant="ghost">Paused</Tag>
+              ),
+          },
+          {
+            key: 'owners',
+            title: 'Members',
+            render: (value) => <Badge count={Number(value)} variant="soft" />,
+          },
+        ]}
+        data={data}
+      />
+    </Stack>
+  );
+};
+```
+
+## Settings form
+
+```tsx preview
+import { useState } from 'react';
+import {
+  Alert,
+  Button,
+  Form,
+  FormItem,
+  Input,
+  Select,
+  Space,
+  Stack,
+  Switch,
+  Text,
+} from '@koi-ui/core';
+
+export default () => {
+  const [name, setName] = useState('Koi Studio');
+  const [plan, setPlan] = useState('pro');
+  const [notify, setNotify] = useState(true);
+  const [saved, setSaved] = useState(false);
+
+  return (
+    <Stack gap={4} className="max-w-lg w-full">
+      <div>
+        <Text className="text-lg font-semibold">Workspace settings</Text>
+        <Text className="text-sm text-muted-foreground">
+          Adaptive form layout — labels stack on mobile.
+        </Text>
+      </div>
+      {saved ? (
+        <Alert variant="success" appearance="soft" title="Saved" description="Settings updated." />
+      ) : null}
+      <Form>
+        <FormItem label="Workspace name" required>
+          <Input value={name} onChange={setName} clearable />
+        </FormItem>
+        <FormItem label="Plan">
+          <Select
+            value={plan}
+            onChange={setPlan}
+            options={[
+              { value: 'free', label: 'Free' },
+              { value: 'pro', label: 'Pro' },
+              { value: 'team', label: 'Team' },
+            ]}
+          />
+        </FormItem>
+        <FormItem label="Email alerts">
+          <Switch checked={notify} onChange={setNotify} />
+        </FormItem>
+        <Space>
+          <Button variant="primary" onClick={() => setSaved(true)}>Save</Button>
+          <Button variant="outline" onClick={() => setSaved(false)}>Reset</Button>
+        </Space>
+      </Form>
+    </Stack>
+  );
+};
+```

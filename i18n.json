@@ -19,6 +19,10 @@
     "en": "Responsive",
     "zh": "响应式原理"
   },
+  "sidebar.recipes": {
+    "en": "Recipes",
+    "zh": "场景示例"
+  },
   "home": {
     "en": "Koi UI",
     "zh": "Koi UI"

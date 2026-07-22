@@ -3,7 +3,7 @@
     "lang": "en",
     "label": "English",
     "title": "Koi UI",
-    "description": "Adaptive React components for desktop and mobile",
+    "description": "Adaptive React components with themes you can feel",
     "nav": [
       {
         "text": "Guide",
@@ -29,6 +29,10 @@
         {
           "text": "Responsive",
           "link": "/guide/responsive"
+        },
+        {
+          "text": "Recipes",
+          "link": "/guide/recipes"
         }
       ],
       "/components/": [
@@ -394,7 +398,7 @@
     "lang": "zh",
     "label": "简体中文",
     "title": "Koi UI",
-    "description": "PC + 移动端自适应组件库",
+    "description": "可感知主题的自适应 React 组件库",
     "nav": [
       {
         "text": "指南",
@@ -420,6 +424,10 @@
         {
           "text": "响应式原理",
           "link": "/zh/guide/responsive"
+        },
+        {
+          "text": "场景示例",
+          "link": "/zh/guide/recipes"
         }
       ],
       "/zh/components/": [
