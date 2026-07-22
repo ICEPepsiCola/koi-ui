@@ -56,7 +56,7 @@ export interface ApiDocsProps {
 
 export function ApiDocs({ name }: ApiDocsProps) {
   const lang = (useLang() === 'zh' ? 'zh' : 'en') as Lang;
-  const docs = (apiData as Record<string, ComponentDoc[] | null>)[name];
+  const docs = (apiData as unknown as Record<string, ComponentDoc[] | null>)[name];
 
   if (!docs?.length) {
     return <p>{tApi('empty', lang)}</p>;
