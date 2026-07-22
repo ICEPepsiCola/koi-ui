@@ -8,6 +8,10 @@
       "en": "Basic usage",
       "zh": "基础用法"
     },
+    "rulesAndInstance": {
+      "en": "Rules & form instance",
+      "zh": "校验与表单实例"
+    },
     "horizontalLayout": {
       "en": "Horizontal layout",
       "zh": "水平布局"

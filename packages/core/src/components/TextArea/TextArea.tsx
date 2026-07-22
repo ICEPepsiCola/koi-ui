@@ -28,7 +28,8 @@ export interface TextAreaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'>,
     Omit<VariantProps<typeof textAreaVariants>, 'error'> {
   onChange?: (value: string) => void;
-  error?: string;
+  /** String shows message; boolean only styles the border (Form.Item owns copy). */
+  error?: string | boolean;
   size?: 'sm' | 'md' | 'lg';
   showCount?: boolean;
   maxLength?: number;
@@ -50,15 +51,17 @@ export function TextArea({
 }: TextAreaProps) {
   const { messages } = useKoiContext();
   const hasError = Boolean(error);
+  const errorMessage = typeof error === 'string' ? error : undefined;
   const [internal, setInternal] = useState(
     (defaultValue as string | undefined) ?? '',
   );
-  const current = value !== undefined ? String(value) : internal;
+  const controlled = value !== undefined || onChange !== undefined;
+  const current = controlled ? String(value ?? '') : internal;
   const count = current.length;
   const showClear = clearable && !disabled && current.length > 0;
 
   const update = (next: string) => {
-    if (value === undefined) setInternal(next);
+    if (!controlled) setInternal(next);
     onChange?.(next);
   };
 
@@ -86,9 +89,9 @@ export function TextArea({
         ) : null}
       </div>
       <div className="mt-1 flex items-center justify-between gap-2">
-        {error ? (
+        {errorMessage ? (
           <Text size="sm" className="text-destructive">
-            {error}
+            {errorMessage}
           </Text>
         ) : (
           <span />

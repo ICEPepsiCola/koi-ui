@@ -3,21 +3,85 @@
 ## 基础用法
 
 ```tsx preview
-import { Form, FormItem, Input, Button } from '@koi-ui/core';
+import { Form, Input, Button, toast } from '@koi-ui/core';
+
 export default () => (
-  <Form layout="vertical"><FormItem label="用户名"><Input placeholder="请输入" /></FormItem><Button variant="primary">提交</Button></Form>
+  <Form
+    layout="vertical"
+    onFinish={(values) => toast.success(`Hello ${values.username}`)}
+  >
+    <Form.Item
+      name="username"
+      label="用户名"
+      rules={[{ required: true, message: '请输入用户名' }]}
+    >
+      <Input placeholder="请输入" clearable />
+    </Form.Item>
+    <Button type="submit" variant="primary">提交</Button>
+  </Form>
 );
+```
+
+## 校验与表单实例
+
+```tsx preview
+import { Form, Input, InputNumber, Switch, Button, Space, toast } from '@koi-ui/core';
+
+export default () => {
+  const [form] = Form.useForm();
+  return (
+    <Form
+      form={form}
+      layout="vertical"
+      initialValues={{ age: 18, notify: true }}
+      onFinish={(values) => toast.success(JSON.stringify(values))}
+      onFinishFailed={() => toast.error('请检查表单')}
+    >
+      <Form.Item
+        name="email"
+        label="邮箱"
+        rules={[
+          { required: true, message: '必填' },
+          { type: 'email', message: '邮箱格式不正确' },
+        ]}
+      >
+        <Input placeholder="name@example.com" clearable />
+      </Form.Item>
+      <Form.Item name="age" label="年龄" rules={[{ type: 'number', min: 1, max: 120, message: '1-120' }]}>
+        <InputNumber />
+      </Form.Item>
+      <Form.Item name="notify" label="通知" valuePropName="checked">
+        <Switch />
+      </Form.Item>
+      <Space>
+        <Button type="submit" variant="primary">提交</Button>
+        <Button type="button" variant="outline" onClick={() => form.resetFields()}>重置</Button>
+      </Space>
+    </Form>
+  );
+};
 ```
 
 ## 水平布局
 
 ```tsx preview
-import { Form, FormItem, Input, Button, Space } from '@koi-ui/core';
+import { Form, Input, Button, Space } from '@koi-ui/core';
+
 export default () => (
-  <Form layout="horizontal">
-    <FormItem label="邮箱"><Input placeholder="name@example.com" /></FormItem>
-    <FormItem label="密码"><Input type="password" placeholder="请输入密码" /></FormItem>
-    <Space><Button variant="primary">登录</Button><Button variant="secondary">注册</Button></Space>
+  <Form
+    layout="horizontal"
+    onFinish={() => {}}
+  >
+    <Form.Item name="email" label="邮箱" rules={[{ required: true, message: '必填' }]}>
+      <Input placeholder="name@example.com" />
+    </Form.Item>
+    <Form.Item name="password" label="密码" rules={[{ required: true, min: 6, message: '至少 6 位' }]}>
+      <Input type="password" placeholder="请输入密码" />
+    </Form.Item>
+    <Space>
+      <Button type="submit" variant="primary">登录</Button>
+      <Button type="button" variant="secondary">注册</Button>
+    </Space>
   </Form>
 );
 ```
@@ -28,14 +92,10 @@ export default () => (
 
 | 属性 | 描述 | 类型 | 默认值 |
 | :---: | :---: | :---: | :---: |
-| layout | 布局方式 | `enum` | `horizontal` |
-| responsive | 是否响应式 | `boolean \|​ undefined` | `true` |
-
-### FormItem
-
-| 属性 | 描述 | 类型 | 默认值 |
-| :---: | :---: | :---: | :---: |
-| className | 类名 | `string \|​ undefined` | `-` |
-| label | 标签 | `ReactNode` | `-` |
-| name | 字段名 | `string \|​ undefined` | `-` |
-| required | 是否必填 | `boolean \|​ undefined` | `-` |
+| form | - | `FormInstance<Values> \|​ undefined` | `-` |
+| initialValues | - | `Partial<Values> \|​ undefined` | `-` |
+| layout | 布局方式 | `enum` | `-` |
+| onFinish | - | `((values: Values) => void) \|​ undefined` | `-` |
+| onFinishFailed | - | `((errorInfo: ValidateErrorEntity<Values>) => void) \|​ undefined` | `-` |
+| onValuesChange | - | `((changed: Partial<Values>,​ allValues: Values) => void) \|​ undefined` | `-` |
+| responsive | 是否响应式 | `boolean \|​ undefined` | `-` |

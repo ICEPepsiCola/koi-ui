@@ -60,6 +60,7 @@ export default defineConfig({
       '**/DevicePreviewShell.tsx',
       '**/IconGallery.tsx',
       '**/ThemeLab.tsx',
+      '**/icon-name-zh.ts',
       '**/mockups/**',
       '**/.generated/**',
     ],
@@ -104,7 +105,8 @@ export default defineConfig({
   plugins: [
     pluginPreview({
       defaultPreviewMode: 'internal',
-      defaultRenderMode: 'preview',
+      // Require `tsx preview` meta — bare `tsx` snippets must not SSG as live demos.
+      defaultRenderMode: 'pure',
       previewCodeTransform(codeInfo) {
         return wrapDemoCode(codeInfo.code);
       },

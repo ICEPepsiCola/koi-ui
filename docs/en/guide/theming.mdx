@@ -30,7 +30,9 @@ Docs demos also expose a theme switcher next to the desktop/mobile toggle.
 
 `KoiProvider.theme` writes CSS variables on the theme root:
 
-```tsx
+```tsx pure
+import { KoiProvider } from '@koi-ui/core';
+
 <KoiProvider theme={{ name: 'violet', primaryColor: 'hsl(280 80% 50%)', radiusMd: '1rem' }}>
   {children}
 </KoiProvider>

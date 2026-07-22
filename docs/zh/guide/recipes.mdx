@@ -5,68 +5,58 @@
 ## 登录
 
 ```tsx preview
-import { useState } from 'react';
 import {
-  Alert,
   Button,
   Card,
   Checkbox,
   Form,
-  FormItem,
   Input,
   Space,
   Stack,
   Text,
+  toast,
 } from '@koi-ui/core';
 
-export default () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  return (
-    <Card className="max-w-md w-full">
-      <Stack gap={4}>
-        <div>
-          <Text className="text-lg font-semibold">欢迎回来</Text>
-          <Text className="text-sm text-muted-foreground">登录后继续使用</Text>
-        </div>
-        {error ? <Alert variant="error" appearance="soft" title={error} /> : null}
-        <Form layout="vertical">
-          <FormItem label="邮箱" required>
-            <Input
-              value={email}
-              onChange={setEmail}
-              placeholder="name@company.com"
-              clearable
-            />
-          </FormItem>
-          <FormItem label="密码" required>
-            <Input
-              type="password"
-              value={password}
-              onChange={setPassword}
-              placeholder="请输入密码"
-              clearable
-            />
-          </FormItem>
+export default () => (
+  <Card className="max-w-md w-full">
+    <Stack gap={4}>
+      <div>
+        <Text className="text-lg font-semibold">欢迎回来</Text>
+        <Text className="text-sm text-muted-foreground">登录后继续使用</Text>
+      </div>
+      <Form
+        layout="vertical"
+        onFinish={() => toast.success('登录成功')}
+        onFinishFailed={() => toast.error('请检查表单')}
+      >
+        <Form.Item
+          name="email"
+          label="邮箱"
+          rules={[
+            { required: true, message: '请输入邮箱' },
+            { type: 'email', message: '邮箱格式不正确' },
+          ]}
+        >
+          <Input placeholder="name@company.com" clearable />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="密码"
+          rules={[{ required: true, min: 6, message: '至少 6 位' }]}
+        >
+          <Input type="password" placeholder="请输入密码" clearable />
+        </Form.Item>
+        <Form.Item name="remember" valuePropName="checked">
           <Checkbox label="记住我" />
-          <Space>
-            <Button
-              variant="primary"
-              onClick={() =>
-                setError(email && password ? '' : '请填写邮箱和密码')
-              }
-            >
-              登录
-            </Button>
-            <Button variant="ghost">注册账号</Button>
-          </Space>
-        </Form>
-      </Stack>
-    </Card>
-  );
-};
+        </Form.Item>
+        <Space>
+          <Button type="submit" variant="primary">登录</Button>
+          <Button type="button" variant="ghost">注册账号</Button>
+        </Space>
+      </Form>
+    </Stack>
+  </Card>
+);
 ```
 
 ## 数据列表
@@ -130,26 +120,20 @@ export default () => {
 ## 设置表单
 
 ```tsx preview
-import { useState } from 'react';
 import {
-  Alert,
   Button,
   Form,
-  FormItem,
   Input,
   Select,
   Space,
   Stack,
   Switch,
   Text,
+  toast,
 } from '@koi-ui/core';
 
 export default () => {
-  const [name, setName] = useState('Koi 工作室');
-  const [plan, setPlan] = useState('pro');
-  const [notify, setNotify] = useState(true);
-  const [saved, setSaved] = useState(false);
-
+  const [form] = Form.useForm();
   return (
     <Stack gap={4} className="max-w-lg w-full">
       <div>
@@ -158,30 +142,35 @@ export default () => {
           Form 自适应：移动端标签自动纵向排列。
         </Text>
       </div>
-      {saved ? (
-        <Alert variant="success" appearance="soft" title="已保存" description="设置已更新。" />
-      ) : null}
-      <Form>
-        <FormItem label="工作区名称" required>
-          <Input value={name} onChange={setName} clearable />
-        </FormItem>
-        <FormItem label="套餐">
+      <Form
+        form={form}
+        initialValues={{ name: 'Koi 工作室', plan: 'pro', notify: true }}
+        onFinish={() => toast.success('已保存')}
+      >
+        <Form.Item
+          name="name"
+          label="工作区名称"
+          rules={[{ required: true, message: '必填' }]}
+        >
+          <Input clearable />
+        </Form.Item>
+        <Form.Item name="plan" label="套餐">
           <Select
-            value={plan}
-            onChange={setPlan}
             options={[
               { value: 'free', label: '免费' },
               { value: 'pro', label: '专业版' },
               { value: 'team', label: '团队版' },
             ]}
           />
-        </FormItem>
-        <FormItem label="邮件提醒">
-          <Switch checked={notify} onChange={setNotify} />
-        </FormItem>
+        </Form.Item>
+        <Form.Item name="notify" label="邮件提醒" valuePropName="checked">
+          <Switch />
+        </Form.Item>
         <Space>
-          <Button variant="primary" onClick={() => setSaved(true)}>保存</Button>
-          <Button variant="outline" onClick={() => setSaved(false)}>重置</Button>
+          <Button type="submit" variant="primary">保存</Button>
+          <Button type="button" variant="outline" onClick={() => form.resetFields()}>
+            重置
+          </Button>
         </Space>
       </Form>
     </Stack>

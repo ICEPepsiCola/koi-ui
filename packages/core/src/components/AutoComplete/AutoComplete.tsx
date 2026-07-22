@@ -39,7 +39,8 @@ export interface AutoCompleteProps {
   placeholder?: string;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
-  error?: string;
+  /** String shows message; boolean only styles the border (Form.Item owns copy). */
+  error?: string | boolean;
   className?: string;
   filterOption?: (input: string, option: AutoCompleteOption) => boolean;
   clearable?: boolean;
@@ -147,7 +148,7 @@ export function AutoComplete({
           ))}
         </ul>
       ) : null}
-      {error ? (
+      {typeof error === 'string' ? (
         <Text size="sm" className="mt-1 text-destructive">
           {error}
         </Text>

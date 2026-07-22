@@ -5,68 +5,58 @@ Finished-feeling slices you can copy. Switch theme / desktop / mobile in the pre
 ## Sign in
 
 ```tsx preview
-import { useState } from 'react';
 import {
-  Alert,
   Button,
   Card,
   Checkbox,
   Form,
-  FormItem,
   Input,
   Space,
   Stack,
   Text,
+  toast,
 } from '@koi-ui/core';
 
-export default () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  return (
-    <Card className="max-w-md w-full">
-      <Stack gap={4}>
-        <div>
-          <Text className="text-lg font-semibold">Welcome back</Text>
-          <Text className="text-sm text-muted-foreground">Sign in to continue</Text>
-        </div>
-        {error ? <Alert variant="error" appearance="soft" title={error} /> : null}
-        <Form layout="vertical">
-          <FormItem label="Email" required>
-            <Input
-              value={email}
-              onChange={setEmail}
-              placeholder="name@company.com"
-              clearable
-            />
-          </FormItem>
-          <FormItem label="Password" required>
-            <Input
-              type="password"
-              value={password}
-              onChange={setPassword}
-              placeholder="••••••••"
-              clearable
-            />
-          </FormItem>
+export default () => (
+  <Card className="max-w-md w-full">
+    <Stack gap={4}>
+      <div>
+        <Text className="text-lg font-semibold">Welcome back</Text>
+        <Text className="text-sm text-muted-foreground">Sign in to continue</Text>
+      </div>
+      <Form
+        layout="vertical"
+        onFinish={() => toast.success('Signed in')}
+        onFinishFailed={() => toast.error('Check the form')}
+      >
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            { required: true, message: 'Email is required' },
+            { type: 'email', message: 'Enter a valid email' },
+          ]}
+        >
+          <Input placeholder="name@company.com" clearable />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[{ required: true, min: 6, message: 'At least 6 characters' }]}
+        >
+          <Input type="password" placeholder="••••••••" clearable />
+        </Form.Item>
+        <Form.Item name="remember" valuePropName="checked">
           <Checkbox label="Remember me" />
-          <Space>
-            <Button
-              variant="primary"
-              onClick={() =>
-                setError(email && password ? '' : 'Enter email and password')
-              }
-            >
-              Sign in
-            </Button>
-            <Button variant="ghost">Create account</Button>
-          </Space>
-        </Form>
-      </Stack>
-    </Card>
-  );
-};
+        </Form.Item>
+        <Space>
+          <Button type="submit" variant="primary">Sign in</Button>
+          <Button type="button" variant="ghost">Create account</Button>
+        </Space>
+      </Form>
+    </Stack>
+  </Card>
+);
 ```
 
 ## Data list
@@ -132,26 +122,20 @@ export default () => {
 ## Settings form
 
 ```tsx preview
-import { useState } from 'react';
 import {
-  Alert,
   Button,
   Form,
-  FormItem,
   Input,
   Select,
   Space,
   Stack,
   Switch,
   Text,
+  toast,
 } from '@koi-ui/core';
 
 export default () => {
-  const [name, setName] = useState('Koi Studio');
-  const [plan, setPlan] = useState('pro');
-  const [notify, setNotify] = useState(true);
-  const [saved, setSaved] = useState(false);
-
+  const [form] = Form.useForm();
   return (
     <Stack gap={4} className="max-w-lg w-full">
       <div>
@@ -160,30 +144,35 @@ export default () => {
           Adaptive form layout — labels stack on mobile.
         </Text>
       </div>
-      {saved ? (
-        <Alert variant="success" appearance="soft" title="Saved" description="Settings updated." />
-      ) : null}
-      <Form>
-        <FormItem label="Workspace name" required>
-          <Input value={name} onChange={setName} clearable />
-        </FormItem>
-        <FormItem label="Plan">
+      <Form
+        form={form}
+        initialValues={{ name: 'Koi Studio', plan: 'pro', notify: true }}
+        onFinish={() => toast.success('Saved')}
+      >
+        <Form.Item
+          name="name"
+          label="Workspace name"
+          rules={[{ required: true, message: 'Required' }]}
+        >
+          <Input clearable />
+        </Form.Item>
+        <Form.Item name="plan" label="Plan">
           <Select
-            value={plan}
-            onChange={setPlan}
             options={[
               { value: 'free', label: 'Free' },
               { value: 'pro', label: 'Pro' },
               { value: 'team', label: 'Team' },
             ]}
           />
-        </FormItem>
-        <FormItem label="Email alerts">
-          <Switch checked={notify} onChange={setNotify} />
-        </FormItem>
+        </Form.Item>
+        <Form.Item name="notify" label="Email alerts" valuePropName="checked">
+          <Switch />
+        </Form.Item>
         <Space>
-          <Button variant="primary" onClick={() => setSaved(true)}>Save</Button>
-          <Button variant="outline" onClick={() => setSaved(false)}>Reset</Button>
+          <Button type="submit" variant="primary">Save</Button>
+          <Button type="button" variant="outline" onClick={() => form.resetFields()}>
+            Reset
+          </Button>
         </Space>
       </Form>
     </Stack>

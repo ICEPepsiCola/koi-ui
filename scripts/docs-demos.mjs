@@ -203,11 +203,15 @@ export const DEMOS = {
   "Form": [
     {
       "key": "basic",
-      "code": "import { Form, FormItem, Input, Button } from '@koi-ui/core';\nexport default () => (\n  <Form layout=\"vertical\"><FormItem label=\"用户名\"><Input placeholder=\"请输入\" /></FormItem><Button variant=\"primary\">提交</Button></Form>\n);"
+      "code": "import { Form, Input, Button, toast } from '@koi-ui/core';\n\nexport default () => (\n  <Form\n    layout=\"vertical\"\n    onFinish={(values) => toast.success(`Hello ${values.username}`)}\n  >\n    <Form.Item\n      name=\"username\"\n      label=\"用户名\"\n      rules={[{ required: true, message: '请输入用户名' }]}\n    >\n      <Input placeholder=\"请输入\" clearable />\n    </Form.Item>\n    <Button type=\"submit\" variant=\"primary\">提交</Button>\n  </Form>\n);"
+    },
+    {
+      "key": "rulesAndInstance",
+      "code": "import { Form, Input, InputNumber, Switch, Button, Space, toast } from '@koi-ui/core';\n\nexport default () => {\n  const [form] = Form.useForm();\n  return (\n    <Form\n      form={form}\n      layout=\"vertical\"\n      initialValues={{ age: 18, notify: true }}\n      onFinish={(values) => toast.success(JSON.stringify(values))}\n      onFinishFailed={() => toast.error('请检查表单')}\n    >\n      <Form.Item\n        name=\"email\"\n        label=\"邮箱\"\n        rules={[\n          { required: true, message: '必填' },\n          { type: 'email', message: '邮箱格式不正确' },\n        ]}\n      >\n        <Input placeholder=\"name@example.com\" clearable />\n      </Form.Item>\n      <Form.Item name=\"age\" label=\"年龄\" rules={[{ type: 'number', min: 1, max: 120, message: '1-120' }]}>\n        <InputNumber />\n      </Form.Item>\n      <Form.Item name=\"notify\" label=\"通知\" valuePropName=\"checked\">\n        <Switch />\n      </Form.Item>\n      <Space>\n        <Button type=\"submit\" variant=\"primary\">提交</Button>\n        <Button type=\"button\" variant=\"outline\" onClick={() => form.resetFields()}>重置</Button>\n      </Space>\n    </Form>\n  );\n};"
     },
     {
       "key": "horizontalLayout",
-      "code": "import { Form, FormItem, Input, Button, Space } from '@koi-ui/core';\nexport default () => (\n  <Form layout=\"horizontal\">\n    <FormItem label=\"邮箱\"><Input placeholder=\"name@example.com\" /></FormItem>\n    <FormItem label=\"密码\"><Input type=\"password\" placeholder=\"请输入密码\" /></FormItem>\n    <Space><Button variant=\"primary\">登录</Button><Button variant=\"secondary\">注册</Button></Space>\n  </Form>\n);"
+      "code": "import { Form, Input, Button, Space } from '@koi-ui/core';\n\nexport default () => (\n  <Form\n    layout=\"horizontal\"\n    onFinish={() => {}}\n  >\n    <Form.Item name=\"email\" label=\"邮箱\" rules={[{ required: true, message: '必填' }]}>\n      <Input placeholder=\"name@example.com\" />\n    </Form.Item>\n    <Form.Item name=\"password\" label=\"密码\" rules={[{ required: true, min: 6, message: '至少 6 位' }]}>\n      <Input type=\"password\" placeholder=\"请输入密码\" />\n    </Form.Item>\n    <Space>\n      <Button type=\"submit\" variant=\"primary\">登录</Button>\n      <Button type=\"button\" variant=\"secondary\">注册</Button>\n    </Space>\n  </Form>\n);"
     }
   ],
   "Input": [

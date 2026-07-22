@@ -1,92 +1,107 @@
+/**
+ * Adaptive form with field store, rules, and `Form.Item` injection.
+ *
+ * Enough for typical app forms today. Next steps (do not expand casually):
+ *
+ * TODO(form): replace `cloneElement` with render-prop / `children(field)` API
+ * TODO(form): nested `name` paths + `Form.List` for dynamic rows
+ * TODO(form): per-field store subscription (avoid whole-form re-render)
+ * TODO(form): scroll/focus first error on `onFinishFailed`
+ * TODO(form): clarify `min`/`max` semantics (string length vs number magnitude)
+ * TODO(form): optional external schema bridge (Zod) without adding a hard dependency
+ */
 import {
-  createContext,
-  useContext,
+  useEffect,
+  type FormEvent,
   type FormHTMLAttributes,
   type ReactNode,
 } from 'react';
 import { useKoiBreakpoint } from '../../hooks/useKoiBreakpoint';
 import { cn } from '../../utils/cn';
-import { Text } from '../../primitives/Text';
+import { FormProvider } from './FormContext';
+import { FormItem } from './FormItem';
+import { useForm } from './useForm';
+import type {
+  FormInstance,
+  FormLayout,
+  FormStore,
+  ValidateErrorEntity,
+} from './types';
 
-type FormLayout = 'horizontal' | 'vertical';
-
-interface FormContextValue {
-  layout: FormLayout;
-}
-
-const FormContext = createContext<FormContextValue>({ layout: 'vertical' });
-
-export function useFormContext() {
-  return useContext(FormContext);
-}
-
-export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+export interface FormProps<Values extends FormStore = FormStore>
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'onChange'> {
+  form?: FormInstance<Values>;
+  initialValues?: Partial<Values>;
   layout?: FormLayout;
   responsive?: boolean;
+  onValuesChange?: (
+    changed: Partial<Values>,
+    allValues: Values,
+  ) => void;
+  onFinish?: (values: Values) => void;
+  onFinishFailed?: (errorInfo: ValidateErrorEntity<Values>) => void;
   children?: ReactNode;
 }
 
-export function Form({
+function FormInner<Values extends FormStore = FormStore>({
+  form: formProp,
+  initialValues,
   layout = 'horizontal',
   responsive = true,
+  onValuesChange,
+  onFinish,
+  onFinishFailed,
   className,
   children,
   ...props
-}: FormProps) {
+}: FormProps<Values>) {
   const { isMobile } = useKoiBreakpoint();
   const resolvedLayout =
     responsive && isMobile ? 'vertical' : layout;
 
+  const [internalForm] = useForm<Values>();
+  const form = formProp ?? internalForm;
+
+  useEffect(() => {
+    form.__INTERNAL__.setCallbacks({
+      onValuesChange,
+      onFinish,
+      onFinishFailed,
+    });
+  }, [form, onValuesChange, onFinish, onFinishFailed]);
+
+  useEffect(() => {
+    form.__INTERNAL__.setInitialValues(initialValues ?? {});
+    // Intentionally mount-only — same as typical form libraries; later resets use resetFields().
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- seed once per form instance
+  }, [form]);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    form.submit();
+  };
+
   return (
-    <FormContext.Provider value={{ layout: resolvedLayout }}>
+    <FormProvider
+      value={{
+        layout: resolvedLayout,
+        form: form as FormInstance<FormStore>,
+      }}
+    >
       <form
         className={cn('flex flex-col gap-4', className)}
+        onSubmit={handleSubmit}
+        noValidate
         {...props}
       >
         {children}
       </form>
-    </FormContext.Provider>
+    </FormProvider>
   );
 }
 
-export interface FormItemProps {
-  label?: ReactNode;
-  name?: string;
-  required?: boolean;
-  children?: ReactNode;
-  className?: string;
-}
-
-export function FormItem({
-  label,
-  name,
-  required,
-  children,
-  className,
-}: FormItemProps) {
-  const { layout } = useFormContext();
-  const isHorizontal = layout === 'horizontal';
-
-  return (
-    <div
-      className={cn(
-        isHorizontal
-          ? 'grid grid-cols-1 gap-2 md:grid-cols-[120px_1fr] md:items-center'
-          : 'flex flex-col gap-2',
-        className,
-      )}
-    >
-      {label ? (
-        <label htmlFor={name} className="text-sm font-medium">
-          {label}
-          {required ? (
-            <Text as="span" className="ml-1 text-destructive">
-              *
-            </Text>
-          ) : null}
-        </label>
-      ) : null}
-      <div>{children}</div>
-    </div>
-  );
-}
+export const Form = Object.assign(FormInner, {
+  Item: FormItem,
+  useForm,
+});

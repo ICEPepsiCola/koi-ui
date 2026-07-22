@@ -30,7 +30,9 @@ export default () => (
 
 `KoiProvider.theme` 会把变量写到主题根节点：
 
-```tsx
+```tsx pure
+import { KoiProvider } from '@koi-ui/core';
+
 <KoiProvider theme={{ name: 'violet', primaryColor: 'hsl(280 80% 50%)', radiusMd: '1rem' }}>
   {children}
 </KoiProvider>

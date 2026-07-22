@@ -59,12 +59,12 @@ export function Button({
 
   return (
     <button
-      type="button"
       className={cn(
         buttonVariants({ variant, size: resolvedSize }),
         className,
       )}
       disabled={disabled || loading}
+      type="button"
       {...props}
     >
       {loading ? (

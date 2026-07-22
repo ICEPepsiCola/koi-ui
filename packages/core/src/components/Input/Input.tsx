@@ -28,7 +28,8 @@ export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange'>,
     Omit<VariantProps<typeof inputVariants>, 'error'> {
   onChange?: (value: string) => void;
-  error?: string;
+  /** String shows message; boolean only styles the border (Form.Item owns copy). */
+  error?: string | boolean;
   size?: 'sm' | 'md' | 'lg';
   clearable?: boolean;
 }
@@ -46,14 +47,17 @@ export function Input({
 }: InputProps) {
   const { messages } = useKoiContext();
   const hasError = Boolean(error);
+  const errorMessage = typeof error === 'string' ? error : undefined;
   const [internal, setInternal] = useState(
     (defaultValue as string | undefined) ?? '',
   );
-  const current = value !== undefined ? String(value) : internal;
+  // onChange-only (Form.Item) counts as controlled so empty stays synced
+  const controlled = value !== undefined || onChange !== undefined;
+  const current = controlled ? String(value ?? '') : internal;
   const showClear = clearable && !disabled && current.length > 0;
 
   const update = (next: string) => {
-    if (value === undefined) setInternal(next);
+    if (!controlled) setInternal(next);
     onChange?.(next);
   };
 
@@ -79,9 +83,9 @@ export function Input({
           />
         ) : null}
       </div>
-      {error ? (
+      {errorMessage ? (
         <Text size="sm" className="mt-1 text-destructive">
-          {error}
+          {errorMessage}
         </Text>
       ) : null}
     </div>

@@ -39,7 +39,8 @@ export interface InputNumberProps {
   step?: number;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
-  error?: string;
+  /** String shows message; boolean only styles the border (Form.Item owns copy). */
+  error?: string | boolean;
   className?: string;
   placeholder?: string;
   clearable?: boolean;
@@ -137,7 +138,7 @@ export function InputNumber({
           +
         </button>
       </div>
-      {error ? (
+      {typeof error === 'string' ? (
         <Text size="sm" className="mt-1 text-destructive">
           {error}
         </Text>
