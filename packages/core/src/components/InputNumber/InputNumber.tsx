@@ -9,11 +9,16 @@ import { fieldHeightVariants, fieldTextSizeVariants } from '../../utils/interact
 
 const inputNumberVariants = tv({
   slots: {
-    root: 'inline-flex w-full items-stretch overflow-hidden rounded-field border border-border bg-surface shadow-field transition-[border-color,box-shadow] duration-fast ease-emphasized hover:border-primary/35 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-surface motion-reduce:transition-none',
-    input:
-      'min-w-0 flex-1 border-0 bg-transparent px-3 text-center text-surface-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+    root: 'inline-flex max-w-full items-stretch overflow-hidden rounded-field border border-border bg-surface shadow-field transition-[border-color,box-shadow] duration-fast ease-emphasized hover:border-primary/35 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-surface motion-reduce:transition-none',
+    input: cn(
+      'min-w-16 w-20 flex-1 border-0 bg-transparent px-2 text-center text-surface-foreground',
+      'focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+      // Hide native number spinners — we own − / + controls.
+      '[appearance:textfield]',
+      '[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
+    ),
     button:
-      'inline-flex w-10 shrink-0 items-center justify-center border-border text-surface-foreground transition-[background-color,transform] duration-fast ease-emphasized hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
+      'inline-flex w-9 shrink-0 items-center justify-center border-border text-surface-foreground transition-[background-color,transform] duration-fast ease-emphasized hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
   },
   variants: {
     error: {
@@ -86,7 +91,7 @@ export function InputNumber({
   };
 
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn('inline-flex flex-col', className)}>
       <div className={root()}>
         <button
           type="button"
@@ -97,10 +102,11 @@ export function InputNumber({
         >
           −
         </button>
-        <div className="relative flex-1">
+        <div className="relative min-w-0">
           <input
             type="number"
-            className={cn(input(), heightClass, textClass, showClear && 'pr-9')}
+            inputMode="decimal"
+            className={cn(input(), heightClass, textClass, showClear && 'pr-8')}
             value={internal ?? ''}
             placeholder={placeholder}
             disabled={disabled}
@@ -120,7 +126,7 @@ export function InputNumber({
           {showClear ? (
             <ClearButton
               label={messages.clearActionText}
-              className="absolute right-2 top-1/2 -translate-y-1/2"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2"
               onClear={() => update(undefined)}
             />
           ) : null}
