@@ -39,6 +39,35 @@ export default () => (
 );
 ```
 
+## Status
+
+```tsx preview
+import { Avatar, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Avatar fallback="On" status="online" />
+    <Avatar fallback="Off" status="offline" />
+    <Avatar fallback="Busy" status="busy" />
+    <Avatar fallback="Away" status="away" />
+  </Space>
+);
+```
+
+## Group
+
+```tsx preview
+import { Avatar } from '@koi-ui/core';
+export default () => (
+  <Avatar.Group max={3}>
+    <Avatar fallback="A" />
+    <Avatar fallback="B" />
+    <Avatar fallback="C" />
+    <Avatar fallback="D" />
+    <Avatar fallback="E" />
+  </Avatar.Group>
+);
+```
+
 ## API
 
 <API name="Avatar" />

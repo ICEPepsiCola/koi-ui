@@ -30,6 +30,20 @@ import { Loading } from '@koi-ui/core';
 export default () => <Loading open fullscreen={false} tip="请稍候" />;
 ```
 
+## 指示器样式
+
+```tsx preview
+import { Loading, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="large">
+    <Loading open fullscreen={false} indicator="spinner" tip="spinner" />
+    <Loading open fullscreen={false} indicator="dots" tip="dots" />
+    <Loading open fullscreen={false} indicator="ring" tip="ring" />
+    <Loading open fullscreen={false} indicator="bars" tip="bars" />
+  </Space>
+);
+```
+
 ## API
 
 <API name="Loading" />

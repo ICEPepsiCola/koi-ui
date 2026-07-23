@@ -67,6 +67,28 @@ export default () => (
 );
 ```
 
+## Colors
+
+```tsx preview
+import { Radio, RadioGroup, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <RadioGroup color="primary" defaultValue="a" direction="horizontal">
+      <Radio radioValue="a" label="primary" />
+      <Radio radioValue="b" label="Off" />
+    </RadioGroup>
+    <RadioGroup color="success" defaultValue="a" direction="horizontal">
+      <Radio radioValue="a" label="success" />
+      <Radio radioValue="b" label="Off" />
+    </RadioGroup>
+    <RadioGroup color="error" defaultValue="a" direction="horizontal">
+      <Radio radioValue="a" label="error" />
+      <Radio radioValue="b" label="Off" />
+    </RadioGroup>
+  </Space>
+);
+```
+
 ## API
 
 <API name="Radio" />

@@ -59,6 +59,29 @@ export default () => (
 );
 ```
 
+## 颜色
+
+```tsx preview
+import { Checkbox, CheckboxGroup, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <CheckboxGroup color="primary" defaultValue={['a']}>
+      <Checkbox checkboxValue="a" label="primary" />
+      <Checkbox checkboxValue="b" label="未选" />
+    </CheckboxGroup>
+    <CheckboxGroup color="success" defaultValue={['a']}>
+      <Checkbox checkboxValue="a" label="success" />
+    </CheckboxGroup>
+    <CheckboxGroup color="warning" defaultValue={['a']}>
+      <Checkbox checkboxValue="a" label="warning" />
+    </CheckboxGroup>
+    <CheckboxGroup color="error" defaultValue={['a']}>
+      <Checkbox checkboxValue="a" label="error" />
+    </CheckboxGroup>
+  </Space>
+);
+```
+
 ## API
 
 <API name="Checkbox" />

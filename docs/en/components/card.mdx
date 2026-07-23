@@ -25,12 +25,30 @@ export default () => (
 );
 ```
 
-## Footer & hoverable
+## Cover & actions
 
 ```tsx preview
 import { Card, Button, Text, Space } from '@koi-ui/core';
 export default () => (
   <Space direction="vertical" size="middle" className="w-full">
+    <Card
+      cover={
+        <img
+          src="https://picsum.photos/seed/koi/640/200"
+          alt="cover"
+          className="h-32 w-full object-cover"
+        />
+      }
+      title="With cover"
+      actions={
+        <>
+          <Button size="sm" variant="ghost">Share</Button>
+          <Button size="sm" color="primary">Details</Button>
+        </>
+      }
+    >
+      <Text>cover and actions structure.</Text>
+    </Card>
     <Card
       title="Project overview"
       footer={<Button color="primary" size="sm">View details</Button>}

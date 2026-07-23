@@ -1,6 +1,8 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import type { ControlColor } from '../../utils/controlColor';
+import type { SpinnerStyle } from '../shared/Spinner';
 import { Spinner } from '../shared/Spinner';
 
 const spinVariants = tv({
@@ -29,6 +31,9 @@ export interface SpinProps
   spinning?: boolean;
   tip?: ReactNode;
   children?: ReactNode;
+  /** Loading indicator style. @default 'spinner' */
+  indicator?: SpinnerStyle;
+  color?: ControlColor;
 }
 
 export function Spin({
@@ -37,12 +42,22 @@ export function Spin({
   spinning = true,
   tip,
   children,
+  indicator = 'spinner',
+  color = 'primary',
   ...props
 }: SpinProps) {
+  const spinner = (
+    <Spinner
+      style={indicator}
+      color={color}
+      className={spinnerSizes[size ?? 'md']}
+    />
+  );
+
   if (!children) {
     return spinning ? (
       <div className={cn('inline-flex flex-col items-center gap-2', className)} {...props}>
-        <Spinner className={spinnerSizes[size ?? 'md']} />
+        {spinner}
         {tip ? <span className="text-xs text-muted-foreground">{tip}</span> : null}
       </div>
     ) : null;
@@ -53,7 +68,7 @@ export function Spin({
       {children}
       {spinning ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-surface/60">
-          <Spinner className={spinnerSizes[size ?? 'md']} />
+          {spinner}
           {tip ? (
             <span className="mt-2 text-xs text-muted-foreground">{tip}</span>
           ) : null}

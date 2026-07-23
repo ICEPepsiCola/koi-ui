@@ -92,7 +92,9 @@ export function Badge({
   return (
     <span className="relative inline-flex">
       {children}
-      <span className="absolute -right-1 -top-1">{badge}</span>
+      <span className="pointer-events-none absolute right-0 top-0 z-10 translate-x-1/2 -translate-y-1/2">
+        {badge}
+      </span>
     </span>
   );
 }

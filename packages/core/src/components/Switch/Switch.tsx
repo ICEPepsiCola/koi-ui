@@ -1,6 +1,7 @@
 import { useState, type ButtonHTMLAttributes } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { controlOnBg, type ControlColor } from '../../utils/controlColor';
 
 const switchVariants = tv({
   slots: {
@@ -25,8 +26,17 @@ const switchVariants = tv({
       },
     },
     checked: {
-      true: { track: 'bg-primary' },
+      true: {},
       false: { track: 'bg-muted' },
+    },
+    color: {
+      neutral: {},
+      primary: {},
+      secondary: {},
+      info: {},
+      success: {},
+      warning: {},
+      error: {},
     },
   },
   compoundVariants: [
@@ -36,20 +46,29 @@ const switchVariants = tv({
     { size: 'md', checked: false, class: { thumb: 'translate-x-0.5' } },
     { size: 'lg', checked: true, class: { thumb: 'translate-x-7' } },
     { size: 'lg', checked: false, class: { thumb: 'translate-x-0.5' } },
+    ...(['neutral', 'primary', 'secondary', 'info', 'success', 'warning', 'error'] as const).map(
+      (color) => ({
+        checked: true as const,
+        color,
+        class: { track: controlOnBg[color] },
+      }),
+    ),
   ],
   defaultVariants: {
     size: 'md',
     checked: false,
+    color: 'primary',
   },
 });
 
 export interface SwitchProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'>,
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'color'>,
     VariantProps<typeof switchVariants> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
   size?: 'sm' | 'md' | 'lg';
+  color?: ControlColor;
 }
 
 export function Switch({
@@ -59,10 +78,11 @@ export function Switch({
   disabled,
   onChange,
   size = 'md',
+  color = 'primary',
   ...props
 }: SwitchProps) {
   const [internal, setInternal] = useControlled(checked, defaultChecked, onChange);
-  const { track, thumb } = switchVariants({ size, checked: internal });
+  const { track, thumb } = switchVariants({ size, checked: internal, color });
 
   return (
     <button

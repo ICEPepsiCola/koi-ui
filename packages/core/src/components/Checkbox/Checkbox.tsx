@@ -7,19 +7,45 @@ import {
 } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import {
+  controlCheckedBg,
+  type ControlColor,
+} from '../../utils/controlColor';
 import { Text } from '../../primitives/Text';
 
+const CHECKMARK =
+  "checked:bg-[url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.5l3 3 6-6' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")]";
+
 const checkboxVariants = tv({
-  base: 'h-4 w-4 shrink-0 rounded-selector border border-border accent-primary transition-[box-shadow,border-color] duration-fast ease-emphasized focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
+  base: cn(
+    'shrink-0 appearance-none rounded-selector border border-border bg-surface',
+    'bg-center bg-no-repeat transition-[background-color,border-color,box-shadow]',
+    'duration-fast ease-emphasized',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+    'focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
+    'disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
+    'checked:bg-[length:70%_70%]',
+    CHECKMARK,
+  ),
   variants: {
     size: {
       sm: 'h-3.5 w-3.5',
       md: 'h-4 w-4',
       lg: 'h-5 w-5',
     },
+    color: {
+      neutral: controlCheckedBg.neutral,
+      primary: controlCheckedBg.primary,
+      secondary: controlCheckedBg.secondary,
+      info: controlCheckedBg.info,
+      success: controlCheckedBg.success,
+      warning: controlCheckedBg.warning,
+      error: controlCheckedBg.error,
+    },
   },
   defaultVariants: {
     size: 'md',
+    color: 'primary',
   },
 });
 
@@ -28,6 +54,7 @@ interface CheckboxGroupContextValue {
   onChange?: (value: string[]) => void;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  color?: ControlColor;
 }
 
 const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(
@@ -35,12 +62,16 @@ const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(
 );
 
 export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange'>,
+  extends Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      'size' | 'onChange' | 'color'
+    >,
     VariantProps<typeof checkboxVariants> {
   label?: ReactNode;
   onChange?: (checked: boolean) => void;
   checkboxValue?: string;
   size?: 'sm' | 'md' | 'lg';
+  color?: ControlColor;
 }
 
 export function Checkbox({
@@ -52,6 +83,7 @@ export function Checkbox({
   onChange,
   checkboxValue,
   size = 'md',
+  color = 'primary',
   ...props
 }: CheckboxProps) {
   const group = useContext(CheckboxGroupContext);
@@ -60,6 +92,8 @@ export function Checkbox({
     ? group.value.includes(checkboxValue)
     : checked;
   const isDisabled = disabled ?? group?.disabled;
+  const resolvedSize = group?.size ?? size;
+  const resolvedColor = group?.color ?? color;
 
   const handleChange = (next: boolean) => {
     if (isGrouped) {
@@ -83,7 +117,7 @@ export function Checkbox({
     >
       <input
         type="checkbox"
-        className={checkboxVariants({ size: group?.size ?? size })}
+        className={checkboxVariants({ size: resolvedSize, color: resolvedColor })}
         checked={isChecked}
         defaultChecked={isGrouped ? undefined : defaultChecked}
         disabled={isDisabled}
@@ -101,6 +135,7 @@ export interface CheckboxGroupProps {
   onChange?: (value: string[]) => void;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  color?: ControlColor;
   className?: string;
   children?: ReactNode;
 }
@@ -111,6 +146,7 @@ export function CheckboxGroup({
   onChange,
   disabled,
   size = 'md',
+  color = 'primary',
   className,
   children,
 }: CheckboxGroupProps) {
@@ -118,7 +154,7 @@ export function CheckboxGroup({
 
   return (
     <CheckboxGroupContext.Provider
-      value={{ value: internal, onChange: setInternal, disabled, size }}
+      value={{ value: internal, onChange: setInternal, disabled, size, color }}
     >
       <div className={cn('flex flex-col gap-2', className)}>{children}</div>
     </CheckboxGroupContext.Provider>

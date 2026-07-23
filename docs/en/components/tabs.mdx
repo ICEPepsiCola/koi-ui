@@ -65,6 +65,25 @@ export default () => (
 );
 ```
 
+## Variants
+
+```tsx preview
+import { Tabs, Text, Space } from '@koi-ui/core';
+const items = [
+  { key: '1', label: 'Tab1', children: <Text>Panel 1</Text> },
+  { key: '2', label: 'Tab2', children: <Text>Panel 2</Text> },
+  { key: '3', label: 'Tab3', children: <Text>Panel 3</Text> },
+];
+export default () => (
+  <Space direction="vertical" size="large" className="w-full">
+    <Tabs variant="line" items={items} />
+    <Tabs variant="boxed" items={items} />
+    <Tabs variant="bordered" items={items} />
+    <Tabs variant="lifted" items={items} />
+  </Space>
+);
+```
+
 ## API
 
 <API name="Tabs" />

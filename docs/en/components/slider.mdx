@@ -35,6 +35,20 @@ import { Slider } from '@koi-ui/core';
 export default () => <Slider defaultValue={65} showValue />;
 ```
 
+## Colors
+
+```tsx preview
+import { Slider, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={4}>
+    <Slider color="primary" defaultValue={40} showValue />
+    <Slider color="success" defaultValue={60} showValue />
+    <Slider color="warning" defaultValue={50} showValue />
+    <Slider color="error" defaultValue={30} showValue />
+  </Stack>
+);
+```
+
 ## Disabled
 
 ```tsx preview

@@ -33,50 +33,62 @@ export function Pagination({
     withEllipsis.push(p);
   });
 
+  const joinBtn =
+    'rounded-none border-y border-r border-border first:rounded-l-field first:border-l last:rounded-r-field shadow-none';
+
   return (
     <div
       className={cn(
-        'flex flex-wrap items-center justify-center gap-1',
+        'inline-flex flex-wrap items-center overflow-hidden rounded-field',
         className,
       )}
+      role="navigation"
+      aria-label="pagination"
     >
       <Button
-        variant="ghost"
+        variant="outline"
         color="neutral"
         size="sm"
         responsiveSize={false}
         disabled={current <= 1}
+        className={joinBtn}
         onClick={() => onChange?.(current - 1)}
       >
-        上一页
+        ‹
       </Button>
       {withEllipsis.map((p, i) =>
         p === 'ellipsis' ? (
-          <span key={`e-${i}`} className="px-2 text-muted-foreground">
-            ...
+          <span
+            key={`e-${i}`}
+            className="inline-flex h-8 min-w-8 items-center justify-center border-y border-r border-border bg-surface px-2 text-sm text-muted-foreground"
+          >
+            …
           </span>
         ) : (
           <Button
             key={p}
             color={p === current ? 'primary' : 'neutral'}
-            variant={p === current ? 'solid' : 'ghost'}
+            variant={p === current ? 'solid' : 'outline'}
             size="sm"
             responsiveSize={false}
+            className={cn(joinBtn, p === current && 'z-[1] border-primary')}
             onClick={() => onChange?.(p)}
+            aria-current={p === current ? 'page' : undefined}
           >
             {p}
           </Button>
         ),
       )}
       <Button
-        variant="ghost"
+        variant="outline"
         color="neutral"
         size="sm"
         responsiveSize={false}
         disabled={current >= totalPages}
+        className={joinBtn}
         onClick={() => onChange?.(current + 1)}
       >
-        下一页
+        ›
       </Button>
     </div>
   );

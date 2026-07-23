@@ -32,6 +32,34 @@ export default () => (
 );
 ```
 
+## 指示器样式
+
+```tsx preview
+import { Spin, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="large">
+    <Spin indicator="spinner" tip="spinner" />
+    <Spin indicator="dots" tip="dots" />
+    <Spin indicator="ring" tip="ring" />
+    <Spin indicator="bars" tip="bars" />
+  </Space>
+);
+```
+
+## 颜色
+
+```tsx preview
+import { Spin, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="large">
+    <Spin color="primary" />
+    <Spin color="success" />
+    <Spin color="warning" />
+    <Spin color="error" />
+  </Space>
+);
+```
+
 ## API
 
 <API name="Spin" />
