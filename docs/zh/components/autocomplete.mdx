@@ -1,11 +1,18 @@
-
 # AutoComplete 自动完成
 
 ## 基础用法
 
 ```tsx preview
 import { AutoComplete } from '@koi-ui/core';
-export default () => <AutoComplete options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder="搜索" />;
+export default () => (
+  <AutoComplete
+    options={[
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ]}
+    placeholder="搜索"
+  />
+);
 ```
 
 ## clearable
@@ -15,7 +22,112 @@ import { AutoComplete } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [value, setValue] = useState('apple');
-  return <AutoComplete value={value} onChange={setValue} clearable options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder="搜索" />;
+  return (
+    <AutoComplete
+      value={value}
+      onChange={setValue}
+      clearable
+      options={[
+        { value: 'apple', label: 'Apple' },
+        { value: 'banana', label: 'Banana' },
+      ]}
+      placeholder="搜索"
+    />
+  );
+};
+```
+
+## 尺寸
+
+```tsx preview
+import { AutoComplete, Space } from '@koi-ui/core';
+const options = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <AutoComplete size="sm" options={options} placeholder="sm" />
+    <AutoComplete size="md" options={options} placeholder="md" />
+    <AutoComplete size="lg" options={options} placeholder="lg" />
+  </Space>
+);
+```
+
+## 错误状态
+
+```tsx preview
+import { AutoComplete, Space } from '@koi-ui/core';
+const options = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <AutoComplete error options={options} placeholder="仅边框错误态" />
+    <AutoComplete error="请选择有效项" options={options} placeholder="带错误文案" />
+  </Space>
+);
+```
+
+## 自定义过滤
+
+```tsx preview
+import { AutoComplete } from '@koi-ui/core';
+export default () => (
+  <AutoComplete
+    options={[
+      { value: 'apple', label: 'Apple' },
+      { value: 'apricot', label: 'Apricot' },
+      { value: 'banana', label: 'Banana' },
+    ]}
+    filterOption={(input, option) => option.value.startsWith(input.toLowerCase())}
+    placeholder="按 value 前缀过滤"
+  />
+);
+```
+
+## 禁用
+
+```tsx preview
+import { AutoComplete } from '@koi-ui/core';
+export default () => (
+  <AutoComplete
+    disabled
+    value="Apple"
+    options={[
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ]}
+    placeholder="搜索"
+  />
+);
+```
+
+## onSelect
+
+```tsx preview
+import { AutoComplete, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('');
+  const [selected, setSelected] = useState('');
+  return (
+    <div>
+      <AutoComplete
+        value={value}
+        onChange={setValue}
+        onSelect={(opt) => setSelected(`${opt.label} (${opt.value})`)}
+        options={[
+          { value: 'apple', label: 'Apple' },
+          { value: 'banana', label: 'Banana' },
+          { value: 'cherry', label: 'Cherry', disabled: true },
+        ]}
+        placeholder="搜索并选择"
+      />
+      <Text muted className="mt-2 block text-sm">最近选择：{selected || '无'}</Text>
+    </div>
+  );
 };
 ```
 

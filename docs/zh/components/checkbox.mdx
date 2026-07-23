@@ -1,11 +1,15 @@
-
 # Checkbox 多选框
 
 ## 基础用法
 
 ```tsx preview
 import { Checkbox, CheckboxGroup } from '@koi-ui/core';
-export default () => <CheckboxGroup defaultValue={['a']}><Checkbox checkboxValue="a" label="选项A" /><Checkbox checkboxValue="b" label="选项B" /></CheckboxGroup>;
+export default () => (
+  <CheckboxGroup defaultValue={['a']}>
+    <Checkbox checkboxValue="a" label="选项 A" />
+    <Checkbox checkboxValue="b" label="选项 B" />
+  </CheckboxGroup>
+);
 ```
 
 ## 受控多选
@@ -26,6 +30,33 @@ export default () => {
     </div>
   );
 };
+```
+
+## 尺寸与禁用
+
+```tsx preview
+import { Checkbox, CheckboxGroup, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <CheckboxGroup size="sm" defaultValue={['sm']}>
+      <Checkbox checkboxValue="sm" label="sm" />
+      <Checkbox checkboxValue="b" label="选项" />
+    </CheckboxGroup>
+    <CheckboxGroup size="md" defaultValue={['md']}>
+      <Checkbox checkboxValue="md" label="md" />
+      <Checkbox checkboxValue="b" label="选项" />
+    </CheckboxGroup>
+    <CheckboxGroup size="lg" defaultValue={['lg']}>
+      <Checkbox checkboxValue="lg" label="lg" />
+      <Checkbox checkboxValue="b" label="选项" />
+    </CheckboxGroup>
+    <CheckboxGroup disabled defaultValue={['a']}>
+      <Checkbox checkboxValue="a" label="整组禁用" />
+      <Checkbox checkboxValue="b" label="不可选" />
+    </CheckboxGroup>
+    <Checkbox label="单项禁用" disabled defaultChecked />
+  </Space>
+);
 ```
 
 ## API

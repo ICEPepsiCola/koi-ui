@@ -1,11 +1,59 @@
-
 # Breadcrumb 面包屑
 
 ## 基础用法
 
 ```tsx preview
 import { Breadcrumb } from '@koi-ui/core';
-export default () => <Breadcrumb items={[{ title: '首页' }, { title: '列表' }, { title: '详情' }]} />;
+export default () => (
+  <Breadcrumb
+    items={[
+      { title: '首页' },
+      { title: '列表' },
+      { title: '详情' },
+    ]}
+  />
+);
+```
+
+## 自定义分隔符
+
+```tsx preview
+import { Breadcrumb, BreadcrumbSeparator, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Breadcrumb
+      separator=">"
+      items={[
+        { title: '首页' },
+        { title: '组件' },
+        { title: 'Breadcrumb' },
+      ]}
+    />
+    <Breadcrumb
+      separator={<BreadcrumbSeparator />}
+      items={[
+        { title: '首页' },
+        { title: '组件' },
+        { title: 'Breadcrumb' },
+      ]}
+    />
+  </Space>
+);
+```
+
+## 带链接
+
+```tsx preview
+import { Breadcrumb } from '@koi-ui/core';
+export default () => (
+  <Breadcrumb
+    items={[
+      { title: '首页', href: '#' },
+      { title: '列表', href: '#' },
+      { title: '详情' },
+    ]}
+  />
+);
 ```
 
 ## API

@@ -5,20 +5,42 @@
 
 ```tsx preview
 import { Card, Text } from '@koi-ui/core';
-export default () => <Card title="Card title"><Text>Card content</Text></Card>;
+export default () => (
+  <Card title="Card title">
+    <Text>Card content</Text>
+  </Card>
+);
 ```
 
-## With footer
+## Padding
 
 ```tsx preview
-import { Card, Button, Text } from '@koi-ui/core';
+import { Card, Text, Space } from '@koi-ui/core';
 export default () => (
-  <Card
-    title="Project overview"
-    footer={<Button size="sm" variant="primary">View details</Button>}
-  >
-    <Text>A card sample with a footer action area.</Text>
-  </Card>
+  <Space direction="vertical" size="middle" className="w-full">
+    <Card padding="sm" title="sm"><Text size="sm">Small padding</Text></Card>
+    <Card padding="md" title="md"><Text size="sm">Default padding</Text></Card>
+    <Card padding="lg" title="lg"><Text size="sm">Large padding</Text></Card>
+  </Space>
+);
+```
+
+## Footer & hoverable
+
+```tsx preview
+import { Card, Button, Text, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Card
+      title="Project overview"
+      footer={<Button size="sm" variant="primary">View details</Button>}
+    >
+      <Text>Card with a footer action area.</Text>
+    </Card>
+    <Card title="Hoverable" hoverable onClick={() => {}}>
+      <Text>hoverable adds elevation feedback.</Text>
+    </Card>
+  </Space>
 );
 ```
 

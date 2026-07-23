@@ -5,20 +5,25 @@
 
 ```tsx preview
 import { Result, Button } from '@koi-ui/core';
-export default () => <Result status="success" title="提交成功" extra={<Button>返回</Button>} />;
+export default () => (
+  <Result status="success" title="提交成功" extra={<Button>返回</Button>} />
+);
 ```
 
-## 失败结果
+## 全部状态
 
 ```tsx preview
-import { Result, Button } from '@koi-ui/core';
+import { Result, Stack } from '@koi-ui/core';
 export default () => (
-  <Result
-    status="error"
-    title="提交失败"
-    subTitle="请检查网络后重试"
-    extra={<Button variant="primary">重试</Button>}
-  />
+  <Stack gap={6}>
+    <Result status="success" title="成功" subTitle="操作已完成" />
+    <Result status="error" title="失败" subTitle="请稍后重试" />
+    <Result status="info" title="信息" subTitle="请留意后续通知" />
+    <Result status="warning" title="警告" subTitle="存在风险，请确认" />
+    <Result status="404" title="页面不存在" subTitle="检查地址是否正确" />
+    <Result status="403" title="无权限" subTitle="请联系管理员" />
+    <Result status="500" title="服务异常" subTitle="稍后再试" />
+  </Stack>
 );
 ```
 

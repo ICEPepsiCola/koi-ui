@@ -5,7 +5,47 @@
 
 ```tsx preview
 import { Divider } from '@koi-ui/core';
-export default () => <Divider>Divider text</Divider>;
+export default () => (
+  <div>
+    <p>Content above</p>
+    <Divider />
+    <p>Content below</p>
+  </div>
+);
+```
+
+## With text
+
+```tsx preview
+import { Divider } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Divider plain={false}>Section</Divider>
+    <Divider plain={false} dashed>Dashed section</Divider>
+  </div>
+);
+```
+
+## Dashed
+
+```tsx preview
+import { Divider } from '@koi-ui/core';
+export default () => <Divider dashed />;
+```
+
+## Vertical
+
+```tsx preview
+import { Divider, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <span>Left</span>
+    <Divider type="vertical" />
+    <span>Middle</span>
+    <Divider type="vertical" />
+    <span>Right</span>
+  </Space>
+);
 ```
 
 ## API

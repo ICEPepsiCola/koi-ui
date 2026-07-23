@@ -1,11 +1,56 @@
-
 # NoticeBar 通告栏
 
 ## 基础用法
 
 ```tsx preview
 import { NoticeBar } from '@koi-ui/core';
-export default () => <NoticeBar content="这是一条滚动通告信息" />;
+export default () => <NoticeBar content="这是一条通告信息" />;
+```
+
+## 变体
+
+```tsx preview
+import { NoticeBar, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <NoticeBar variant="default" content="默认提示信息" />
+    <NoticeBar variant="warning" content="请注意相关风险" />
+    <NoticeBar variant="error" content="操作失败，请稍后重试" />
+  </Stack>
+);
+```
+
+## 可关闭
+
+```tsx preview
+import { NoticeBar } from '@koi-ui/core';
+export default () => (
+  <NoticeBar closable content="点击右侧关闭此通告" />
+);
+```
+
+## 左侧图标
+
+```tsx preview
+import { NoticeBar, Icon } from '@koi-ui/core';
+export default () => (
+  <NoticeBar
+    leftIcon={<Icon name="search" size="sm" />}
+    content="带左侧图标的通告栏"
+  />
+);
+```
+
+## 滚动
+
+```tsx preview
+import { NoticeBar } from '@koi-ui/core';
+export default () => (
+  <NoticeBar
+    scrollable
+    content="这是一条较长的滚动通告，内容超出容器宽度时会水平滚动展示。"
+  />
+);
 ```
 
 ## API

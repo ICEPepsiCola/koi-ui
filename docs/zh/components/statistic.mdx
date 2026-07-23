@@ -8,6 +8,31 @@ import { Statistic } from '@koi-ui/core';
 export default () => <Statistic title="活跃用户" value={112893} />;
 ```
 
+## 前后缀与精度
+
+```tsx preview
+import { Statistic, Space } from '@koi-ui/core';
+export default () => (
+  <Space size="large">
+    <Statistic title="余额" value={1128.89} prefix="¥" precision={2} />
+    <Statistic title="增长率" value={12.5} suffix="%" precision={1} />
+  </Space>
+);
+```
+
+## 尺寸
+
+```tsx preview
+import { Statistic, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="end" size="large">
+    <Statistic size="sm" title="小号" value={128} />
+    <Statistic size="md" title="中号" value={1280} />
+    <Statistic size="lg" title="大号" value={12800} />
+  </Space>
+);
+```
+
 ## API
 
 <API name="Statistic" />

@@ -5,7 +5,56 @@
 
 ```tsx preview
 import { Collapse } from '@koi-ui/core';
-export default () => <Collapse items={[{ key:'1', label:'面板1', children:'内容1' }, { key:'2', label:'面板2', children:'内容2' }]} />;
+export default () => (
+  <Collapse
+    defaultActiveKeys={['1']}
+    items={[
+      { key: '1', label: '面板一', children: '这是面板一的内容。' },
+      { key: '2', label: '面板二', children: '这是面板二的内容。' },
+      { key: '3', label: '面板三', children: '这是面板三的内容。' },
+    ]}
+  />
+);
+```
+
+## 手风琴
+
+```tsx preview
+import { Collapse } from '@koi-ui/core';
+export default () => (
+  <Collapse
+    accordion
+    defaultActiveKeys={['1']}
+    items={[
+      { key: '1', label: '仅展开一项', children: '开启 accordion 后同时只展开一个面板。' },
+      { key: '2', label: '另一项', children: '点击此项会收起上一项。' },
+      { key: '3', label: '禁用项', children: '不可展开', disabled: true },
+    ]}
+  />
+);
+```
+
+## 受控
+
+```tsx preview
+import { Collapse, Space, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [activeKeys, setActiveKeys] = useState(['1']);
+  return (
+    <Space direction="vertical" size="middle" className="w-full">
+      <Text size="sm" muted>activeKeys: {activeKeys.join(', ') || '(空)'}</Text>
+      <Collapse
+        activeKeys={activeKeys}
+        onChange={setActiveKeys}
+        items={[
+          { key: '1', label: '受控面板 A', children: '通过 activeKeys / onChange 控制。' },
+          { key: '2', label: '受控面板 B', children: '可同时展开多个。' },
+        ]}
+      />
+    </Space>
+  );
+};
 ```
 
 ## API

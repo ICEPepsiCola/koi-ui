@@ -5,8 +5,57 @@
 
 ```tsx preview
 import { Stepper } from '@koi-ui/core';
+export default () => <Stepper defaultValue={1} />;
+```
+
+## 尺寸
+
+```tsx preview
+import { Stepper, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Stepper size="sm" defaultValue={1} />
+    <Stepper size="md" defaultValue={2} />
+    <Stepper size="lg" defaultValue={3} />
+  </Space>
+);
+```
+
+## 范围与步长
+
+```tsx preview
+import { Stepper } from '@koi-ui/core';
+export default () => <Stepper min={0} max={10} step={2} defaultValue={4} />;
+```
+
+## 标签
+
+```tsx preview
+import { Stepper } from '@koi-ui/core';
+export default () => <Stepper label="数量" min={1} max={99} defaultValue={1} />;
+```
+
+## 禁用
+
+```tsx preview
+import { Stepper } from '@koi-ui/core';
+export default () => <Stepper disabled defaultValue={5} />;
+```
+
+## 受控
+
+```tsx preview
+import { Stepper, Space, Text } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(1); return <Stepper value={v} onChange={setV} />; };
+export default () => {
+  const [value, setValue] = useState(3);
+  return (
+    <Space direction="vertical" size="middle" className="w-full">
+      <Stepper value={value} onChange={setValue} min={0} max={20} />
+      <Text size="sm" muted>当前值：{value}</Text>
+    </Space>
+  );
+};
 ```
 
 ## API

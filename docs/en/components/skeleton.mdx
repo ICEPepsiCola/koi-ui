@@ -5,7 +5,45 @@
 
 ```tsx preview
 import { Skeleton } from '@koi-ui/core';
-export default () => <Skeleton active paragraph={{ rows: 3 }} />;
+export default () => (
+  <div className="space-y-2">
+    <Skeleton />
+    <Skeleton width="80%" />
+    <Skeleton width="60%" />
+  </div>
+);
+```
+
+## Variants
+
+```tsx preview
+import { Skeleton, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="middle">
+    <Skeleton variant="text" width={160} />
+    <Skeleton variant="circular" width={40} height={40} />
+    <Skeleton variant="rectangular" width={120} height={64} />
+  </Space>
+);
+```
+
+## Group
+
+```tsx preview
+import { SkeletonGroup } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-6">
+    <SkeletonGroup rows={3} />
+    <SkeletonGroup rows={4} avatar />
+  </div>
+);
+```
+
+## Disable animation
+
+```tsx preview
+import { Skeleton } from '@koi-ui/core';
+export default () => <Skeleton active={false} width="100%" height={24} />;
 ```
 
 ## API

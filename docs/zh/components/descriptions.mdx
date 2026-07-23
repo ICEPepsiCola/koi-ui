@@ -5,23 +5,81 @@
 
 ```tsx preview
 import { Descriptions } from '@koi-ui/core';
-export default () => <Descriptions items={[{ key:'name', label:'姓名', children:'张三' }, { key:'phone', label:'手机', children:'138****0000' }]} />;
+export default () => (
+  <Descriptions
+    items={[
+      { key: 'name', label: '姓名', children: '张三' },
+      { key: 'phone', label: '手机', children: '138****0000' },
+    ]}
+  />
+);
 ```
 
-## 多列布局
+## 多列与跨列
 
 ```tsx preview
 import { Descriptions } from '@koi-ui/core';
 export default () => (
   <Descriptions
+    title="用户信息"
     column={2}
     items={[
       { key: 'name', label: '姓名', children: '张三' },
       { key: 'phone', label: '手机', children: '138****0000' },
       { key: 'city', label: '城市', children: '上海' },
       { key: 'role', label: '角色', children: '管理员' },
+      { key: 'address', label: '地址', children: '浦东新区某某路 88 号', span: 2 },
     ]}
   />
+);
+```
+
+## 边框与布局
+
+```tsx preview
+import { Descriptions, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="large" className="w-full">
+    <Descriptions
+      bordered
+      column={2}
+      items={[
+        { key: 'name', label: '姓名', children: '张三' },
+        { key: 'phone', label: '手机', children: '138****0000' },
+        { key: 'city', label: '城市', children: '上海', span: 2 },
+      ]}
+    />
+    <Descriptions
+      layout="vertical"
+      column={2}
+      items={[
+        { key: 'name', label: '姓名', children: '张三' },
+        { key: 'phone', label: '手机', children: '138****0000' },
+      ]}
+    />
+  </Space>
+);
+```
+
+## 尺寸
+
+```tsx preview
+import { Descriptions, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Descriptions
+      bordered
+      size="sm"
+      column={1}
+      items={[{ key: 'a', label: '小号', children: 'size=sm' }]}
+    />
+    <Descriptions
+      bordered
+      size="lg"
+      column={1}
+      items={[{ key: 'b', label: '大号', children: 'size=lg' }]}
+    />
+  </Space>
 );
 ```
 

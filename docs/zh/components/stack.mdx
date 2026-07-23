@@ -13,6 +13,55 @@ export default () => (
 );
 ```
 
+## 方向与间距
+
+```tsx preview
+import { Stack, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Stack direction="col" gap={2}>
+      <Tag>col gap 2</Tag>
+      <Tag variant="secondary">纵向</Tag>
+    </Stack>
+    <Stack direction="row" gap={4}>
+      <Tag>row gap 4</Tag>
+      <Tag variant="secondary">横向</Tag>
+      <Tag variant="outline">横向</Tag>
+    </Stack>
+  </div>
+);
+```
+
+## 对齐与分布
+
+```tsx preview
+import { Stack, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Stack direction="row" align="center" justify="between" className="rounded-md border border-border p-3">
+      <Tag>左</Tag>
+      <Tag variant="success">右</Tag>
+    </Stack>
+    <Stack direction="row" align="end" gap={2} className="h-16 rounded-md border border-border p-3">
+      <Tag>end</Tag>
+      <Tag variant="secondary">对齐底部</Tag>
+    </Stack>
+  </div>
+);
+```
+
+## 响应式
+
+```tsx preview
+import { Stack, Tag } from '@koi-ui/core';
+export default () => (
+  <Stack responsive gap={2} className="rounded-md border border-border p-3">
+    <Tag>窄屏纵向</Tag>
+    <Tag variant="secondary">md+ 横向</Tag>
+  </Stack>
+);
+```
+
 ## API
 
 <API name="Stack" />

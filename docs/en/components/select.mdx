@@ -1,4 +1,3 @@
-
 # Select
 
 ## Basic usage
@@ -6,7 +5,20 @@
 ```tsx preview
 import { Select } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(''); return <Select options={[{label:'Beijing',value:'bj'},{label:'Shanghai',value:'sh'}]} value={v} onChange={setV} placeholder="Select city" />; };
+export default () => {
+  const [v, setV] = useState('');
+  return (
+    <Select
+      options={[
+        { label: 'Beijing', value: 'bj' },
+        { label: 'Shanghai', value: 'sh' },
+      ]}
+      value={v}
+      onChange={setV}
+      placeholder="Select city"
+    />
+  );
+};
 ```
 
 ## Controlled select
@@ -55,6 +67,40 @@ export default () => {
     />
   );
 };
+```
+
+## Size
+
+```tsx preview
+import { Select, Space } from '@koi-ui/core';
+const options = [
+  { label: 'Beijing', value: 'bj' },
+  { label: 'Shanghai', value: 'sh' },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Select size="sm" options={options} placeholder="sm" />
+    <Select size="md" options={options} placeholder="md" />
+    <Select size="lg" options={options} placeholder="lg" />
+  </Space>
+);
+```
+
+## Disabled
+
+```tsx preview
+import { Select } from '@koi-ui/core';
+export default () => (
+  <Select
+    disabled
+    value="sh"
+    options={[
+      { label: 'Beijing', value: 'bj' },
+      { label: 'Shanghai', value: 'sh' },
+    ]}
+    placeholder="Select city"
+  />
+);
 ```
 
 ## API

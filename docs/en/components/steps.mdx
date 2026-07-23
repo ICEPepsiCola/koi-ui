@@ -5,10 +5,19 @@
 
 ```tsx preview
 import { Steps } from '@koi-ui/core';
-export default () => <Steps current={1} items={[{ title: 'Done' }, { title: 'In progress' }, { title: 'Pending' }]} />;
+export default () => (
+  <Steps
+    current={1}
+    items={[
+      { title: 'Done' },
+      { title: 'In progress' },
+      { title: 'Waiting' },
+    ]}
+  />
+);
 ```
 
-## Completed steps
+## Finish state & description
 
 ```tsx preview
 import { Steps } from '@koi-ui/core';
@@ -16,10 +25,50 @@ export default () => (
   <Steps
     current={3}
     items={[
-      { title: 'Fill in details', description: 'Done' },
-      { title: 'Confirm order', description: 'Done' },
+      { title: 'Details', description: 'Done' },
+      { title: 'Confirm', description: 'Done' },
       { title: 'Pay', description: 'Done' },
-      { title: 'Done' },
+      { title: 'Complete' },
+    ]}
+  />
+);
+```
+
+## Vertical & size
+
+```tsx preview
+import { Steps, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="large" className="w-full">
+    <Steps
+      direction="vertical"
+      current={1}
+      items={[
+        { title: 'Submit', description: 'Fill in the form' },
+        { title: 'Review', description: 'About 1 business day' },
+        { title: 'Done' },
+      ]}
+    />
+    <Steps
+      size="sm"
+      current={0}
+      items={[{ title: 'sm' }, { title: 'sm' }, { title: 'sm' }]}
+    />
+  </Space>
+);
+```
+
+## Status
+
+```tsx preview
+import { Steps } from '@koi-ui/core';
+export default () => (
+  <Steps
+    current={1}
+    items={[
+      { title: 'Finish', status: 'finish' },
+      { title: 'Error', status: 'error' },
+      { title: 'Wait', status: 'wait' },
     ]}
   />
 );

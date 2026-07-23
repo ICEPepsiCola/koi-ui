@@ -1,4 +1,3 @@
-
 # ActionSheet
 
 ## Basic usage
@@ -6,7 +5,22 @@
 ```tsx preview
 import { ActionSheet, Button } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Open</Button><ActionSheet open={o} onClose={()=>setO(false)} actions={[{ key:'1', text:'Option 1' }, { key:'2', text:'Option 2' }]} /></>; };
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        actions={[
+          { key: '1', text: 'Option 1' },
+          { key: '2', text: 'Option 2' },
+        ]}
+      />
+    </>
+  );
+};
 ```
 
 ## Title and description
@@ -27,6 +41,34 @@ export default () => {
         actions={[
           { key: 'wechat', text: 'WeChat' },
           { key: 'link', text: 'Copy link' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
+## Destructive & disabled
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button variant="destructive" onClick={() => setOpen(true)}>
+        Manage
+      </Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Actions"
+        cancelText="Close"
+        actions={[
+          { key: 'edit', text: 'Edit' },
+          { key: 'archive', text: 'Archive', disabled: true },
+          { key: 'delete', text: 'Delete', destructive: true },
         ]}
       />
     </>

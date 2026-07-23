@@ -1,11 +1,12 @@
-
 # Alert 警告提示
 
 ## 基础用法
 
 ```tsx preview
 import { Alert } from '@koi-ui/core';
-export default () => <Alert variant="info" title="提示" description="这是一条提示信息" />;
+export default () => (
+  <Alert variant="info" title="提示" description="这是一条提示信息" />
+);
 ```
 
 ## 不同类型
@@ -22,6 +23,35 @@ export default () => (
     <Alert variant="success" appearance="solid" title="实心" description="solid appearance" />
   </Stack>
 );
+```
+
+## 可关闭
+
+```tsx preview
+import { Alert, Stack } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [visible, setVisible] = useState(true);
+  return (
+    <Stack gap={3}>
+      {visible ? (
+        <Alert
+          closable
+          variant="info"
+          title="可关闭"
+          description="点击右上角关闭"
+          onClose={() => setVisible(false)}
+        />
+      ) : null}
+      <Alert
+        closable
+        variant="warning"
+        title="仅 closable"
+        description="显示关闭按钮；未传 onClose 时点击无副作用"
+      />
+    </Stack>
+  );
+};
 ```
 
 ## API

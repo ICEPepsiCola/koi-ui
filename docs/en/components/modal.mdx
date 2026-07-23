@@ -1,4 +1,3 @@
-
 # Modal
 
 ## Basic usage
@@ -6,7 +5,17 @@
 ```tsx preview
 import { Modal, Button } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Open modal</Button><Modal open={o} onClose={()=>setO(false)} title="Title">Content</Modal></>; };
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} title="Title">
+        Content
+      </Modal>
+    </>
+  );
+};
 ```
 
 ## With footer actions
@@ -25,12 +34,59 @@ export default () => {
         title="Confirm delete"
         footer={
           <Space>
-            <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button variant="destructive" onClick={() => setOpen(false)}>Delete</Button>
+            <Button variant="secondary" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={() => setOpen(false)}>
+              Delete
+            </Button>
           </Space>
         }
       >
-        Delete this record?？
+        Delete this record?
+      </Modal>
+    </>
+  );
+};
+```
+
+## Mobile height
+
+```tsx preview
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [tall, setTall] = useState(false);
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space>
+        <Button
+          onClick={() => {
+            setTall(true);
+            setOpen(true);
+          }}
+        >
+          Near fullscreen
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            setTall(false);
+            setOpen(true);
+          }}
+        >
+          Shorter
+        </Button>
+      </Space>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Mobile drawer height"
+        mobileFullscreen={tall}
+      >
+        On mobile, Modal renders as a bottom drawer. mobileFullscreen true ≈ 90vh;
+        false ≈ 70vh.
       </Modal>
     </>
   );

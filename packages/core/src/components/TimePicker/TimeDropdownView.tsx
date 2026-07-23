@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import {
@@ -9,6 +9,7 @@ import {
 import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
+import { MenuColumns } from '../shared/MenuColumns';
 import { pad2 } from '../DatePicker/dateUtils';
 
 export interface TimeDropdownViewProps {
@@ -20,9 +21,6 @@ export interface TimeDropdownViewProps {
   clearable?: boolean;
   size?: FieldSize;
 }
-
-const ITEM_H = 36;
-const COL_H = 216;
 
 function parseTime(value?: string) {
   const parts = (value ?? '').split(':').map(Number);
@@ -110,13 +108,13 @@ export function TimeDropdownView({
   const columns = [
     {
       key: 'hour',
-      options: hours,
+      options: hours.map((v) => ({ value: v, label: v })),
       value: pad2(hour),
       onChange: (v: string) => setHour(Number(v)),
     },
     {
       key: 'minute',
-      options: minutes,
+      options: minutes.map((v) => ({ value: v, label: v })),
       value: pad2(minute),
       onChange: (v: string) => setMinute(Number(v)),
     },
@@ -124,7 +122,7 @@ export function TimeDropdownView({
       ? [
           {
             key: 'second',
-            options: minutes,
+            options: minutes.map((v) => ({ value: v, label: v })),
             value: pad2(second),
             onChange: (v: string) => setSecond(Number(v)),
           },
@@ -167,21 +165,7 @@ export function TimeDropdownView({
         open={open}
         className="overflow-hidden rounded-box border-border/70 p-0 shadow-sm"
       >
-        <div
-          className="grid divide-x divide-border/60"
-          style={{
-            gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
-          }}
-        >
-          {columns.map((col) => (
-            <MenuColumn
-              key={col.key}
-              options={col.options}
-              value={col.value}
-              onChange={col.onChange}
-            />
-          ))}
-        </div>
+        <MenuColumns columns={columns} />
         <div className="flex items-center justify-between border-t border-border/70 px-2 py-2">
           <button
             type="button"
@@ -211,66 +195,6 @@ export function TimeDropdownView({
         </div>
       </FloatMenu>
     </div>
-  );
-}
-
-function MenuColumn({
-  options,
-  value,
-  onChange,
-}: {
-  options: string[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  const scrollerRef = useRef<HTMLUListElement>(null);
-
-  useLayoutEffect(() => {
-    const root = scrollerRef.current;
-    if (!root) return;
-    const idx = options.indexOf(value);
-    if (idx < 0) return;
-    const selectedTop = idx * ITEM_H;
-    const viewBottom = root.scrollTop + root.clientHeight;
-    if (
-      selectedTop < root.scrollTop ||
-      selectedTop + ITEM_H > viewBottom
-    ) {
-      root.scrollTop = Math.max(0, selectedTop - (COL_H - ITEM_H) / 2);
-    }
-  }, [value, options]);
-
-  return (
-    <ul
-      ref={scrollerRef}
-      role="listbox"
-      className="h-full overflow-y-auto overscroll-contain p-1.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      style={{ height: COL_H }}
-    >
-      {options.map((opt) => {
-        const active = opt === value;
-        return (
-          <li key={opt} className="list-none">
-            <button
-              type="button"
-              role="option"
-              aria-selected={active}
-              className={cn(
-                'flex w-full items-center justify-center rounded-lg px-2 text-sm tabular-nums',
-                controlTransition,
-                active
-                  ? 'bg-primary/12 font-semibold text-primary'
-                  : 'font-normal text-surface-foreground/80 hover:bg-muted/70',
-              )}
-              style={{ height: ITEM_H }}
-              onClick={() => onChange(opt)}
-            >
-              {opt}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
   );
 }
 

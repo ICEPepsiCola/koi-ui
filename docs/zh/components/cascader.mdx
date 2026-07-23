@@ -1,11 +1,112 @@
-
 # Cascader 级联选择
 
 ## 基础用法
 
 ```tsx preview
 import { Cascader } from '@koi-ui/core';
-export default () => <Cascader options={[{label:'浙江',value:'zj',children:[{label:'杭州',value:'hz'}]}]} placeholder="选择地区" />;
+import { useState } from 'react';
+const options = [
+  {
+    label: '浙江',
+    value: 'zj',
+    children: [
+      {
+        label: '杭州',
+        value: 'hz',
+        children: [
+          { label: '西湖', value: 'xh' },
+          { label: '余杭', value: 'yh' },
+          { label: '滨江', value: 'bj' },
+        ],
+      },
+      {
+        label: '宁波',
+        value: 'nb',
+        children: [
+          { label: '海曙', value: 'hs' },
+          { label: '鄞州', value: 'yz' },
+          { label: '北仑', value: 'bl' },
+        ],
+      },
+      {
+        label: '温州',
+        value: 'wz',
+        children: [
+          { label: '鹿城', value: 'lc' },
+          { label: '瓯海', value: 'oh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '江苏',
+    value: 'js',
+    children: [
+      {
+        label: '南京',
+        value: 'nj',
+        children: [
+          { label: '玄武', value: 'xw' },
+          { label: '秦淮', value: 'qh' },
+          { label: '建邺', value: 'jy' },
+        ],
+      },
+      {
+        label: '苏州',
+        value: 'sz',
+        children: [
+          { label: '姑苏', value: 'gs' },
+          { label: '工业园区', value: 'gyyq' },
+          { label: '吴中', value: 'wz2' },
+        ],
+      },
+      {
+        label: '无锡',
+        value: 'wx',
+        children: [
+          { label: '梁溪', value: 'lx' },
+          { label: '滨湖', value: 'bh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '广东',
+    value: 'gd',
+    children: [
+      {
+        label: '广州',
+        value: 'gz',
+        children: [
+          { label: '天河', value: 'th' },
+          { label: '越秀', value: 'yx' },
+          { label: '海珠', value: 'hz2' },
+        ],
+      },
+      {
+        label: '深圳',
+        value: 'sz2',
+        children: [
+          { label: '南山', value: 'ns' },
+          { label: '福田', value: 'ft' },
+          { label: '宝安', value: 'ba' },
+        ],
+      },
+      {
+        label: '珠海',
+        value: 'zh',
+        children: [
+          { label: '香洲', value: 'xz' },
+          { label: '金湾', value: 'jw' },
+        ],
+      },
+    ],
+  },
+];
+export default () => {
+  const [value, setValue] = useState<string[]>([]);
+  return <Cascader value={value} onChange={setValue} options={options} placeholder="选择地区" />;
+};
 ```
 
 ## clearable
@@ -13,11 +114,152 @@ export default () => <Cascader options={[{label:'浙江',value:'zj',children:[{l
 ```tsx preview
 import { Cascader } from '@koi-ui/core';
 import { useState } from 'react';
-const options = [{ label:'浙江', value:'zj', children:[{ label:'杭州', value:'hz' }] }];
+const options = [
+  {
+    label: '浙江',
+    value: 'zj',
+    children: [
+      {
+        label: '杭州',
+        value: 'hz',
+        children: [
+          { label: '西湖', value: 'xh' },
+          { label: '余杭', value: 'yh' },
+          { label: '滨江', value: 'bj' },
+        ],
+      },
+      {
+        label: '宁波',
+        value: 'nb',
+        children: [
+          { label: '海曙', value: 'hs' },
+          { label: '鄞州', value: 'yz' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '江苏',
+    value: 'js',
+    children: [
+      {
+        label: '南京',
+        value: 'nj',
+        children: [
+          { label: '玄武', value: 'xw' },
+          { label: '秦淮', value: 'qh' },
+        ],
+      },
+      {
+        label: '苏州',
+        value: 'sz',
+        children: [
+          { label: '姑苏', value: 'gs' },
+          { label: '工业园区', value: 'gyyq' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '广东',
+    value: 'gd',
+    children: [
+      {
+        label: '广州',
+        value: 'gz',
+        children: [
+          { label: '天河', value: 'th' },
+          { label: '越秀', value: 'yx' },
+        ],
+      },
+      {
+        label: '深圳',
+        value: 'sz2',
+        children: [
+          { label: '南山', value: 'ns' },
+          { label: '福田', value: 'ft' },
+        ],
+      },
+    ],
+  },
+];
 export default () => {
-  const [value, setValue] = useState(['zj', 'hz']);
+  const [value, setValue] = useState(['zj', 'hz', 'xh']);
   return <Cascader value={value} onChange={setValue} options={options} clearable placeholder="选择地区" />;
 };
+```
+
+## 尺寸
+
+```tsx preview
+import { Cascader, Space } from '@koi-ui/core';
+const options = [
+  {
+    label: '浙江',
+    value: 'zj',
+    children: [
+      {
+        label: '杭州',
+        value: 'hz',
+        children: [
+          { label: '西湖', value: 'xh' },
+          { label: '余杭', value: 'yh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '江苏',
+    value: 'js',
+    children: [
+      {
+        label: '南京',
+        value: 'nj',
+        children: [
+          { label: '玄武', value: 'xw' },
+          { label: '秦淮', value: 'qh' },
+        ],
+      },
+    ],
+  },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Cascader size="sm" options={options} placeholder="sm" />
+    <Cascader size="md" options={options} placeholder="md" />
+    <Cascader size="lg" options={options} placeholder="lg" />
+  </Space>
+);
+```
+
+## 禁用
+
+```tsx preview
+import { Cascader } from '@koi-ui/core';
+const options = [
+  {
+    label: '浙江',
+    value: 'zj',
+    children: [
+      {
+        label: '杭州',
+        value: 'hz',
+        children: [
+          { label: '西湖', value: 'xh' },
+          { label: '余杭', value: 'yh' },
+        ],
+      },
+    ],
+  },
+];
+export default () => (
+  <Cascader
+    disabled
+    value={['zj', 'hz', 'xh']}
+    options={options}
+    placeholder="选择地区"
+  />
+);
 ```
 
 ## API

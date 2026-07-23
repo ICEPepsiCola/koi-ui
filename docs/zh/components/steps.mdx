@@ -5,10 +5,19 @@
 
 ```tsx preview
 import { Steps } from '@koi-ui/core';
-export default () => <Steps current={1} items={[{ title: '完成' }, { title: '进行中' }, { title: '待进行' }]} />;
+export default () => (
+  <Steps
+    current={1}
+    items={[
+      { title: '完成' },
+      { title: '进行中' },
+      { title: '待进行' },
+    ]}
+  />
+);
 ```
 
-## 完成态
+## 完成态与描述
 
 ```tsx preview
 import { Steps } from '@koi-ui/core';
@@ -20,6 +29,46 @@ export default () => (
       { title: '确认订单', description: '已完成' },
       { title: '支付', description: '已完成' },
       { title: '完成' },
+    ]}
+  />
+);
+```
+
+## 纵向与尺寸
+
+```tsx preview
+import { Steps, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="large" className="w-full">
+    <Steps
+      direction="vertical"
+      current={1}
+      items={[
+        { title: '提交申请', description: '填写基本信息' },
+        { title: '审核中', description: '预计 1 个工作日' },
+        { title: '完成' },
+      ]}
+    />
+    <Steps
+      size="sm"
+      current={0}
+      items={[{ title: 'sm' }, { title: 'sm' }, { title: 'sm' }]}
+    />
+  </Space>
+);
+```
+
+## 状态
+
+```tsx preview
+import { Steps } from '@koi-ui/core';
+export default () => (
+  <Steps
+    current={1}
+    items={[
+      { title: '完成', status: 'finish' },
+      { title: '错误', status: 'error' },
+      { title: '等待', status: 'wait' },
     ]}
   />
 );

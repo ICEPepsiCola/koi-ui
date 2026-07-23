@@ -5,8 +5,48 @@
 
 ```tsx preview
 import { Switch } from '@koi-ui/core';
+export default () => <Switch defaultChecked />;
+```
+
+## Sizes
+
+```tsx preview
+import { Switch, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center">
+    <Switch size="sm" defaultChecked />
+    <Switch size="md" defaultChecked />
+    <Switch size="lg" defaultChecked />
+  </Space>
+);
+```
+
+## Controlled
+
+```tsx preview
+import { Switch, Space, Text } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(true); return <Switch checked={v} onChange={setV} />; };
+export default () => {
+  const [checked, setChecked] = useState(true);
+  return (
+    <Space align="center">
+      <Switch checked={checked} onChange={setChecked} />
+      <Text size="sm" muted>{checked ? 'On' : 'Off'}</Text>
+    </Space>
+  );
+};
+```
+
+## Disabled
+
+```tsx preview
+import { Switch, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Switch disabled />
+    <Switch disabled defaultChecked />
+  </Space>
+);
 ```
 
 ## API

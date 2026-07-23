@@ -8,6 +8,29 @@ import { Empty } from '@koi-ui/core';
 export default () => <Empty description="No data" />;
 ```
 
+## With action
+
+```tsx preview
+import { Empty, Button } from '@koi-ui/core';
+export default () => (
+  <Empty description="Nothing here yet">
+    <Button size="sm">Create</Button>
+  </Empty>
+);
+```
+
+## Custom image
+
+```tsx preview
+import { Empty } from '@koi-ui/core';
+export default () => (
+  <Empty
+    description="Custom illustration"
+    image={<div className="mb-4 text-4xl text-muted-foreground">∅</div>}
+  />
+);
+```
+
 ## API
 
 <API name="Empty" />

@@ -5,7 +5,104 @@
 
 ```tsx preview
 import { Tree } from '@koi-ui/core';
-export default () => <Tree data={[{ key:'1', title:'父节点', children:[{ key:'1-1', title:'子节点' }] }]} />;
+export default () => (
+  <Tree
+    data={[
+      {
+        key: '1',
+        title: '文档',
+        children: [
+          { key: '1-1', title: '介绍' },
+          { key: '1-2', title: '快速开始' },
+        ],
+      },
+      {
+        key: '2',
+        title: '组件',
+        children: [{ key: '2-1', title: 'Button' }],
+      },
+    ]}
+  />
+);
+```
+
+## 连接线
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+export default () => (
+  <Tree
+    showLine
+    defaultExpandedKeys={['1']}
+    data={[
+      {
+        key: '1',
+        title: '父节点',
+        children: [
+          { key: '1-1', title: '子节点 A' },
+          { key: '1-2', title: '子节点 B' },
+        ],
+      },
+    ]}
+  />
+);
+```
+
+## 展开与选中
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [expandedKeys, setExpandedKeys] = useState(['1']);
+  const [selectedKeys, setSelectedKeys] = useState(['1-1']);
+  return (
+    <Tree
+      defaultExpandedKeys={['1']}
+      expandedKeys={expandedKeys}
+      onExpand={setExpandedKeys}
+      selectedKeys={selectedKeys}
+      onSelect={setSelectedKeys}
+      data={[
+        {
+          key: '1',
+          title: '项目',
+          children: [
+            { key: '1-1', title: 'README' },
+            { key: '1-2', title: 'CHANGELOG' },
+          ],
+        },
+      ]}
+    />
+  );
+};
+```
+
+## 嵌套数据
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+export default () => (
+  <Tree
+    defaultExpandedKeys={['a', 'a-1']}
+    data={[
+      {
+        key: 'a',
+        title: '一级',
+        children: [
+          {
+            key: 'a-1',
+            title: '二级',
+            children: [
+              { key: 'a-1-1', title: '三级 A' },
+              { key: 'a-1-2', title: '三级 B', disabled: true },
+            ],
+          },
+        ],
+      },
+    ]}
+  />
+);
 ```
 
 ## API

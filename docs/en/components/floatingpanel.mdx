@@ -1,11 +1,68 @@
-
 # FloatingPanel
 
 ## Basic usage
 
 ```tsx preview
-import { FloatingPanel } from '@koi-ui/core';
-export default () => <FloatingPanel title="Panel"><div className="p-4">Draggable panel content</div></FloatingPanel>;
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open panel</Button>
+      <FloatingPanel open={open} onClose={() => setOpen(false)} title="Panel title">
+        Drag the handle to resize. Tap the mask to close.
+      </FloatingPanel>
+    </>
+  );
+};
+```
+
+## Anchors
+
+```tsx preview
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Multiple anchors</Button>
+      <FloatingPanel
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Anchors"
+        anchors={[0.3, 0.5, 0.8]}
+        defaultAnchor={0.5}
+      >
+        Snaps to the nearest viewport height ratio on release.
+      </FloatingPanel>
+    </>
+  );
+};
+```
+
+## Without overlay
+
+```tsx preview
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>No overlay</Button>
+      <FloatingPanel
+        open={open}
+        onClose={() => setOpen(false)}
+        title="No overlay"
+        showOverlay={false}
+      >
+        When showOverlay is false, the mask is hidden.
+      </FloatingPanel>
+    </>
+  );
+};
 ```
 
 ## API

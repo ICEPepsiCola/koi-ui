@@ -8,6 +8,31 @@ import { Statistic } from '@koi-ui/core';
 export default () => <Statistic title="Active users" value={112893} />;
 ```
 
+## Prefix, suffix & precision
+
+```tsx preview
+import { Statistic, Space } from '@koi-ui/core';
+export default () => (
+  <Space size="large">
+    <Statistic title="Balance" value={1128.89} prefix="$" precision={2} />
+    <Statistic title="Growth" value={12.5} suffix="%" precision={1} />
+  </Space>
+);
+```
+
+## Size
+
+```tsx preview
+import { Statistic, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="end" size="large">
+    <Statistic size="sm" title="Small" value={128} />
+    <Statistic size="md" title="Medium" value={1280} />
+    <Statistic size="lg" title="Large" value={12800} />
+  </Space>
+);
+```
+
 ## API
 
 <API name="Statistic" />

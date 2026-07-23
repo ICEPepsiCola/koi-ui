@@ -5,12 +5,14 @@
 
 ```tsx preview
 import { Typography } from '@koi-ui/core';
-const { Title, Text, Paragraph } = Typography;
+const { Title, Text, Paragraph, Link } = Typography;
 export default () => (
-  <div>
+  <div className="space-y-2">
     <Title level={3}>Title</Title>
-    <Paragraph>Paragraph text</Paragraph>
-    <Text muted>Secondary text</Text>
+    <Paragraph>Paragraph for longer body copy.</Paragraph>
+    <Text type="secondary">Secondary text</Text>
+    {' · '}
+    <Link href="#">Link</Link>
   </div>
 );
 ```
@@ -21,11 +23,74 @@ export default () => (
 import { Typography } from '@koi-ui/core';
 const { Title } = Typography;
 export default () => (
-  <div>
+  <div className="space-y-2">
     <Title level={1}>H1 Title</Title>
+    <Title level={2}>H2 Title</Title>
     <Title level={3}>H3 Title</Title>
+    <Title level={4}>H4 Title</Title>
     <Title level={5}>H5 Title</Title>
+    <Title level={6}>H6 Title</Title>
+    <Title level={4} ellipsis className="max-w-48">
+      Long titles truncate with an ellipsis when overflowing
+    </Title>
   </div>
+);
+```
+
+## Text styles
+
+```tsx preview
+import { Typography, Space } from '@koi-ui/core';
+const { Text } = Typography;
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Space wrap>
+      <Text size="xs">xs</Text>
+      <Text size="sm">sm</Text>
+      <Text size="md">md</Text>
+      <Text size="lg">lg</Text>
+    </Space>
+    <Space wrap>
+      <Text>Default</Text>
+      <Text type="secondary">Secondary</Text>
+      <Text type="success">Success</Text>
+      <Text type="warning">Warning</Text>
+      <Text type="danger">Danger</Text>
+      <Text strong>Strong</Text>
+    </Space>
+    <Text ellipsis className="block max-w-48">
+      Long text will be truncated with an ellipsis when overflowing
+    </Text>
+  </Space>
+);
+```
+
+## Paragraph
+
+```tsx preview
+import { Typography } from '@koi-ui/core';
+const { Paragraph } = Typography;
+export default () => (
+  <div className="space-y-3 max-w-md">
+    <Paragraph>Default paragraph for body content.</Paragraph>
+    <Paragraph type="secondary">Secondary paragraph for quieter copy.</Paragraph>
+    <Paragraph ellipsis>
+      Ellipsis paragraph clamps after three lines. Ellipsis paragraph clamps after three lines. Ellipsis paragraph clamps after three lines. Ellipsis paragraph clamps after three lines.
+    </Paragraph>
+  </div>
+);
+```
+
+## Link
+
+```tsx preview
+import { Typography, Space } from '@koi-ui/core';
+const { Link } = Typography;
+export default () => (
+  <Space>
+    <Link href="#">Default link</Link>
+    <Link href="#" disabled>Disabled link</Link>
+  </Space>
 );
 ```
 

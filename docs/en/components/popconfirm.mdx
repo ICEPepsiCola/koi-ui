@@ -1,11 +1,62 @@
-
 # Popconfirm
 
 ## Basic usage
 
 ```tsx preview
 import { Popconfirm, Button } from '@koi-ui/core';
-export default () => <Popconfirm title="Delete this item?" onConfirm={() => {}}><Button variant="destructive">Delete</Button></Popconfirm>;
+export default () => (
+  <Popconfirm title="Delete this item?" onConfirm={() => {}}>
+    <Button variant="destructive">Delete</Button>
+  </Popconfirm>
+);
+```
+
+## Description
+
+```tsx preview
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => (
+  <Popconfirm
+    title="Delete record"
+    description="This cannot be undone. Proceed carefully."
+    onConfirm={() => {}}
+  >
+    <Button variant="outline">With description</Button>
+  </Popconfirm>
+);
+```
+
+## Destructive confirm
+
+```tsx preview
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => (
+  <Popconfirm
+    title="Delete permanently?"
+    okType="destructive"
+    confirmText="Delete"
+    cancelText="Keep"
+    onConfirm={() => {}}
+  >
+    <Button variant="destructive">Dangerous</Button>
+  </Popconfirm>
+);
+```
+
+## Disabled
+
+```tsx preview
+import { Popconfirm, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Popconfirm title="Enabled" onConfirm={() => {}}>
+      <Button>Enabled</Button>
+    </Popconfirm>
+    <Popconfirm title="Won't open" disabled onConfirm={() => {}}>
+      <Button disabled>Disabled</Button>
+    </Popconfirm>
+  </Space>
+);
 ```
 
 ## API

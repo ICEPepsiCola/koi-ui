@@ -5,8 +5,70 @@
 
 ```tsx preview
 import { Segmented } from '@koi-ui/core';
+export default () => (
+  <Segmented
+    defaultValue="day"
+    options={[
+      { value: 'day', label: '日' },
+      { value: 'week', label: '周' },
+      { value: 'month', label: '月' },
+    ]}
+  />
+);
+```
+
+## 尺寸
+
+```tsx preview
+import { Segmented, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle">
+    <Segmented size="sm" defaultValue="a" options={[{ value: 'a', label: 'sm' }, { value: 'b', label: '选项' }]} />
+    <Segmented size="md" defaultValue="a" options={[{ value: 'a', label: 'md' }, { value: 'b', label: '选项' }]} />
+    <Segmented size="lg" defaultValue="a" options={[{ value: 'a', label: 'lg' }, { value: 'b', label: '选项' }]} />
+  </Space>
+);
+```
+
+## 撑满宽度
+
+```tsx preview
+import { Segmented } from '@koi-ui/core';
+export default () => (
+  <Segmented
+    block
+    defaultValue="list"
+    options={[
+      { value: 'list', label: '列表' },
+      { value: 'card', label: '卡片' },
+      { value: 'table', label: '表格', disabled: true },
+    ]}
+  />
+);
+```
+
+## 受控
+
+```tsx preview
+import { Segmented, Space, Text } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState('a'); return <Segmented value={v} onChange={setV} options={[{label:'列表',value:'a'},{label:'卡片',value:'b'}]} />; };
+export default () => {
+  const [value, setValue] = useState('map');
+  return (
+    <Space direction="vertical" size="middle">
+      <Segmented
+        value={value}
+        onChange={setValue}
+        options={[
+          { value: 'map', label: '地图' },
+          { value: 'transit', label: '公交' },
+          { value: 'bike', label: '骑行' },
+        ]}
+      />
+      <Text size="sm" muted>{value}</Text>
+    </Space>
+  );
+};
 ```
 
 ## API

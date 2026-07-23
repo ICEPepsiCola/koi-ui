@@ -1,11 +1,58 @@
-
 # Popover
 
 ## Basic usage
 
 ```tsx preview
 import { Popover, Button } from '@koi-ui/core';
-export default () => <Popover content="Popover content"><Button>Hover me</Button></Popover>;
+export default () => (
+  <Popover content="Popover content">
+    <Button>Click me</Button>
+  </Popover>
+);
+```
+
+## With title
+
+```tsx preview
+import { Popover, Button } from '@koi-ui/core';
+export default () => (
+  <Popover title="Title" content="Popover body with a title.">
+    <Button variant="outline">With title</Button>
+  </Popover>
+);
+```
+
+## Placement
+
+```tsx preview
+import { Popover, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Popover placement="top" content="Top">
+      <Button size="sm">top</Button>
+    </Popover>
+    <Popover placement="bottom" content="Bottom">
+      <Button size="sm">bottom</Button>
+    </Popover>
+    <Popover placement="left" content="Left">
+      <Button size="sm">left</Button>
+    </Popover>
+    <Popover placement="right" content="Right">
+      <Button size="sm">right</Button>
+    </Popover>
+  </Space>
+);
+```
+
+## Hover trigger
+
+```tsx preview
+import { Popover, Button } from '@koi-ui/core';
+export default () => (
+  <Popover trigger="hover" content="Shown on hover">
+    <Button variant="soft">Hover trigger</Button>
+  </Popover>
+);
 ```
 
 ## API

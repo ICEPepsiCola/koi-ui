@@ -5,20 +5,25 @@
 
 ```tsx preview
 import { Result, Button } from '@koi-ui/core';
-export default () => <Result status="success" title="Submitted" extra={<Button>Back</Button>} />;
+export default () => (
+  <Result status="success" title="Submitted" extra={<Button>Back</Button>} />
+);
 ```
 
-## Error result
+## All statuses
 
 ```tsx preview
-import { Result, Button } from '@koi-ui/core';
+import { Result, Stack } from '@koi-ui/core';
 export default () => (
-  <Result
-    status="error"
-    title="Submit failed"
-    subTitle="Check your network and retry"
-    extra={<Button variant="primary">Retry</Button>}
-  />
+  <Stack gap={6}>
+    <Result status="success" title="Success" subTitle="Operation completed" />
+    <Result status="error" title="Error" subTitle="Please try again" />
+    <Result status="info" title="Info" subTitle="Check for updates" />
+    <Result status="warning" title="Warning" subTitle="Confirm before continue" />
+    <Result status="404" title="Not found" subTitle="Check the URL" />
+    <Result status="403" title="Forbidden" subTitle="Contact an admin" />
+    <Result status="500" title="Server error" subTitle="Try again later" />
+  </Stack>
 );
 ```
 

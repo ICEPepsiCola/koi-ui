@@ -504,7 +504,7 @@ test('Select clears controlled value without opening options', () => {
   expect(screen.queryByText('北京')).not.toBeInTheDocument();
 });
 
-test('Picker desktop opens floating multi-column wheel panel', async () => {
+test('Picker desktop opens floating multi-column menu panel', async () => {
   mockWidth(BREAKPOINTS.xl);
   let selected: string[] = [];
 
@@ -545,7 +545,7 @@ test('Picker desktop opens floating multi-column wheel panel', async () => {
   expect(panel).toBeTruthy();
   expect(panel?.className).toContain('absolute');
   expect(panel?.className).toContain('top-full');
-  expect(panel?.querySelectorAll('[data-picker-column]').length).toBe(2);
+  expect(panel?.querySelectorAll('[role="listbox"]').length).toBe(2);
 
   fireEvent.click(screen.getByRole('option', { name: '周二' }));
   fireEvent.click(screen.getByRole('option', { name: '下午' }));
@@ -648,7 +648,7 @@ test('Picker mobile commits draft from wheel scroll', async () => {
     );
   });
 
-  fireEvent.click(screen.getByRole('button', { name: '确定' }));
+  fireEvent.click(screen.getByRole('button', { name: '完成' }));
 
   await waitFor(() => {
     expect(selected).toEqual(['3']);
@@ -692,6 +692,55 @@ test('Cascader clears value and labels on desktop', () => {
   expect(labels).toEqual([]);
   expect(screen.getByRole('button', { name: /选择地区/ })).toBeInTheDocument();
   expect(screen.queryByText('浙江')).not.toBeInTheDocument();
+});
+
+test('Cascader desktop expands child column when parent is selected', async () => {
+  mockWidth(BREAKPOINTS.xl);
+
+  function Harness() {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <KoiProvider>
+        <Cascader
+          value={value}
+          onChange={setValue}
+          placeholder="选择地区"
+          options={[
+            {
+              value: 'zj',
+              label: '浙江',
+              children: [
+                { value: 'hz', label: '杭州' },
+                { value: 'nb', label: '宁波' },
+              ],
+            },
+            {
+              value: 'js',
+              label: '江苏',
+              children: [{ value: 'nj', label: '南京' }],
+            },
+          ]}
+        />
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+  fireEvent.click(screen.getByRole('button', { name: /选择地区/ }));
+  fireEvent.click(screen.getByRole('option', { name: '浙江' }));
+
+  expect(screen.getByRole('option', { name: '浙江' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
+  expect(screen.getByRole('option', { name: '杭州' })).toBeInTheDocument();
+  expect(screen.getByRole('option', { name: '宁波' })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('option', { name: '杭州' }));
+
+  await waitFor(() => {
+    expect(screen.getByRole('button', { name: /浙江 \/ 杭州/ })).toBeInTheDocument();
+  });
 });
 
 test('Provider locale messages flow into runtime strings', () => {

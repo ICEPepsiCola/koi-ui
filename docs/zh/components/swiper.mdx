@@ -1,4 +1,3 @@
-
 # Swiper 滑块视图
 
 ## 基础用法
@@ -7,10 +6,10 @@
 import { Swiper } from '@koi-ui/core';
 export default () => (
   <Swiper>
-    <div className="h-32 bg-muted flex items-center justify-center text-lg font-medium">Slide 1</div>
-    <div className="h-32 bg-primary/10 flex items-center justify-center text-lg font-medium">Slide 2</div>
-    <div className="h-32 bg-muted/80 flex items-center justify-center text-lg font-medium">Slide 3</div>
-    <div className="h-32 bg-primary/20 flex items-center justify-center text-lg font-medium">Slide 4</div>
+    <div className="flex h-32 items-center justify-center bg-muted text-lg font-medium">Slide 1</div>
+    <div className="flex h-32 items-center justify-center bg-primary/10 text-lg font-medium">Slide 2</div>
+    <div className="flex h-32 items-center justify-center bg-muted/80 text-lg font-medium">Slide 3</div>
+    <div className="flex h-32 items-center justify-center bg-primary/20 text-lg font-medium">Slide 4</div>
   </Swiper>
 );
 ```
@@ -21,11 +20,37 @@ export default () => (
 import { Swiper } from '@koi-ui/core';
 export default () => (
   <Swiper showArrows>
-    <div className="h-32 bg-muted flex items-center justify-center text-lg font-medium">Slide 1</div>
-    <div className="h-32 bg-primary/10 flex items-center justify-center text-lg font-medium">Slide 2</div>
-    <div className="h-32 bg-muted/80 flex items-center justify-center text-lg font-medium">Slide 3</div>
-    <div className="h-32 bg-primary/20 flex items-center justify-center text-lg font-medium">Slide 4</div>
+    <div className="flex h-32 items-center justify-center bg-muted text-lg font-medium">Slide 1</div>
+    <div className="flex h-32 items-center justify-center bg-primary/10 text-lg font-medium">Slide 2</div>
+    <div className="flex h-32 items-center justify-center bg-muted/80 text-lg font-medium">Slide 3</div>
+    <div className="flex h-32 items-center justify-center bg-primary/20 text-lg font-medium">Slide 4</div>
   </Swiper>
+);
+```
+
+## 循环、自动播放与指示点
+
+```tsx preview
+import { Swiper, Space, Text } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <div>
+      <Text muted size="sm" className="mb-2 block">loop + autoplay</Text>
+      <Swiper loop autoplay interval={2500}>
+        <div className="flex h-28 items-center justify-center bg-muted font-medium">A</div>
+        <div className="flex h-28 items-center justify-center bg-primary/10 font-medium">B</div>
+        <div className="flex h-28 items-center justify-center bg-primary/20 font-medium">C</div>
+      </Swiper>
+    </div>
+    <div>
+      <Text muted size="sm" className="mb-2 block">showDots=false · loop=false</Text>
+      <Swiper loop={false} showDots={false} showArrows>
+        <div className="flex h-28 items-center justify-center bg-muted font-medium">1</div>
+        <div className="flex h-28 items-center justify-center bg-primary/10 font-medium">2</div>
+        <div className="flex h-28 items-center justify-center bg-primary/20 font-medium">3</div>
+      </Swiper>
+    </div>
+  </Space>
 );
 ```
 

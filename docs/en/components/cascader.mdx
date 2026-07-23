@@ -1,11 +1,112 @@
-
 # Cascader
 
 ## Basic usage
 
 ```tsx preview
 import { Cascader } from '@koi-ui/core';
-export default () => <Cascader options={[{label:'Zhejiang',value:'zj',children:[{label:'Hangzhou',value:'hz'}]}]} placeholder="Select region" />;
+import { useState } from 'react';
+const options = [
+  {
+    label: 'Zhejiang',
+    value: 'zj',
+    children: [
+      {
+        label: 'Hangzhou',
+        value: 'hz',
+        children: [
+          { label: 'Xihu', value: 'xh' },
+          { label: 'Yuhang', value: 'yh' },
+          { label: 'Binjiang', value: 'bj' },
+        ],
+      },
+      {
+        label: 'Ningbo',
+        value: 'nb',
+        children: [
+          { label: 'Haishu', value: 'hs' },
+          { label: 'Yinzhou', value: 'yz' },
+          { label: 'Beilun', value: 'bl' },
+        ],
+      },
+      {
+        label: 'Wenzhou',
+        value: 'wz',
+        children: [
+          { label: 'Lucheng', value: 'lc' },
+          { label: 'Ouhai', value: 'oh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Jiangsu',
+    value: 'js',
+    children: [
+      {
+        label: 'Nanjing',
+        value: 'nj',
+        children: [
+          { label: 'Xuanwu', value: 'xw' },
+          { label: 'Qinhuai', value: 'qh' },
+          { label: 'Jianye', value: 'jy' },
+        ],
+      },
+      {
+        label: 'Suzhou',
+        value: 'sz',
+        children: [
+          { label: 'Gusu', value: 'gs' },
+          { label: 'SIP', value: 'gyyq' },
+          { label: 'Wuzhong', value: 'wz2' },
+        ],
+      },
+      {
+        label: 'Wuxi',
+        value: 'wx',
+        children: [
+          { label: 'Liangxi', value: 'lx' },
+          { label: 'Binhu', value: 'bh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Guangdong',
+    value: 'gd',
+    children: [
+      {
+        label: 'Guangzhou',
+        value: 'gz',
+        children: [
+          { label: 'Tianhe', value: 'th' },
+          { label: 'Yuexiu', value: 'yx' },
+          { label: 'Haizhu', value: 'hz2' },
+        ],
+      },
+      {
+        label: 'Shenzhen',
+        value: 'sz2',
+        children: [
+          { label: 'Nanshan', value: 'ns' },
+          { label: 'Futian', value: 'ft' },
+          { label: 'Baoan', value: 'ba' },
+        ],
+      },
+      {
+        label: 'Zhuhai',
+        value: 'zh',
+        children: [
+          { label: 'Xiangzhou', value: 'xz' },
+          { label: 'Jinwan', value: 'jw' },
+        ],
+      },
+    ],
+  },
+];
+export default () => {
+  const [value, setValue] = useState<string[]>([]);
+  return <Cascader value={value} onChange={setValue} options={options} placeholder="Select region" />;
+};
 ```
 
 ## clearable
@@ -13,11 +114,152 @@ export default () => <Cascader options={[{label:'Zhejiang',value:'zj',children:[
 ```tsx preview
 import { Cascader } from '@koi-ui/core';
 import { useState } from 'react';
-const options = [{ label:'Zhejiang', value:'zj', children:[{ label:'Hangzhou', value:'hz' }] }];
+const options = [
+  {
+    label: 'Zhejiang',
+    value: 'zj',
+    children: [
+      {
+        label: 'Hangzhou',
+        value: 'hz',
+        children: [
+          { label: 'Xihu', value: 'xh' },
+          { label: 'Yuhang', value: 'yh' },
+          { label: 'Binjiang', value: 'bj' },
+        ],
+      },
+      {
+        label: 'Ningbo',
+        value: 'nb',
+        children: [
+          { label: 'Haishu', value: 'hs' },
+          { label: 'Yinzhou', value: 'yz' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Jiangsu',
+    value: 'js',
+    children: [
+      {
+        label: 'Nanjing',
+        value: 'nj',
+        children: [
+          { label: 'Xuanwu', value: 'xw' },
+          { label: 'Qinhuai', value: 'qh' },
+        ],
+      },
+      {
+        label: 'Suzhou',
+        value: 'sz',
+        children: [
+          { label: 'Gusu', value: 'gs' },
+          { label: 'SIP', value: 'gyyq' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Guangdong',
+    value: 'gd',
+    children: [
+      {
+        label: 'Guangzhou',
+        value: 'gz',
+        children: [
+          { label: 'Tianhe', value: 'th' },
+          { label: 'Yuexiu', value: 'yx' },
+        ],
+      },
+      {
+        label: 'Shenzhen',
+        value: 'sz2',
+        children: [
+          { label: 'Nanshan', value: 'ns' },
+          { label: 'Futian', value: 'ft' },
+        ],
+      },
+    ],
+  },
+];
 export default () => {
-  const [value, setValue] = useState(['zj', 'hz']);
+  const [value, setValue] = useState(['zj', 'hz', 'xh']);
   return <Cascader value={value} onChange={setValue} options={options} clearable placeholder="Select region" />;
 };
+```
+
+## Size
+
+```tsx preview
+import { Cascader, Space } from '@koi-ui/core';
+const options = [
+  {
+    label: 'Zhejiang',
+    value: 'zj',
+    children: [
+      {
+        label: 'Hangzhou',
+        value: 'hz',
+        children: [
+          { label: 'Xihu', value: 'xh' },
+          { label: 'Yuhang', value: 'yh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Jiangsu',
+    value: 'js',
+    children: [
+      {
+        label: 'Nanjing',
+        value: 'nj',
+        children: [
+          { label: 'Xuanwu', value: 'xw' },
+          { label: 'Qinhuai', value: 'qh' },
+        ],
+      },
+    ],
+  },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Cascader size="sm" options={options} placeholder="sm" />
+    <Cascader size="md" options={options} placeholder="md" />
+    <Cascader size="lg" options={options} placeholder="lg" />
+  </Space>
+);
+```
+
+## Disabled
+
+```tsx preview
+import { Cascader } from '@koi-ui/core';
+const options = [
+  {
+    label: 'Zhejiang',
+    value: 'zj',
+    children: [
+      {
+        label: 'Hangzhou',
+        value: 'hz',
+        children: [
+          { label: 'Xihu', value: 'xh' },
+          { label: 'Yuhang', value: 'yh' },
+        ],
+      },
+    ],
+  },
+];
+export default () => (
+  <Cascader
+    disabled
+    value={['zj', 'hz', 'xh']}
+    options={options}
+    placeholder="Select region"
+  />
+);
 ```
 
 ## API

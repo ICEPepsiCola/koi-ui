@@ -8,6 +8,30 @@ import { Spin } from '@koi-ui/core';
 export default () => <Spin tip="加载中..." />;
 ```
 
+## 尺寸
+
+```tsx preview
+import { Spin, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="large">
+    <Spin size="sm" tip="sm" />
+    <Spin size="md" tip="md" />
+    <Spin size="lg" tip="lg" />
+  </Space>
+);
+```
+
+## 包裹内容
+
+```tsx preview
+import { Spin } from '@koi-ui/core';
+export default () => (
+  <Spin tip="加载中">
+    <div className="rounded-md border border-border p-6">内容区域</div>
+  </Spin>
+);
+```
+
 ## API
 
 <API name="Spin" />

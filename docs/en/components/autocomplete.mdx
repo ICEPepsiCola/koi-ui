@@ -1,11 +1,18 @@
-
 # AutoComplete
 
 ## Basic usage
 
 ```tsx preview
 import { AutoComplete } from '@koi-ui/core';
-export default () => <AutoComplete options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder="Search" />;
+export default () => (
+  <AutoComplete
+    options={[
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ]}
+    placeholder="Search"
+  />
+);
 ```
 
 ## clearable
@@ -15,7 +22,112 @@ import { AutoComplete } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [value, setValue] = useState('apple');
-  return <AutoComplete value={value} onChange={setValue} clearable options={[{ value:'apple', label:'Apple' }, { value:'banana', label:'Banana' }]} placeholder="Search" />;
+  return (
+    <AutoComplete
+      value={value}
+      onChange={setValue}
+      clearable
+      options={[
+        { value: 'apple', label: 'Apple' },
+        { value: 'banana', label: 'Banana' },
+      ]}
+      placeholder="Search"
+    />
+  );
+};
+```
+
+## Size
+
+```tsx preview
+import { AutoComplete, Space } from '@koi-ui/core';
+const options = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <AutoComplete size="sm" options={options} placeholder="sm" />
+    <AutoComplete size="md" options={options} placeholder="md" />
+    <AutoComplete size="lg" options={options} placeholder="lg" />
+  </Space>
+);
+```
+
+## Error
+
+```tsx preview
+import { AutoComplete, Space } from '@koi-ui/core';
+const options = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <AutoComplete error options={options} placeholder="Border-only error" />
+    <AutoComplete error="Please pick a valid option" options={options} placeholder="With message" />
+  </Space>
+);
+```
+
+## Custom filter
+
+```tsx preview
+import { AutoComplete } from '@koi-ui/core';
+export default () => (
+  <AutoComplete
+    options={[
+      { value: 'apple', label: 'Apple' },
+      { value: 'apricot', label: 'Apricot' },
+      { value: 'banana', label: 'Banana' },
+    ]}
+    filterOption={(input, option) => option.value.startsWith(input.toLowerCase())}
+    placeholder="Filter by value prefix"
+  />
+);
+```
+
+## Disabled
+
+```tsx preview
+import { AutoComplete } from '@koi-ui/core';
+export default () => (
+  <AutoComplete
+    disabled
+    value="Apple"
+    options={[
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ]}
+    placeholder="Search"
+  />
+);
+```
+
+## onSelect
+
+```tsx preview
+import { AutoComplete, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('');
+  const [selected, setSelected] = useState('');
+  return (
+    <div>
+      <AutoComplete
+        value={value}
+        onChange={setValue}
+        onSelect={(opt) => setSelected(`${opt.label} (${opt.value})`)}
+        options={[
+          { value: 'apple', label: 'Apple' },
+          { value: 'banana', label: 'Banana' },
+          { value: 'cherry', label: 'Cherry', disabled: true },
+        ]}
+        placeholder="Search and select"
+      />
+      <Text muted className="mt-2 block text-sm">Last selected: {selected || 'None'}</Text>
+    </div>
+  );
 };
 ```
 

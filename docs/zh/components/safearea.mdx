@@ -1,4 +1,3 @@
-
 # SafeArea 安全区
 
 ## 基础用法
@@ -6,14 +5,38 @@
 ```tsx preview
 import { SafeArea, Text } from '@koi-ui/core';
 export default () => (
-  <div className="koi-safe-area-demo flex h-full min-h-[28rem] flex-col overflow-hidden bg-primary/25" style={{ ['--koi-safe-area-top']: '48px', ['--koi-safe-area-bottom']: '34px' }}>
+  <div
+    className="koi-safe-area-demo flex h-full min-h-[28rem] flex-col overflow-hidden bg-primary/25"
+    style={{ ['--koi-safe-area-top']: '48px', ['--koi-safe-area-bottom']: '34px' }}
+  >
     <SafeArea className="flex h-full min-h-0 flex-col bg-muted">
       <div className="flex flex-1 flex-col items-center justify-center gap-2 px-4 text-center">
         <Text className="font-medium">安全区域内容</Text>
-        <Text muted size="sm">上下彩色留白为安全区</Text>
+        <Text muted size="sm">上下彩色留白为安全区（默认 both）</Text>
       </div>
     </SafeArea>
   </div>
+);
+```
+
+## 位置
+
+```tsx preview
+import { SafeArea, Space, Text } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    {(['top', 'bottom', 'both'] as const).map((position) => (
+      <div
+        key={position}
+        className="overflow-hidden rounded-md bg-primary/25"
+        style={{ ['--koi-safe-area-top']: '24px', ['--koi-safe-area-bottom']: '24px' }}
+      >
+        <SafeArea position={position} className="bg-muted px-3 py-2">
+          <Text size="sm">position=&quot;{position}&quot;</Text>
+        </SafeArea>
+      </div>
+    ))}
+  </Space>
 );
 ```
 

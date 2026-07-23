@@ -1,11 +1,68 @@
-
 # FloatingPanel 浮动面板
 
 ## 基础用法
 
 ```tsx preview
-import { FloatingPanel } from '@koi-ui/core';
-export default () => <FloatingPanel title="面板"><div className="p-4">可拖拽面板内容</div></FloatingPanel>;
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>打开面板</Button>
+      <FloatingPanel open={open} onClose={() => setOpen(false)} title="面板标题">
+        拖拽顶部手柄可调整高度，点击遮罩关闭。
+      </FloatingPanel>
+    </>
+  );
+};
+```
+
+## 锚点高度
+
+```tsx preview
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>多锚点</Button>
+      <FloatingPanel
+        open={open}
+        onClose={() => setOpen(false)}
+        title="锚点"
+        anchors={[0.3, 0.5, 0.8]}
+        defaultAnchor={0.5}
+      >
+        松手后吸附到最近的视口高度比例。
+      </FloatingPanel>
+    </>
+  );
+};
+```
+
+## 无遮罩
+
+```tsx preview
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>无遮罩面板</Button>
+      <FloatingPanel
+        open={open}
+        onClose={() => setOpen(false)}
+        title="无遮罩"
+        showOverlay={false}
+      >
+        showOverlay 为 false 时不显示遮罩层。
+      </FloatingPanel>
+    </>
+  );
+};
 ```
 
 ## API

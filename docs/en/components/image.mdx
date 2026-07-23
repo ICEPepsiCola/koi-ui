@@ -1,11 +1,42 @@
-
 # Image
 
 ## Basic usage
 
 ```tsx preview
 import { Image } from '@koi-ui/core';
-export default () => <Image src="https://picsum.photos/200/120" alt="demo" width={200} height={120} />;
+export default () => (
+  <Image src="https://picsum.photos/200/120" alt="demo" width={200} height={120} />
+);
+```
+
+## Preview
+
+```tsx preview
+import { Image } from '@koi-ui/core';
+export default () => (
+  <Image
+    src="https://picsum.photos/240/160"
+    alt="preview"
+    width={240}
+    height={160}
+    preview
+  />
+);
+```
+
+## Fallback
+
+```tsx preview
+import { Image } from '@koi-ui/core';
+export default () => (
+  <Image
+    src="https://invalid.example/broken.jpg"
+    alt="broken"
+    width={200}
+    height={120}
+    fallback="Failed to load"
+  />
+);
 ```
 
 ## API

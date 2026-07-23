@@ -1,11 +1,119 @@
-
 # Menu 菜单
 
 ## 基础用法
 
 ```tsx preview
 import { Menu } from '@koi-ui/core';
-export default () => <Menu items={[{ key: '1', label: '导航一' }, { key: '2', label: '导航二' }]} defaultSelectedKey="1" />;
+export default () => (
+  <Menu
+    defaultSelectedKey="1"
+    items={[
+      { key: '1', label: '导航一' },
+      { key: '2', label: '导航二' },
+      { key: '3', label: '导航三' },
+    ]}
+  />
+);
+```
+
+## 模式
+
+```tsx preview
+import { Menu, Space, Text } from '@koi-ui/core';
+
+const items = [
+  { key: '1', label: '首页' },
+  { key: '2', label: '发现' },
+  { key: '3', label: '我的' },
+];
+
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">vertical</Text>
+      <Menu mode="vertical" defaultSelectedKey="1" items={items} />
+    </div>
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">horizontal</Text>
+      <Menu mode="horizontal" defaultSelectedKey="2" items={items} />
+    </div>
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">inline</Text>
+      <Menu mode="inline" defaultSelectedKey="3" items={items} />
+    </div>
+  </Space>
+);
+```
+
+## 嵌套与默认展开
+
+```tsx preview
+import { Menu } from '@koi-ui/core';
+export default () => (
+  <Menu
+    defaultSelectedKey="1-1"
+    defaultOpenKeys={['1']}
+    items={[
+      {
+        key: '1',
+        label: '产品',
+        children: [
+          { key: '1-1', label: '概览' },
+          { key: '1-2', label: '定价' },
+        ],
+      },
+      {
+        key: '2',
+        label: '资源',
+        children: [
+          { key: '2-1', label: '文档' },
+          { key: '2-2', label: '博客' },
+        ],
+      },
+      { key: '3', label: '关于' },
+    ]}
+  />
+);
+```
+
+## 禁用与危险项
+
+```tsx preview
+import { Menu } from '@koi-ui/core';
+export default () => (
+  <Menu
+    defaultSelectedKey="1"
+    items={[
+      { key: '1', label: '编辑' },
+      { key: '2', label: '已禁用', disabled: true },
+      { key: '3', label: '删除', danger: true },
+    ]}
+  />
+);
+```
+
+## 受控选中
+
+```tsx preview
+import { Menu, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [selectedKey, setSelectedKey] = useState('home');
+  return (
+    <div className="space-y-2">
+      <Text size="sm">当前选中：{selectedKey}</Text>
+      <Menu
+        selectedKey={selectedKey}
+        onSelect={setSelectedKey}
+        items={[
+          { key: 'home', label: '首页' },
+          { key: 'explore', label: '发现' },
+          { key: 'profile', label: '我的' },
+        ]}
+      />
+    </div>
+  );
+};
 ```
 
 ## API

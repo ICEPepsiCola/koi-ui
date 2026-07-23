@@ -1,11 +1,17 @@
-
 # Tabs
 
 ## Basic usage
 
 ```tsx preview
 import { Tabs, Text } from '@koi-ui/core';
-export default () => <Tabs items={[{ key:'1', label:'Tab1', children:<Text>Content 1</Text> }, { key:'2', label:'Tab2', children:<Text>Content 2</Text> }]} />;
+export default () => (
+  <Tabs
+    items={[
+      { key: '1', label: 'Tab1', children: <Text>Content 1</Text> },
+      { key: '2', label: 'Tab2', children: <Text>Content 2</Text> },
+    ]}
+  />
+);
 ```
 
 ## Controlled tabs
@@ -26,6 +32,37 @@ export default () => {
     />
   );
 };
+```
+
+## Default active
+
+```tsx preview
+import { Tabs, Text } from '@koi-ui/core';
+export default () => (
+  <Tabs
+    defaultActiveKey="b"
+    items={[
+      { key: 'a', label: 'Tab A', children: <Text>Panel A</Text> },
+      { key: 'b', label: 'Tab B', children: <Text>Panel B (default)</Text> },
+      { key: 'c', label: 'Tab C', children: <Text>Panel C</Text> },
+    ]}
+  />
+);
+```
+
+## Disabled items
+
+```tsx preview
+import { Tabs, Text } from '@koi-ui/core';
+export default () => (
+  <Tabs
+    items={[
+      { key: '1', label: 'Enabled', children: <Text>Enabled panel</Text> },
+      { key: '2', label: 'Disabled', children: <Text>Hidden</Text>, disabled: true },
+      { key: '3', label: 'Other', children: <Text>Other panel</Text> },
+    ]}
+  />
+);
 ```
 
 ## API

@@ -1,11 +1,50 @@
-
 # Ellipsis 文本省略
 
 ## 基础用法
 
 ```tsx preview
 import { Ellipsis } from '@koi-ui/core';
-export default () => <Ellipsis content="这是一段很长的文字，用来演示文本省略效果：当内容宽度超过容器时，超出部分会被省略显示，并在末尾展示省略号，方便在列表、卡片等有限空间里保留可读性。" rows={1} />;
+export default () => (
+  <Ellipsis content="这是一段很长的文字，用来演示文本省略效果：当内容宽度超过容器时，超出部分会被省略显示，并在末尾展示省略号，方便在列表、卡片等有限空间里保留可读性。" />
+);
+```
+
+## 多行省略
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis
+    rows={2}
+    content="这是一段很长的文字，用来演示多行文本省略。内容会按指定行数截断，超出部分隐藏。点击展开后可查看全部内容，再次点击即可收起。"
+  />
+);
+```
+
+## 自定义文案
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis
+    rows={2}
+    expandText="查看更多"
+    collapseText="收起全文"
+    content="自定义展开与收起文案。这是一段用于演示的说明文字，足够长以便触发多行省略，并展示自定义按钮文案的效果。"
+  />
+);
+```
+
+## 不可展开
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis
+    expandable={false}
+    content="不可展开时仅展示省略效果，不会出现展开按钮。适合只读摘要场景：这是一段较长的说明文字。"
+  />
+);
 ```
 
 ## API

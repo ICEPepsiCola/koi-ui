@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import type { FieldSize } from '../../utils/interaction';
@@ -21,6 +21,8 @@ export interface CascaderSheetViewProps {
   size?: FieldSize;
 }
 
+const EMPTY_VALUE: string[] = [];
+
 function getOptionPath(options: CascaderOption[], values: string[]) {
   const labels: string[] = [];
   let current = options;
@@ -33,9 +35,12 @@ function getOptionPath(options: CascaderOption[], values: string[]) {
   return labels;
 }
 
+/**
+ * Mobile Cascader — stepwise bottom sheet (no drum).
+ */
 export function CascaderSheetView({
   options,
-  value = [],
+  value = EMPTY_VALUE,
   onChange,
   placeholder = '请选择',
   disabled = false,
@@ -59,6 +64,11 @@ export function CascaderSheetView({
   }, [options, path]);
 
   useScrollLock(open);
+
+  useEffect(() => {
+    if (!open) return;
+    setPath([]);
+  }, [open]);
 
   const closeSheet = () => {
     setOpen(false);
@@ -106,7 +116,7 @@ export function CascaderSheetView({
           <div className="flex h-full items-end">
             <MotionPanel
               variant="bottom"
-              className="max-h-[70vh] w-full overflow-hidden rounded-t-box border border-border/80 bg-surface shadow-overlay"
+              className="max-h-[70vh] w-full overflow-hidden rounded-t-[14px] bg-surface pb-safe shadow-overlay"
               onClick={(e) => e.stopPropagation()}
             >
               <SheetChrome
@@ -116,7 +126,7 @@ export function CascaderSheetView({
                 showConfirm={false}
               >
                 {breadcrumb.length > 0 ? (
-                  <div className="flex items-center gap-1 border-b border-border/80 px-4 py-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1 border-b border-border/70 px-4 py-2 text-sm text-muted-foreground">
                     <button type="button" onClick={() => setPath([])}>
                       全部
                     </button>
@@ -133,7 +143,7 @@ export function CascaderSheetView({
                     ))}
                   </div>
                 ) : null}
-                <div className="max-h-[50vh] overflow-y-auto px-2 pb-3 pt-1">
+                <div className="max-h-[50vh] overflow-y-auto px-2 pb-4 pt-1">
                   {(path.length === 0 ? options : currentOptions).map((opt) => (
                     <OptionRow
                       key={opt.value}

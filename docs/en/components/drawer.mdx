@@ -1,15 +1,6 @@
-
 # Drawer
 
 ## Basic usage
-
-```tsx preview
-import { Drawer, Button } from '@koi-ui/core';
-import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Open drawer</Button><Drawer open={o} onClose={()=>setO(false)} title="Drawer title">Content</Drawer></>; };
-```
-
-## Bottom drawer
 
 ```tsx preview
 import { Drawer, Button } from '@koi-ui/core';
@@ -18,9 +9,108 @@ export default () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open bottom</Button>
-      <Drawer open={open} onClose={() => setOpen(false)} title="Filter" placement="bottom">
-        Filter panel content
+      <Button onClick={() => setOpen(true)}>Open drawer</Button>
+      <Drawer open={open} onClose={() => setOpen(false)} title="Drawer title">
+        Content
+      </Drawer>
+    </>
+  );
+};
+```
+
+## Placement
+
+```tsx preview
+import { Drawer, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [placement, setPlacement] = useState<'left' | 'right' | 'top' | 'bottom'>('right');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space wrap>
+        {(['left', 'right', 'top', 'bottom'] as const).map((p) => (
+          <Button
+            key={p}
+            size="sm"
+            onClick={() => {
+              setPlacement(p);
+              setOpen(true);
+            }}
+          >
+            {p}
+          </Button>
+        ))}
+      </Space>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`placement=${placement}`}
+        placement={placement}
+      >
+        Slides in from {placement}
+      </Drawer>
+    </>
+  );
+};
+```
+
+## Size
+
+```tsx preview
+import { Drawer, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [size, setSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space>
+        {(['sm', 'md', 'lg'] as const).map((s) => (
+          <Button
+            key={s}
+            size="sm"
+            onClick={() => {
+              setSize(s);
+              setOpen(true);
+            }}
+          >
+            {s}
+          </Button>
+        ))}
+      </Space>
+      <Drawer open={open} onClose={() => setOpen(false)} title={`size=${size}`} size={size}>
+        Different drawer sizes
+      </Drawer>
+    </>
+  );
+};
+```
+
+## Footer
+
+```tsx preview
+import { Drawer, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>With footer</Button>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Edit"
+        footer={
+          <Space>
+            <Button variant="secondary" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={() => setOpen(false)}>Save</Button>
+          </Space>
+        }
+      >
+        Drawer content with footer
       </Drawer>
     </>
   );

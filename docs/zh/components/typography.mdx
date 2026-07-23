@@ -5,12 +5,14 @@
 
 ```tsx preview
 import { Typography } from '@koi-ui/core';
-const { Title, Text, Paragraph } = Typography;
+const { Title, Text, Paragraph, Link } = Typography;
 export default () => (
-  <div>
+  <div className="space-y-2">
     <Title level={3}>标题</Title>
-    <Paragraph>段落文字</Paragraph>
-    <Text muted>辅助文字</Text>
+    <Paragraph>段落用于较长正文内容。</Paragraph>
+    <Text type="secondary">辅助文字</Text>
+    {' · '}
+    <Link href="#">链接</Link>
   </div>
 );
 ```
@@ -21,11 +23,74 @@ export default () => (
 import { Typography } from '@koi-ui/core';
 const { Title } = Typography;
 export default () => (
-  <div>
+  <div className="space-y-2">
     <Title level={1}>H1 标题</Title>
+    <Title level={2}>H2 标题</Title>
     <Title level={3}>H3 标题</Title>
+    <Title level={4}>H4 标题</Title>
     <Title level={5}>H5 标题</Title>
+    <Title level={6}>H6 标题</Title>
+    <Title level={4} ellipsis className="max-w-48">
+      超长标题会被截断显示超长标题会被截断
+    </Title>
   </div>
+);
+```
+
+## 文本样式
+
+```tsx preview
+import { Typography, Space } from '@koi-ui/core';
+const { Text } = Typography;
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Space wrap>
+      <Text size="xs">xs</Text>
+      <Text size="sm">sm</Text>
+      <Text size="md">md</Text>
+      <Text size="lg">lg</Text>
+    </Space>
+    <Space wrap>
+      <Text>默认</Text>
+      <Text type="secondary">次要</Text>
+      <Text type="success">成功</Text>
+      <Text type="warning">警告</Text>
+      <Text type="danger">危险</Text>
+      <Text strong>加粗</Text>
+    </Space>
+    <Text ellipsis className="block max-w-48">
+      超长文本会被截断显示超长文本会被截断显示
+    </Text>
+  </Space>
+);
+```
+
+## 段落
+
+```tsx preview
+import { Typography } from '@koi-ui/core';
+const { Paragraph } = Typography;
+export default () => (
+  <div className="space-y-3 max-w-md">
+    <Paragraph>默认段落：用于正文说明与较长描述。</Paragraph>
+    <Paragraph type="secondary">次要段落：语气更轻的补充说明。</Paragraph>
+    <Paragraph ellipsis>
+      省略段落：超出三行后折叠。超出三行后折叠。超出三行后折叠。超出三行后折叠。超出三行后折叠。超出三行后折叠。超出三行后折叠。超出三行后折叠。
+    </Paragraph>
+  </div>
+);
+```
+
+## 链接
+
+```tsx preview
+import { Typography, Space } from '@koi-ui/core';
+const { Link } = Typography;
+export default () => (
+  <Space>
+    <Link href="#">默认链接</Link>
+    <Link href="#" disabled>禁用链接</Link>
+  </Space>
 );
 ```
 

@@ -1,11 +1,52 @@
-
 # Tooltip 文字提示
 
 ## 基础用法
 
 ```tsx preview
 import { Tooltip, Button } from '@koi-ui/core';
-export default () => <Tooltip content="提示文字"><Button>悬停</Button></Tooltip>;
+export default () => (
+  <Tooltip content="提示文字">
+    <Button>悬停</Button>
+  </Tooltip>
+);
+```
+
+## 位置
+
+```tsx preview
+import { Tooltip, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Tooltip placement="top" content="上方">
+      <Button size="sm">top</Button>
+    </Tooltip>
+    <Tooltip placement="bottom" content="下方">
+      <Button size="sm">bottom</Button>
+    </Tooltip>
+    <Tooltip placement="left" content="左侧">
+      <Button size="sm">left</Button>
+    </Tooltip>
+    <Tooltip placement="right" content="右侧">
+      <Button size="sm">right</Button>
+    </Tooltip>
+  </Space>
+);
+```
+
+## 变体
+
+```tsx preview
+import { Tooltip, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Tooltip content="深色提示" variant="default">
+      <Button>default</Button>
+    </Tooltip>
+    <Tooltip content="浅色提示" variant="light">
+      <Button variant="outline">light</Button>
+    </Tooltip>
+  </Space>
+);
 ```
 
 ## API

@@ -1,11 +1,126 @@
-
 # Notification 通知提醒
 
 ## 基础用法
 
 ```tsx preview
-import { Notification } from '@koi-ui/core';
-export default () => <Notification title="通知" description="这是一条通知" />;
+import { Notification, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>显示通知</Button>
+      <Notification
+        open={open}
+        onClose={() => setOpen(false)}
+        title="通知"
+        description="这是一条通知消息"
+      />
+    </>
+  );
+};
+```
+
+## 类型
+
+```tsx preview
+import { Notification, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [type, setType] = useState(null);
+  return (
+    <>
+      <Space wrap>
+        <Button variant="outline" onClick={() => setType('info')}>info</Button>
+        <Button variant="soft" onClick={() => setType('success')}>success</Button>
+        <Button variant="secondary" onClick={() => setType('warning')}>warning</Button>
+        <Button variant="destructive" onClick={() => setType('error')}>error</Button>
+      </Space>
+      {type ? (
+        <Notification
+          type={type}
+          open
+          onClose={() => setType(null)}
+          title={type}
+          description={`${type} 类型通知`}
+        />
+      ) : null}
+    </>
+  );
+};
+```
+
+## 位置
+
+```tsx preview
+import { Notification, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [placement, setPlacement] = useState(null);
+  return (
+    <>
+      <Space wrap>
+        <Button size="sm" onClick={() => setPlacement('topRight')}>topRight</Button>
+        <Button size="sm" variant="outline" onClick={() => setPlacement('topLeft')}>topLeft</Button>
+        <Button size="sm" variant="secondary" onClick={() => setPlacement('bottomRight')}>bottomRight</Button>
+        <Button size="sm" variant="ghost" onClick={() => setPlacement('bottomLeft')}>bottomLeft</Button>
+      </Space>
+      {placement ? (
+        <Notification
+          open
+          placement={placement}
+          onClose={() => setPlacement(null)}
+          title="位置演示"
+          description={`placement=${placement}`}
+        />
+      ) : null}
+    </>
+  );
+};
+```
+
+## useNotification
+
+```tsx preview
+import { NotificationProvider, useNotification, Button, Space } from '@koi-ui/core';
+
+function Demo() {
+  const { notify } = useNotification();
+  return (
+    <Space wrap>
+      <Button
+        onClick={() =>
+          notify({
+            title: '已保存',
+            description: '设置已成功更新',
+            type: 'success',
+          })
+        }
+      >
+        成功通知
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() =>
+          notify({
+            title: '提醒',
+            description: '请检查网络连接',
+            type: 'warning',
+            placement: 'bottomRight',
+          })
+        }
+      >
+        警告（右下）
+      </Button>
+    </Space>
+  );
+}
+
+export default () => (
+  <NotificationProvider>
+    <Demo />
+  </NotificationProvider>
+);
 ```
 
 ## API

@@ -1,11 +1,52 @@
-
 # Tooltip
 
 ## Basic usage
 
 ```tsx preview
 import { Tooltip, Button } from '@koi-ui/core';
-export default () => <Tooltip content="Tip text"><Button>Hover</Button></Tooltip>;
+export default () => (
+  <Tooltip content="Tip text">
+    <Button>Hover</Button>
+  </Tooltip>
+);
+```
+
+## Placement
+
+```tsx preview
+import { Tooltip, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Tooltip placement="top" content="Top">
+      <Button size="sm">top</Button>
+    </Tooltip>
+    <Tooltip placement="bottom" content="Bottom">
+      <Button size="sm">bottom</Button>
+    </Tooltip>
+    <Tooltip placement="left" content="Left">
+      <Button size="sm">left</Button>
+    </Tooltip>
+    <Tooltip placement="right" content="Right">
+      <Button size="sm">right</Button>
+    </Tooltip>
+  </Space>
+);
+```
+
+## Variants
+
+```tsx preview
+import { Tooltip, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Tooltip content="Dark tip" variant="default">
+      <Button>default</Button>
+    </Tooltip>
+    <Tooltip content="Light tip" variant="light">
+      <Button variant="outline">light</Button>
+    </Tooltip>
+  </Space>
+);
 ```
 
 ## API

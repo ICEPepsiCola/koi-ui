@@ -5,8 +5,44 @@
 
 ```tsx preview
 import { Rate } from '@koi-ui/core';
+export default () => <Rate defaultValue={3} />;
+```
+
+## 半星
+
+```tsx preview
+import { Rate } from '@koi-ui/core';
+export default () => <Rate allowHalf defaultValue={2.5} />;
+```
+
+## 数量
+
+```tsx preview
+import { Rate } from '@koi-ui/core';
+export default () => <Rate count={10} defaultValue={6} />;
+```
+
+## 禁用
+
+```tsx preview
+import { Rate } from '@koi-ui/core';
+export default () => <Rate disabled defaultValue={4} />;
+```
+
+## 受控
+
+```tsx preview
+import { Rate, Space, Text } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(3); return <Rate value={v} onChange={setV} />; };
+export default () => {
+  const [value, setValue] = useState(3);
+  return (
+    <Space align="center">
+      <Rate value={value} onChange={setValue} />
+      <Text size="sm" muted>{value}</Text>
+    </Space>
+  );
+};
 ```
 
 ## API

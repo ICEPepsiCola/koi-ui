@@ -1,12 +1,45 @@
 
-# Slider 滑动输入
+# Slider 滑动输入条
 
 ## 基础用法
 
 ```tsx preview
 import { Slider } from '@koi-ui/core';
-import { useState } from 'react';
-export default () => { const [v,setV]=useState(30); return <Slider value={v} onChange={setV} />; };
+export default () => <Slider defaultValue={40} />;
+```
+
+## 尺寸
+
+```tsx preview
+import { Slider, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={4}>
+    <Slider size="sm" defaultValue={30} />
+    <Slider size="md" defaultValue={50} />
+    <Slider size="lg" defaultValue={70} />
+  </Stack>
+);
+```
+
+## 范围与步长
+
+```tsx preview
+import { Slider } from '@koi-ui/core';
+export default () => <Slider min={0} max={10} step={0.5} defaultValue={3.5} showValue />;
+```
+
+## 显示数值
+
+```tsx preview
+import { Slider } from '@koi-ui/core';
+export default () => <Slider defaultValue={65} showValue />;
+```
+
+## 禁用
+
+```tsx preview
+import { Slider } from '@koi-ui/core';
+export default () => <Slider disabled defaultValue={50} showValue />;
 ```
 
 ## API

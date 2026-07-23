@@ -5,7 +5,47 @@
 
 ```tsx preview
 import { Divider } from '@koi-ui/core';
-export default () => <Divider>分割文字</Divider>;
+export default () => (
+  <div>
+    <p>上方内容</p>
+    <Divider />
+    <p>下方内容</p>
+  </div>
+);
+```
+
+## 带文字
+
+```tsx preview
+import { Divider } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Divider plain={false}>分割文字</Divider>
+    <Divider plain={false} dashed>虚线文字</Divider>
+  </div>
+);
+```
+
+## 虚线
+
+```tsx preview
+import { Divider } from '@koi-ui/core';
+export default () => <Divider dashed />;
+```
+
+## 垂直分割
+
+```tsx preview
+import { Divider, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <span>左侧</span>
+    <Divider type="vertical" />
+    <span>中间</span>
+    <Divider type="vertical" />
+    <span>右侧</span>
+  </Space>
+);
 ```
 
 ## API

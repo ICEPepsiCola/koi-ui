@@ -5,7 +5,46 @@
 
 ```tsx preview
 import { Timeline } from '@koi-ui/core';
-export default () => <Timeline items={[{ key:'1', children:'Create project' }, { key:'2', children:'Release' }, { key:'3', children:'Keep iterating' }]} />;
+export default () => (
+  <Timeline
+    items={[
+      { key: '1', children: 'Create project' },
+      { key: '2', children: 'Ship release' },
+      { key: '3', children: 'Keep iterating' },
+    ]}
+  />
+);
+```
+
+## Label & color
+
+```tsx preview
+import { Timeline } from '@koi-ui/core';
+export default () => (
+  <Timeline
+    items={[
+      { key: '1', label: '2024-01', children: 'Kickoff', color: 'primary' },
+      { key: '2', label: '2024-03', children: 'Beta passed', color: 'success' },
+      { key: '3', label: '2024-06', children: 'Hotfix', color: 'destructive' },
+      { key: '4', label: '2024-07', children: 'GA release', color: 'default' },
+    ]}
+  />
+);
+```
+
+## Pending
+
+```tsx preview
+import { Timeline } from '@koi-ui/core';
+export default () => (
+  <Timeline
+    pending="Loading more..."
+    items={[
+      { key: '1', label: 'Today', children: 'Submit design' },
+      { key: '2', label: 'Yesterday', children: 'Review passed' },
+    ]}
+  />
+);
 ```
 
 ## API

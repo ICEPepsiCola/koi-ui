@@ -1,4 +1,3 @@
-
 # ActionSheet 动作面板
 
 ## 基础用法
@@ -6,7 +5,22 @@
 ```tsx preview
 import { ActionSheet, Button } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>打开</Button><ActionSheet open={o} onClose={()=>setO(false)} actions={[{ key:'1', text:'选项一' }, { key:'2', text:'选项二' }]} /></>; };
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>打开</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        actions={[
+          { key: '1', text: '选项一' },
+          { key: '2', text: '选项二' },
+        ]}
+      />
+    </>
+  );
+};
 ```
 
 ## 带标题描述
@@ -27,6 +41,34 @@ export default () => {
         actions={[
           { key: 'wechat', text: '微信' },
           { key: 'link', text: '复制链接' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
+## 危险与禁用
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button variant="destructive" onClick={() => setOpen(true)}>
+        管理
+      </Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="操作"
+        cancelText="关闭"
+        actions={[
+          { key: 'edit', text: '编辑' },
+          { key: 'archive', text: '归档', disabled: true },
+          { key: 'delete', text: '删除', destructive: true },
         ]}
       />
     </>

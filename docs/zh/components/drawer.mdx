@@ -1,15 +1,6 @@
-
 # Drawer 抽屉
 
 ## 基础用法
-
-```tsx preview
-import { Drawer, Button } from '@koi-ui/core';
-import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>打开抽屉</Button><Drawer open={o} onClose={()=>setO(false)} title="抽屉标题">内容</Drawer></>; };
-```
-
-## 底部抽屉
 
 ```tsx preview
 import { Drawer, Button } from '@koi-ui/core';
@@ -18,9 +9,108 @@ export default () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setOpen(true)}>底部弹出</Button>
-      <Drawer open={open} onClose={() => setOpen(false)} title="筛选" placement="bottom">
-        筛选面板内容
+      <Button onClick={() => setOpen(true)}>打开抽屉</Button>
+      <Drawer open={open} onClose={() => setOpen(false)} title="抽屉标题">
+        内容
+      </Drawer>
+    </>
+  );
+};
+```
+
+## 弹出方向
+
+```tsx preview
+import { Drawer, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [placement, setPlacement] = useState<'left' | 'right' | 'top' | 'bottom'>('right');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space wrap>
+        {(['left', 'right', 'top', 'bottom'] as const).map((p) => (
+          <Button
+            key={p}
+            size="sm"
+            onClick={() => {
+              setPlacement(p);
+              setOpen(true);
+            }}
+          >
+            {p}
+          </Button>
+        ))}
+      </Space>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`placement=${placement}`}
+        placement={placement}
+      >
+        从 {placement} 方向滑出
+      </Drawer>
+    </>
+  );
+};
+```
+
+## 尺寸
+
+```tsx preview
+import { Drawer, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [size, setSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space>
+        {(['sm', 'md', 'lg'] as const).map((s) => (
+          <Button
+            key={s}
+            size="sm"
+            onClick={() => {
+              setSize(s);
+              setOpen(true);
+            }}
+          >
+            {s}
+          </Button>
+        ))}
+      </Space>
+      <Drawer open={open} onClose={() => setOpen(false)} title={`size=${size}`} size={size}>
+        不同尺寸的抽屉宽度/高度
+      </Drawer>
+    </>
+  );
+};
+```
+
+## 底部操作
+
+```tsx preview
+import { Drawer, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>带底部</Button>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title="编辑"
+        footer={
+          <Space>
+            <Button variant="secondary" onClick={() => setOpen(false)}>
+              取消
+            </Button>
+            <Button onClick={() => setOpen(false)}>保存</Button>
+          </Space>
+        }
+      >
+        带 footer 的抽屉内容
       </Drawer>
     </>
   );

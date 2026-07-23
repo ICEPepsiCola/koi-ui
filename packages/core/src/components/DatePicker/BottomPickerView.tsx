@@ -30,6 +30,9 @@ function buildYears(min?: string, max?: string) {
   return years;
 }
 
+/**
+ * Mobile DatePicker — classic iOS year/month/day wheel sheet.
+ */
 export function BottomPickerView({
   value,
   onChange,
@@ -106,7 +109,7 @@ export function BottomPickerView({
           <div className="flex h-full items-end">
             <MotionPanel
               variant="bottom"
-              className="w-full rounded-t-box border border-border/80 bg-surface pb-safe shadow-overlay"
+              className="w-full rounded-t-[14px] bg-surface pb-safe shadow-overlay"
               onClick={(e) => e.stopPropagation()}
             >
               <SheetChrome
@@ -114,8 +117,9 @@ export function BottomPickerView({
                 onCancel={() => setOpen(false)}
                 onConfirm={confirm}
                 cancelText={messages.cancelActionText}
+                confirmText="完成"
               >
-                <div className="px-2 pb-5 pt-1">
+                <div className="px-3 pb-6 pt-1">
                   <PickerWheels
                     mode="drum"
                     maxVisibleRows={5}

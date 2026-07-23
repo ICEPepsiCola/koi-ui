@@ -145,7 +145,10 @@ export function SelectView({
           }
         }}
       />
-      <FloatMenu open={open} className="max-h-60 overflow-auto p-1">
+      <FloatMenu
+        open={open}
+        className="max-h-60 overflow-auto rounded-box border-border/70 p-1.5 shadow-sm"
+      >
         <ul id={listboxId} role="listbox" className="flex flex-col gap-0.5">
           {options.map((opt, index) => {
             const isSelected = opt.value === value;

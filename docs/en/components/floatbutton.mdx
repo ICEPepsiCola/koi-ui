@@ -1,11 +1,79 @@
-
 # FloatButton
 
 ## Basic usage
 
 ```tsx preview
 import { FloatButton, Icon } from '@koi-ui/core';
-export default () => <FloatButton icon={<Icon name="plus" />} />;
+export default () => (
+  <FloatButton
+    icon={<Icon name="plus" />}
+    description="Create"
+  />
+);
+```
+
+## Variants
+
+```tsx preview
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <>
+    <FloatButton
+      variant="primary"
+      placement="bottom-right"
+      icon={<Icon name="plus" />}
+      description="Primary"
+    />
+    <FloatButton
+      variant="secondary"
+      placement="bottom-left"
+      icon={<Icon name="search" />}
+      description="Secondary"
+    />
+  </>
+);
+```
+
+## Sizes
+
+```tsx preview
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <>
+    <FloatButton
+      size="sm"
+      placement="top-left"
+      icon={<Icon name="plus" size="sm" />}
+      description="Small"
+    />
+    <FloatButton
+      size="md"
+      placement="top-right"
+      icon={<Icon name="plus" />}
+      description="Medium"
+    />
+    <FloatButton
+      size="lg"
+      placement="bottom-right"
+      icon={<Icon name="plus" size="lg" />}
+      description="Large"
+    />
+  </>
+);
+```
+
+## Placement
+
+```tsx preview
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <>
+    <FloatButton placement="top-left" icon={<Icon name="arrow-left" />} description="Top left" />
+    <FloatButton placement="top-right" icon={<Icon name="arrow-right" />} description="Top right" />
+    <FloatButton placement="bottom-left" icon={<Icon name="minus" />} description="Bottom left" />
+    <FloatButton placement="bottom-right" icon={<Icon name="plus" />} description="Bottom right" />
+  </>
+);
 ```
 
 ## API

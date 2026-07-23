@@ -1,11 +1,42 @@
-
 # Watermark
 
 ## Basic usage
 
 ```tsx preview
 import { Watermark } from '@koi-ui/core';
-export default () => <Watermark content="Koi UI"><div className="h-32 flex items-center justify-center border border-border rounded-md">Watermark area</div></Watermark>;
+export default () => (
+  <Watermark content="Koi UI">
+    <div className="flex h-32 items-center justify-center rounded-md border border-border">
+      Watermark area
+    </div>
+  </Watermark>
+);
+```
+
+## Gap & rotate
+
+```tsx preview
+import { Watermark } from '@koi-ui/core';
+export default () => (
+  <Watermark content="Confidential" gap={[80, 80]} rotate={-30}>
+    <div className="flex h-40 items-center justify-center rounded-md border border-border">
+      Tune gap and rotate
+    </div>
+  </Watermark>
+);
+```
+
+## Font style
+
+```tsx preview
+import { Watermark } from '@koi-ui/core';
+export default () => (
+  <Watermark content="Draft" fontSize={18} fontColor="rgba(0,0,0,0.12)">
+    <div className="flex h-32 items-center justify-center rounded-md border border-border">
+      Custom size and color
+    </div>
+  </Watermark>
+);
 ```
 
 ## API

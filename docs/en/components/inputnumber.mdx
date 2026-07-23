@@ -1,4 +1,3 @@
-
 # InputNumber
 
 ## Basic usage
@@ -6,7 +5,10 @@
 ```tsx preview
 import { InputNumber } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(1); return <InputNumber value={v} onChange={setV} />; };
+export default () => {
+  const [v, setV] = useState(1);
+  return <InputNumber value={v} onChange={setV} />;
+};
 ```
 
 ## clearable
@@ -14,7 +16,58 @@ export default () => { const [v,setV]=useState(1); return <InputNumber value={v}
 ```tsx preview
 import { InputNumber } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(12); return <InputNumber value={v} onChange={setV} clearable />; };
+export default () => {
+  const [v, setV] = useState(12);
+  return <InputNumber value={v} onChange={setV} clearable />;
+};
+```
+
+## Size
+
+```tsx preview
+import { InputNumber, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <InputNumber size="sm" defaultValue={1} />
+    <InputNumber size="md" defaultValue={1} />
+    <InputNumber size="lg" defaultValue={1} />
+  </Space>
+);
+```
+
+## Min / max / step
+
+```tsx preview
+import { InputNumber, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState(0);
+  return (
+    <div>
+      <InputNumber value={v} onChange={setV} min={0} max={10} step={2} />
+      <Text muted className="mt-2 block text-sm">Current: {v ?? 'empty'} (0–10, step 2)</Text>
+    </div>
+  );
+};
+```
+
+## Error
+
+```tsx preview
+import { InputNumber, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <InputNumber error defaultValue={1} />
+    <InputNumber error="Out of allowed range" defaultValue={99} />
+  </Space>
+);
+```
+
+## Disabled
+
+```tsx preview
+import { InputNumber } from '@koi-ui/core';
+export default () => <InputNumber disabled value={5} />;
 ```
 
 ## API

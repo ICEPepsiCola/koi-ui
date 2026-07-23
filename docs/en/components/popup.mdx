@@ -1,4 +1,3 @@
-
 # Popup
 
 ## Basic usage
@@ -6,7 +5,81 @@
 ```tsx preview
 import { Popup, Button } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Popup</Button><Popup open={o} onClose={()=>setO(false)}>Popup content</Popup></>; };
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open popup</Button>
+      <Popup open={open} onClose={() => setOpen(false)} title="Notice">
+        Centered popup content.
+      </Popup>
+    </>
+  );
+};
+```
+
+## With footer
+
+```tsx preview
+import { Popup, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>With footer</Button>
+      <Popup
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Confirm"
+        footer={
+          <div className="flex justify-end gap-2 p-3">
+            <Space>
+              <Button variant="secondary" size="sm" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button size="sm" onClick={() => setOpen(false)}>
+                OK
+              </Button>
+            </Space>
+          </div>
+        }
+      >
+        Continue?
+      </Popup>
+    </>
+  );
+};
+```
+
+## Mask does not close
+
+```tsx preview
+import { Popup, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Mask locked</Button>
+      <Popup
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Important"
+        closeOnMask={false}
+        footer={
+          <div className="flex justify-end p-3">
+            <Button size="sm" onClick={() => setOpen(false)}>
+              Got it
+            </Button>
+          </div>
+        }
+      >
+        When closeOnMask is false, close via the button.
+      </Popup>
+    </>
+  );
+};
 ```
 
 ## API

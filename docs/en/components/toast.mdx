@@ -1,11 +1,67 @@
-
 # Toast
 
 ## Basic usage
 
 ```tsx preview
 import { Button, toast } from '@koi-ui/core';
-export default () => <Button onClick={() => toast.success('Success')}>Show toast</Button>;
+export default () => (
+  <Button onClick={() => toast('Default toast')}>Show toast</Button>
+);
+```
+
+## Types
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button onClick={() => toast('Default')}>default</Button>
+    <Button variant="outline" onClick={() => toast.info('Info toast')}>info</Button>
+    <Button variant="soft" onClick={() => toast.success('Success')}>success</Button>
+    <Button variant="secondary" onClick={() => toast.warning('Warning')}>warning</Button>
+    <Button variant="destructive" onClick={() => toast.error('Error')}>error</Button>
+  </Space>
+);
+```
+
+## Duration
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button onClick={() => toast.success('Closes in 2s', 2000)}>Success 2s</Button>
+    <Button variant="outline" onClick={() => toast.info('Custom duration', 4000)}>Info 4s</Button>
+    <Button
+      variant="secondary"
+      onClick={() => toast.show({ content: 'Does not auto-close', duration: 0 })}
+    >
+      No auto-close
+    </Button>
+  </Space>
+);
+```
+
+## Clear
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button
+      onClick={() => {
+        toast.info('First');
+        toast.success('Second', 5000);
+        toast.warning('Third', 5000);
+      }}
+    >
+      Stack toasts
+    </Button>
+    <Button variant="outline" onClick={() => toast.clear()}>
+      Clear all
+    </Button>
+  </Space>
+);
 ```
 
 ## API

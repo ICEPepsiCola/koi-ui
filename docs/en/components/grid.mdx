@@ -5,23 +5,94 @@
 
 ```tsx preview
 import { Row, Col } from '@koi-ui/core';
+const cell = 'rounded-md bg-muted p-3 text-center text-sm';
 export default () => (
-  <Row gutter={16}>
-    <Col span={12}><div className="bg-muted p-4 rounded-md">col-12</div></Col>
-    <Col span={12}><div className="bg-muted p-4 rounded-md">col-12</div></Col>
+  <Row gutter="md">
+    <Col span={12}><div className={cell}>span-12</div></Col>
+    <Col span={12}><div className={cell}>span-12</div></Col>
   </Row>
 );
 ```
 
-## Column offset
+## Column spans
+
+```tsx preview
+import { Row, Col } from '@koi-ui/core';
+const cell = 'rounded-md bg-muted p-3 text-center text-sm';
+export default () => (
+  <div className="space-y-3">
+    <Row gutter="md">
+      <Col span={6}><div className={cell}>6</div></Col>
+      <Col span={6}><div className={cell}>6</div></Col>
+      <Col span={6}><div className={cell}>6</div></Col>
+      <Col span={6}><div className={cell}>6</div></Col>
+    </Row>
+    <Row gutter="md">
+      <Col span={8}><div className={cell}>8</div></Col>
+      <Col span={8}><div className={cell}>8</div></Col>
+      <Col span={8}><div className={cell}>8</div></Col>
+    </Row>
+    <Row gutter="md">
+      <Col span={16}><div className={cell}>16</div></Col>
+      <Col span={8}><div className={cell}>8</div></Col>
+    </Row>
+  </div>
+);
+```
+
+## Offset
+
+```tsx preview
+import { Row, Col } from '@koi-ui/core';
+const cell = 'rounded-md bg-muted p-3 text-center text-sm';
+export default () => (
+  <Row gutter="md">
+    <Col span={8}><div className={cell}>span-8</div></Col>
+    <Col span={8} offset={8}><div className={cell}>offset-8</div></Col>
+  </Row>
+);
+```
+
+## Gutter
+
+```tsx preview
+import { Row, Col } from '@koi-ui/core';
+const cell = 'rounded-md bg-muted p-3 text-center text-sm';
+export default () => (
+  <div className="space-y-4">
+    <Row gutter="sm">
+      <Col span={12} gutter="sm"><div className={cell}>gutter sm</div></Col>
+      <Col span={12} gutter="sm"><div className={cell}>gutter sm</div></Col>
+    </Row>
+    <Row gutter="lg">
+      <Col span={12} gutter="lg"><div className={cell}>gutter lg</div></Col>
+      <Col span={12} gutter="lg"><div className={cell}>gutter lg</div></Col>
+    </Row>
+    <Row gutter={[24, 12]}>
+      <Col span={12} gutter={[24, 12]}><div className={cell}>[24, 12]</div></Col>
+      <Col span={12} gutter={[24, 12]}><div className={cell}>[24, 12]</div></Col>
+      <Col span={12} gutter={[24, 12]}><div className={cell}>[24, 12]</div></Col>
+      <Col span={12} gutter={[24, 12]}><div className={cell}>[24, 12]</div></Col>
+    </Row>
+  </div>
+);
+```
+
+## Alignment
 
 ```tsx preview
 import { Row, Col } from '@koi-ui/core';
 export default () => (
-  <Row gutter={16}>
-    <Col span={8}><div className="bg-muted p-4 rounded-md">span-8</div></Col>
-    <Col span={8} offset={8}><div className="bg-muted p-4 rounded-md">offset-8</div></Col>
-  </Row>
+  <div className="space-y-4">
+    <Row gutter="md" justify="center" align="middle" className="min-h-24 rounded-md border border-border">
+      <Col span={6}><div className="rounded-md bg-muted p-2 text-center text-sm">center</div></Col>
+      <Col span={6}><div className="rounded-md bg-muted p-6 text-center text-sm">middle</div></Col>
+    </Row>
+    <Row gutter="md" justify="between" align="bottom" className="min-h-24 rounded-md border border-border">
+      <Col span={6}><div className="rounded-md bg-muted p-2 text-center text-sm">start</div></Col>
+      <Col span={6}><div className="rounded-md bg-muted p-6 text-center text-sm">end</div></Col>
+    </Row>
+  </div>
 );
 ```
 

@@ -89,7 +89,13 @@ export * from './components/Ellipsis';
 export * from './components/Alert';
 export * from './components/Drawer';
 export { Modal, type ModalProps } from './components/Modal';
-export { Notification, type NotificationOptions } from './components/Notification';
+export {
+  Notification,
+  NotificationProvider,
+  useNotification,
+  type NotificationOptions,
+  type NotificationProps,
+} from './components/Notification';
 export * from './components/Popconfirm';
 export * from './components/Progress';
 export * from './components/Result';

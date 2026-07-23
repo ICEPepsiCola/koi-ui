@@ -37,8 +37,8 @@ export function OptionRow({
   const classes = cn(
     optionRowBase,
     !disabled && optionRowInteractive,
-    (active || selected) && optionRowActive,
-    selected && !active && optionRowSelected,
+    active && optionRowActive,
+    selected && optionRowSelected,
     disabled && 'cursor-not-allowed opacity-40',
     className,
   );

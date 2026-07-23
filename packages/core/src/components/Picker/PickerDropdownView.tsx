@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
-import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import {
+  controlTransition,
+  focusRing,
+  pressable,
+} from '../../utils/interaction';
 import type { FieldSize } from '../../utils/interaction';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
-import { PickerWheels } from '../shared/PickerWheels';
+import { MenuColumns } from '../shared/MenuColumns';
 import type { PickerColumn } from './Picker';
 
 export interface PickerDropdownViewProps {
@@ -33,7 +37,7 @@ function defaultDraft(columns: PickerColumn[], value: string[]) {
 }
 
 /**
- * Desktop Picker — floating multi-column drum panel.
+ * Desktop Picker — daisyUI-style multi-column menu panel.
  */
 export function PickerDropdownView({
   columns,
@@ -89,7 +93,13 @@ export function PickerDropdownView({
   };
 
   return (
-    <div ref={containerRef} className="koi-picker-demo relative w-full max-w-xs">
+    <div
+      ref={containerRef}
+      className={cn(
+        'koi-picker-demo relative w-full',
+        columns.length >= 3 ? 'max-w-sm' : 'max-w-xs',
+      )}
+    >
       <FieldTrigger
         size={size}
         open={open}
@@ -115,25 +125,22 @@ export function PickerDropdownView({
       <FloatMenu
         open={open}
         data-picker-panel="desktop"
-        className="overflow-hidden p-0"
+        className="overflow-hidden rounded-box border-border/70 p-0 shadow-sm"
       >
-        <div className="px-1 pt-1">
-          <PickerWheels
-            density="compact"
-            columns={columns.map((col, idx) => ({
-              key: String(idx),
-              options: col.options,
-              value: draft[idx] ?? '',
-              onChange: (val) => {
-                setDraft((prev) => {
-                  const next = [...prev];
-                  next[idx] = val;
-                  return next;
-                });
-              },
-            }))}
-          />
-        </div>
+        <MenuColumns
+          columns={columns.map((col, idx) => ({
+            key: String(idx),
+            options: col.options,
+            value: draft[idx] ?? '',
+            onChange: (val) => {
+              setDraft((prev) => {
+                const next = [...prev];
+                next[idx] = val;
+                return next;
+              });
+            },
+          }))}
+        />
         <div className="flex items-center justify-end gap-1 border-t border-border/70 px-2 py-2">
           <button
             type="button"
@@ -150,7 +157,7 @@ export function PickerDropdownView({
           <button
             type="button"
             className={cn(
-              'h-8 rounded-field px-3.5 text-sm font-medium text-primary-foreground bg-primary shadow-field',
+              'h-8 rounded-field bg-primary px-3.5 text-sm font-medium text-primary-foreground shadow-field',
               controlTransition,
               focusRing,
               pressable,

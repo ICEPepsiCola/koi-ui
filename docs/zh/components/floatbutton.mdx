@@ -1,11 +1,79 @@
-
 # FloatButton 悬浮按钮
 
 ## 基础用法
 
 ```tsx preview
 import { FloatButton, Icon } from '@koi-ui/core';
-export default () => <FloatButton icon={<Icon name="plus" />} />;
+export default () => (
+  <FloatButton
+    icon={<Icon name="plus" />}
+    description="新建"
+  />
+);
+```
+
+## 变体
+
+```tsx preview
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <>
+    <FloatButton
+      variant="primary"
+      placement="bottom-right"
+      icon={<Icon name="plus" />}
+      description="主色"
+    />
+    <FloatButton
+      variant="secondary"
+      placement="bottom-left"
+      icon={<Icon name="search" />}
+      description="次要"
+    />
+  </>
+);
+```
+
+## 尺寸
+
+```tsx preview
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <>
+    <FloatButton
+      size="sm"
+      placement="top-left"
+      icon={<Icon name="plus" size="sm" />}
+      description="小号"
+    />
+    <FloatButton
+      size="md"
+      placement="top-right"
+      icon={<Icon name="plus" />}
+      description="中号"
+    />
+    <FloatButton
+      size="lg"
+      placement="bottom-right"
+      icon={<Icon name="plus" size="lg" />}
+      description="大号"
+    />
+  </>
+);
+```
+
+## 位置
+
+```tsx preview
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <>
+    <FloatButton placement="top-left" icon={<Icon name="arrow-left" />} description="左上" />
+    <FloatButton placement="top-right" icon={<Icon name="arrow-right" />} description="右上" />
+    <FloatButton placement="bottom-left" icon={<Icon name="minus" />} description="左下" />
+    <FloatButton placement="bottom-right" icon={<Icon name="plus" />} description="右下" />
+  </>
+);
 ```
 
 ## API

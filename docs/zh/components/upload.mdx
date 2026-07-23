@@ -1,4 +1,3 @@
-
 # Upload 上传
 
 ## 基础用法
@@ -12,7 +11,25 @@ export default () => <Upload accept="image/*" />;
 
 ```tsx preview
 import { Upload } from '@koi-ui/core';
-export default () => <Upload accept="image/*" hint="支持 JPG/PNG，单文件不超过 5MB" />;
+export default () => (
+  <Upload accept="image/*" hint="支持 JPG/PNG，单文件不超过 5MB" />
+);
+```
+
+## 多选与数量限制
+
+```tsx preview
+import { Upload } from '@koi-ui/core';
+export default () => (
+  <Upload accept="image/*" multiple maxCount={3} hint="最多上传 3 个文件" />
+);
+```
+
+## 禁用
+
+```tsx preview
+import { Upload } from '@koi-ui/core';
+export default () => <Upload disabled hint="当前不可上传" />;
 ```
 
 ## API

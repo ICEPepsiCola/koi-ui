@@ -1,11 +1,60 @@
-
 # PullToRefresh 下拉刷新
 
 ## 基础用法
 
 ```tsx preview
+import { PullToRefresh, List, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [items, setItems] = useState([
+    { key: '1', title: '项目 1' },
+    { key: '2', title: '项目 2' },
+    { key: '3', title: '项目 3' },
+  ]);
+  return (
+    <div className="space-y-2">
+      <Text muted size="sm">向下拖拽列表顶部触发刷新</Text>
+      <PullToRefresh
+        className="h-64 rounded-md border border-border"
+        onRefresh={async () => {
+          await new Promise((r) => setTimeout(r, 800));
+          setItems((prev) => [
+            { key: String(Date.now()), title: `刷新于 ${new Date().toLocaleTimeString()}` },
+            ...prev,
+          ]);
+        }}
+      >
+        <List items={items} />
+      </PullToRefresh>
+    </div>
+  );
+};
+```
+
+## 自定义文案与阈值
+
+```tsx preview
 import { PullToRefresh, List } from '@koi-ui/core';
-export default () => <PullToRefresh onRefresh={async()=>{}}><List items={[{key:'1',title:'项目1'},{key:'2',title:'项目2'}]} /></PullToRefresh>;
+export default () => (
+  <PullToRefresh
+    className="h-64 rounded-md border border-border"
+    threshold={80}
+    pullingText="继续下拉…"
+    releaseText="松手刷新"
+    refreshingText="正在刷新…"
+    onRefresh={async () => {
+      await new Promise((r) => setTimeout(r, 1000));
+    }}
+  >
+    <List
+      items={[
+        { key: '1', title: 'threshold=80' },
+        { key: '2', title: '自定义三态文案' },
+        { key: '3', title: '项目 3' },
+      ]}
+    />
+  </PullToRefresh>
+);
 ```
 
 ## API

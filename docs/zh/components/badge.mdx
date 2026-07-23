@@ -8,8 +8,52 @@ import { Badge, Button, Space } from '@koi-ui/core';
 export default () => (
   <Space>
     <Badge count={5}><Button>消息</Button></Badge>
-    <Badge count={3} variant="soft"><Button variant="soft">Soft</Button></Badge>
-    <Badge count={9} variant="outline"><Button variant="outline">Outline</Button></Badge>
+    <Badge count={99}><Button>通知</Button></Badge>
+    <Badge count={100} max={99}><Button>溢出</Button></Badge>
+  </Space>
+);
+```
+
+## 变体
+
+```tsx preview
+import { Badge, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Badge count={5} variant="default"><Button>default</Button></Badge>
+    <Badge count={3} variant="soft"><Button variant="soft">soft</Button></Badge>
+    <Badge count={9} variant="secondary"><Button variant="secondary">secondary</Button></Badge>
+    <Badge count={2} variant="destructive"><Button variant="destructive">destructive</Button></Badge>
+    <Badge count={4} variant="outline"><Button variant="outline">outline</Button></Badge>
+    <Badge count={1} variant="ghost"><Button variant="ghost">ghost</Button></Badge>
+  </Space>
+);
+```
+
+## 尺寸与圆点
+
+```tsx preview
+import { Badge, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Badge count={5} size="sm"><Button size="sm">sm</Button></Badge>
+    <Badge count={5} size="md"><Button>md</Button></Badge>
+    <Badge count={5} size="lg"><Button size="lg">lg</Button></Badge>
+    <Badge dot><Button>圆点</Button></Badge>
+    <Badge count={0} showZero><Button>零</Button></Badge>
+  </Space>
+);
+```
+
+## 独立徽标
+
+```tsx preview
+import { Badge, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Badge count={8} />
+    <Badge count={120} max={99} />
+    <Badge dot />
   </Space>
 );
 ```

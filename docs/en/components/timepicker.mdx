@@ -1,4 +1,3 @@
-
 # TimePicker
 
 ## Basic usage
@@ -6,7 +5,10 @@
 ```tsx preview
 import { TimePicker } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(''); return <TimePicker value={v} onChange={setV} placeholder="Select time" />; };
+export default () => {
+  const [v, setV] = useState('');
+  return <TimePicker value={v} onChange={setV} placeholder="Select time" />;
+};
 ```
 
 ## clearable
@@ -14,7 +16,54 @@ export default () => { const [v,setV]=useState(''); return <TimePicker value={v}
 ```tsx preview
 import { TimePicker } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState('09:30'); return <TimePicker value={v} onChange={setV} clearable placeholder="Select time" />; };
+export default () => {
+  const [v, setV] = useState('09:30');
+  return <TimePicker value={v} onChange={setV} clearable placeholder="Select time" />;
+};
+```
+
+## Format HH:mm:ss
+
+```tsx preview
+import { TimePicker, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('09:30:00');
+  return (
+    <div>
+      <TimePicker
+        value={v}
+        onChange={setV}
+        format="HH:mm:ss"
+        clearable
+        placeholder="Select time"
+      />
+      <Text muted className="mt-2 block text-sm">Current: {v || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## Size
+
+```tsx preview
+import { TimePicker, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <TimePicker size="sm" placeholder="sm" />
+    <TimePicker size="md" placeholder="md" />
+    <TimePicker size="lg" placeholder="lg" />
+  </Space>
+);
+```
+
+## Disabled
+
+```tsx preview
+import { TimePicker } from '@koi-ui/core';
+export default () => (
+  <TimePicker disabled value="09:30" placeholder="Select time" />
+);
 ```
 
 ## API

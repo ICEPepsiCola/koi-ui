@@ -1,11 +1,126 @@
-
 # Notification
 
 ## Basic usage
 
 ```tsx preview
-import { Notification } from '@koi-ui/core';
-export default () => <Notification title="Notice" description="This is a notification" />;
+import { Notification, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Show notification</Button>
+      <Notification
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Notice"
+        description="This is a notification message"
+      />
+    </>
+  );
+};
+```
+
+## Types
+
+```tsx preview
+import { Notification, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [type, setType] = useState(null);
+  return (
+    <>
+      <Space wrap>
+        <Button variant="outline" onClick={() => setType('info')}>info</Button>
+        <Button variant="soft" onClick={() => setType('success')}>success</Button>
+        <Button variant="secondary" onClick={() => setType('warning')}>warning</Button>
+        <Button variant="destructive" onClick={() => setType('error')}>error</Button>
+      </Space>
+      {type ? (
+        <Notification
+          type={type}
+          open
+          onClose={() => setType(null)}
+          title={type}
+          description={`${type} notification`}
+        />
+      ) : null}
+    </>
+  );
+};
+```
+
+## Placement
+
+```tsx preview
+import { Notification, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [placement, setPlacement] = useState(null);
+  return (
+    <>
+      <Space wrap>
+        <Button size="sm" onClick={() => setPlacement('topRight')}>topRight</Button>
+        <Button size="sm" variant="outline" onClick={() => setPlacement('topLeft')}>topLeft</Button>
+        <Button size="sm" variant="secondary" onClick={() => setPlacement('bottomRight')}>bottomRight</Button>
+        <Button size="sm" variant="ghost" onClick={() => setPlacement('bottomLeft')}>bottomLeft</Button>
+      </Space>
+      {placement ? (
+        <Notification
+          open
+          placement={placement}
+          onClose={() => setPlacement(null)}
+          title="Placement demo"
+          description={`placement=${placement}`}
+        />
+      ) : null}
+    </>
+  );
+};
+```
+
+## useNotification
+
+```tsx preview
+import { NotificationProvider, useNotification, Button, Space } from '@koi-ui/core';
+
+function Demo() {
+  const { notify } = useNotification();
+  return (
+    <Space wrap>
+      <Button
+        onClick={() =>
+          notify({
+            title: 'Saved',
+            description: 'Your settings were updated',
+            type: 'success',
+          })
+        }
+      >
+        Success
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() =>
+          notify({
+            title: 'Warning',
+            description: 'Check your network connection',
+            type: 'warning',
+            placement: 'bottomRight',
+          })
+        }
+      >
+        Warning (bottomRight)
+      </Button>
+    </Space>
+  );
+}
+
+export default () => (
+  <NotificationProvider>
+    <Demo />
+  </NotificationProvider>
+);
 ```
 
 ## API

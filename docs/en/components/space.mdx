@@ -14,6 +14,87 @@ export default () => (
 );
 ```
 
+## Size
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Space size="small">
+      <Button size="sm">small</Button>
+      <Button size="sm">small</Button>
+      <Button size="sm">small</Button>
+    </Space>
+    <Space size="middle">
+      <Button size="sm">middle</Button>
+      <Button size="sm">middle</Button>
+      <Button size="sm">middle</Button>
+    </Space>
+    <Space size="large">
+      <Button size="sm">large</Button>
+      <Button size="sm">large</Button>
+      <Button size="sm">large</Button>
+    </Space>
+  </div>
+);
+```
+
+## Vertical
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle">
+    <Button>Button 1</Button>
+    <Button>Button 2</Button>
+    <Button>Button 3</Button>
+  </Space>
+);
+```
+
+## Align & wrap
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Space align="start" className="h-16 rounded-md border border-border px-3">
+      <Button size="sm">start</Button>
+      <Button>Larger</Button>
+    </Space>
+    <Space align="center" className="h-16 rounded-md border border-border px-3">
+      <Button size="sm">center</Button>
+      <Button>Larger</Button>
+    </Space>
+    <Space align="end" className="h-16 rounded-md border border-border px-3">
+      <Button size="sm">end</Button>
+      <Button>Larger</Button>
+    </Space>
+    <Space wrap className="max-w-56">
+      <Button size="sm">A</Button>
+      <Button size="sm">B</Button>
+      <Button size="sm">C</Button>
+      <Button size="sm">D</Button>
+      <Button size="sm">E</Button>
+      <Button size="sm">F</Button>
+    </Space>
+  </div>
+);
+```
+
+## Split
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <Space split="|">
+    <Button variant="ghost" size="sm">Link</Button>
+    <Button variant="ghost" size="sm">Link</Button>
+    <Button variant="ghost" size="sm">Link</Button>
+  </Space>
+);
+```
+
 ## API
 
 <API name="Space" />

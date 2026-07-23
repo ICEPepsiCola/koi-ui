@@ -1,4 +1,3 @@
-
 # TimePicker 时间选择
 
 ## 基础用法
@@ -6,7 +5,10 @@
 ```tsx preview
 import { TimePicker } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(''); return <TimePicker value={v} onChange={setV} placeholder="选择时间" />; };
+export default () => {
+  const [v, setV] = useState('');
+  return <TimePicker value={v} onChange={setV} placeholder="选择时间" />;
+};
 ```
 
 ## clearable
@@ -14,7 +16,54 @@ export default () => { const [v,setV]=useState(''); return <TimePicker value={v}
 ```tsx preview
 import { TimePicker } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState('09:30'); return <TimePicker value={v} onChange={setV} clearable placeholder="选择时间" />; };
+export default () => {
+  const [v, setV] = useState('09:30');
+  return <TimePicker value={v} onChange={setV} clearable placeholder="选择时间" />;
+};
+```
+
+## 格式 HH:mm:ss
+
+```tsx preview
+import { TimePicker, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('09:30:00');
+  return (
+    <div>
+      <TimePicker
+        value={v}
+        onChange={setV}
+        format="HH:mm:ss"
+        clearable
+        placeholder="选择时间"
+      />
+      <Text muted className="mt-2 block text-sm">当前：{v || '未选择'}</Text>
+    </div>
+  );
+};
+```
+
+## 尺寸
+
+```tsx preview
+import { TimePicker, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <TimePicker size="sm" placeholder="sm" />
+    <TimePicker size="md" placeholder="md" />
+    <TimePicker size="lg" placeholder="lg" />
+  </Space>
+);
+```
+
+## 禁用
+
+```tsx preview
+import { TimePicker } from '@koi-ui/core';
+export default () => (
+  <TimePicker disabled value="09:30" placeholder="选择时间" />
+);
 ```
 
 ## API

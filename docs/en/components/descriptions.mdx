@@ -5,23 +5,81 @@
 
 ```tsx preview
 import { Descriptions } from '@koi-ui/core';
-export default () => <Descriptions items={[{ key:'name', label:'Name', children:'Alice' }, { key:'phone', label:'Phone', children:'138****0000' }]} />;
+export default () => (
+  <Descriptions
+    items={[
+      { key: 'name', label: 'Name', children: 'Alice' },
+      { key: 'phone', label: 'Phone', children: '138****0000' },
+    ]}
+  />
+);
 ```
 
-## Multi-column
+## Columns & span
 
 ```tsx preview
 import { Descriptions } from '@koi-ui/core';
 export default () => (
   <Descriptions
+    title="User profile"
     column={2}
     items={[
       { key: 'name', label: 'Name', children: 'Alice' },
       { key: 'phone', label: 'Phone', children: '138****0000' },
       { key: 'city', label: 'City', children: 'Shanghai' },
       { key: 'role', label: 'Role', children: 'Admin' },
+      { key: 'address', label: 'Address', children: '88 Example Road', span: 2 },
     ]}
   />
+);
+```
+
+## Bordered & layout
+
+```tsx preview
+import { Descriptions, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="large" className="w-full">
+    <Descriptions
+      bordered
+      column={2}
+      items={[
+        { key: 'name', label: 'Name', children: 'Alice' },
+        { key: 'phone', label: 'Phone', children: '138****0000' },
+        { key: 'city', label: 'City', children: 'Shanghai', span: 2 },
+      ]}
+    />
+    <Descriptions
+      layout="vertical"
+      column={2}
+      items={[
+        { key: 'name', label: 'Name', children: 'Alice' },
+        { key: 'phone', label: 'Phone', children: '138****0000' },
+      ]}
+    />
+  </Space>
+);
+```
+
+## Size
+
+```tsx preview
+import { Descriptions, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Descriptions
+      bordered
+      size="sm"
+      column={1}
+      items={[{ key: 'a', label: 'Small', children: 'size=sm' }]}
+    />
+    <Descriptions
+      bordered
+      size="lg"
+      column={1}
+      items={[{ key: 'b', label: 'Large', children: 'size=lg' }]}
+    />
+  </Space>
 );
 ```
 

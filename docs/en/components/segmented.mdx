@@ -5,8 +5,70 @@
 
 ```tsx preview
 import { Segmented } from '@koi-ui/core';
+export default () => (
+  <Segmented
+    defaultValue="day"
+    options={[
+      { value: 'day', label: 'Day' },
+      { value: 'week', label: 'Week' },
+      { value: 'month', label: 'Month' },
+    ]}
+  />
+);
+```
+
+## Sizes
+
+```tsx preview
+import { Segmented, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle">
+    <Segmented size="sm" defaultValue="a" options={[{ value: 'a', label: 'sm' }, { value: 'b', label: 'Option' }]} />
+    <Segmented size="md" defaultValue="a" options={[{ value: 'a', label: 'md' }, { value: 'b', label: 'Option' }]} />
+    <Segmented size="lg" defaultValue="a" options={[{ value: 'a', label: 'lg' }, { value: 'b', label: 'Option' }]} />
+  </Space>
+);
+```
+
+## Block
+
+```tsx preview
+import { Segmented } from '@koi-ui/core';
+export default () => (
+  <Segmented
+    block
+    defaultValue="list"
+    options={[
+      { value: 'list', label: 'List' },
+      { value: 'card', label: 'Card' },
+      { value: 'table', label: 'Table', disabled: true },
+    ]}
+  />
+);
+```
+
+## Controlled
+
+```tsx preview
+import { Segmented, Space, Text } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState('a'); return <Segmented value={v} onChange={setV} options={[{label:'List',value:'a'},{label:'Card',value:'b'}]} />; };
+export default () => {
+  const [value, setValue] = useState('map');
+  return (
+    <Space direction="vertical" size="middle">
+      <Segmented
+        value={value}
+        onChange={setValue}
+        options={[
+          { value: 'map', label: 'Map' },
+          { value: 'transit', label: 'Transit' },
+          { value: 'bike', label: 'Bike' },
+        ]}
+      />
+      <Text size="sm" muted>{value}</Text>
+    </Space>
+  );
+};
 ```
 
 ## API

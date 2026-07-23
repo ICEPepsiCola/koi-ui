@@ -5,20 +5,42 @@
 
 ```tsx preview
 import { Card, Text } from '@koi-ui/core';
-export default () => <Card title="卡片标题"><Text>卡片内容</Text></Card>;
+export default () => (
+  <Card title="卡片标题">
+    <Text>卡片内容</Text>
+  </Card>
+);
 ```
 
-## 带底部区域
+## 内边距
 
 ```tsx preview
-import { Card, Button, Text } from '@koi-ui/core';
+import { Card, Text, Space } from '@koi-ui/core';
 export default () => (
-  <Card
-    title="项目概览"
-    footer={<Button size="sm" variant="primary">查看详情</Button>}
-  >
-    <Text>这是一个带底部操作区的卡片示例。</Text>
-  </Card>
+  <Space direction="vertical" size="middle" className="w-full">
+    <Card padding="sm" title="sm"><Text size="sm">较小内边距</Text></Card>
+    <Card padding="md" title="md"><Text size="sm">默认内边距</Text></Card>
+    <Card padding="lg" title="lg"><Text size="sm">较大内边距</Text></Card>
+  </Space>
+);
+```
+
+## 底部区域与悬浮
+
+```tsx preview
+import { Card, Button, Text, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Card
+      title="项目概览"
+      footer={<Button size="sm" variant="primary">查看详情</Button>}
+    >
+      <Text>带底部操作区的卡片。</Text>
+    </Card>
+    <Card title="可悬浮" hoverable onClick={() => {}}>
+      <Text>hoverable 时有阴影反馈。</Text>
+    </Card>
+  </Space>
 );
 ```
 

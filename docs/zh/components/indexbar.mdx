@@ -1,16 +1,50 @@
-
 # IndexBar 索引栏
 
 ## 基础用法
 
 ```tsx preview
 import { IndexBar } from '@koi-ui/core';
-const groups = [{ index:'A', items:['Apple','Ant','Avocado'] }, { index:'B', items:['Banana','Blueberry'] }, { index:'C', items:['Cherry','Coconut'] }, { index:'D', items:['Date','Dragonfruit'] }];
+const groups = [
+  { index: 'A', items: ['Apple', 'Ant', 'Avocado'] },
+  { index: 'B', items: ['Banana', 'Blueberry'] },
+  { index: 'C', items: ['Cherry', 'Coconut'] },
+  { index: 'D', items: ['Date', 'Dragonfruit'] },
+];
 export default () => (
   <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
     <IndexBar className="min-h-0 min-w-0 flex-1" groups={groups} renderItem={(item) => <span>{item}</span>} />
   </div>
 );
+```
+
+## stickyOffset 与 onIndexChange
+
+```tsx preview
+import { IndexBar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+const groups = [
+  { index: 'A', title: 'A 组', items: ['Apple', 'Ant', 'Avocado', 'Apricot'] },
+  { index: 'B', title: 'B 组', items: ['Banana', 'Blueberry', 'Blackberry'] },
+  { index: 'C', title: 'C 组', items: ['Cherry', 'Coconut', 'Cranberry'] },
+  { index: 'D', title: 'D 组', items: ['Date', 'Dragonfruit', 'Durian'] },
+];
+export default () => {
+  const [active, setActive] = useState('A');
+  return (
+    <div className="space-y-2">
+      <Text muted size="sm">当前索引：{active}</Text>
+      <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
+        <IndexBar
+          className="min-h-0 min-w-0 flex-1"
+          groups={groups}
+          stickyOffset={8}
+          onIndexChange={setActive}
+          renderItem={(item) => <span>{item}</span>}
+        />
+      </div>
+    </div>
+  );
+};
 ```
 
 ## API

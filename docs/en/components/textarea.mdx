@@ -1,4 +1,3 @@
-
 # TextArea
 
 ## Basic usage
@@ -8,14 +7,40 @@ import { TextArea } from '@koi-ui/core';
 export default () => <TextArea placeholder="Enter multiple lines" rows={3} />;
 ```
 
-## clearable
+## Size
 
 ```tsx preview
-import { TextArea } from '@koi-ui/core';
+import { TextArea, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <TextArea size="sm" placeholder="sm" rows={2} />
+    <TextArea size="md" placeholder="md" rows={3} />
+    <TextArea size="lg" placeholder="lg" rows={4} />
+  </Space>
+);
+```
+
+## Error & count
+
+```tsx preview
+import { TextArea, Space } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
-  const [value, setValue] = useState('这段Content可以一键清除');
-  return <TextArea value={value} onChange={setValue} clearable placeholder="Enter multiple lines" rows={3} />;
+  const [value, setValue] = useState('Clearable content');
+  return (
+    <Space direction="vertical" size="middle" className="w-full">
+      <TextArea error="Content is required" placeholder="Error state" rows={3} />
+      <TextArea
+        value={value}
+        onChange={setValue}
+        showCount
+        maxLength={50}
+        clearable
+        placeholder="showCount + maxLength"
+        rows={3}
+      />
+    </Space>
+  );
 };
 ```
 

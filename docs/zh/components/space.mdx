@@ -14,6 +14,87 @@ export default () => (
 );
 ```
 
+## 间距尺寸
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Space size="small">
+      <Button size="sm">small</Button>
+      <Button size="sm">small</Button>
+      <Button size="sm">small</Button>
+    </Space>
+    <Space size="middle">
+      <Button size="sm">middle</Button>
+      <Button size="sm">middle</Button>
+      <Button size="sm">middle</Button>
+    </Space>
+    <Space size="large">
+      <Button size="sm">large</Button>
+      <Button size="sm">large</Button>
+      <Button size="sm">large</Button>
+    </Space>
+  </div>
+);
+```
+
+## 垂直排列
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle">
+    <Button>按钮1</Button>
+    <Button>按钮2</Button>
+    <Button>按钮3</Button>
+  </Space>
+);
+```
+
+## 对齐与换行
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Space align="start" className="h-16 rounded-md border border-border px-3">
+      <Button size="sm">start</Button>
+      <Button>较大</Button>
+    </Space>
+    <Space align="center" className="h-16 rounded-md border border-border px-3">
+      <Button size="sm">center</Button>
+      <Button>较大</Button>
+    </Space>
+    <Space align="end" className="h-16 rounded-md border border-border px-3">
+      <Button size="sm">end</Button>
+      <Button>较大</Button>
+    </Space>
+    <Space wrap className="max-w-56">
+      <Button size="sm">A</Button>
+      <Button size="sm">B</Button>
+      <Button size="sm">C</Button>
+      <Button size="sm">D</Button>
+      <Button size="sm">E</Button>
+      <Button size="sm">F</Button>
+    </Space>
+  </div>
+);
+```
+
+## 分隔符
+
+```tsx preview
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <Space split="|">
+    <Button variant="ghost" size="sm">链接</Button>
+    <Button variant="ghost" size="sm">链接</Button>
+    <Button variant="ghost" size="sm">链接</Button>
+  </Space>
+);
+```
+
 ## API
 
 <API name="Space" />

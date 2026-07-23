@@ -1,11 +1,12 @@
-
 # Alert
 
 ## Basic usage
 
 ```tsx preview
 import { Alert } from '@koi-ui/core';
-export default () => <Alert variant="info" title="Info" description="This is an info message" />;
+export default () => (
+  <Alert variant="info" title="Info" description="This is an info message" />
+);
 ```
 
 ## Variants
@@ -18,10 +19,39 @@ export default () => (
     <Alert variant="success" title="Success" description="Done" />
     <Alert variant="warning" title="Warning" description="Please check input" />
     <Alert variant="error" title="Error" description="Submit failed" />
-    <Alert variant="info" appearance="outline" title="描边" description="outline appearance" />
-    <Alert variant="success" appearance="solid" title="实心" description="solid appearance" />
+    <Alert variant="info" appearance="outline" title="Outline" description="outline appearance" />
+    <Alert variant="success" appearance="solid" title="Solid" description="solid appearance" />
   </Stack>
 );
+```
+
+## Closable
+
+```tsx preview
+import { Alert, Stack } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [visible, setVisible] = useState(true);
+  return (
+    <Stack gap={3}>
+      {visible ? (
+        <Alert
+          closable
+          variant="info"
+          title="Closable"
+          description="Click the close icon"
+          onClose={() => setVisible(false)}
+        />
+      ) : null}
+      <Alert
+        closable
+        variant="warning"
+        title="closable only"
+        description="Shows the close button; without onClose, click is a no-op"
+      />
+    </Stack>
+  );
+};
 ```
 
 ## API

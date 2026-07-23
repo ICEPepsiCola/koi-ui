@@ -7,10 +7,42 @@
 import { Layout } from '@koi-ui/core';
 const { Header, Content, Footer } = Layout;
 export default () => (
-  <Layout className="border border-border rounded-md overflow-hidden">
+  <Layout className="overflow-hidden rounded-md border border-border">
     <Header className="bg-muted px-4 py-2">Header</Header>
     <Content className="px-4 py-6">Content</Content>
     <Footer className="bg-muted px-4 py-2 text-center text-sm">Footer</Footer>
+  </Layout>
+);
+```
+
+## 侧边栏
+
+```tsx preview
+import { Layout } from '@koi-ui/core';
+const { Header, Sider, Content, Footer } = Layout;
+export default () => (
+  <Layout className="overflow-hidden rounded-md border border-border">
+    <Header className="!py-2">Header</Header>
+    <Layout hasSider>
+      <Sider className="p-3 text-sm">Sider</Sider>
+      <Content className="!p-4">Content</Content>
+    </Layout>
+    <Footer className="!py-2 text-center">Footer</Footer>
+  </Layout>
+);
+```
+
+## 折叠侧边栏
+
+```tsx preview
+import { Layout } from '@koi-ui/core';
+const { Sider, Content } = Layout;
+export default () => (
+  <Layout hasSider className="min-h-32 overflow-hidden rounded-md border border-border">
+    <Sider collapsed className="flex items-center justify-center p-2 text-xs">
+      收起
+    </Sider>
+    <Content className="!p-4">Content</Content>
   </Layout>
 );
 ```

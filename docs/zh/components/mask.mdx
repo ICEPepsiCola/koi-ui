@@ -1,4 +1,3 @@
-
 # Mask 背景蒙层
 
 ## 基础用法
@@ -6,7 +5,42 @@
 ```tsx preview
 import { Mask, Button } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>显示蒙层</Button><Mask open={o} onClick={()=>setO(false)} /></>; };
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>显示蒙层</Button>
+      <Mask open={open} onClick={() => setOpen(false)} />
+    </>
+  );
+};
+```
+
+## 自定义层级与内容
+
+```tsx preview
+import { Mask, Button, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>带内容的蒙层</Button>
+      <Mask open={open} zIndex={80} onClick={() => setOpen(false)}>
+        <div
+          className="absolute left-1/2 top-1/2 w-64 -translate-x-1/2 -translate-y-1/2 rounded-box bg-surface p-4 shadow-float"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Text className="mb-3 block font-medium">蒙层内容</Text>
+          <Text muted size="sm" className="mb-4 block">
+            点击蒙层关闭，或点下方按钮。
+          </Text>
+          <Button size="sm" onClick={() => setOpen(false)}>关闭</Button>
+        </div>
+      </Mask>
+    </>
+  );
+};
 ```
 
 ## API

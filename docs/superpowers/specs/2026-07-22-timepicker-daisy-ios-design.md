@@ -26,21 +26,25 @@ Option A: restyle `TimeDropdownView` and polish `TimeWheelView` / shared drum ch
 - Confirm commits; cancel / scrim dismiss discards draft.
 - Wheel columns support native vertical scroll + snap (mouse wheel / touch); scrollbar is hidden by design.
 
+## Shared building blocks
+
+- `MenuColumns` — daisyUI multi-column scroll menus (desktop pickers).
+- `PickerWheels mode="drum"` — iOS wheel (mobile time/date/picker).
+- Sheet chrome: `rounded-t-[14px]`, no hard border, confirm label 「完成」 for wheel sheets.
+
 ## Follow-up: align other pickers
 
-Same adaptive pattern can roll out to related components (approved direction 2026-07-22):
+| Component | Desktop | Mobile | Status |
+|-----------|---------|--------|--------|
+| **TimePicker** | daisyUI menu columns | iOS drum | Done |
+| **Picker** | daisyUI multi-column menu via `MenuColumns` | iOS drum sheet aligned | Done |
+| **DatePicker** | Keep calendar panel (daisyUI float polish) | Year/month/day drum sheet aligned | Done |
+| **Select** | Dropdown list (daisyUI float polish) | Bottom sheet list (no drum) | Done |
+| **Cascader** | Multi-level daisyUI menu columns | Stepwise bottom sheet | Done |
 
-| Component | Desktop | Mobile | Notes |
-|-----------|---------|--------|-------|
-| **TimePicker** | Done (daisyUI menu columns) | Done (iOS drum) | Baseline |
-| **Picker** | daisyUI multi-column menu | Polish existing drum to match | Closest; do first |
-| **DatePicker** | Keep calendar panel | Year/month/day drum sheet aligned with TimePicker | Do not force menu columns on PC |
-| **Select** | Already dropdown-like | Bottom sheet list (no drum) | Single-column options |
-| **Cascader** | Multi-level menu / panel | Multi-column drum or stepwise sheet | More complex; later |
+**Order completed:** `Picker` → `DatePicker` mobile → `Select` / `Cascader`.
 
-**Suggested order:** `Picker` → `DatePicker` mobile → `Select` / `Cascader` as needed.
+## Out of scope
 
-## Out of scope (this change)
-
-- Implementing the follow-up table above (documented only).
 - New props or format modes.
+- Forcing drum wheels onto Select / Cascader mobile.

@@ -1,11 +1,33 @@
-
 # BackTop
 
 ## Basic usage
 
 ```tsx preview
-import { BackTop } from '@koi-ui/core';
-export default () => <div className="h-40 overflow-auto relative"><div className="h-96 p-4">Scrollable area</div><BackTop /></div>;
+import { BackTop, Text } from '@koi-ui/core';
+export default () => (
+  <div className="relative space-y-2 pb-8 text-sm text-muted-foreground">
+    <Text className="font-medium text-surface-foreground">Scroll down to reveal BackTop</Text>
+    {Array.from({ length: 50 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+    <BackTop visibilityHeight={120} />
+  </div>
+);
+```
+
+## visibilityHeight
+
+```tsx preview
+import { BackTop, Text } from '@koi-ui/core';
+export default () => (
+  <div className="relative space-y-2 pb-8 text-sm text-muted-foreground">
+    <Text className="font-medium text-surface-foreground">visibilityHeight=40 — appears after a short scroll</Text>
+    {Array.from({ length: 50 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+    <BackTop visibilityHeight={40} />
+  </div>
+);
 ```
 
 ## API

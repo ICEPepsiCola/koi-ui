@@ -6,7 +6,29 @@
 ```tsx preview
 import { Loading, Button } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [o,setO]=useState(false); return <><Button onClick={()=>setO(true)}>Load</Button><Loading open={o} /></>; };
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true);
+          setTimeout(() => setOpen(false), 1500);
+        }}
+      >
+        Fullscreen loading
+      </Button>
+      <Loading open={open} tip="Loading..." />
+    </>
+  );
+};
+```
+
+## Inline
+
+```tsx preview
+import { Loading } from '@koi-ui/core';
+export default () => <Loading open fullscreen={false} tip="Please wait" />;
 ```
 
 ## API

@@ -86,10 +86,12 @@ export const optionRowBase = [
 ].join(' ');
 
 export const optionRowInteractive =
-  'cursor-pointer hover:bg-primary/[0.07] active:bg-primary/10';
+  'cursor-pointer hover:bg-muted/70 active:bg-muted';
 
-export const optionRowActive = 'bg-primary/10 font-medium text-primary';
+/** Keyboard / pointer highlight — background only. */
+export const optionRowActive = 'bg-muted/70';
 
+/** Committed selection — text + weight; no fill (check icon carries the rest). */
 export const optionRowSelected = 'font-medium text-primary';
 
 /** Cards, alerts, empty shells. */

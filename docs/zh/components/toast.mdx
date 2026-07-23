@@ -1,11 +1,67 @@
-
 # Toast 轻提示
 
 ## 基础用法
 
 ```tsx preview
 import { Button, toast } from '@koi-ui/core';
-export default () => <Button onClick={() => toast.success('操作成功')}>显示提示</Button>;
+export default () => (
+  <Button onClick={() => toast('默认提示')}>显示提示</Button>
+);
+```
+
+## 类型
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button onClick={() => toast('默认')}>default</Button>
+    <Button variant="outline" onClick={() => toast.info('信息提示')}>info</Button>
+    <Button variant="soft" onClick={() => toast.success('操作成功')}>success</Button>
+    <Button variant="secondary" onClick={() => toast.warning('请注意')}>warning</Button>
+    <Button variant="destructive" onClick={() => toast.error('出错了')}>error</Button>
+  </Space>
+);
+```
+
+## 时长
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button onClick={() => toast.success('2 秒后关闭', 2000)}>成功 2s</Button>
+    <Button variant="outline" onClick={() => toast.info('自定义时长', 4000)}>信息 4s</Button>
+    <Button
+      variant="secondary"
+      onClick={() => toast.show({ content: '不自动关闭', duration: 0 })}
+    >
+      不自动关闭
+    </Button>
+  </Space>
+);
+```
+
+## 清空
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button
+      onClick={() => {
+        toast.info('第一条');
+        toast.success('第二条', 5000);
+        toast.warning('第三条', 5000);
+      }}
+    >
+      连续弹出
+    </Button>
+    <Button variant="outline" onClick={() => toast.clear()}>
+      清空全部
+    </Button>
+  </Space>
+);
 ```
 
 ## API

@@ -1,11 +1,62 @@
-
 # Popconfirm 气泡确认
 
 ## 基础用法
 
 ```tsx preview
 import { Popconfirm, Button } from '@koi-ui/core';
-export default () => <Popconfirm title="确定删除吗？" onConfirm={() => {}}><Button variant="destructive">删除</Button></Popconfirm>;
+export default () => (
+  <Popconfirm title="确定删除吗？" onConfirm={() => {}}>
+    <Button variant="destructive">删除</Button>
+  </Popconfirm>
+);
+```
+
+## 描述文案
+
+```tsx preview
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => (
+  <Popconfirm
+    title="删除记录"
+    description="删除后无法恢复，请谨慎操作。"
+    onConfirm={() => {}}
+  >
+    <Button variant="outline">带描述</Button>
+  </Popconfirm>
+);
+```
+
+## 危险确认
+
+```tsx preview
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => (
+  <Popconfirm
+    title="永久删除？"
+    okType="destructive"
+    confirmText="删除"
+    cancelText="再想想"
+    onConfirm={() => {}}
+  >
+    <Button variant="destructive">危险操作</Button>
+  </Popconfirm>
+);
+```
+
+## 禁用
+
+```tsx preview
+import { Popconfirm, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Popconfirm title="可用" onConfirm={() => {}}>
+      <Button>可用</Button>
+    </Popconfirm>
+    <Popconfirm title="不会弹出" disabled onConfirm={() => {}}>
+      <Button disabled>禁用</Button>
+    </Popconfirm>
+  </Space>
+);
 ```
 
 ## API

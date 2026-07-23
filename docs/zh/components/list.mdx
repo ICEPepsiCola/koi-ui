@@ -5,7 +5,70 @@
 
 ```tsx preview
 import { List } from '@koi-ui/core';
-export default () => <List items={[{ key:'1', title:'标题一', description:'描述一' }, { key:'2', title:'标题二', description:'描述二' }]} />;
+export default () => (
+  <List
+    items={[
+      { key: '1', title: '标题一', description: '描述一' },
+      { key: '2', title: '标题二', description: '描述二' },
+    ]}
+  />
+);
+```
+
+## 边框与尺寸
+
+```tsx preview
+import { List, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <List
+      bordered
+      size="sm"
+      items={[
+        { key: '1', title: '小号列表', description: 'size=sm' },
+        { key: '2', title: '另一项', description: '描述' },
+      ]}
+    />
+    <List
+      bordered
+      size="lg"
+      items={[
+        { key: '1', title: '大号列表', description: 'size=lg' },
+        { key: '2', title: '另一项', description: '描述' },
+      ]}
+    />
+  </Space>
+);
+```
+
+## 头像与额外内容
+
+```tsx preview
+import { List, Avatar, Button } from '@koi-ui/core';
+export default () => (
+  <List
+    bordered
+    header="成员列表"
+    footer="共 2 人"
+    items={[
+      {
+        key: '1',
+        title: '张三',
+        description: '产品经理',
+        avatar: <Avatar size="sm" fallback="张" />,
+        extra: '在线',
+        actions: <Button size="sm" variant="ghost">查看</Button>,
+      },
+      {
+        key: '2',
+        title: '李四',
+        description: '设计师',
+        avatar: <Avatar size="sm" fallback="李" />,
+        extra: '忙碌',
+      },
+    ]}
+  />
+);
 ```
 
 ## API

@@ -99,7 +99,10 @@ export function CalendarView({
           }
         }}
       />
-      <FloatMenu open={open} className="max-w-xs p-3">
+      <FloatMenu
+        open={open}
+        className="max-w-xs rounded-box border-border/70 p-3 shadow-sm"
+      >
         <CalendarMonthPanel
           viewYear={viewYear}
           viewMonth={viewMonth}

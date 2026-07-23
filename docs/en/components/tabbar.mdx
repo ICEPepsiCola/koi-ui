@@ -5,8 +5,116 @@
 
 ```tsx preview
 import { TabBar } from '@koi-ui/core';
+export default () => (
+  <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+    <TabBar
+      className="relative"
+      defaultActiveKey="home"
+      items={[
+        { key: 'home', label: 'Home' },
+        { key: 'discover', label: 'Discover' },
+        { key: 'mine', label: 'Me' },
+      ]}
+    />
+  </div>
+);
+```
+
+## Icons & badges
+
+```tsx preview
+import { TabBar, Icon } from '@koi-ui/core';
+export default () => (
+  <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+    <TabBar
+      className="relative"
+      defaultActiveKey="home"
+      items={[
+        { key: 'home', label: 'Home', icon: <Icon name="check" size="sm" /> },
+        { key: 'search', label: 'Search', icon: <Icon name="search" size="sm" />, badge: 3 },
+        { key: 'mine', label: 'Me', icon: <Icon name="plus" size="sm" />, badge: 'New' },
+      ]}
+    />
+  </div>
+);
+```
+
+## Disabled items
+
+```tsx preview
+import { TabBar, Icon } from '@koi-ui/core';
+export default () => (
+  <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+    <TabBar
+      className="relative"
+      defaultActiveKey="home"
+      items={[
+        { key: 'home', label: 'Home', icon: <Icon name="check" size="sm" /> },
+        { key: 'soon', label: 'Coming soon', icon: <Icon name="loading" size="sm" />, disabled: true },
+        { key: 'mine', label: 'Me', icon: <Icon name="plus" size="sm" /> },
+      ]}
+    />
+  </div>
+);
+```
+
+## Controlled
+
+```tsx preview
+import { TabBar, Icon, Space, Text } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [k,setK]=useState('home'); return <TabBar activeKey={k} onChange={setK} items={[{ key:'home', label:'Home' }, { key:'mine', label:'Me' }]} />; };
+export default () => {
+  const [activeKey, setActiveKey] = useState('home');
+  return (
+    <Space direction="vertical" size="middle" className="w-full">
+      <Text size="sm" muted>activeKey: {activeKey}</Text>
+      <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+        <TabBar
+          className="relative"
+          activeKey={activeKey}
+          onChange={setActiveKey}
+          items={[
+            { key: 'home', label: 'Home', icon: <Icon name="check" size="sm" /> },
+            { key: 'search', label: 'Search', icon: <Icon name="search" size="sm" /> },
+            { key: 'mine', label: 'Me', icon: <Icon name="plus" size="sm" /> },
+          ]}
+        />
+      </div>
+    </Space>
+  );
+};
+```
+
+## Safe area
+
+```tsx preview
+import { TabBar, Icon, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+      <TabBar
+        className="relative"
+        safeArea
+        defaultActiveKey="home"
+        items={[
+          { key: 'home', label: 'On', icon: <Icon name="check" size="sm" /> },
+          { key: 'mine', label: 'Me', icon: <Icon name="plus" size="sm" /> },
+        ]}
+      />
+    </div>
+    <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+      <TabBar
+        className="relative"
+        safeArea={false}
+        defaultActiveKey="home"
+        items={[
+          { key: 'home', label: 'Off', icon: <Icon name="check" size="sm" /> },
+          { key: 'mine', label: 'Me', icon: <Icon name="plus" size="sm" /> },
+        ]}
+      />
+    </div>
+  </Space>
+);
 ```
 
 ## API

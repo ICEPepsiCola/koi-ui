@@ -1,4 +1,3 @@
-
 # Affix
 
 ## Basic usage
@@ -8,8 +7,29 @@ import { Affix, Button } from '@koi-ui/core';
 export default () => (
   <div className="space-y-3 pb-8 text-sm text-muted-foreground">
     <p className="font-medium text-surface-foreground">Scroll down to see Affix</p>
-    <Affix offsetTop={0}><Button>Pin to top</Button></Affix>
-    {Array.from({ length: 40 }, (_, i) => (<p key={i}>Row {i + 1}</p>))}
+    <Affix offsetTop={0}>
+      <Button>Pin to top</Button>
+    </Affix>
+    {Array.from({ length: 40 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+  </div>
+);
+```
+
+## offsetBottom
+
+```tsx preview
+import { Affix, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-3 pb-8 text-sm text-muted-foreground">
+    <p className="font-medium text-surface-foreground">Scroll down — the button sticks to the bottom</p>
+    {Array.from({ length: 40 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+    <Affix offsetBottom={0}>
+      <Button variant="primary">Pin to bottom</Button>
+    </Affix>
   </div>
 );
 ```

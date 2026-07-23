@@ -6,21 +6,89 @@
 ```tsx preview
 import { Flex, Button } from '@koi-ui/core';
 export default () => (
-  <Flex justify="between" align="center" className="p-4 border border-border rounded-md">
+  <Flex justify="between" align="center" className="rounded-md border border-border p-4">
     <span>左侧</span>
     <Button size="sm">操作</Button>
   </Flex>
 );
 ```
 
-## 对齐方式
+## 方向
 
 ```tsx preview
 import { Flex, Tag } from '@koi-ui/core';
 export default () => (
-  <Flex justify="between" align="center" className="h-20 rounded-md border border-border px-4">
-    <Tag>左侧</Tag>
-    <Tag color="primary">右侧</Tag>
+  <div className="space-y-4">
+    <Flex gap={2}>
+      <Tag>row</Tag>
+      <Tag variant="secondary">默认横向</Tag>
+    </Flex>
+    <Flex direction="column" gap={2}>
+      <Tag>column</Tag>
+      <Tag variant="secondary">纵向</Tag>
+    </Flex>
+    <Flex vertical gap={2}>
+      <Tag>vertical</Tag>
+      <Tag variant="secondary">简写纵向</Tag>
+    </Flex>
+  </div>
+);
+```
+
+## 对齐与分布
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Flex justify="between" align="center" className="h-16 rounded-md border border-border px-4">
+      <Tag>左侧</Tag>
+      <Tag variant="success">右侧</Tag>
+    </Flex>
+    <Flex justify="center" gap={2} className="rounded-md border border-border p-3">
+      <Tag>center</Tag>
+      <Tag variant="secondary">center</Tag>
+    </Flex>
+    <Flex justify="around" gap={2} className="rounded-md border border-border p-3">
+      <Tag>around</Tag>
+      <Tag variant="secondary">around</Tag>
+      <Tag variant="outline">around</Tag>
+    </Flex>
+  </div>
+);
+```
+
+## 间距与换行
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Flex gap={4}>
+      <Tag>gap 4</Tag>
+      <Tag variant="secondary">gap 4</Tag>
+      <Tag variant="outline">gap 4</Tag>
+    </Flex>
+    <Flex wrap="wrap" gap={2} className="max-w-48">
+      <Tag>A</Tag>
+      <Tag>B</Tag>
+      <Tag>C</Tag>
+      <Tag>D</Tag>
+      <Tag>E</Tag>
+      <Tag>F</Tag>
+    </Flex>
+  </div>
+);
+```
+
+## 响应式
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <Flex responsive gap={2} className="rounded-md border border-border p-3">
+    <Tag>窄屏纵向</Tag>
+    <Tag variant="secondary">md+ 横向</Tag>
   </Flex>
 );
 ```

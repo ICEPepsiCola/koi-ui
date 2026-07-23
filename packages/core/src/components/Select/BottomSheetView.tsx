@@ -23,6 +23,9 @@ export interface BottomSheetViewProps {
   size?: FieldSize;
 }
 
+/**
+ * Mobile Select — bottom sheet option list (no drum).
+ */
 export function BottomSheetView({
   options,
   value,
@@ -85,7 +88,7 @@ export function BottomSheetView({
               aria-modal="true"
               aria-labelledby={titleId}
               tabIndex={-1}
-              className="max-h-[70vh] w-full overflow-hidden rounded-t-box border border-border/80 bg-surface shadow-overlay"
+              className="max-h-[70vh] w-full overflow-hidden rounded-t-[14px] bg-surface pb-safe shadow-overlay"
               onClick={(e) => e.stopPropagation()}
             >
               <SheetChrome
@@ -94,7 +97,7 @@ export function BottomSheetView({
                 cancelText={messages.cancelActionText}
                 showConfirm={false}
               >
-                <div className="max-h-[50vh] overflow-y-auto px-2 pb-3">
+                <div className="max-h-[50vh] overflow-y-auto px-2 pb-4">
                   {options.map((opt) => (
                     <OptionRow
                       key={opt.value}

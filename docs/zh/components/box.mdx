@@ -5,7 +5,41 @@
 
 ```tsx preview
 import { Box, Text } from '@koi-ui/core';
-export default () => <Box p={6} border rounded="md"><Text>容器</Text></Box>;
+export default () => (
+  <Box p={6} border rounded="md">
+    <Text>容器</Text>
+  </Box>
+);
+```
+
+## 内边距
+
+```tsx preview
+import { Box, Text } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-3">
+    <Box p={2} border><Text size="sm">p=2</Text></Box>
+    <Box p={4} border><Text size="sm">p=4</Text></Box>
+    <Box p={6} border><Text size="sm">p=6</Text></Box>
+    <Box p={8} border><Text size="sm">p=8</Text></Box>
+  </div>
+);
+```
+
+## 圆角与背景
+
+```tsx preview
+import { Box, Text, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap size="middle">
+    <Box p={4} rounded="none" border><Text size="sm">none</Text></Box>
+    <Box p={4} rounded="sm" border><Text size="sm">sm</Text></Box>
+    <Box p={4} rounded="md" border><Text size="sm">md</Text></Box>
+    <Box p={4} rounded="lg" border><Text size="sm">lg</Text></Box>
+    <Box p={4} bg="muted"><Text size="sm">muted</Text></Box>
+    <Box p={4} bg="primary"><Text size="sm" className="text-primary-foreground">primary</Text></Box>
+  </Space>
+);
 ```
 
 ## API

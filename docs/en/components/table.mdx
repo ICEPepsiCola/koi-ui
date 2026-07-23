@@ -1,11 +1,21 @@
-
 # Table
 
 ## Basic usage
 
 ```tsx preview
 import { Table } from '@koi-ui/core';
-export default () => <Table columns={[{key:'name',title:'Name'},{key:'age',title:'Age'}]} data={[{name:'Alice',age:'20'},{name:'Bob',age:'25'}]} />;
+export default () => (
+  <Table
+    columns={[
+      { key: 'name', title: 'Name' },
+      { key: 'age', title: 'Age' },
+    ]}
+    data={[
+      { name: 'Alice', age: '20' },
+      { name: 'Bob', age: '25' },
+    ]}
+  />
+);
 ```
 
 ## Empty data
@@ -14,9 +24,74 @@ export default () => <Table columns={[{key:'name',title:'Name'},{key:'age',title
 import { Table } from '@koi-ui/core';
 export default () => (
   <Table
-    columns={[{ key: 'name', title: 'Name' }, { key: 'role', title: 'Role' }]}
+    columns={[
+      { key: 'name', title: 'Name' },
+      { key: 'role', title: 'Role' },
+    ]}
     data={[]}
     emptyText="No members"
+  />
+);
+```
+
+## Loading
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+export default () => (
+  <Table
+    loading
+    columns={[
+      { key: 'name', title: 'Name' },
+      { key: 'age', title: 'Age' },
+    ]}
+    data={[]}
+  />
+);
+```
+
+## Row click
+
+```tsx preview
+import { Table, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [clicked, setClicked] = useState('');
+  return (
+    <div>
+      <Table
+        columns={[
+          { key: 'name', title: 'Name' },
+          { key: 'role', title: 'Role' },
+        ]}
+        data={[
+          { name: 'Alice', role: 'Design' },
+          { name: 'Bob', role: 'Dev' },
+        ]}
+        onRowClick={(row) => setClicked(String(row.name))}
+      />
+      <Text muted className="mt-2 block text-sm">Clicked: {clicked || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## Mobile fields
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+export default () => (
+  <Table
+    columns={[
+      { key: 'name', title: 'Name' },
+      { key: 'role', title: 'Role' },
+      { key: 'city', title: 'City' },
+    ]}
+    data={[
+      { name: 'Alice', role: 'Design', city: 'Hangzhou' },
+      { name: 'Bob', role: 'Dev', city: 'Shanghai' },
+    ]}
+    mobileFields={['name', 'role']}
   />
 );
 ```

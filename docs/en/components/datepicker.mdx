@@ -1,4 +1,3 @@
-
 # DatePicker
 
 ## Basic usage
@@ -6,7 +5,10 @@
 ```tsx preview
 import { DatePicker } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState(''); return <DatePicker value={v} onChange={setV} placeholder="Select date" />; };
+export default () => {
+  const [v, setV] = useState('');
+  return <DatePicker value={v} onChange={setV} placeholder="Select date" />;
+};
 ```
 
 ## Controlled date
@@ -30,7 +32,51 @@ export default () => {
 ```tsx preview
 import { DatePicker } from '@koi-ui/core';
 import { useState } from 'react';
-export default () => { const [v,setV]=useState('2026-07-12'); return <DatePicker value={v} onChange={setV} clearable placeholder="Select date" />; };
+export default () => {
+  const [v, setV] = useState('2026-07-12');
+  return <DatePicker value={v} onChange={setV} clearable placeholder="Select date" />;
+};
+```
+
+## Min / max
+
+```tsx preview
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('2026-07-15');
+  return (
+    <DatePicker
+      value={v}
+      onChange={setV}
+      min="2026-07-01"
+      max="2026-07-31"
+      placeholder="July only"
+    />
+  );
+};
+```
+
+## Size
+
+```tsx preview
+import { DatePicker, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <DatePicker size="sm" placeholder="sm" />
+    <DatePicker size="md" placeholder="md" />
+    <DatePicker size="lg" placeholder="lg" />
+  </Space>
+);
+```
+
+## Disabled
+
+```tsx preview
+import { DatePicker } from '@koi-ui/core';
+export default () => (
+  <DatePicker disabled value="2026-07-12" placeholder="Select date" />
+);
 ```
 
 ## API

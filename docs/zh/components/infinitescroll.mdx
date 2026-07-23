@@ -1,11 +1,78 @@
-
 # InfiniteScroll 无限滚动
 
 ## 基础用法
 
 ```tsx preview
+import { InfiniteScroll, List, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [items, setItems] = useState(
+    Array.from({ length: 8 }, (_, i) => ({ key: String(i), title: `项目 ${i + 1}` })),
+  );
+  const [hasMore, setHasMore] = useState(true);
+  return (
+    <div className="space-y-2">
+      <Text muted size="sm">滚动到底部自动加载</Text>
+      <InfiniteScroll
+        className="h-64 rounded-md border border-border"
+        hasMore={hasMore}
+        loadMore={async () => {
+          await new Promise((r) => setTimeout(r, 600));
+          setItems((prev) => {
+            const next = [
+              ...prev,
+              ...Array.from({ length: 5 }, (_, i) => ({
+                key: String(prev.length + i),
+                title: `项目 ${prev.length + i + 1}`,
+              })),
+            ];
+            if (next.length >= 25) setHasMore(false);
+            return next;
+          });
+        }}
+      >
+        <List items={items} />
+      </InfiniteScroll>
+    </div>
+  );
+};
+```
+
+## 加载与结束文案
+
+```tsx preview
 import { InfiniteScroll, List } from '@koi-ui/core';
-export default () => <InfiniteScroll hasMore={false} loadMore={async()=>{}}><List items={[{key:'1',title:'项目1'},{key:'2',title:'项目2'}]} /></InfiniteScroll>;
+import { useState } from 'react';
+export default () => {
+  const [items, setItems] = useState(
+    Array.from({ length: 6 }, (_, i) => ({ key: String(i), title: `条目 ${i + 1}` })),
+  );
+  const [hasMore, setHasMore] = useState(true);
+  return (
+    <InfiniteScroll
+      className="h-64 rounded-md border border-border"
+      hasMore={hasMore}
+      loadingText="正在加载更多…"
+      endText="已经到底啦"
+      loadMore={async () => {
+        await new Promise((r) => setTimeout(r, 500));
+        setItems((prev) => {
+          const next = [
+            ...prev,
+            ...Array.from({ length: 4 }, (_, i) => ({
+              key: String(prev.length + i),
+              title: `条目 ${prev.length + i + 1}`,
+            })),
+          ];
+          if (next.length >= 18) setHasMore(false);
+          return next;
+        });
+      }}
+    >
+      <List items={items} />
+    </InfiniteScroll>
+  );
+};
 ```
 
 ## API

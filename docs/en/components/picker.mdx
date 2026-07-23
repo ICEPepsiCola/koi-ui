@@ -1,4 +1,3 @@
-
 # Picker
 
 ## Basic usage
@@ -27,7 +26,73 @@ const columns = [
 ];
 export default () => {
   const [value, setValue] = useState(['2', 'pm']);
-  return <Picker value={value} onChange={setValue} columns={columns} clearable placeholder="Select time段" />;
+  return <Picker value={value} onChange={setValue} columns={columns} clearable placeholder="Select slot" />;
+};
+```
+
+## Size
+
+```tsx preview
+import { Picker, Space } from '@koi-ui/core';
+const columns = [
+  { options: [{ label: 'Mon', value: '1' }, { label: 'Tue', value: '2' }] },
+  { options: [{ label: 'AM', value: 'am' }, { label: 'PM', value: 'pm' }] },
+];
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Picker size="sm" columns={columns} placeholder="sm" />
+    <Picker size="md" columns={columns} placeholder="md" />
+    <Picker size="lg" columns={columns} placeholder="lg" />
+  </Space>
+);
+```
+
+## Disabled
+
+```tsx preview
+import { Picker } from '@koi-ui/core';
+export default () => (
+  <Picker
+    disabled
+    value={['2', 'pm']}
+    placeholder="Disabled"
+    columns={[
+      { options: [{ label: 'Mon', value: '1' }, { label: 'Tue', value: '2' }] },
+      { options: [{ label: 'AM', value: 'am' }, { label: 'PM', value: 'pm' }] },
+    ]}
+  />
+);
+```
+
+## Option disabled
+
+```tsx preview
+import { Picker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState(['1', 'am']);
+  return (
+    <Picker
+      value={value}
+      onChange={setValue}
+      placeholder="Select slot"
+      columns={[
+        {
+          options: [
+            { label: 'Mon', value: '1' },
+            { label: 'Tue', value: '2', disabled: true },
+            { label: 'Wed', value: '3' },
+          ],
+        },
+        {
+          options: [
+            { label: 'AM', value: 'am' },
+            { label: 'PM', value: 'pm', disabled: true },
+          ],
+        },
+      ]}
+    />
+  );
 };
 ```
 

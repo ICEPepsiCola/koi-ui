@@ -8,6 +8,29 @@ import { Empty } from '@koi-ui/core';
 export default () => <Empty description="暂无数据" />;
 ```
 
+## 带操作
+
+```tsx preview
+import { Empty, Button } from '@koi-ui/core';
+export default () => (
+  <Empty description="还没有内容">
+    <Button size="sm">立即创建</Button>
+  </Empty>
+);
+```
+
+## 自定义图片
+
+```tsx preview
+import { Empty } from '@koi-ui/core';
+export default () => (
+  <Empty
+    description="自定义插图"
+    image={<div className="mb-4 text-4xl text-muted-foreground">∅</div>}
+  />
+);
+```
+
 ## API
 
 <API name="Empty" />

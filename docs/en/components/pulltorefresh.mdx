@@ -1,11 +1,60 @@
-
 # PullToRefresh
 
 ## Basic usage
 
 ```tsx preview
+import { PullToRefresh, List, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [items, setItems] = useState([
+    { key: '1', title: 'Item 1' },
+    { key: '2', title: 'Item 2' },
+    { key: '3', title: 'Item 3' },
+  ]);
+  return (
+    <div className="space-y-2">
+      <Text muted size="sm">Pull down from the top of the list to refresh</Text>
+      <PullToRefresh
+        className="h-64 rounded-md border border-border"
+        onRefresh={async () => {
+          await new Promise((r) => setTimeout(r, 800));
+          setItems((prev) => [
+            { key: String(Date.now()), title: `Refreshed at ${new Date().toLocaleTimeString()}` },
+            ...prev,
+          ]);
+        }}
+      >
+        <List items={items} />
+      </PullToRefresh>
+    </div>
+  );
+};
+```
+
+## Custom texts & threshold
+
+```tsx preview
 import { PullToRefresh, List } from '@koi-ui/core';
-export default () => <PullToRefresh onRefresh={async()=>{}}><List items={[{key:'1',title:'Item 1'},{key:'2',title:'Item 2'}]} /></PullToRefresh>;
+export default () => (
+  <PullToRefresh
+    className="h-64 rounded-md border border-border"
+    threshold={80}
+    pullingText="Keep pulling…"
+    releaseText="Release to refresh"
+    refreshingText="Refreshing…"
+    onRefresh={async () => {
+      await new Promise((r) => setTimeout(r, 1000));
+    }}
+  >
+    <List
+      items={[
+        { key: '1', title: 'threshold=80' },
+        { key: '2', title: 'Custom status texts' },
+        { key: '3', title: 'Item 3' },
+      ]}
+    />
+  </PullToRefresh>
+);
 ```
 
 ## API

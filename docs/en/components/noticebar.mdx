@@ -1,11 +1,56 @@
-
 # NoticeBar
 
 ## Basic usage
 
 ```tsx preview
 import { NoticeBar } from '@koi-ui/core';
-export default () => <NoticeBar content="This is a scrolling notice" />;
+export default () => <NoticeBar content="This is a notice" />;
+```
+
+## Variants
+
+```tsx preview
+import { NoticeBar, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <NoticeBar variant="default" content="Default notice" />
+    <NoticeBar variant="warning" content="Please review the risks" />
+    <NoticeBar variant="error" content="Something went wrong. Try again later." />
+  </Stack>
+);
+```
+
+## Closable
+
+```tsx preview
+import { NoticeBar } from '@koi-ui/core';
+export default () => (
+  <NoticeBar closable content="Click the close button to dismiss" />
+);
+```
+
+## Left icon
+
+```tsx preview
+import { NoticeBar, Icon } from '@koi-ui/core';
+export default () => (
+  <NoticeBar
+    leftIcon={<Icon name="search" size="sm" />}
+    content="Notice bar with a left icon"
+  />
+);
+```
+
+## Scrollable
+
+```tsx preview
+import { NoticeBar } from '@koi-ui/core';
+export default () => (
+  <NoticeBar
+    scrollable
+    content="This is a longer scrolling notice that moves horizontally when it overflows the container."
+  />
+);
 ```
 
 ## API

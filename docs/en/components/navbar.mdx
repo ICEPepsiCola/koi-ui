@@ -1,4 +1,3 @@
-
 # NavBar
 
 ## Basic usage
@@ -8,16 +7,41 @@ import { NavBar } from '@koi-ui/core';
 export default () => <NavBar title="Page title" onBack={() => {}} />;
 ```
 
-## With right action
+## Left & backIcon
 
 ```tsx preview
-import { NavBar, Button } from '@koi-ui/core';
+import { NavBar, Button, Icon, Space } from '@koi-ui/core';
 export default () => (
-  <NavBar
-    title="Details"
-    onBack={() => {}}
-    right={<Button size="sm" variant="ghost">Share</Button>}
-  />
+  <Space direction="vertical" size="middle" className="w-full">
+    <NavBar
+      title="Custom back icon"
+      onBack={() => {}}
+      backIcon={<Icon name="close" size="md" />}
+    />
+    <NavBar
+      title="Custom left"
+      left={<Button size="sm" variant="ghost">Close</Button>}
+      right={<Button size="sm" variant="ghost">Share</Button>}
+    />
+  </Space>
+);
+```
+
+## fixed, bordered & safeArea
+
+```tsx preview
+import { NavBar, Space, Text } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <div>
+      <Text muted size="sm" className="mb-2 block">fixed=false · bordered</Text>
+      <NavBar fixed={false} bordered title="Relative" onBack={() => {}} />
+    </div>
+    <div>
+      <Text muted size="sm" className="mb-2 block">bordered=false · safeArea=false</Text>
+      <NavBar fixed={false} bordered={false} safeArea={false} title="No border / no safe area" onBack={() => {}} />
+    </div>
+  </Space>
 );
 ```
 

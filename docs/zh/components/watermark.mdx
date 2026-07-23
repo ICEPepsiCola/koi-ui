@@ -1,11 +1,42 @@
-
 # Watermark 水印
 
 ## 基础用法
 
 ```tsx preview
 import { Watermark } from '@koi-ui/core';
-export default () => <Watermark content="Koi UI"><div className="h-32 flex items-center justify-center border border-border rounded-md">水印区域</div></Watermark>;
+export default () => (
+  <Watermark content="Koi UI">
+    <div className="flex h-32 items-center justify-center rounded-md border border-border">
+      水印区域
+    </div>
+  </Watermark>
+);
+```
+
+## 间距与旋转
+
+```tsx preview
+import { Watermark } from '@koi-ui/core';
+export default () => (
+  <Watermark content="Confidential" gap={[80, 80]} rotate={-30}>
+    <div className="flex h-40 items-center justify-center rounded-md border border-border">
+      调整 gap 与 rotate
+    </div>
+  </Watermark>
+);
+```
+
+## 字体样式
+
+```tsx preview
+import { Watermark } from '@koi-ui/core';
+export default () => (
+  <Watermark content="草稿" fontSize={18} fontColor="rgba(0,0,0,0.12)">
+    <div className="flex h-32 items-center justify-center rounded-md border border-border">
+      自定义字号与颜色
+    </div>
+  </Watermark>
+);
 ```
 
 ## API

@@ -1,11 +1,50 @@
-
 # Ellipsis
 
 ## Basic usage
 
 ```tsx preview
 import { Ellipsis } from '@koi-ui/core';
-export default () => <Ellipsis content="This is a long paragraph used to demonstrate text ellipsis: when content exceeds the container width, the overflow is truncated with an ellipsis so lists and cards stay readable." rows={1} />;
+export default () => (
+  <Ellipsis content="This is a long paragraph used to demonstrate text ellipsis: when content exceeds the container width, the overflow is truncated with an ellipsis so lists and cards stay readable." />
+);
+```
+
+## Multiple rows
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis
+    rows={2}
+    content="This long paragraph demonstrates multi-line ellipsis. Content is clamped to the given row count. Expand to read everything, then collapse again."
+  />
+);
+```
+
+## Custom labels
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis
+    rows={2}
+    expandText="Show more"
+    collapseText="Show less"
+    content="Custom expand and collapse labels. This sample text is long enough to trigger multi-line clamping and show the custom button copy."
+  />
+);
+```
+
+## Not expandable
+
+```tsx preview
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis
+    expandable={false}
+    content="When expandable is false, only truncation is shown without an expand button. Useful for read-only summaries: here is a longer description."
+  />
+);
 ```
 
 ## API

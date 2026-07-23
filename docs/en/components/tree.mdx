@@ -5,7 +5,104 @@
 
 ```tsx preview
 import { Tree } from '@koi-ui/core';
-export default () => <Tree data={[{ key:'1', title:'Parent', children:[{ key:'1-1', title:'Child' }] }]} />;
+export default () => (
+  <Tree
+    data={[
+      {
+        key: '1',
+        title: 'Docs',
+        children: [
+          { key: '1-1', title: 'Intro' },
+          { key: '1-2', title: 'Quick start' },
+        ],
+      },
+      {
+        key: '2',
+        title: 'Components',
+        children: [{ key: '2-1', title: 'Button' }],
+      },
+    ]}
+  />
+);
+```
+
+## Show line
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+export default () => (
+  <Tree
+    showLine
+    defaultExpandedKeys={['1']}
+    data={[
+      {
+        key: '1',
+        title: 'Parent',
+        children: [
+          { key: '1-1', title: 'Child A' },
+          { key: '1-2', title: 'Child B' },
+        ],
+      },
+    ]}
+  />
+);
+```
+
+## Expand & select
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [expandedKeys, setExpandedKeys] = useState(['1']);
+  const [selectedKeys, setSelectedKeys] = useState(['1-1']);
+  return (
+    <Tree
+      defaultExpandedKeys={['1']}
+      expandedKeys={expandedKeys}
+      onExpand={setExpandedKeys}
+      selectedKeys={selectedKeys}
+      onSelect={setSelectedKeys}
+      data={[
+        {
+          key: '1',
+          title: 'Project',
+          children: [
+            { key: '1-1', title: 'README' },
+            { key: '1-2', title: 'CHANGELOG' },
+          ],
+        },
+      ]}
+    />
+  );
+};
+```
+
+## Nested data
+
+```tsx preview
+import { Tree } from '@koi-ui/core';
+export default () => (
+  <Tree
+    defaultExpandedKeys={['a', 'a-1']}
+    data={[
+      {
+        key: 'a',
+        title: 'Level 1',
+        children: [
+          {
+            key: 'a-1',
+            title: 'Level 2',
+            children: [
+              { key: 'a-1-1', title: 'Level 3 A' },
+              { key: 'a-1-2', title: 'Level 3 B', disabled: true },
+            ],
+          },
+        ],
+      },
+    ]}
+  />
+);
 ```
 
 ## API

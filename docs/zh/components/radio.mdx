@@ -1,11 +1,15 @@
-
 # Radio 单选框
 
 ## 基础用法
 
 ```tsx preview
 import { Radio, RadioGroup } from '@koi-ui/core';
-export default () => <RadioGroup defaultValue="a"><Radio radioValue="a" label="选项A" /><Radio radioValue="b" label="选项B" /></RadioGroup>;
+export default () => (
+  <RadioGroup defaultValue="a">
+    <Radio radioValue="a" label="选项 A" />
+    <Radio radioValue="b" label="选项 B" />
+  </RadioGroup>
+);
 ```
 
 ## 受控单选
@@ -25,6 +29,42 @@ export default () => {
     </div>
   );
 };
+```
+
+## 尺寸、方向与禁用
+
+```tsx preview
+import { Radio, RadioGroup, Space, Text } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <div>
+      <Text muted size="sm" className="mb-2 block">size</Text>
+      <Space>
+        <RadioGroup size="sm" defaultValue="sm" direction="horizontal">
+          <Radio radioValue="sm" label="sm" />
+        </RadioGroup>
+        <RadioGroup size="md" defaultValue="md" direction="horizontal">
+          <Radio radioValue="md" label="md" />
+        </RadioGroup>
+        <RadioGroup size="lg" defaultValue="lg" direction="horizontal">
+          <Radio radioValue="lg" label="lg" />
+        </RadioGroup>
+      </Space>
+    </div>
+    <div>
+      <Text muted size="sm" className="mb-2 block">direction=&quot;horizontal&quot;</Text>
+      <RadioGroup defaultValue="a" direction="horizontal">
+        <Radio radioValue="a" label="选项 A" />
+        <Radio radioValue="b" label="选项 B" />
+        <Radio radioValue="c" label="选项 C" />
+      </RadioGroup>
+    </div>
+    <RadioGroup disabled defaultValue="a">
+      <Radio radioValue="a" label="整组禁用" />
+      <Radio radioValue="b" label="不可选" />
+    </RadioGroup>
+  </Space>
+);
 ```
 
 ## API

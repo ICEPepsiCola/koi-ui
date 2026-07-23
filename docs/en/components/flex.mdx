@@ -6,21 +6,89 @@
 ```tsx preview
 import { Flex, Button } from '@koi-ui/core';
 export default () => (
-  <Flex justify="between" align="center" className="p-4 border border-border rounded-md">
+  <Flex justify="between" align="center" className="rounded-md border border-border p-4">
     <span>Left</span>
     <Button size="sm">Action</Button>
   </Flex>
 );
 ```
 
-## Alignment
+## Direction
 
 ```tsx preview
 import { Flex, Tag } from '@koi-ui/core';
 export default () => (
-  <Flex justify="between" align="center" className="h-20 rounded-md border border-border px-4">
-    <Tag>Left</Tag>
-    <Tag color="primary">Right</Tag>
+  <div className="space-y-4">
+    <Flex gap={2}>
+      <Tag>row</Tag>
+      <Tag variant="secondary">default</Tag>
+    </Flex>
+    <Flex direction="column" gap={2}>
+      <Tag>column</Tag>
+      <Tag variant="secondary">vertical</Tag>
+    </Flex>
+    <Flex vertical gap={2}>
+      <Tag>vertical</Tag>
+      <Tag variant="secondary">shorthand</Tag>
+    </Flex>
+  </div>
+);
+```
+
+## Align & justify
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Flex justify="between" align="center" className="h-16 rounded-md border border-border px-4">
+      <Tag>Left</Tag>
+      <Tag variant="success">Right</Tag>
+    </Flex>
+    <Flex justify="center" gap={2} className="rounded-md border border-border p-3">
+      <Tag>center</Tag>
+      <Tag variant="secondary">center</Tag>
+    </Flex>
+    <Flex justify="around" gap={2} className="rounded-md border border-border p-3">
+      <Tag>around</Tag>
+      <Tag variant="secondary">around</Tag>
+      <Tag variant="outline">around</Tag>
+    </Flex>
+  </div>
+);
+```
+
+## Gap & wrap
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Flex gap={4}>
+      <Tag>gap 4</Tag>
+      <Tag variant="secondary">gap 4</Tag>
+      <Tag variant="outline">gap 4</Tag>
+    </Flex>
+    <Flex wrap="wrap" gap={2} className="max-w-48">
+      <Tag>A</Tag>
+      <Tag>B</Tag>
+      <Tag>C</Tag>
+      <Tag>D</Tag>
+      <Tag>E</Tag>
+      <Tag>F</Tag>
+    </Flex>
+  </div>
+);
+```
+
+## Responsive
+
+```tsx preview
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <Flex responsive gap={2} className="rounded-md border border-border p-3">
+    <Tag>column on narrow</Tag>
+    <Tag variant="secondary">row from md+</Tag>
   </Flex>
 );
 ```

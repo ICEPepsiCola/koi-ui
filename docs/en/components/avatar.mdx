@@ -4,8 +4,39 @@
 ## Basic usage
 
 ```tsx preview
-import { Avatar } from '@koi-ui/core';
-export default () => <Avatar fallback="A" />;
+import { Avatar, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Avatar fallback="K" />
+    <Avatar src="https://api.dicebear.com/9.x/avataaars/svg?seed=koi" alt="Koi" />
+  </Space>
+);
+```
+
+## Size
+
+```tsx preview
+import { Avatar, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center">
+    <Avatar size="sm" fallback="S" />
+    <Avatar size="md" fallback="M" />
+    <Avatar size="lg" fallback="L" />
+    <Avatar size="xl" fallback="XL" />
+  </Space>
+);
+```
+
+## Shape
+
+```tsx preview
+import { Avatar, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Avatar shape="circle" fallback="C" />
+    <Avatar shape="square" fallback="S" />
+  </Space>
+);
 ```
 
 ## API

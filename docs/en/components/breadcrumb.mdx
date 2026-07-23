@@ -1,11 +1,59 @@
-
 # Breadcrumb
 
 ## Basic usage
 
 ```tsx preview
 import { Breadcrumb } from '@koi-ui/core';
-export default () => <Breadcrumb items={[{ title: 'Home' }, { title: 'List' }, { title: 'Details' }]} />;
+export default () => (
+  <Breadcrumb
+    items={[
+      { title: 'Home' },
+      { title: 'List' },
+      { title: 'Details' },
+    ]}
+  />
+);
+```
+
+## Custom separator
+
+```tsx preview
+import { Breadcrumb, BreadcrumbSeparator, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Breadcrumb
+      separator=">"
+      items={[
+        { title: 'Home' },
+        { title: 'Components' },
+        { title: 'Breadcrumb' },
+      ]}
+    />
+    <Breadcrumb
+      separator={<BreadcrumbSeparator />}
+      items={[
+        { title: 'Home' },
+        { title: 'Components' },
+        { title: 'Breadcrumb' },
+      ]}
+    />
+  </Space>
+);
+```
+
+## With href
+
+```tsx preview
+import { Breadcrumb } from '@koi-ui/core';
+export default () => (
+  <Breadcrumb
+    items={[
+      { title: 'Home', href: '#' },
+      { title: 'List', href: '#' },
+      { title: 'Details' },
+    ]}
+  />
+);
 ```
 
 ## API

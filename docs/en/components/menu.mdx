@@ -1,11 +1,119 @@
-
 # Menu
 
 ## Basic usage
 
 ```tsx preview
 import { Menu } from '@koi-ui/core';
-export default () => <Menu items={[{ key: '1', label: 'Nav 1' }, { key: '2', label: 'Nav 2' }]} defaultSelectedKey="1" />;
+export default () => (
+  <Menu
+    defaultSelectedKey="1"
+    items={[
+      { key: '1', label: 'Nav 1' },
+      { key: '2', label: 'Nav 2' },
+      { key: '3', label: 'Nav 3' },
+    ]}
+  />
+);
+```
+
+## Modes
+
+```tsx preview
+import { Menu, Space, Text } from '@koi-ui/core';
+
+const items = [
+  { key: '1', label: 'Home' },
+  { key: '2', label: 'Explore' },
+  { key: '3', label: 'Profile' },
+];
+
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">vertical</Text>
+      <Menu mode="vertical" defaultSelectedKey="1" items={items} />
+    </div>
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">horizontal</Text>
+      <Menu mode="horizontal" defaultSelectedKey="2" items={items} />
+    </div>
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">inline</Text>
+      <Menu mode="inline" defaultSelectedKey="3" items={items} />
+    </div>
+  </Space>
+);
+```
+
+## Nested & defaultOpenKeys
+
+```tsx preview
+import { Menu } from '@koi-ui/core';
+export default () => (
+  <Menu
+    defaultSelectedKey="1-1"
+    defaultOpenKeys={['1']}
+    items={[
+      {
+        key: '1',
+        label: 'Product',
+        children: [
+          { key: '1-1', label: 'Overview' },
+          { key: '1-2', label: 'Pricing' },
+        ],
+      },
+      {
+        key: '2',
+        label: 'Resources',
+        children: [
+          { key: '2-1', label: 'Docs' },
+          { key: '2-2', label: 'Blog' },
+        ],
+      },
+      { key: '3', label: 'About' },
+    ]}
+  />
+);
+```
+
+## Disabled & danger
+
+```tsx preview
+import { Menu } from '@koi-ui/core';
+export default () => (
+  <Menu
+    defaultSelectedKey="1"
+    items={[
+      { key: '1', label: 'Edit' },
+      { key: '2', label: 'Disabled', disabled: true },
+      { key: '3', label: 'Delete', danger: true },
+    ]}
+  />
+);
+```
+
+## Controlled selectedKey
+
+```tsx preview
+import { Menu, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [selectedKey, setSelectedKey] = useState('home');
+  return (
+    <div className="space-y-2">
+      <Text size="sm">Selected: {selectedKey}</Text>
+      <Menu
+        selectedKey={selectedKey}
+        onSelect={setSelectedKey}
+        items={[
+          { key: 'home', label: 'Home' },
+          { key: 'explore', label: 'Explore' },
+          { key: 'profile', label: 'Profile' },
+        ]}
+      />
+    </div>
+  );
+};
 ```
 
 ## API

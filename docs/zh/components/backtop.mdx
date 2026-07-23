@@ -1,11 +1,33 @@
-
 # BackTop 回到顶部
 
 ## 基础用法
 
 ```tsx preview
-import { BackTop } from '@koi-ui/core';
-export default () => <div className="h-40 overflow-auto relative"><div className="h-96 p-4">滚动区域</div><BackTop /></div>;
+import { BackTop, Text } from '@koi-ui/core';
+export default () => (
+  <div className="relative space-y-2 pb-8 text-sm text-muted-foreground">
+    <Text className="font-medium text-surface-foreground">向下滚动，出现回到顶部按钮</Text>
+    {Array.from({ length: 50 }, (_, i) => (
+      <p key={i}>内容行 {i + 1}</p>
+    ))}
+    <BackTop visibilityHeight={120} />
+  </div>
+);
+```
+
+## 显示阈值
+
+```tsx preview
+import { BackTop, Text } from '@koi-ui/core';
+export default () => (
+  <div className="relative space-y-2 pb-8 text-sm text-muted-foreground">
+    <Text className="font-medium text-surface-foreground">visibilityHeight=40，滚动很少即显示</Text>
+    {Array.from({ length: 50 }, (_, i) => (
+      <p key={i}>内容行 {i + 1}</p>
+    ))}
+    <BackTop visibilityHeight={40} />
+  </div>
+);
 ```
 
 ## API
