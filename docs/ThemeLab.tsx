@@ -65,11 +65,11 @@ export function ThemeLab() {
       <KoiProvider theme={{ name: themeName }}>
         <div className="koi-theme-lab__stage" data-theme={themeName}>
           <Space wrap className="w-full">
-            <Button variant="primary">
+            <Button color="primary">
               {lang === 'zh' ? '主按钮' : 'Primary'}
             </Button>
-            <Button variant="soft">{lang === 'zh' ? '轻量' : 'Soft'}</Button>
-            <Button variant="outline">
+            <Button color="primary" variant="soft">{lang === 'zh' ? '轻量' : 'Soft'}</Button>
+            <Button color="primary" variant="outline">
               {lang === 'zh' ? '描边' : 'Outline'}
             </Button>
             <Button variant="ghost">{lang === 'zh' ? '幽灵' : 'Ghost'}</Button>

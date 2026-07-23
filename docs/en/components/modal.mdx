@@ -34,10 +34,10 @@ export default () => {
         title="Confirm delete"
         footer={
           <Space>
-            <Button variant="secondary" onClick={() => setOpen(false)}>
+            <Button color="secondary" onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button variant="destructive" onClick={() => setOpen(false)}>
+            <Button color="error" onClick={() => setOpen(false)}>
               Delete
             </Button>
           </Space>
@@ -61,17 +61,14 @@ export default () => {
   return (
     <>
       <Space>
-        <Button
-          onClick={() => {
+        <Button onClick={() => {
             setTall(true);
             setOpen(true);
           }}
         >
           Near fullscreen
         </Button>
-        <Button
-          variant="outline"
-          onClick={() => {
+        <Button variant="outline"onClick={() => {
             setTall(false);
             setOpen(true);
           }}

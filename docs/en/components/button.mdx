@@ -1,14 +1,33 @@
-
 # Button
+
+`color` sets the semantic tone; `variant` sets the surface style.
 
 ## Basic usage
 
 ```tsx preview
 import { Button, Space } from '@koi-ui/core';
 export default () => (
-  <Space>
-    <Button variant="primary">Primary</Button>
-    <Button variant="secondary">Secondary</Button>
+  <Space wrap>
+    <Button>Default</Button>
+    <Button color="secondary">Secondary</Button>
+    <Button color="primary">Primary</Button>
+  </Space>
+);
+```
+
+## Colors
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button color="neutral">Neutral</Button>
+    <Button color="primary">Primary</Button>
+    <Button color="secondary">Secondary</Button>
+    <Button color="info">Info</Button>
+    <Button color="success">Success</Button>
+    <Button color="warning">Warning</Button>
+    <Button color="error">Error</Button>
   </Space>
 );
 ```
@@ -16,30 +35,88 @@ export default () => (
 ## Variants
 
 ```tsx preview
-import { Button, Stack } from '@koi-ui/core';
+import { Button, Space } from '@koi-ui/core';
 export default () => (
-  <Stack gap={2}>
-    <Button variant="primary">Primary</Button>
+  <Space wrap>
+    <Button variant="solid">Solid</Button>
     <Button variant="soft">Soft</Button>
     <Button variant="outline">Outline</Button>
-    <Button variant="secondary">Secondary</Button>
+    <Button variant="dash">Dash</Button>
     <Button variant="ghost">Ghost</Button>
-    <Button variant="destructive">Destructive</Button>
-  </Stack>
+    <Button variant="link">Link</Button>
+  </Space>
 );
 ```
 
-## Size and status
+## Color × variant
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Space wrap>
+      <Button color="primary" variant="soft">Soft</Button>
+      <Button color="primary" variant="outline">Outline</Button>
+      <Button color="primary" variant="dash">Dash</Button>
+      <Button color="primary" variant="ghost">Ghost</Button>
+    </Space>
+    <Space wrap>
+      <Button color="error" variant="soft">Soft</Button>
+      <Button color="error" variant="outline">Outline</Button>
+      <Button color="error" variant="dash">Dash</Button>
+      <Button color="error" variant="ghost">Ghost</Button>
+    </Space>
+  </Space>
+);
+```
+
+## Sizes
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap align="center">
+    <Button size="xs">XS</Button>
+    <Button size="sm">SM</Button>
+    <Button size="md">MD</Button>
+    <Button size="lg">LG</Button>
+    <Button size="xl">XL</Button>
+  </Space>
+);
+```
+
+## Shape & width
+
+```tsx preview
+import { Button, Icon, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Space wrap align="center">
+      <Button shape="square" aria-label="Add">
+        <Icon name="plus" size="sm" />
+      </Button>
+      <Button shape="circle" aria-label="Search">
+        <Icon name="search" size="sm" />
+      </Button>
+      <Button wide>Wide</Button>
+    </Space>
+    <Button block>Full width</Button>
+  </Space>
+);
+```
+
+## States
 
 ```tsx preview
 import { Button, Space } from '@koi-ui/core';
 export default () => (
   <Space wrap>
-    <Button size="sm">Small</Button>
-    <Button size="md">Medium</Button>
-    <Button size="lg">Large</Button>
     <Button loading>Loading</Button>
     <Button disabled>Disabled</Button>
+    <Button active>Active</Button>
+    <Button variant="outline" active>
+      Outline Active
+    </Button>
   </Space>
 );
 ```

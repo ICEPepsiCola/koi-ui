@@ -30,10 +30,7 @@ export default () => {
     <>
       <Space wrap>
         {(['left', 'right', 'top', 'bottom'] as const).map((p) => (
-          <Button
-            key={p}
-            size="sm"
-            onClick={() => {
+          <Button key={p}size="sm" onClick={() => {
               setPlacement(p);
               setOpen(true);
             }}
@@ -67,10 +64,7 @@ export default () => {
     <>
       <Space>
         {(['sm', 'md', 'lg'] as const).map((s) => (
-          <Button
-            key={s}
-            size="sm"
-            onClick={() => {
+          <Button key={s}size="sm" onClick={() => {
               setSize(s);
               setOpen(true);
             }}
@@ -103,10 +97,10 @@ export default () => {
         title="Edit"
         footer={
           <Space>
-            <Button variant="secondary" onClick={() => setOpen(false)}>
+            <Button color="secondary" onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={() => setOpen(false)}>Save</Button>
+            <Button color="primary" onClick={() => setOpen(false)}>Save</Button>
           </Space>
         }
       >

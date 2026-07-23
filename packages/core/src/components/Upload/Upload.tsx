@@ -144,6 +144,7 @@ export function Upload({
               </span>
               <Button
                 variant="ghost"
+                color="neutral"
                 size="sm"
                 disabled={disabled}
                 onClick={(e) => {

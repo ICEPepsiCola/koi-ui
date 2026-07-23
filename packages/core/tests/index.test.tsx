@@ -27,6 +27,26 @@ test('Button renders children', () => {
 test('Button shows loading state', () => {
   render(<Button loading>提交</Button>);
   expect(screen.getByText('提交')).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: '提交' })).toBeDisabled();
+});
+
+test('Button disabled and loading ignore clicks', () => {
+  const onClick = () => {
+    throw new Error('onClick should not fire');
+  };
+  const { rerender } = render(
+    <Button disabled onClick={onClick}>
+      禁用
+    </Button>,
+  );
+  fireEvent.click(screen.getByRole('button', { name: '禁用' }));
+
+  rerender(
+    <Button loading onClick={onClick}>
+      加载
+    </Button>,
+  );
+  fireEvent.click(screen.getByRole('button', { name: '加载' }));
 });
 
 test('Button soft and outline variants render', () => {
@@ -34,10 +54,14 @@ test('Button soft and outline variants render', () => {
     <>
       <Button variant="soft">Soft</Button>
       <Button variant="outline">Outline</Button>
+      <Button color="error">Error</Button>
+      <Button shape="circle" aria-label="icon" />
     </>,
   );
   expect(screen.getByText('Soft')).toBeInTheDocument();
   expect(screen.getByText('Outline')).toBeInTheDocument();
+  expect(screen.getByText('Error')).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'icon' })).toBeInTheDocument();
 });
 
 test('KoiProvider applies data-theme and CSS overrides', () => {

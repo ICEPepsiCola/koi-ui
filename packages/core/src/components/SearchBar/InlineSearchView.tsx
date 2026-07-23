@@ -75,7 +75,7 @@ export function InlineSearchView({
           />
         ) : null}
         <Button
-          variant="primary"
+          color="primary"
           size="sm"
           disabled={disabled}
           onClick={submit}

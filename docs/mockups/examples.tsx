@@ -1,16 +1,12 @@
 /**
- * daisyUI Mockup 组件（本地副本，结构对齐官方文档）
- * @see https://daisyui.com/components/mockup-browser/
- * @see https://daisyui.com/components/mockup-phone/
- * @see https://daisyui.com/components/mockup-window/
- * @see https://daisyui.com/components/mockup-code/
+ * 文档预览用 Mockup（Browser / Phone / Window / Code）
  */
 
 import type { ReactNode } from 'react';
 
 /** ① Browser mockup */
 export function MockupBrowser({
-  url = 'https://daisyui.com',
+  url = 'https://example.com',
   children,
   className = 'border w-full',
 }: {

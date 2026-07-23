@@ -3,8 +3,9 @@
 @theme {
   --color-primary: hsl(220 90% 56%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(210 40% 96%);
-  --color-secondary-foreground: hsl(222 47% 11%);
+  /* mid slate — distinct from muted wash (次要 ≠ 中性浅底) */
+  --color-secondary: hsl(215 18% 42%);
+  --color-secondary-foreground: hsl(0 0% 100%);
   --color-surface: hsl(0 0% 100%);
   --color-surface-foreground: hsl(222 47% 11%);
   --color-muted: hsl(210 40% 96%);
@@ -24,7 +25,7 @@
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
-  /* Role-based radii (Daisy-style field / box / selector) */
+  /* Role-based radii (field / box / selector) */
   --radius-selector: 0.375rem;
   --radius-field: 0.5rem;
   --radius-box: 0.75rem;
@@ -64,8 +65,9 @@
   color-scheme: light;
   --color-primary: hsl(220 90% 56%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(210 40% 96%);
-  --color-secondary-foreground: hsl(222 47% 11%);
+  /* mid slate — distinct from muted wash (次要 ≠ 中性浅底) */
+  --color-secondary: hsl(215 18% 42%);
+  --color-secondary-foreground: hsl(0 0% 100%);
   --color-surface: hsl(0 0% 100%);
   --color-surface-foreground: hsl(222 47% 11%);
   --color-muted: hsl(210 40% 96%);
@@ -94,8 +96,8 @@ html.rp-dark,
   color-scheme: dark;
   --color-primary: hsl(217 91% 60%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(217 33% 17%);
-  --color-secondary-foreground: hsl(210 40% 98%);
+  --color-secondary: hsl(215 14% 62%);
+  --color-secondary-foreground: hsl(222 47% 11%);
   --color-surface: hsl(222 47% 11%);
   --color-surface-foreground: hsl(210 40% 98%);
   --color-muted: hsl(217 33% 17%);
@@ -122,8 +124,8 @@ html.rp-dark,
   color-scheme: light;
   --color-primary: hsl(192 91% 36%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(190 40% 94%);
-  --color-secondary-foreground: hsl(200 40% 16%);
+  --color-secondary: hsl(200 22% 38%);
+  --color-secondary-foreground: hsl(0 0% 100%);
   --color-surface: hsl(195 40% 99%);
   --color-surface-foreground: hsl(200 40% 16%);
   --color-muted: hsl(190 35% 94%);
@@ -148,8 +150,8 @@ html.rp-dark,
   color-scheme: light;
   --color-primary: hsl(152 60% 32%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(140 30% 93%);
-  --color-secondary-foreground: hsl(150 30% 14%);
+  --color-secondary: hsl(150 18% 36%);
+  --color-secondary-foreground: hsl(0 0% 100%);
   --color-surface: hsl(120 25% 98%);
   --color-surface-foreground: hsl(150 30% 14%);
   --color-muted: hsl(140 25% 93%);
@@ -174,8 +176,8 @@ html.rp-dark,
   color-scheme: light;
   --color-primary: hsl(18 90% 52%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(30 60% 95%);
-  --color-secondary-foreground: hsl(20 40% 16%);
+  --color-secondary: hsl(20 22% 40%);
+  --color-secondary-foreground: hsl(0 0% 100%);
   --color-surface: hsl(36 50% 99%);
   --color-surface-foreground: hsl(20 40% 16%);
   --color-muted: hsl(30 45% 94%);
@@ -200,8 +202,8 @@ html.rp-dark,
   color-scheme: light;
   --color-primary: hsl(262 70% 55%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(260 40% 96%);
-  --color-secondary-foreground: hsl(260 35% 18%);
+  --color-secondary: hsl(260 18% 42%);
+  --color-secondary-foreground: hsl(0 0% 100%);
   --color-surface: hsl(270 40% 99%);
   --color-surface-foreground: hsl(260 35% 18%);
   --color-muted: hsl(260 35% 95%);

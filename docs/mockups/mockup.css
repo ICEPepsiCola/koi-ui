@@ -1,12 +1,6 @@
 /**
- * daisyUI Mockup — 逐属性对照抄自 daisyUI 5.6.17 components/mockup/object.js
- *
- * ① mockup-code
- * ② mockup-window
- * ③ mockup-browser (+ toolbar / .input)
- * ④ mockup-phone (+ camera / display)
- *
- * MIT © daisyUI — https://daisyui.com/components/mockup-browser/
+ * 文档预览 Mockup：code / window / browser / phone
+ *（含 MIT 上游样式改编）
  */
 
 /* —— mockup 主题变量（与文档亮/暗色同步） —— */
@@ -34,7 +28,7 @@ html.rp-dark {
   --color-neutral-content: oklch(92% 0.004 286.32);
 }
 
-/* —— browser 地址栏：daisyUI .input 基础形态（mockup 内会再覆盖 bg/font-size 等） —— */
+/* —— browser 地址栏：.input 基础形态（mockup 内会再覆盖 bg/font-size 等） —— */
 .mockup-browser-toolbar > .input {
   appearance: none;
   background-color: var(--color-base-100);
@@ -210,7 +204,7 @@ html.rp-dark {
 }
 
 /*
- * Phone — 预览机壳固定 320×550，圆角从 daisyUI 等比缩放。
+ * Phone — 预览机壳固定 320×550，圆角等比缩放。
  * 用「单格 grid + 尺寸锁死」避免 demo 内容把比例撑破。
  */
 .mockup-phone {

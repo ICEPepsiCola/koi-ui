@@ -24,6 +24,7 @@ function createParser(tsconfigAbs: string) {
   const { withCustomConfig } = require('react-docgen-typescript') as typeof import('react-docgen-typescript');
   return withCustomConfig(tsconfigAbs, {
     shouldExtractLiteralValuesFromEnum: true,
+    shouldRemoveUndefinedFromOptional: true,
     propFilter: (prop) => {
       if (prop.declarations?.length) {
         return prop.declarations.some(
@@ -33,6 +34,39 @@ function createParser(tsconfigAbs: string) {
       return true;
     },
   });
+}
+
+/**
+ * react-docgen-typescript returns literal unions as
+ * `{ name: "enum", raw: '"a" | "b"', value: [...] }`.
+ * Prefer `raw` so API tables show the actual union, not the word "enum".
+ */
+function formatPropTypeName(prop: {
+  type?: {
+    name?: string;
+    raw?: string;
+    value?: Array<{ value?: string }>;
+  };
+}): string {
+  const type = prop.type;
+  if (!type) return 'unknown';
+
+  if (type.name === 'enum') {
+    if (type.raw && type.raw !== 'enum') return type.raw;
+    if (Array.isArray(type.value) && type.value.length > 0) {
+      return type.value
+        .map((entry) => entry.value)
+        .filter((value): value is string => Boolean(value))
+        .join(' | ');
+    }
+  }
+
+  // Intersection / complex aliases sometimes land in `raw` with a useless `name`.
+  if (type.raw && (type.name === 'unknown' || !type.name)) {
+    return type.raw;
+  }
+
+  return type.name ?? type.raw ?? 'unknown';
 }
 
 function toComponentDocs(
@@ -48,7 +82,7 @@ function toComponentDocs(
           name: prop.name,
           required: Boolean(prop.required),
           description: prop.description ?? '',
-          type: { name: prop.type?.name ?? 'unknown' },
+          type: { name: formatPropTypeName(prop) },
           defaultValue: prop.defaultValue?.value
             ? { value: String(prop.defaultValue.value) }
             : undefined,

@@ -1,45 +1,122 @@
-
 # Button 按钮
+
+`color` 控制语义色，`variant` 控制形态。
 
 ## 基础用法
 
 ```tsx preview
 import { Button, Space } from '@koi-ui/core';
 export default () => (
-  <Space>
-    <Button variant="primary">主要</Button>
-    <Button variant="secondary">次要</Button>
+  <Space wrap>
+    <Button>常规</Button>
+    <Button color="secondary">次要</Button>
+    <Button color="primary">主要</Button>
   </Space>
 );
 ```
 
-## 按钮类型
-
-```tsx preview
-import { Button, Stack } from '@koi-ui/core';
-export default () => (
-  <Stack gap={2}>
-    <Button variant="primary">Primary</Button>
-    <Button variant="soft">Soft</Button>
-    <Button variant="outline">Outline</Button>
-    <Button variant="secondary">Secondary</Button>
-    <Button variant="ghost">Ghost</Button>
-    <Button variant="destructive">Destructive</Button>
-  </Stack>
-);
-```
-
-## 尺寸与状态
+## 颜色
 
 ```tsx preview
 import { Button, Space } from '@koi-ui/core';
 export default () => (
   <Space wrap>
-    <Button size="sm">Small</Button>
-    <Button size="md">Medium</Button>
-    <Button size="lg">Large</Button>
+    <Button color="neutral">Neutral</Button>
+    <Button color="primary">Primary</Button>
+    <Button color="secondary">Secondary</Button>
+    <Button color="info">Info</Button>
+    <Button color="success">Success</Button>
+    <Button color="warning">Warning</Button>
+    <Button color="error">Error</Button>
+  </Space>
+);
+```
+
+## 形态
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button variant="solid">Solid</Button>
+    <Button variant="soft">Soft</Button>
+    <Button variant="outline">Outline</Button>
+    <Button variant="dash">Dash</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="link">Link</Button>
+  </Space>
+);
+```
+
+## 颜色 × 形态
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Space wrap>
+      <Button color="primary" variant="soft">Soft</Button>
+      <Button color="primary" variant="outline">Outline</Button>
+      <Button color="primary" variant="dash">Dash</Button>
+      <Button color="primary" variant="ghost">Ghost</Button>
+    </Space>
+    <Space wrap>
+      <Button color="error" variant="soft">Soft</Button>
+      <Button color="error" variant="outline">Outline</Button>
+      <Button color="error" variant="dash">Dash</Button>
+      <Button color="error" variant="ghost">Ghost</Button>
+    </Space>
+  </Space>
+);
+```
+
+## 尺寸
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap align="center">
+    <Button size="xs">XS</Button>
+    <Button size="sm">SM</Button>
+    <Button size="md">MD</Button>
+    <Button size="lg">LG</Button>
+    <Button size="xl">XL</Button>
+  </Space>
+);
+```
+
+## 形状与宽度
+
+```tsx preview
+import { Button, Icon, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Space wrap align="center">
+      <Button shape="square" aria-label="加">
+        <Icon name="plus" size="sm" />
+      </Button>
+      <Button shape="circle" aria-label="搜索">
+        <Icon name="search" size="sm" />
+      </Button>
+      <Button wide>Wide</Button>
+    </Space>
+    <Button block>Block 全宽</Button>
+  </Space>
+);
+```
+
+## 状态
+
+```tsx preview
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
     <Button loading>加载中</Button>
     <Button disabled>禁用</Button>
+    <Button active>Active</Button>
+    <Button variant="outline" active>
+      Outline Active
+    </Button>
   </Space>
 );
 ```

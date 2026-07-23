@@ -1,6 +1,5 @@
 /**
- * daisyUI 文档演示框样式（tabs-lift + preview 斜纹）
- * 对照：https://daisyui.com/components/mockup-browser/
+ * 文档演示框样式（tabs + preview 斜纹底）
  */
 
 .koi-demo {
@@ -68,7 +67,7 @@
 }
 
 .koi-demo__panel--preview {
-  /* 斜纹底，对齐 daisyUI .preview */
+  /* 斜纹预览底 */
   background-color: var(--koi-demo-bg);
   background-image: repeating-linear-gradient(
     -45deg,

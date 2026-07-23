@@ -10,8 +10,7 @@ export default () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button
-        onClick={() => {
+      <Button onClick={() => {
           setOpen(true);
           setTimeout(() => setOpen(false), 1500);
         }}

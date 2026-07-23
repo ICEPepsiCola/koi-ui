@@ -14,9 +14,9 @@ import { KoiProvider, Button, Alert, Tag, Space } from '@koi-ui/core';
 export default () => (
   <KoiProvider theme={{ name: 'ocean' }}>
     <Space>
-      <Button>主按钮</Button>
-      <Button variant="soft">轻量</Button>
-      <Button variant="outline">描边</Button>
+      <Button color="primary">主按钮</Button>
+      <Button color="primary" variant="soft">轻量</Button>
+      <Button color="primary" variant="outline">描边</Button>
       <Tag>标签</Tag>
       <Alert title="海洋主题" description="通过 KoiProvider 应用 data-theme" />
     </Space>

@@ -10,7 +10,7 @@ export interface PopconfirmProps {
   onCancel?: () => void;
   confirmText?: string;
   cancelText?: string;
-  okType?: 'primary' | 'destructive';
+  okType?: 'primary' | 'error';
   disabled?: boolean;
 }
 
@@ -45,7 +45,8 @@ export function Popconfirm({
           <div className="flex justify-end gap-2">
             <Button
               size="sm"
-              variant="secondary"
+              color="neutral"
+              variant="soft"
               onClick={() => {
                 setOpen(false);
                 onCancel?.();
@@ -55,7 +56,7 @@ export function Popconfirm({
             </Button>
             <Button
               size="sm"
-              variant={okType === 'destructive' ? 'destructive' : 'primary'}
+              color={okType === 'error' ? 'error' : 'primary'}
               onClick={() => {
                 setOpen(false);
                 onConfirm?.();

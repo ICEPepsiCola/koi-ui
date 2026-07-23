@@ -6,7 +6,7 @@
 import { Popconfirm, Button } from '@koi-ui/core';
 export default () => (
   <Popconfirm title="确定删除吗？" onConfirm={() => {}}>
-    <Button variant="destructive">删除</Button>
+    <Button color="error">删除</Button>
   </Popconfirm>
 );
 ```
@@ -33,12 +33,12 @@ import { Popconfirm, Button } from '@koi-ui/core';
 export default () => (
   <Popconfirm
     title="永久删除？"
-    okType="destructive"
+    okType="error"
     confirmText="删除"
     cancelText="再想想"
     onConfirm={() => {}}
   >
-    <Button variant="destructive">危险操作</Button>
+    <Button color="error">危险操作</Button>
   </Popconfirm>
 );
 ```

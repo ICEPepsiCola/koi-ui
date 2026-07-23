@@ -34,10 +34,10 @@ export default () => {
         title="删除确认"
         footer={
           <Space>
-            <Button variant="secondary" onClick={() => setOpen(false)}>
+            <Button color="secondary" onClick={() => setOpen(false)}>
               取消
             </Button>
-            <Button variant="destructive" onClick={() => setOpen(false)}>
+            <Button color="error" onClick={() => setOpen(false)}>
               删除
             </Button>
           </Space>
@@ -61,17 +61,14 @@ export default () => {
   return (
     <>
       <Space>
-        <Button
-          onClick={() => {
+        <Button onClick={() => {
             setTall(true);
             setOpen(true);
           }}
         >
           接近全屏
         </Button>
-        <Button
-          variant="outline"
-          onClick={() => {
+        <Button variant="outline"onClick={() => {
             setTall(false);
             setOpen(true);
           }}

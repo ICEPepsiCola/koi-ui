@@ -18,7 +18,7 @@ export default () => (
     >
       <Input placeholder="请输入" clearable />
     </Form.Item>
-    <Button type="submit" variant="primary">提交</Button>
+    <Button color="primary" type="submit">提交</Button>
   </Form>
 );
 ```
@@ -55,7 +55,7 @@ export default () => {
         <Switch />
       </Form.Item>
       <Space>
-        <Button type="submit" variant="primary">提交</Button>
+        <Button color="primary" type="submit">提交</Button>
         <Button type="button" variant="outline" onClick={() => form.resetFields()}>重置</Button>
       </Space>
     </Form>
@@ -80,8 +80,8 @@ export default () => (
       <Input type="password" placeholder="请输入密码" />
     </Form.Item>
     <Space>
-      <Button type="submit" variant="primary">登录</Button>
-      <Button type="button" variant="secondary">注册</Button>
+      <Button color="primary" type="submit">登录</Button>
+      <Button type="button" color="secondary">注册</Button>
     </Space>
   </Form>
 );

@@ -42,6 +42,7 @@ export function Pagination({
     >
       <Button
         variant="ghost"
+        color="neutral"
         size="sm"
         responsiveSize={false}
         disabled={current <= 1}
@@ -57,7 +58,8 @@ export function Pagination({
         ) : (
           <Button
             key={p}
-            variant={p === current ? 'primary' : 'ghost'}
+            color={p === current ? 'primary' : 'neutral'}
+            variant={p === current ? 'solid' : 'ghost'}
             size="sm"
             responsiveSize={false}
             onClick={() => onChange?.(p)}
@@ -68,6 +70,7 @@ export function Pagination({
       )}
       <Button
         variant="ghost"
+        color="neutral"
         size="sm"
         responsiveSize={false}
         disabled={current >= totalPages}

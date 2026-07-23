@@ -1,10 +1,10 @@
-# TimePicker: daisyUI desktop + iOS mobile
+# TimePicker: desktop menu columns + iOS mobile wheel
 
 Approved 2026-07-22.
 
 ## Goals
 
-- **Desktop**: daisyUI-like `dropdown` + `menu` — bordered float, column lists, active row highlight, footer actions.
+- **Desktop**: bordered float dropdown + column menus — active row highlight, footer actions.
 - **Mobile**: classic iOS wheel — bottom sheet, cancel/title/done, center highlight, fade masks, snap.
 
 ## Approach
@@ -28,7 +28,7 @@ Option A: restyle `TimeDropdownView` and polish `TimeWheelView` / shared drum ch
 
 ## Shared building blocks
 
-- `MenuColumns` — daisyUI multi-column scroll menus (desktop pickers).
+- `MenuColumns` — multi-column scroll menus (desktop pickers).
 - `PickerWheels mode="drum"` — iOS wheel (mobile time/date/picker).
 - Sheet chrome: `rounded-t-[14px]`, no hard border, confirm label 「完成」 for wheel sheets.
 
@@ -36,11 +36,11 @@ Option A: restyle `TimeDropdownView` and polish `TimeWheelView` / shared drum ch
 
 | Component | Desktop | Mobile | Status |
 |-----------|---------|--------|--------|
-| **TimePicker** | daisyUI menu columns | iOS drum | Done |
-| **Picker** | daisyUI multi-column menu via `MenuColumns` | iOS drum sheet aligned | Done |
-| **DatePicker** | Keep calendar panel (daisyUI float polish) | Year/month/day drum sheet aligned | Done |
-| **Select** | Dropdown list (daisyUI float polish) | Bottom sheet list (no drum) | Done |
-| **Cascader** | Multi-level daisyUI menu columns | Stepwise bottom sheet | Done |
+| **TimePicker** | Menu columns | iOS drum | Done |
+| **Picker** | Multi-column menu via `MenuColumns` | iOS drum sheet aligned | Done |
+| **DatePicker** | Keep calendar panel (float polish) | Year/month/day drum sheet aligned | Done |
+| **Select** | Dropdown list (float polish) | Bottom sheet list (no drum) | Done |
+| **Cascader** | Multi-level menu columns | Stepwise bottom sheet | Done |
 
 **Order completed:** `Picker` → `DatePicker` mobile → `Select` / `Cascader`.
 

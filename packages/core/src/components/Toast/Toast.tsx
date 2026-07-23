@@ -59,7 +59,7 @@ function ToastViewport() {
 
   return (
     <div
-      className="pointer-events-none fixed bottom-0 left-0 right-0 z-[60] flex flex-col items-center pb-safe"
+      className="pointer-events-none fixed bottom-0 left-0 right-0 z-60 flex flex-col items-center pb-safe"
       data-koi-toast-viewport
     >
       {items.map((item) => (
