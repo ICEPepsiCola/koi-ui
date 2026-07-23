@@ -1,6 +1,6 @@
 {
   "name": "@koi-ui/core",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "PC + mobile adaptive React component library",
   "license": "MIT",
   "type": "module",
