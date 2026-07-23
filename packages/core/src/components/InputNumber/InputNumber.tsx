@@ -17,7 +17,7 @@ const inputNumberVariants = tv({
   },
   variants: {
     error: {
-      true: { root: 'border-destructive' },
+      true: { root: 'border-error' },
       false: {},
     },
   },
@@ -136,7 +136,7 @@ export function InputNumber({
         </button>
       </div>
       {typeof error === 'string' ? (
-        <Text size="sm" className="mt-1 text-destructive">
+        <Text size="sm" className="mt-1 text-error">
           {error}
         </Text>
       ) : null}

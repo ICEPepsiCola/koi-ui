@@ -1,17 +1,30 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { semanticSurfaceCompounds } from '../../utils/semanticSurface';
 
+/**
+ * Badge: daisyUI-aligned color × variant
+ * (soft / outline / dash / solid / ghost), plus count / dot overlay.
+ */
 const badgeVariants = tv({
-  base: 'inline-flex items-center justify-center font-medium',
+  base: 'inline-flex items-center justify-center border font-medium',
   variants: {
+    color: {
+      neutral: '',
+      primary: '',
+      secondary: '',
+      info: '',
+      success: '',
+      warning: '',
+      error: '',
+    },
     variant: {
-      default: 'bg-primary text-primary-foreground',
-      soft: 'bg-primary/15 text-primary',
-      secondary: 'bg-secondary text-secondary-foreground',
-      destructive: 'bg-destructive text-destructive-foreground',
-      outline: 'border border-border text-surface-foreground',
-      ghost: 'bg-transparent text-muted-foreground',
+      soft: '',
+      outline: '',
+      dash: '',
+      solid: '',
+      ghost: '',
     },
     size: {
       sm: 'h-4 min-w-4 px-1 text-[10px] rounded-full',
@@ -23,15 +36,17 @@ const badgeVariants = tv({
       false: '',
     },
   },
+  compoundVariants: semanticSurfaceCompounds(),
   defaultVariants: {
-    variant: 'default',
+    color: 'error',
+    variant: 'solid',
     size: 'md',
     dot: false,
   },
 });
 
 export interface BadgeProps
-  extends HTMLAttributes<HTMLSpanElement>,
+  extends Omit<HTMLAttributes<HTMLSpanElement>, 'color'>,
     VariantProps<typeof badgeVariants> {
   count?: number;
   max?: number;
@@ -41,6 +56,7 @@ export interface BadgeProps
 
 export function Badge({
   className,
+  color,
   variant,
   size,
   dot,
@@ -64,7 +80,7 @@ export function Badge({
 
   const badge = (
     <span
-      className={cn(badgeVariants({ variant, size, dot }), className)}
+      className={cn(badgeVariants({ color, variant, size, dot }), className)}
       {...props}
     >
       {!dot && displayCount}

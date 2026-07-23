@@ -1,5 +1,7 @@
 # Modal
 
+Desktop: centered dialog (daisyUI `modal-middle`). Mobile: bottom sheet when `responsive`.
+
 ## Basic usage
 
 ```tsx preview
@@ -10,15 +12,15 @@ export default () => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} title="Title">
-        Content
+      <Modal open={open} onClose={() => setOpen(false)} title="Hello!">
+        Press ESC or click the mask to close.
       </Modal>
     </>
   );
 };
 ```
 
-## With footer actions
+## Actions & close button
 
 ```tsx preview
 import { Modal, Button, Space } from '@koi-ui/core';
@@ -32,9 +34,10 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="Confirm delete"
+        closable
         footer={
           <Space>
-            <Button color="secondary" onClick={() => setOpen(false)}>
+            <Button color="neutral" variant="ghost" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button color="error" onClick={() => setOpen(false)}>
@@ -44,6 +47,94 @@ export default () => {
         }
       >
         Delete this record?
+      </Modal>
+    </>
+  );
+};
+```
+
+## Placement
+
+Desktop placements mirror daisyUI. Force desktop layout with `responsive={false}`.
+
+```tsx preview
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+
+type Placement = 'middle' | 'top' | 'bottom' | 'start' | 'end';
+
+export default () => {
+  const [placement, setPlacement] = useState<Placement>('middle');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space wrap>
+        {(['middle', 'top', 'bottom', 'start', 'end'] as const).map((p) => (
+          <Button
+            key={p}
+            size="sm"
+            variant={placement === p ? 'solid' : 'outline'}
+            onClick={() => {
+              setPlacement(p);
+              setOpen(true);
+            }}
+          >
+            {p}
+          </Button>
+        ))}
+      </Space>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`placement="${placement}"`}
+        placement={placement}
+        responsive={false}
+        closable
+      >
+        Desktop placement demo (responsive off).
+      </Modal>
+    </>
+  );
+};
+```
+
+## Size
+
+```tsx preview
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+
+type Size = 'sm' | 'md' | 'lg' | 'xl';
+
+export default () => {
+  const [size, setSize] = useState<Size>('md');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space wrap>
+        {(['sm', 'md', 'lg', 'xl'] as const).map((s) => (
+          <Button
+            key={s}
+            size="sm"
+            variant={size === s ? 'solid' : 'outline'}
+            onClick={() => {
+              setSize(s);
+              setOpen(true);
+            }}
+          >
+            {s}
+          </Button>
+        ))}
+      </Space>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`size="${size}"`}
+        size={size}
+        responsive={false}
+        closable
+      >
+        Modal box max-width scale.
       </Modal>
     </>
   );
@@ -61,14 +152,17 @@ export default () => {
   return (
     <>
       <Space>
-        <Button onClick={() => {
+        <Button
+          onClick={() => {
             setTall(true);
             setOpen(true);
           }}
         >
           Near fullscreen
         </Button>
-        <Button variant="outline"onClick={() => {
+        <Button
+          variant="outline"
+          onClick={() => {
             setTall(false);
             setOpen(true);
           }}
@@ -82,8 +176,8 @@ export default () => {
         title="Mobile drawer height"
         mobileFullscreen={tall}
       >
-        On mobile, Modal renders as a bottom drawer. mobileFullscreen true ≈ 90vh;
-        false ≈ 70vh.
+        On mobile, Modal renders as a bottom sheet. mobileFullscreen true ≈
+        90vh; false ≈ 70vh.
       </Modal>
     </>
   );

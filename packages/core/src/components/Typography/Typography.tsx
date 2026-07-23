@@ -37,9 +37,10 @@ const textVariants = tv({
     type: {
       default: '',
       secondary: 'text-muted-foreground',
-      success: 'text-primary',
-      warning: 'text-yellow-600',
-      danger: 'text-destructive',
+      info: 'text-info',
+      success: 'text-success',
+      warning: 'text-warning',
+      error: 'text-error',
     },
     strong: {
       true: 'font-semibold',

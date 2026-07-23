@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../utils/cn';
+import { toSpacingValue } from '../utils/spacing';
 
 const stack = tv({
   base: 'flex',
@@ -8,14 +9,6 @@ const stack = tv({
     direction: {
       row: 'flex-row',
       col: 'flex-col',
-    },
-    gap: {
-      0: 'gap-0',
-      1: 'gap-1',
-      2: 'gap-2',
-      4: 'gap-4',
-      6: 'gap-6',
-      8: 'gap-8',
     },
     align: {
       start: 'items-start',
@@ -36,7 +29,6 @@ const stack = tv({
   },
   defaultVariants: {
     direction: 'col',
-    gap: 4,
     align: 'stretch',
     justify: 'start',
     responsive: false,
@@ -47,24 +39,29 @@ export interface StackProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof stack> {
   children?: ReactNode;
+  /**
+   * Gap between items. Numbers use the Tailwind spacing scale
+   * (`3` → `gap-3` equivalent). Strings are raw CSS lengths.
+   * @default 4
+   */
+  gap?: number | string;
 }
 
 export function Stack({
   className,
   direction,
-  gap,
+  gap = 4,
   align,
   justify,
   responsive,
+  style,
   children,
   ...props
 }: StackProps) {
   return (
     <div
-      className={cn(
-        stack({ direction, gap, align, justify, responsive }),
-        className,
-      )}
+      className={cn(stack({ direction, align, justify, responsive }), className)}
+      style={{ ...style, gap: toSpacingValue(gap) }}
       {...props}
     >
       {children}

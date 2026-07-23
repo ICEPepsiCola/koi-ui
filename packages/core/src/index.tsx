@@ -89,6 +89,7 @@ export * from './components/Ellipsis';
 export * from './components/Alert';
 export * from './components/Drawer';
 export { Modal, type ModalProps } from './components/Modal';
+export type { ModalPlacement, ModalSize } from './components/Modal';
 export {
   Notification,
   NotificationProvider,
@@ -106,7 +107,7 @@ export {
   Toast,
   type ToastOptions,
   type ToastPosition,
-  type ToastType,
+  type ToastColor,
 } from './components/Toast';
 export * from './components/Popup';
 export * from './components/ActionSheet';

@@ -1,5 +1,7 @@
 # Drawer 抽屉
 
+侧栏 / 底栏面板，chrome 与 Modal 对齐（无分割线、可 `closable`）。
+
 ## 基础用法
 
 ```tsx preview
@@ -10,7 +12,7 @@ export default () => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>打开抽屉</Button>
-      <Drawer open={open} onClose={() => setOpen(false)} title="抽屉标题">
+      <Drawer open={open} onClose={() => setOpen(false)} title="抽屉标题" closable>
         内容
       </Drawer>
     </>
@@ -30,7 +32,11 @@ export default () => {
     <>
       <Space wrap>
         {(['left', 'right', 'top', 'bottom'] as const).map((p) => (
-          <Button key={p}size="sm" onClick={() => {
+          <Button
+            key={p}
+            size="sm"
+            variant={placement === p ? 'solid' : 'outline'}
+            onClick={() => {
               setPlacement(p);
               setOpen(true);
             }}
@@ -44,6 +50,7 @@ export default () => {
         onClose={() => setOpen(false)}
         title={`placement=${placement}`}
         placement={placement}
+        closable
       >
         从 {placement} 方向滑出
       </Drawer>
@@ -64,7 +71,11 @@ export default () => {
     <>
       <Space>
         {(['sm', 'md', 'lg'] as const).map((s) => (
-          <Button key={s}size="sm" onClick={() => {
+          <Button
+            key={s}
+            size="sm"
+            variant={size === s ? 'solid' : 'outline'}
+            onClick={() => {
               setSize(s);
               setOpen(true);
             }}
@@ -73,7 +84,13 @@ export default () => {
           </Button>
         ))}
       </Space>
-      <Drawer open={open} onClose={() => setOpen(false)} title={`size=${size}`} size={size}>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`size=${size}`}
+        size={size}
+        closable
+      >
         不同尺寸的抽屉宽度/高度
       </Drawer>
     </>
@@ -95,12 +112,15 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="编辑"
+        closable
         footer={
           <Space>
-            <Button color="secondary" onClick={() => setOpen(false)}>
+            <Button color="neutral" variant="ghost" onClick={() => setOpen(false)}>
               取消
             </Button>
-            <Button color="primary" onClick={() => setOpen(false)}>保存</Button>
+            <Button color="primary" onClick={() => setOpen(false)}>
+              保存
+            </Button>
           </Space>
         }
       >

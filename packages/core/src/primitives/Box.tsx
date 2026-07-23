@@ -1,17 +1,11 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../utils/cn';
+import { toSpacingValue } from '../utils/spacing';
 
 const box = tv({
   base: '',
   variants: {
-    p: {
-      0: 'p-0',
-      2: 'p-2',
-      4: 'p-4',
-      6: 'p-6',
-      8: 'p-8',
-    },
     rounded: {
       none: 'rounded-none',
       sm: 'rounded-sm',
@@ -29,7 +23,6 @@ const box = tv({
     },
   },
   defaultVariants: {
-    p: 4,
     rounded: 'md',
     bg: 'surface',
     border: false,
@@ -40,19 +33,30 @@ export interface BoxProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof box> {
   children?: ReactNode;
+  /**
+   * Padding. Numbers use the Tailwind spacing scale
+   * (`3` → `p-3` equivalent). Strings are raw CSS lengths.
+   * @default 4
+   */
+  p?: number | string;
 }
 
 export function Box({
   className,
-  p,
+  p = 4,
   rounded,
   bg,
   border,
+  style,
   children,
   ...props
 }: BoxProps) {
   return (
-    <div className={cn(box({ p, rounded, bg, border }), className)} {...props}>
+    <div
+      className={cn(box({ rounded, bg, border }), className)}
+      style={{ ...style, padding: toSpacingValue(p) }}
+      {...props}
+    >
       {children}
     </div>
   );

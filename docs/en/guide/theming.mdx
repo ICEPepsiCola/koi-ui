@@ -74,10 +74,11 @@ html.dark {
 | Token | Role |
 |-------|------|
 | `--color-primary` | Brand |
-| `--color-success` / `--color-warning` / `--color-info` | Status |
-| `--color-destructive` | Danger |
+| `--color-success` / `--color-warning` / `--color-info` / `--color-error` | Status |
 | `--color-surface` / `--color-muted` / `--color-border` | Surfaces |
 | `--radius-sm/md/lg` | Radius |
+
+Component APIs use `color="error"` (daisyUI-aligned).
 
 ## Appearance language
 
@@ -88,7 +89,7 @@ Shared reading across controls:
 - **outline** — border only
 - **ghost** — minimal / text
 
-`Button` exposes `primary | soft | outline | ghost | secondary | destructive`. `Alert` uses `appearance="soft" | "outline" | "solid"` with status `variant`.
+`Button` / `Alert` / `Tag` / `Badge` use `color` × `variant`. `NoticeBar` / `Progress` / `Toast` / `Notification` / `Result` use semantic color tokens.
 
 ## Breakpoint provider
 

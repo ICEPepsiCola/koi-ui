@@ -3,5 +3,5 @@ export {
   Toast,
   type ToastOptions,
   type ToastPosition,
-  type ToastType,
+  type ToastColor,
 } from './Toast';

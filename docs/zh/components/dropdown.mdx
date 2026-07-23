@@ -15,7 +15,7 @@ export default () => (
 );
 ```
 
-## 禁用项
+## 禁用与错误项
 
 ```tsx preview
 import { Dropdown, Button } from '@koi-ui/core';
@@ -25,7 +25,8 @@ export default () => (
     items={[
       { key: 'edit', label: '编辑' },
       { key: 'copy', label: '复制' },
-      { key: 'delete', label: '删除', disabled: true },
+      { key: 'delete', label: '删除', color: 'error' },
+      { key: 'archive', label: '归档', disabled: true },
     ]}
   />
 );

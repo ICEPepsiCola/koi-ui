@@ -1,4 +1,3 @@
-
 # Tag
 
 ## Basic usage
@@ -8,18 +7,31 @@ import { Tag, Space } from '@koi-ui/core';
 export default () => (
   <Space wrap>
     <Tag>Default</Tag>
-    <Tag variant="soft">Soft</Tag>
-    <Tag variant="secondary">Secondary</Tag>
-    <Tag variant="outline">Outline</Tag>
-    <Tag variant="ghost">Ghost</Tag>
-    <Tag variant="success">Success</Tag>
-    <Tag variant="warning">Warning</Tag>
-    <Tag variant="destructive">Danger</Tag>
+    <Tag color="secondary">Secondary</Tag>
+    <Tag color="info">Info</Tag>
+    <Tag color="success">Success</Tag>
+    <Tag color="warning">Warning</Tag>
+    <Tag color="error">Error</Tag>
   </Space>
 );
 ```
 
-## Closable tags
+## Variants
+
+```tsx preview
+import { Tag, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Tag color="primary" variant="soft">Soft</Tag>
+    <Tag color="primary" variant="outline">Outline</Tag>
+    <Tag color="primary" variant="dash">Dash</Tag>
+    <Tag color="primary" variant="solid">Solid</Tag>
+    <Tag color="primary" variant="ghost">Ghost</Tag>
+  </Space>
+);
+```
+
+## Closable
 
 ```tsx preview
 import { Tag, Space } from '@koi-ui/core';

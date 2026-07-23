@@ -5,31 +5,54 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+} from 'motion/react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import {
+  MOTION_DURATION_S,
+  motionTransition,
+} from '../../motion/presets';
 import { Portal } from '../../utils/portal';
+import { StatusIcon } from '../../utils/semanticSurface';
+import { Button } from '../Button';
 
 const notificationVariants = tv({
-  base: 'pointer-events-auto w-80 rounded-box border border-border/80 bg-surface p-4 shadow-float',
+  base: cn(
+    'pointer-events-auto relative flex w-80 gap-3 rounded-box p-4 pr-10 shadow-float',
+    'border border-border/80 bg-surface text-surface-foreground',
+  ),
   variants: {
-    type: {
-      info: '',
-      success: 'border-emerald-200',
-      warning: 'border-amber-200',
-      error: 'border-destructive/30',
+    color: {
+      info: 'border-info/20 bg-info/10 text-info',
+      success: 'border-success/20 bg-success/10 text-success',
+      warning: 'border-warning/20 bg-warning/10 text-warning',
+      error: 'border-error/20 bg-error/10 text-error',
     },
   },
   defaultVariants: {
-    type: 'info',
+    color: 'info',
   },
 });
+
+export type NotificationColor = 'info' | 'success' | 'warning' | 'error';
+export type NotificationPlacement =
+  | 'topRight'
+  | 'topLeft'
+  | 'bottomRight'
+  | 'bottomLeft';
 
 export interface NotificationOptions {
   title?: ReactNode;
   description?: ReactNode;
-  type?: 'info' | 'success' | 'warning' | 'error';
+  color?: NotificationColor;
+  /** @default 4500 */
   duration?: number;
-  placement?: 'topRight' | 'topLeft' | 'bottomRight' | 'bottomLeft';
+  /** @default 'topRight' */
+  placement?: NotificationPlacement;
 }
 
 export interface NotificationItem extends NotificationOptions {
@@ -41,16 +64,78 @@ interface NotificationContextValue {
   close: (id: string) => void;
 }
 
-const NotificationContext = createContext<NotificationContextValue | null>(null);
+const NotificationContext = createContext<NotificationContextValue | null>(
+  null,
+);
 
-const placementClasses = {
+const placementClasses: Record<NotificationPlacement, string> = {
   topRight: 'top-4 right-4 items-end',
   topLeft: 'top-4 left-4 items-start',
   bottomRight: 'bottom-4 right-4 items-end',
   bottomLeft: 'bottom-4 left-4 items-start',
-} as const;
+};
+
+const enterOffset: Record<NotificationPlacement, { x?: number; y?: number }> = {
+  topRight: { x: 24, y: -8 },
+  topLeft: { x: -24, y: -8 },
+  bottomRight: { x: 24, y: 8 },
+  bottomLeft: { x: -24, y: 8 },
+};
 
 let notificationId = 0;
+
+function NotificationCard({
+  item,
+  onClose,
+  placement,
+}: {
+  item: NotificationItem;
+  onClose: () => void;
+  placement: NotificationPlacement;
+}) {
+  const reduce = useReducedMotion();
+  const duration = reduce ? 0 : MOTION_DURATION_S;
+  const offset = enterOffset[placement];
+  const color = item.color ?? 'info';
+
+  return (
+    <motion.div
+      layout
+      role="alert"
+      className={cn(notificationVariants({ color }))}
+      initial={{ opacity: 0, ...offset }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      exit={{
+        opacity: 0,
+        ...offset,
+        transition: { ...motionTransition, duration: Math.min(duration, 0.16) },
+      }}
+      transition={{ ...motionTransition, duration }}
+    >
+      <StatusIcon color={color} className="mt-0.5" />
+      <div className="min-w-0 flex-1 text-surface-foreground">
+        {item.title ? (
+          <div className="mb-1 text-sm font-semibold">{item.title}</div>
+        ) : null}
+        {item.description ? (
+          <div className="text-sm opacity-80">{item.description}</div>
+        ) : null}
+      </div>
+      <Button
+        type="button"
+        size="sm"
+        shape="circle"
+        variant="ghost"
+        color="neutral"
+        className="absolute right-1.5 top-1.5"
+        aria-label="Close"
+        onClick={onClose}
+      >
+        ×
+      </Button>
+    </motion.div>
+  );
+}
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<NotificationItem[]>([]);
@@ -66,7 +151,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       setItems((prev) => [...prev, item]);
       const duration = options.duration ?? 4500;
       if (duration > 0) {
-        setTimeout(() => close(id), duration);
+        window.setTimeout(() => close(id), duration);
       }
     },
     [close],
@@ -90,48 +175,26 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     <NotificationContext.Provider value={{ notify, close }}>
       {children}
       <Portal>
-        {(Object.keys(grouped) as Array<keyof typeof grouped>).map(
-          (placement) =>
-            grouped[placement].length > 0 ? (
-              <div
-                key={placement}
-                className={cn(
-                  'pointer-events-none fixed z-[60] flex flex-col gap-2',
-                  placementClasses[placement],
-                )}
-              >
-                {grouped[placement].map((item) => (
-                  <div
-                    key={item.id}
-                    className={cn(
-                      notificationVariants({ type: item.type }),
-                      'pointer-events-auto',
-                    )}
-                    role="alert"
-                  >
-                    {item.title ? (
-                      <div className="mb-1 text-sm font-medium">
-                        {item.title}
-                      </div>
-                    ) : null}
-                    {item.description ? (
-                      <div className="text-sm text-muted-foreground">
-                        {item.description}
-                      </div>
-                    ) : null}
-                    <button
-                      type="button"
-                      className="absolute right-2 top-2 text-muted-foreground"
-                      onClick={() => close(item.id)}
-                      aria-label="Close"
-                    >
-                      ×
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : null,
-        )}
+        {(Object.keys(grouped) as NotificationPlacement[]).map((placement) => (
+          <div
+            key={placement}
+            className={cn(
+              'pointer-events-none fixed z-60 flex flex-col gap-2',
+              placementClasses[placement],
+            )}
+          >
+            <AnimatePresence initial={false}>
+              {grouped[placement].map((item) => (
+                <NotificationCard
+                  key={item.id}
+                  item={item}
+                  placement={placement}
+                  onClose={() => close(item.id)}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+        ))}
       </Portal>
     </NotificationContext.Provider>
   );
@@ -145,56 +208,83 @@ export function useNotification() {
   return ctx;
 }
 
-export interface NotificationProps extends VariantProps<typeof notificationVariants> {
+export interface NotificationProps
+  extends Omit<VariantProps<typeof notificationVariants>, 'color'>,
+    Pick<NotificationOptions, 'color'> {
   title?: ReactNode;
   description?: ReactNode;
   open?: boolean;
   onClose?: () => void;
-  placement?: 'topRight' | 'topLeft' | 'bottomRight' | 'bottomLeft';
+  placement?: NotificationPlacement;
 }
 
 export function Notification({
   title,
   description,
-  type,
+  color = 'info',
   open = true,
   onClose,
   placement = 'topRight',
 }: NotificationProps) {
-  if (!open) return null;
+  const reduce = useReducedMotion();
+  const duration = reduce ? 0 : MOTION_DURATION_S;
+  const offset = enterOffset[placement];
 
   return (
     <Portal>
       <div
         className={cn(
-          'pointer-events-none fixed z-[60]',
+          'pointer-events-none fixed z-60 flex flex-col gap-2',
           placementClasses[placement],
         )}
       >
-        <div
-          className={cn(
-            notificationVariants({ type }),
-            'pointer-events-auto relative',
-          )}
-          role="alert"
-        >
-          {title ? (
-            <div className="mb-1 text-sm font-medium">{title}</div>
-          ) : null}
-          {description ? (
-            <div className="text-sm text-muted-foreground">{description}</div>
-          ) : null}
-          {onClose ? (
-            <button
-              type="button"
-              className="absolute right-2 top-2 text-muted-foreground"
-              onClick={onClose}
-              aria-label="Close"
+        <AnimatePresence>
+          {open ? (
+            <motion.div
+              key="koi-notification"
+              role="alert"
+              className={cn(
+                notificationVariants({ color }),
+                'pointer-events-auto',
+              )}
+              initial={{ opacity: 0, ...offset }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              exit={{
+                opacity: 0,
+                ...offset,
+                transition: {
+                  ...motionTransition,
+                  duration: Math.min(duration, 0.16),
+                },
+              }}
+              transition={{ ...motionTransition, duration }}
             >
-              ×
-            </button>
+              <StatusIcon color={color ?? 'info'} className="mt-0.5" />
+              <div className="min-w-0 flex-1 text-surface-foreground">
+                {title ? (
+                  <div className="mb-1 text-sm font-semibold">{title}</div>
+                ) : null}
+                {description ? (
+                  <div className="text-sm opacity-80">{description}</div>
+                ) : null}
+              </div>
+              {onClose ? (
+                <Button
+                  type="button"
+                  size="sm"
+                  shape="circle"
+                  variant="ghost"
+                  color="neutral"
+                  className="absolute right-1.5 top-1.5"
+                  aria-label="Close"
+                  onClick={onClose}
+                >
+                  ×
+                </Button>
+              ) : null}
+            </motion.div>
           ) : null}
-        </div>
+        </AnimatePresence>
       </div>
     </Portal>
   );

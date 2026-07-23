@@ -7,15 +7,17 @@ import { NoticeBar } from '@koi-ui/core';
 export default () => <NoticeBar content="This is a notice" />;
 ```
 
-## Variants
+## Colors
 
 ```tsx preview
 import { NoticeBar, Stack } from '@koi-ui/core';
 export default () => (
   <Stack gap={3}>
-    <NoticeBar variant="default" content="Default notice" />
-    <NoticeBar variant="warning" content="Please review the risks" />
-    <NoticeBar variant="error" content="Something went wrong. Try again later." />
+    <NoticeBar color="primary" content="Default notice" />
+    <NoticeBar color="info" content="Update available" />
+    <NoticeBar color="success" content="Sync complete" />
+    <NoticeBar color="warning" content="Please review the risks" />
+    <NoticeBar color="error" content="Something went wrong. Try again later." />
   </Stack>
 );
 ```

@@ -5,7 +5,22 @@
 ```tsx preview
 import { Alert } from '@koi-ui/core';
 export default () => (
-  <Alert variant="info" title="Info" description="This is an info message" />
+  <Alert color="info" title="Info" description="This is an info message" />
+);
+```
+
+## Colors
+
+```tsx preview
+import { Alert, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Alert color="neutral" title="Neutral" description="Neutral tip" />
+    <Alert color="info" title="Info" description="General tip" />
+    <Alert color="success" title="Success" description="Done" />
+    <Alert color="warning" title="Warning" description="Please check input" />
+    <Alert color="error" title="Error" description="Submit failed" />
+  </Stack>
 );
 ```
 
@@ -15,12 +30,38 @@ export default () => (
 import { Alert, Stack } from '@koi-ui/core';
 export default () => (
   <Stack gap={3}>
-    <Alert variant="info" title="Info" description="General tip" />
-    <Alert variant="success" title="Success" description="Done" />
-    <Alert variant="warning" title="Warning" description="Please check input" />
-    <Alert variant="error" title="Error" description="Submit failed" />
-    <Alert variant="info" appearance="outline" title="Outline" description="outline appearance" />
-    <Alert variant="success" appearance="solid" title="Solid" description="solid appearance" />
+    <Alert color="info" variant="soft" title="Soft" description="Soft fill (default)" />
+    <Alert color="success" variant="outline" title="Outline" description="Outline" />
+    <Alert color="warning" variant="dash" title="Dash" description="Dashed outline" />
+    <Alert color="error" variant="solid" title="Solid" description="Solid" />
+  </Stack>
+);
+```
+
+## Actions & responsive
+
+```tsx preview
+import { Alert, Button, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Alert
+      responsive
+      color="info"
+      title="New message"
+      description="You have 1 unread message"
+      action={<Button size="sm">See</Button>}
+    />
+    <Alert
+      responsive
+      color="warning"
+      description="We use cookies for no reason"
+      action={
+        <>
+          <Button size="sm" variant="ghost">Deny</Button>
+          <Button size="sm" color="primary">Accept</Button>
+        </>
+      }
+    />
   </Stack>
 );
 ```
@@ -37,7 +78,7 @@ export default () => {
       {visible ? (
         <Alert
           closable
-          variant="info"
+          color="info"
           title="Closable"
           description="Click the close icon"
           onClose={() => setVisible(false)}
@@ -45,9 +86,10 @@ export default () => {
       ) : null}
       <Alert
         closable
-        variant="warning"
+        color="warning"
         title="closable only"
         description="Shows the close button; without onClose, click is a no-op"
+        icon={null}
       />
     </Stack>
   );

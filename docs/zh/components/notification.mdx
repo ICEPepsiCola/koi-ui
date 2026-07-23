@@ -21,28 +21,30 @@ export default () => {
 };
 ```
 
-## 类型
+## 颜色
+
+语义色与 Button 对齐：`info` | `success` | `warning` | `error`。
 
 ```tsx preview
 import { Notification, Button, Space } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
-  const [type, setType] = useState(null);
+  const [color, setColor] = useState(null);
   return (
     <>
       <Space wrap>
-        <Button variant="outline" onClick={() => setType('info')}>info</Button>
-        <Button variant="soft" onClick={() => setType('success')}>success</Button>
-        <Button color="secondary" onClick={() => setType('warning')}>warning</Button>
-        <Button color="error" onClick={() => setType('error')}>error</Button>
+        <Button variant="outline" onClick={() => setColor('info')}>info</Button>
+        <Button variant="soft" onClick={() => setColor('success')}>success</Button>
+        <Button color="secondary" onClick={() => setColor('warning')}>warning</Button>
+        <Button color="error" onClick={() => setColor('error')}>error</Button>
       </Space>
-      {type ? (
+      {color ? (
         <Notification
-          type={type}
+          color={color}
           open
-          onClose={() => setType(null)}
-          title={type}
-          description={`${type} 类型通知`}
+          onClose={() => setColor(null)}
+          title={color}
+          description={`${color} 颜色通知`}
         />
       ) : null}
     </>
@@ -92,7 +94,7 @@ function Demo() {
           notify({
             title: '已保存',
             description: '设置已成功更新',
-            type: 'success',
+            color: 'success',
           })
         }
       >
@@ -102,7 +104,7 @@ function Demo() {
           notify({
             title: '提醒',
             description: '请检查网络连接',
-            type: 'warning',
+            color: 'warning',
             placement: 'bottomRight',
           })
         }

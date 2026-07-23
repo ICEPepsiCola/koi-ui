@@ -12,24 +12,26 @@ import {
   toastPresenceVariants,
 } from '../../motion/presets';
 import { cn } from '../../utils/cn';
+import { StatusIcon, type StatusColor } from '../../utils/semanticSurface';
 
 const toastVariants = tv({
-  base: 'pointer-events-auto mx-4 my-1 flex max-w-sm items-center justify-center rounded-box px-4 py-3 text-sm shadow-float',
+  base: 'pointer-events-auto mx-4 my-1 flex max-w-sm items-center gap-2 rounded-box border px-4 py-3 text-sm shadow-float',
   variants: {
-    type: {
-      default: 'bg-surface-foreground text-surface',
-      info: 'border border-border/80 bg-surface text-surface-foreground',
-      success: 'bg-success text-success-foreground',
-      warning: 'bg-warning text-warning-foreground',
-      error: 'bg-destructive text-destructive-foreground',
+    color: {
+      default:
+        'border-transparent bg-surface-foreground text-surface',
+      info: 'border-info/15 bg-info/10 text-info',
+      success: 'border-transparent bg-success text-success-foreground',
+      warning: 'border-transparent bg-warning text-warning-foreground',
+      error: 'border-transparent bg-error text-error-foreground',
     },
   },
   defaultVariants: {
-    type: 'default',
+    color: 'default',
   },
 });
 
-export type ToastType = 'default' | 'info' | 'success' | 'warning' | 'error';
+export type ToastColor = 'default' | 'info' | 'success' | 'warning' | 'error';
 
 export type ToastPosition = 'top' | 'center' | 'bottom';
 
@@ -46,7 +48,7 @@ export interface ToastOptions {
   /**
    * @default 'default'
    */
-  type?: ToastType;
+  color?: ToastColor;
   /**
    * 展示时长（ms），0 表示不自动关闭
    * @default 2000
@@ -59,7 +61,7 @@ export interface ToastOptions {
 }
 
 interface ToastRecord
-  extends Required<Pick<ToastOptions, 'content' | 'type' | 'position'>> {
+  extends Required<Pick<ToastOptions, 'content' | 'color' | 'position'>> {
   id: string;
   duration: number;
 }
@@ -97,9 +99,14 @@ function ToastItem({
   const transition = { ...motionTransition, duration };
   const variants = toastPresenceVariants[position];
 
+  const statusIcon =
+    item.color !== 'default' ? (
+      <StatusIcon color={item.color as StatusColor} size="sm" />
+    ) : null;
+
   return (
     <motion.div
-      className={cn(toastVariants({ type: item.type }))}
+      className={cn(toastVariants({ color: item.color }))}
       role="status"
       initial="closed"
       animate="open"
@@ -119,7 +126,8 @@ function ToastItem({
         },
       }}
     >
-      {item.content}
+      {statusIcon}
+      <span className="min-w-0">{item.content}</span>
     </motion.div>
   );
 }
@@ -204,7 +212,7 @@ function show(options: ToastOptions): string {
   const item: ToastRecord = {
     id,
     content: options.content,
-    type: options.type ?? 'default',
+    color: options.color ?? 'default',
     duration: options.duration ?? 2000,
     position: options.position ?? 'center',
   };
@@ -223,15 +231,15 @@ function open(
   return show({ content, ...options });
 }
 
-function withType(type: ToastType) {
+function withColor(color: ToastColor) {
   return (
     content: ReactNode,
-    durationOrOptions?: number | Omit<ToastOptions, 'content' | 'type'>,
+    durationOrOptions?: number | Omit<ToastOptions, 'content' | 'color'>,
   ) => {
     if (typeof durationOrOptions === 'number') {
-      return show({ content, type, duration: durationOrOptions });
+      return show({ content, color, duration: durationOrOptions });
     }
-    return show({ content, type, ...durationOrOptions });
+    return show({ content, color, ...durationOrOptions });
   };
 }
 
@@ -241,10 +249,10 @@ function withType(type: ToastType) {
  */
 export const toast = Object.assign(open, {
   show,
-  info: withType('info'),
-  success: withType('success'),
-  warning: withType('warning'),
-  error: withType('error'),
+  info: withColor('info'),
+  success: withColor('success'),
+  warning: withColor('warning'),
+  error: withColor('error'),
   hide,
   clear,
 });

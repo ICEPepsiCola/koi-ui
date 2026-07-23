@@ -15,7 +15,7 @@ const autoCompleteVariants = tv({
   ),
   variants: {
     error: {
-      true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
+      true: 'border-error hover:border-error focus-visible:ring-error',
       false: '',
     },
   },
@@ -150,7 +150,7 @@ export function AutoComplete({
         </ul>
       </FloatMenu>
       {typeof error === 'string' ? (
-        <Text size="sm" className="mt-1 text-destructive">
+        <Text size="sm" className="mt-1 text-error">
           {error}
         </Text>
       ) : null}

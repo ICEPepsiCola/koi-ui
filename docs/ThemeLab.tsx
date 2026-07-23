@@ -73,8 +73,8 @@ export function ThemeLab() {
               {lang === 'zh' ? '描边' : 'Outline'}
             </Button>
             <Button variant="ghost">{lang === 'zh' ? '幽灵' : 'Ghost'}</Button>
-            <Tag variant="success">{lang === 'zh' ? '成功' : 'Success'}</Tag>
-            <Tag variant="warning">{lang === 'zh' ? '警告' : 'Warning'}</Tag>
+            <Tag color="success">{lang === 'zh' ? '成功' : 'Success'}</Tag>
+            <Tag color="warning">{lang === 'zh' ? '警告' : 'Warning'}</Tag>
           </Space>
           <div className="koi-theme-lab__field">
             <Input
@@ -82,7 +82,7 @@ export function ThemeLab() {
             />
           </div>
           <Alert
-            variant="info"
+            color="info"
             title={lang === 'zh' ? '当前主题' : 'Active theme'}
             description={
               lang === 'zh'

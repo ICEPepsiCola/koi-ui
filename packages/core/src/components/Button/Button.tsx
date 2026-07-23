@@ -109,7 +109,7 @@ const buttonVariants = tv({
       variant: 'solid',
       color: 'error',
       class:
-        'border-destructive bg-destructive text-destructive-foreground hover:bg-[color-mix(in_oklab,var(--color-destructive),black_10%)] active:bg-[color-mix(in_oklab,var(--color-destructive),black_14%)]',
+        'border-error bg-error text-error-foreground hover:bg-[color-mix(in_oklab,var(--color-error),black_10%)] active:bg-[color-mix(in_oklab,var(--color-error),black_14%)]',
     },
 
     // —— soft ——
@@ -153,7 +153,7 @@ const buttonVariants = tv({
       variant: 'soft',
       color: 'error',
       class:
-        'border-destructive/10 bg-destructive/10 text-destructive hover:bg-destructive/20 active:bg-destructive/25',
+        'border-error/10 bg-error/10 text-error hover:bg-error/20 active:bg-error/25',
     },
 
     // —— outline ——
@@ -197,7 +197,7 @@ const buttonVariants = tv({
       variant: 'outline',
       color: 'error',
       class:
-        'border-destructive/40 text-destructive hover:border-destructive hover:bg-destructive/10 active:bg-destructive/15',
+        'border-error/40 text-error hover:border-error hover:bg-error/10 active:bg-error/15',
     },
 
     // —— dash (same colors as outline, dashed border already on variant) ——
@@ -241,7 +241,7 @@ const buttonVariants = tv({
       variant: 'dash',
       color: 'error',
       class:
-        'border-destructive/40 text-destructive hover:border-destructive hover:bg-destructive/10 active:bg-destructive/15',
+        'border-error/40 text-error hover:border-error hover:bg-error/10 active:bg-error/15',
     },
 
     // —— ghost ——
@@ -278,7 +278,7 @@ const buttonVariants = tv({
     {
       variant: 'ghost',
       color: 'error',
-      class: 'text-destructive hover:bg-destructive/15 active:bg-destructive/20',
+      class: 'text-error hover:bg-error/15 active:bg-error/20',
     },
 
     // —— link ——
@@ -315,7 +315,7 @@ const buttonVariants = tv({
     {
       variant: 'link',
       color: 'error',
-      class: 'text-destructive hover:opacity-80 active:opacity-70',
+      class: 'text-error hover:opacity-80 active:opacity-70',
     },
   ],
   defaultVariants: {

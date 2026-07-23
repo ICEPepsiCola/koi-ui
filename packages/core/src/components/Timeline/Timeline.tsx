@@ -15,11 +15,19 @@ const timelineVariants = tv({
   },
 });
 
+export type TimelineColor =
+  | 'neutral'
+  | 'primary'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error';
+
 export interface TimelineItem {
   key: string;
   label?: ReactNode;
   children?: ReactNode;
-  color?: 'default' | 'primary' | 'destructive' | 'success';
+  color?: TimelineColor;
   dot?: ReactNode;
 }
 
@@ -30,12 +38,14 @@ export interface TimelineProps
   pending?: ReactNode;
 }
 
-const dotColors = {
-  default: 'bg-border',
+const dotColors: Record<TimelineColor, string> = {
+  neutral: 'bg-border',
   primary: 'bg-primary',
-  destructive: 'bg-destructive',
-  success: 'bg-emerald-500',
-} as const;
+  info: 'bg-info',
+  success: 'bg-success',
+  warning: 'bg-warning',
+  error: 'bg-error',
+};
 
 export function Timeline({
   className,
@@ -54,7 +64,7 @@ export function Timeline({
               <span
                 className={cn(
                   'block h-3.5 w-3.5 rounded-full border-2 border-surface',
-                  dotColors[item.color ?? 'default'],
+                  dotColors[item.color ?? 'neutral'],
                 )}
               />
             )}

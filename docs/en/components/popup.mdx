@@ -1,5 +1,7 @@
 # Popup
 
+Compact centered dialog — same chrome as Modal, default `size="sm"`.
+
 ## Basic usage
 
 ```tsx preview
@@ -18,7 +20,7 @@ export default () => {
 };
 ```
 
-## With footer
+## Actions & close button
 
 ```tsx preview
 import { Popup, Button, Space } from '@koi-ui/core';
@@ -32,17 +34,16 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="Confirm"
+        closable
         footer={
-          <div className="flex justify-end gap-2 p-3">
-            <Space>
-              <Button color="secondary" size="sm" onClick={() => setOpen(false)}>
-                Cancel
-              </Button>
-              <Button color="primary" size="sm" onClick={() => setOpen(false)}>
-                OK
-              </Button>
-            </Space>
-          </div>
+          <Space>
+            <Button color="neutral" variant="ghost" size="sm" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button color="primary" size="sm" onClick={() => setOpen(false)}>
+              OK
+            </Button>
+          </Space>
         }
       >
         Continue?
@@ -66,16 +67,15 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="Important"
-        closeOnMask={false}
+        maskClosable={false}
+        closable
         footer={
-          <div className="flex justify-end p-3">
-            <Button size="sm" onClick={() => setOpen(false)}>
-              Got it
-            </Button>
-          </div>
+          <Button size="sm" onClick={() => setOpen(false)}>
+            Got it
+          </Button>
         }
       >
-        When closeOnMask is false, close via the button.
+        When maskClosable is false, close via the button.
       </Popup>
     </>
   );

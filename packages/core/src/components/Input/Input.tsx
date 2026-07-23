@@ -13,7 +13,7 @@ const inputVariants = tv({
   ),
   variants: {
     error: {
-      true: 'border-destructive hover:border-destructive focus-visible:ring-destructive',
+      true: 'border-error hover:border-error focus-visible:ring-error',
       false: '',
     },
   },
@@ -82,7 +82,7 @@ export function Input({
         ) : null}
       </div>
       {errorMessage ? (
-        <Text size="sm" className="mt-1 text-destructive">
+        <Text size="sm" className="mt-1 text-error">
           {errorMessage}
         </Text>
       ) : null}

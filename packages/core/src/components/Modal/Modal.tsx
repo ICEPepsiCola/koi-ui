@@ -1,15 +1,16 @@
-import type { ReactNode } from 'react';
 import { AdaptiveRender } from '../../adaptive/AdaptiveRender';
 import { DrawerView } from './DrawerView';
 import { ModalView } from './ModalView';
+import type { ModalPlacement, ModalSize } from './modalStyles';
+import type { ModalPanelProps } from './types';
 
-export interface ModalProps {
-  open: boolean;
-  onClose: () => void;
-  title?: ReactNode;
-  children?: ReactNode;
-  footer?: ReactNode;
-  mobileFullscreen?: boolean;
+export type { ModalPlacement, ModalSize };
+
+export interface ModalProps extends ModalPanelProps {
+  /**
+   * Switch to bottom sheet on mobile breakpoint.
+   * @default true
+   */
   responsive?: boolean;
 }
 

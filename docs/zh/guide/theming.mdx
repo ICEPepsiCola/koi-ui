@@ -74,10 +74,11 @@ html.dark {
 | Token | 用途 |
 |-------|------|
 | `--color-primary` | 品牌色 |
-| `--color-success` / `--color-warning` / `--color-info` | 状态色 |
-| `--color-destructive` | 危险 |
+| `--color-success` / `--color-warning` / `--color-info` / `--color-error` | 状态色 |
 | `--color-surface` / `--color-muted` / `--color-border` | 表面 |
 | `--radius-sm/md/lg` | 圆角 |
+
+组件 API 统一用 `color="error"`（与 daisyUI 一致）。
 
 ## 外观读法
 
@@ -88,7 +89,7 @@ html.dark {
 - **outline** — 描边
 - **ghost** — 幽灵/弱化
 
-`Button`：`primary | soft | outline | ghost | secondary | destructive`。`Alert`：`appearance="soft" | "outline" | "solid"` + 状态 `variant`。
+`Button` / `Alert` / `Tag` / `Badge` 均为 `color` × `variant`。`NoticeBar` / `Progress` / `Toast` / `Notification` / `Result` 使用语义色 token。
 
 ## 断点 Provider
 

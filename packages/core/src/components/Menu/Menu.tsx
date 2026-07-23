@@ -32,15 +32,15 @@ const itemVariants = tv({
       true: 'cursor-not-allowed opacity-50',
       false: '',
     },
-    danger: {
-      true: 'text-destructive hover:bg-destructive/10',
-      false: '',
+    color: {
+      default: '',
+      error: 'text-error hover:bg-error/10',
     },
   },
   defaultVariants: {
     selected: false,
     disabled: false,
-    danger: false,
+    color: 'default',
   },
 });
 
@@ -49,7 +49,8 @@ export interface MenuItemType {
   label: ReactNode;
   icon?: ReactNode;
   disabled?: boolean;
-  danger?: boolean;
+  /** Error action item. */
+  color?: 'error';
   children?: MenuItemType[];
 }
 
@@ -106,7 +107,7 @@ function MenuItems({
                 itemVariants({
                   selected: isSelected,
                   disabled: item.disabled,
-                  danger: item.danger,
+                  color: item.color ?? 'default',
                 }),
                 mode === 'horizontal' && 'whitespace-nowrap',
                 'w-full text-left',

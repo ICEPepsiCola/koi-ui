@@ -37,7 +37,7 @@ export function ActionSheetView({
           key: item.key,
           text: item.label,
           disabled: item.disabled,
-          destructive: item.danger,
+          color: item.color,
           onClick: () => {
             item.onClick?.();
             onSelect?.(item.key);

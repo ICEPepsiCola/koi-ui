@@ -5,22 +5,63 @@
 ```tsx preview
 import { Alert } from '@koi-ui/core';
 export default () => (
-  <Alert variant="info" title="提示" description="这是一条提示信息" />
+  <Alert color="info" title="提示" description="这是一条提示信息" />
 );
 ```
 
-## 不同类型
+## 颜色
 
 ```tsx preview
 import { Alert, Stack } from '@koi-ui/core';
 export default () => (
   <Stack gap={3}>
-    <Alert variant="info" title="信息" description="常规提示" />
-    <Alert variant="success" title="成功" description="操作已完成" />
-    <Alert variant="warning" title="警告" description="请检查输入" />
-    <Alert variant="error" title="错误" description="提交失败" />
-    <Alert variant="info" appearance="outline" title="描边" description="outline appearance" />
-    <Alert variant="success" appearance="solid" title="实心" description="solid appearance" />
+    <Alert color="neutral" title="中性" description="默认中性提示" />
+    <Alert color="info" title="信息" description="常规提示" />
+    <Alert color="success" title="成功" description="操作已完成" />
+    <Alert color="warning" title="警告" description="请检查输入" />
+    <Alert color="error" title="错误" description="提交失败" />
+  </Stack>
+);
+```
+
+## 样式变体
+
+```tsx preview
+import { Alert, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Alert color="info" variant="soft" title="Soft" description="浅底（默认）" />
+    <Alert color="success" variant="outline" title="Outline" description="描边" />
+    <Alert color="warning" variant="dash" title="Dash" description="虚线描边" />
+    <Alert color="error" variant="solid" title="Solid" description="实心" />
+  </Stack>
+);
+```
+
+## 操作区与响应式
+
+```tsx preview
+import { Alert, Button, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Alert
+      responsive
+      color="info"
+      title="新消息"
+      description="你有 1 条未读消息"
+      action={<Button size="sm">查看</Button>}
+    />
+    <Alert
+      responsive
+      color="warning"
+      description="我们会使用 Cookie（开玩笑的）"
+      action={
+        <>
+          <Button size="sm" variant="ghost">拒绝</Button>
+          <Button size="sm" color="primary">接受</Button>
+        </>
+      }
+    />
   </Stack>
 );
 ```
@@ -37,17 +78,18 @@ export default () => {
       {visible ? (
         <Alert
           closable
-          variant="info"
+          color="info"
           title="可关闭"
-          description="点击右上角关闭"
+          description="点击右侧关闭"
           onClose={() => setVisible(false)}
         />
       ) : null}
       <Alert
         closable
-        variant="warning"
+        color="warning"
         title="仅 closable"
         description="显示关闭按钮；未传 onClose 时点击无副作用"
+        icon={null}
       />
     </Stack>
   );

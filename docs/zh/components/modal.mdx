@@ -1,5 +1,7 @@
 # Modal 对话框
 
+桌面端默认居中（daisyUI `modal-middle`）；`responsive` 开启时移动端为底部抽屉。
+
 ## 基础用法
 
 ```tsx preview
@@ -10,15 +12,15 @@ export default () => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>打开弹窗</Button>
-      <Modal open={open} onClose={() => setOpen(false)} title="标题">
-        内容
+      <Modal open={open} onClose={() => setOpen(false)} title="你好！">
+        按 ESC 或点击遮罩关闭。
       </Modal>
     </>
   );
 };
 ```
 
-## 带底部操作
+## 操作区与关闭按钮
 
 ```tsx preview
 import { Modal, Button, Space } from '@koi-ui/core';
@@ -32,9 +34,10 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="删除确认"
+        closable
         footer={
           <Space>
-            <Button color="secondary" onClick={() => setOpen(false)}>
+            <Button color="neutral" variant="ghost" onClick={() => setOpen(false)}>
               取消
             </Button>
             <Button color="error" onClick={() => setOpen(false)}>
@@ -44,6 +47,94 @@ export default () => {
         }
       >
         确定要删除这条记录吗？
+      </Modal>
+    </>
+  );
+};
+```
+
+## 位置
+
+桌面端 placement 对齐 daisyUI。示例用 `responsive={false}` 固定桌面布局。
+
+```tsx preview
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+
+type Placement = 'middle' | 'top' | 'bottom' | 'start' | 'end';
+
+export default () => {
+  const [placement, setPlacement] = useState<Placement>('middle');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space wrap>
+        {(['middle', 'top', 'bottom', 'start', 'end'] as const).map((p) => (
+          <Button
+            key={p}
+            size="sm"
+            variant={placement === p ? 'solid' : 'outline'}
+            onClick={() => {
+              setPlacement(p);
+              setOpen(true);
+            }}
+          >
+            {p}
+          </Button>
+        ))}
+      </Space>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`placement="${placement}"`}
+        placement={placement}
+        responsive={false}
+        closable
+      >
+        桌面端位置演示（已关闭响应式）。
+      </Modal>
+    </>
+  );
+};
+```
+
+## 尺寸
+
+```tsx preview
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+
+type Size = 'sm' | 'md' | 'lg' | 'xl';
+
+export default () => {
+  const [size, setSize] = useState<Size>('md');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space wrap>
+        {(['sm', 'md', 'lg', 'xl'] as const).map((s) => (
+          <Button
+            key={s}
+            size="sm"
+            variant={size === s ? 'solid' : 'outline'}
+            onClick={() => {
+              setSize(s);
+              setOpen(true);
+            }}
+          >
+            {s}
+          </Button>
+        ))}
+      </Space>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`size="${size}"`}
+        size={size}
+        responsive={false}
+        closable
+      >
+        弹层最大宽度档位。
       </Modal>
     </>
   );
@@ -61,14 +152,17 @@ export default () => {
   return (
     <>
       <Space>
-        <Button onClick={() => {
+        <Button
+          onClick={() => {
             setTall(true);
             setOpen(true);
           }}
         >
           接近全屏
         </Button>
-        <Button variant="outline"onClick={() => {
+        <Button
+          variant="outline"
+          onClick={() => {
             setTall(false);
             setOpen(true);
           }}
@@ -82,7 +176,8 @@ export default () => {
         title="移动端抽屉高度"
         mobileFullscreen={tall}
       >
-        移动端以底部抽屉呈现；mobileFullscreen 为 true 时最高约 90vh，为 false 时约 70vh。
+        移动端以底部抽屉呈现；mobileFullscreen 为 true 时最高约 90vh，为 false 时约
+        70vh。
       </Modal>
     </>
   );

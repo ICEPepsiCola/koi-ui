@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { toSpacingValue } from '../../utils/spacing';
 
 const flexVariants = tv({
   base: 'flex',
@@ -31,15 +32,6 @@ const flexVariants = tv({
       nowrap: 'flex-nowrap',
       wrapReverse: 'flex-wrap-reverse',
     },
-    gap: {
-      0: 'gap-0',
-      1: 'gap-1',
-      2: 'gap-2',
-      3: 'gap-3',
-      4: 'gap-4',
-      6: 'gap-6',
-      8: 'gap-8',
-    },
     vertical: {
       true: 'flex-col',
       false: '',
@@ -59,7 +51,6 @@ const flexVariants = tv({
     align: 'stretch',
     justify: 'start',
     wrap: 'nowrap',
-    gap: 0,
     vertical: false,
     inline: false,
     responsive: false,
@@ -70,6 +61,12 @@ export interface FlexProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof flexVariants> {
   children?: ReactNode;
+  /**
+   * Gap between items. Numbers use the Tailwind spacing scale
+   * (`3` → `gap-3` equivalent). Strings are raw CSS lengths.
+   * @default 0
+   */
+  gap?: number | string;
 }
 
 export function Flex({
@@ -77,11 +74,12 @@ export function Flex({
   align,
   justify,
   wrap,
-  gap,
+  gap = 0,
   vertical,
   inline,
   responsive = false,
   className,
+  style,
   children,
   ...props
 }: FlexProps) {
@@ -94,13 +92,13 @@ export function Flex({
           align,
           justify,
           wrap,
-          gap,
           vertical,
           inline,
           responsive: vertical ? false : responsive,
         }),
         className,
       )}
+      style={{ ...style, gap: toSpacingValue(gap) }}
       {...props}
     >
       {children}

@@ -55,7 +55,7 @@ const statusClasses: Record<StepStatus, string> = {
   wait: 'border-border bg-surface text-muted-foreground',
   process: 'border-primary bg-primary text-primary-foreground',
   finish: 'border-primary bg-surface text-primary',
-  error: 'border-destructive bg-surface text-destructive',
+  error: 'border-error bg-surface text-error',
 };
 
 function StepIcon({
@@ -158,7 +158,7 @@ export function Steps({
                   status === 'process'
                     ? 'text-primary'
                     : status === 'error'
-                      ? 'text-destructive'
+                      ? 'text-error'
                       : 'text-surface-foreground',
                 )}
               >

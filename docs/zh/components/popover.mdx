@@ -5,9 +5,11 @@
 ```tsx preview
 import { Popover, Button } from '@koi-ui/core';
 export default () => (
-  <Popover content="气泡内容">
-    <Button>点击查看</Button>
-  </Popover>
+  <div className="flex justify-center py-8">
+    <Popover content="气泡内容">
+      <Button>点击查看</Button>
+    </Popover>
+  </div>
 );
 ```
 
@@ -16,31 +18,44 @@ export default () => (
 ```tsx preview
 import { Popover, Button } from '@koi-ui/core';
 export default () => (
-  <Popover title="标题" content="带标题的气泡卡片内容。">
-    <Button variant="outline">带标题</Button>
-  </Popover>
+  <div className="flex justify-center py-8">
+    <Popover title="标题" content="带标题的气泡卡片内容。">
+      <Button variant="outline">带标题</Button>
+    </Popover>
+  </div>
 );
 ```
 
 ## 位置
 
 ```tsx preview
-import { Popover, Button, Space } from '@koi-ui/core';
+import { Popover, Button } from '@koi-ui/core';
+
+const cell = 'flex h-24 items-center justify-center';
+
 export default () => (
-  <Space wrap>
-    <Popover placement="top" content="上方">
-      <Button size="sm">top</Button>
-    </Popover>
-    <Popover placement="bottom" content="下方">
-      <Button size="sm">bottom</Button>
-    </Popover>
-    <Popover placement="left" content="左侧">
-      <Button size="sm">left</Button>
-    </Popover>
-    <Popover placement="right" content="右侧">
-      <Button size="sm">right</Button>
-    </Popover>
-  </Space>
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    <div className={cell}>
+      <Popover placement="top" content="上方" defaultOpen>
+        <Button size="sm">top</Button>
+      </Popover>
+    </div>
+    <div className={cell}>
+      <Popover placement="bottom" content="下方" defaultOpen>
+        <Button size="sm">bottom</Button>
+      </Popover>
+    </div>
+    <div className={cell}>
+      <Popover placement="left" content="左侧" defaultOpen>
+        <Button size="sm">left</Button>
+      </Popover>
+    </div>
+    <div className={cell}>
+      <Popover placement="right" content="右侧" defaultOpen>
+        <Button size="sm">right</Button>
+      </Popover>
+    </div>
+  </div>
 );
 ```
 
@@ -49,9 +64,11 @@ export default () => (
 ```tsx preview
 import { Popover, Button } from '@koi-ui/core';
 export default () => (
-  <Popover trigger="hover" content="鼠标悬停显示">
-    <Button variant="soft">悬停触发</Button>
-  </Popover>
+  <div className="flex justify-center py-8">
+    <Popover trigger="hover" content="鼠标悬停显示">
+      <Button variant="soft">悬停触发</Button>
+    </Popover>
+  </div>
 );
 ```
 

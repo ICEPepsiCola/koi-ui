@@ -166,7 +166,7 @@ export function FormItem({
 
   const messageTone =
     status === 'error'
-      ? 'text-destructive'
+      ? 'text-error'
       : status === 'warning'
         ? 'text-warning'
         : status === 'success'
@@ -192,7 +192,7 @@ export function FormItem({
         >
           {label}
           {showRequired ? (
-            <Text as="span" className="ml-1 text-destructive" aria-hidden>
+            <Text as="span" className="ml-1 text-error" aria-hidden>
               *
             </Text>
           ) : null}

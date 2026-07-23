@@ -5,47 +5,76 @@
 ```tsx preview
 import { Tooltip, Button } from '@koi-ui/core';
 export default () => (
-  <Tooltip content="Tip text">
-    <Button>Hover</Button>
-  </Tooltip>
+  <div className="flex justify-center pt-12">
+    <Tooltip content="Tip text">
+      <Button>Hover</Button>
+    </Tooltip>
+  </div>
 );
 ```
 
 ## Placement
 
 ```tsx preview
-import { Tooltip, Button, Space } from '@koi-ui/core';
+import { Tooltip, Button } from '@koi-ui/core';
+
+const cell = 'flex h-24 items-center justify-center';
+
 export default () => (
-  <Space wrap>
-    <Tooltip placement="top" content="Top">
-      <Button size="sm">top</Button>
-    </Tooltip>
-    <Tooltip placement="bottom" content="Bottom">
-      <Button size="sm">bottom</Button>
-    </Tooltip>
-    <Tooltip placement="left" content="Left">
-      <Button size="sm">left</Button>
-    </Tooltip>
-    <Tooltip placement="right" content="Right">
-      <Button size="sm">right</Button>
-    </Tooltip>
-  </Space>
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    <div className={cell}>
+      <Tooltip placement="top" content="Top" open>
+        <Button size="sm">top</Button>
+      </Tooltip>
+    </div>
+    <div className={cell}>
+      <Tooltip placement="bottom" content="Bottom" open>
+        <Button size="sm">bottom</Button>
+      </Tooltip>
+    </div>
+    <div className={cell}>
+      <Tooltip placement="left" content="Left" open>
+        <Button size="sm">left</Button>
+      </Tooltip>
+    </div>
+    <div className={cell}>
+      <Tooltip placement="right" content="Right" open>
+        <Button size="sm">right</Button>
+      </Tooltip>
+    </div>
+  </div>
 );
 ```
 
-## Variants
+## Colors
+
+Same semantic `color` axis as Button. Default is `neutral`.
 
 ```tsx preview
-import { Tooltip, Button, Space } from '@koi-ui/core';
+import { Tooltip, Button } from '@koi-ui/core';
+
+const colors = [
+  'neutral',
+  'primary',
+  'secondary',
+  'info',
+  'success',
+  'warning',
+  'error',
+] as const;
+
 export default () => (
-  <Space>
-    <Tooltip content="Dark tip" variant="default">
-      <Button>default</Button>
-    </Tooltip>
-    <Tooltip content="Light tip" variant="light">
-      <Button variant="outline">light</Button>
-    </Tooltip>
-  </Space>
+  <div className="flex flex-wrap gap-x-3 gap-y-2">
+    {colors.map((color) => (
+      <div key={color} className="flex h-20 items-end">
+        <Tooltip content={color} color={color} open>
+          <Button color={color} size="sm">
+            {color}
+          </Button>
+        </Tooltip>
+      </div>
+    ))}
+  </div>
 );
 ```
 

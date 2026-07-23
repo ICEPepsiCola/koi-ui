@@ -1,5 +1,7 @@
 # Drawer
 
+Side / edge panel with the same chrome as Modal (no section borders, optional `closable`).
+
 ## Basic usage
 
 ```tsx preview
@@ -10,7 +12,7 @@ export default () => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open drawer</Button>
-      <Drawer open={open} onClose={() => setOpen(false)} title="Drawer title">
+      <Drawer open={open} onClose={() => setOpen(false)} title="Drawer" closable>
         Content
       </Drawer>
     </>
@@ -30,7 +32,11 @@ export default () => {
     <>
       <Space wrap>
         {(['left', 'right', 'top', 'bottom'] as const).map((p) => (
-          <Button key={p}size="sm" onClick={() => {
+          <Button
+            key={p}
+            size="sm"
+            variant={placement === p ? 'solid' : 'outline'}
+            onClick={() => {
               setPlacement(p);
               setOpen(true);
             }}
@@ -44,6 +50,7 @@ export default () => {
         onClose={() => setOpen(false)}
         title={`placement=${placement}`}
         placement={placement}
+        closable
       >
         Slides in from {placement}
       </Drawer>
@@ -64,7 +71,11 @@ export default () => {
     <>
       <Space>
         {(['sm', 'md', 'lg'] as const).map((s) => (
-          <Button key={s}size="sm" onClick={() => {
+          <Button
+            key={s}
+            size="sm"
+            variant={size === s ? 'solid' : 'outline'}
+            onClick={() => {
               setSize(s);
               setOpen(true);
             }}
@@ -73,15 +84,21 @@ export default () => {
           </Button>
         ))}
       </Space>
-      <Drawer open={open} onClose={() => setOpen(false)} title={`size=${size}`} size={size}>
-        Different drawer sizes
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`size=${size}`}
+        size={size}
+        closable
+      >
+        Drawer width / height scale
       </Drawer>
     </>
   );
 };
 ```
 
-## Footer
+## Footer actions
 
 ```tsx preview
 import { Drawer, Button, Space } from '@koi-ui/core';
@@ -95,16 +112,19 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="Edit"
+        closable
         footer={
           <Space>
-            <Button color="secondary" onClick={() => setOpen(false)}>
+            <Button color="neutral" variant="ghost" onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button color="primary" onClick={() => setOpen(false)}>Save</Button>
+            <Button color="primary" onClick={() => setOpen(false)}>
+              Save
+            </Button>
           </Space>
         }
       >
-        Drawer content with footer
+        Drawer body with footer actions
       </Drawer>
     </>
   );

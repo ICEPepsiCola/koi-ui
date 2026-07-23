@@ -21,12 +21,16 @@ export default () => (
   <div className="space-y-4">
     <Stack direction="col" gap={2}>
       <Tag>col gap 2</Tag>
-      <Tag variant="secondary">column</Tag>
+      <Tag color="secondary">column</Tag>
     </Stack>
     <Stack direction="row" gap={4}>
       <Tag>row gap 4</Tag>
-      <Tag variant="secondary">row</Tag>
+      <Tag color="secondary">row</Tag>
       <Tag variant="outline">row</Tag>
+    </Stack>
+    <Stack direction="row" gap={10}>
+      <Tag>row gap 10</Tag>
+      <Tag color="secondary">any number</Tag>
     </Stack>
   </div>
 );
@@ -40,11 +44,11 @@ export default () => (
   <div className="space-y-4">
     <Stack direction="row" align="center" justify="between" className="rounded-md border border-border p-3">
       <Tag>Left</Tag>
-      <Tag variant="success">Right</Tag>
+      <Tag color="success">Right</Tag>
     </Stack>
     <Stack direction="row" align="end" gap={2} className="h-16 rounded-md border border-border p-3">
       <Tag>end</Tag>
-      <Tag variant="secondary">align end</Tag>
+      <Tag color="secondary">align end</Tag>
     </Stack>
   </div>
 );
@@ -57,7 +61,7 @@ import { Stack, Tag } from '@koi-ui/core';
 export default () => (
   <Stack responsive gap={2} className="rounded-md border border-border p-3">
     <Tag>column on narrow</Tag>
-    <Tag variant="secondary">row from md+</Tag>
+    <Tag color="secondary">row from md+</Tag>
   </Stack>
 );
 ```

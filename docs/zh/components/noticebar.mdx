@@ -7,15 +7,17 @@ import { NoticeBar } from '@koi-ui/core';
 export default () => <NoticeBar content="这是一条通告信息" />;
 ```
 
-## 变体
+## 颜色
 
 ```tsx preview
 import { NoticeBar, Stack } from '@koi-ui/core';
 export default () => (
   <Stack gap={3}>
-    <NoticeBar variant="default" content="默认提示信息" />
-    <NoticeBar variant="warning" content="请注意相关风险" />
-    <NoticeBar variant="error" content="操作失败，请稍后重试" />
+    <NoticeBar color="primary" content="默认提示信息" />
+    <NoticeBar color="info" content="系统更新可用" />
+    <NoticeBar color="success" content="同步完成" />
+    <NoticeBar color="warning" content="请注意相关风险" />
+    <NoticeBar color="error" content="操作失败，请稍后重试" />
   </Stack>
 );
 ```

@@ -5,4 +5,6 @@ export {
   type NotificationProps,
   type NotificationOptions,
   type NotificationItem,
+  type NotificationColor,
+  type NotificationPlacement,
 } from './Notification';

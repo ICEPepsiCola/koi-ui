@@ -10,7 +10,8 @@ export interface DropdownItem {
   key: string;
   label: ReactNode;
   disabled?: boolean;
-  danger?: boolean;
+  /** Error action item. */
+  color?: 'error';
   onClick?: () => void;
 }
 
@@ -95,7 +96,7 @@ export function DropdownView({
                   pressable,
                   'hover:bg-muted',
                   item.disabled && 'cursor-not-allowed opacity-50',
-                  item.danger && 'text-destructive hover:bg-destructive/10',
+                  item.color === 'error' && 'text-error hover:bg-error/10',
                 )}
                 onClick={() => {
                   if (item.disabled) return;

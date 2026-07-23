@@ -1,5 +1,7 @@
 # Popup 弹出层
 
+紧凑居中对话框，样式与 Modal 同源，默认 `size="sm"`。
+
 ## 基础用法
 
 ```tsx preview
@@ -18,7 +20,7 @@ export default () => {
 };
 ```
 
-## 底部操作
+## 操作区与关闭按钮
 
 ```tsx preview
 import { Popup, Button, Space } from '@koi-ui/core';
@@ -32,17 +34,16 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="确认"
+        closable
         footer={
-          <div className="flex justify-end gap-2 p-3">
-            <Space>
-              <Button color="secondary" size="sm" onClick={() => setOpen(false)}>
-                取消
-              </Button>
-              <Button color="primary" size="sm" onClick={() => setOpen(false)}>
-                确定
-              </Button>
-            </Space>
-          </div>
+          <Space>
+            <Button color="neutral" variant="ghost" size="sm" onClick={() => setOpen(false)}>
+              取消
+            </Button>
+            <Button color="primary" size="sm" onClick={() => setOpen(false)}>
+              确定
+            </Button>
+          </Space>
         }
       >
         确定继续吗？
@@ -66,16 +67,15 @@ export default () => {
         open={open}
         onClose={() => setOpen(false)}
         title="重要提示"
-        closeOnMask={false}
+        maskClosable={false}
+        closable
         footer={
-          <div className="flex justify-end p-3">
-            <Button size="sm" onClick={() => setOpen(false)}>
-              我知道了
-            </Button>
-          </div>
+          <Button size="sm" onClick={() => setOpen(false)}>
+            我知道了
+          </Button>
         }
       >
-        closeOnMask 为 false 时需通过按钮关闭。
+        maskClosable 为 false 时需通过按钮关闭。
       </Popup>
     </>
   );

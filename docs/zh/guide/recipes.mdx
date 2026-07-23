@@ -97,9 +97,9 @@ export default () => {
             title: '状态',
             render: (value) =>
               value === 'active' ? (
-                <Tag variant="success">进行中</Tag>
+                <Tag color="success">进行中</Tag>
               ) : value === 'trial' ? (
-                <Tag variant="warning">试用</Tag>
+                <Tag color="warning">试用</Tag>
               ) : (
                 <Tag variant="ghost">已暂停</Tag>
               ),
@@ -107,7 +107,7 @@ export default () => {
           {
             key: 'owners',
             title: '成员',
-            render: (value) => <Badge count={Number(value)} variant="soft" />,
+            render: (value) => <Badge count={Number(value)} color="primary" variant="soft" />,
           },
         ]}
         data={data}

@@ -13,11 +13,13 @@ const floatButtonVariants = tv({
     'motion-reduce:transition-none',
   ),
   variants: {
-    variant: {
+    color: {
       primary:
         'bg-primary text-primary-foreground hover:brightness-[1.04] active:brightness-[0.96]',
       secondary:
         'border border-border bg-surface text-surface-foreground hover:bg-muted',
+      neutral:
+        'border border-border bg-muted text-surface-foreground hover:bg-muted/80',
     },
     size: {
       sm: 'h-10 w-10',
@@ -32,14 +34,14 @@ const floatButtonVariants = tv({
     },
   },
   defaultVariants: {
-    variant: 'primary',
+    color: 'primary',
     size: 'md',
     placement: 'bottom-right',
   },
 });
 
 export interface FloatButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof floatButtonVariants> {
   icon?: ReactNode;
   description?: ReactNode;
@@ -47,7 +49,7 @@ export interface FloatButtonProps
 
 export function FloatButton({
   className,
-  variant,
+  color,
   size,
   placement,
   icon,
@@ -59,7 +61,10 @@ export function FloatButton({
     <Portal>
       <button
         type="button"
-        className={cn(floatButtonVariants({ variant, size, placement }), className)}
+        className={cn(
+          floatButtonVariants({ color, size, placement }),
+          className,
+        )}
         {...props}
       >
         {icon ?? children}

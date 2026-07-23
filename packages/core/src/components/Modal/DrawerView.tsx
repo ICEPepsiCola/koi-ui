@@ -1,4 +1,4 @@
-import { useId, useRef, type ReactNode } from 'react';
+import { useId, useRef } from 'react';
 import { cn } from '../../utils/cn';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
@@ -6,15 +6,10 @@ import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
 import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
+import { ModalBoxContent, modalBoxVariants } from './modalStyles';
+import type { ModalPanelProps } from './types';
 
-export interface DrawerViewProps {
-  open: boolean;
-  onClose: () => void;
-  title?: ReactNode;
-  children?: ReactNode;
-  footer?: ReactNode;
-  mobileFullscreen?: boolean;
-}
+export type DrawerViewProps = ModalPanelProps;
 
 export function DrawerView({
   open,
@@ -23,6 +18,10 @@ export function DrawerView({
   children,
   footer,
   mobileFullscreen = true,
+  size = 'md',
+  closable = false,
+  maskClosable = true,
+  className,
 }: DrawerViewProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -41,7 +40,11 @@ export function DrawerView({
 
   return (
     <Portal>
-      <Overlay open={open} onClick={onClose} className="flex items-end">
+      <Overlay
+        open={open}
+        onClick={maskClosable ? onClose : undefined}
+        className="grid place-items-end"
+      >
         <MotionPanel
           ref={drawerRef}
           variant="bottom"
@@ -51,28 +54,26 @@ export function DrawerView({
           aria-describedby={descriptionId}
           tabIndex={-1}
           className={cn(
-            'w-full rounded-t-box border border-border/80 bg-surface shadow-overlay',
+            modalBoxVariants({ placement: 'bottom', size }),
+            'w-full max-w-none',
             mobileFullscreen ? 'max-h-[90vh]' : 'max-h-[70vh]',
+            className,
           )}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="mx-auto my-2 h-1 w-10 rounded-full bg-border" />
-          {title ? (
-            <div
-              id={titleId}
-              className="border-b border-border/80 px-4 py-3 text-lg font-semibold"
-            >
-              {title}
-            </div>
-          ) : null}
-          <div id={descriptionId} className="overflow-y-auto px-4 py-4">
+          <ModalBoxContent
+            title={title}
+            footer={footer}
+            closable={closable}
+            onClose={onClose}
+            titleId={titleId}
+            descriptionId={descriptionId}
+            headerExtra={
+              <div className="mx-auto mb-4 h-1 w-10 shrink-0 rounded-full bg-border" />
+            }
+          >
             {children}
-          </div>
-          {footer ? (
-            <div className="flex justify-end gap-2 border-t border-border/80 px-4 py-3">
-              {footer}
-            </div>
-          ) : null}
+          </ModalBoxContent>
         </MotionPanel>
       </Overlay>
     </Portal>

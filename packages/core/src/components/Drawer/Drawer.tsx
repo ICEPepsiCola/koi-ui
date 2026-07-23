@@ -5,17 +5,21 @@ import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
+import { ModalBoxContent } from '../Modal/modalStyles';
 import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
 
 const drawerVariants = tv({
-  base: 'fixed z-50 flex flex-col border border-border/80 bg-surface shadow-overlay',
+  base: cn(
+    'relative flex flex-col overflow-hidden bg-surface text-surface-foreground',
+    'shadow-[0_25px_50px_-12px_rgb(0_0_0_/_0.25)]',
+  ),
   variants: {
     placement: {
-      left: 'left-0 top-0 h-full',
-      right: 'right-0 top-0 h-full',
-      top: 'left-0 top-0 w-full',
-      bottom: 'bottom-0 left-0 w-full rounded-t-box',
+      left: 'h-full rounded-r-box rounded-l-none',
+      right: 'h-full rounded-l-box rounded-r-none',
+      top: 'w-full rounded-b-box rounded-t-none',
+      bottom: 'w-full rounded-t-box rounded-b-none',
     },
     size: {
       sm: '',
@@ -36,13 +40,27 @@ const sizeMap = {
   bottom: { sm: 'h-48', md: 'max-h-[70vh]', lg: 'max-h-[90vh]' },
 } as const;
 
+const overlayClass = {
+  left: 'grid h-full place-items-stretch justify-items-start',
+  right: 'grid h-full place-items-stretch justify-items-end',
+  top: 'grid h-full place-items-start',
+  bottom: 'grid h-full place-items-end',
+} as const;
+
 export interface DrawerProps extends VariantProps<typeof drawerVariants> {
   open: boolean;
   onClose: () => void;
   title?: ReactNode;
   children?: ReactNode;
   footer?: ReactNode;
+  /**
+   * @default true
+   */
   maskClosable?: boolean;
+  /**
+   * @default false
+   */
+  closable?: boolean;
   className?: string;
 }
 
@@ -55,12 +73,14 @@ export function Drawer({
   placement = 'right',
   size = 'md',
   maskClosable = true,
+  closable = false,
   className,
 }: DrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const descriptionId = useId();
   const resolvedPlacement = placement ?? 'right';
+  const resolvedSize = size ?? 'md';
 
   useScrollLock(open);
   useDismissibleLayer({
@@ -73,11 +93,15 @@ export function Drawer({
     containerRef: drawerRef,
   });
 
-  const sizeClass = sizeMap[resolvedPlacement][size ?? 'md'];
+  const sizeClass = sizeMap[resolvedPlacement][resolvedSize];
 
   return (
     <Portal>
-      <Overlay open={open} onClick={maskClosable ? onClose : undefined}>
+      <Overlay
+        open={open}
+        onClick={maskClosable ? onClose : undefined}
+        className={overlayClass[resolvedPlacement]}
+      >
         <MotionPanel
           ref={drawerRef}
           variant={resolvedPlacement}
@@ -87,32 +111,31 @@ export function Drawer({
           aria-describedby={descriptionId}
           tabIndex={-1}
           className={cn(
-            drawerVariants({ placement: resolvedPlacement, size }),
+            drawerVariants({
+              placement: resolvedPlacement,
+              size: resolvedSize,
+            }),
             sizeClass,
-            placement === 'bottom' && 'items-end',
+            'p-6',
             className,
           )}
           onClick={(e) => e.stopPropagation()}
         >
-          {placement === 'bottom' ? (
-            <div className="mx-auto my-2 h-1 w-10 rounded-full bg-border" />
-          ) : null}
-          {title ? (
-            <div
-              id={titleId}
-              className="border-b border-border/80 px-4 py-3 text-lg font-semibold"
-            >
-              {title}
-            </div>
-          ) : null}
-          <div id={descriptionId} className="flex-1 overflow-y-auto px-4 py-4">
+          <ModalBoxContent
+            title={title}
+            footer={footer}
+            closable={closable}
+            onClose={onClose}
+            titleId={titleId}
+            descriptionId={descriptionId}
+            headerExtra={
+              resolvedPlacement === 'bottom' ? (
+                <div className="mx-auto mb-4 h-1 w-10 shrink-0 rounded-full bg-border" />
+              ) : null
+            }
+          >
             {children}
-          </div>
-          {footer ? (
-            <div className="flex justify-end gap-2 border-t border-border/80 px-4 py-3">
-              {footer}
-            </div>
-          ) : null}
+          </ModalBoxContent>
         </MotionPanel>
       </Overlay>
     </Portal>

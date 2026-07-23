@@ -1,6 +1,10 @@
 import type { HTMLAttributes } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import {
+  progressBarClass,
+  type ProgressColor,
+} from '../../utils/semanticSurface';
 
 const progressVariants = tv({
   base: 'w-full overflow-hidden rounded-full bg-muted',
@@ -10,38 +14,26 @@ const progressVariants = tv({
       md: 'h-2',
       lg: 'h-3',
     },
-    variant: {
-      default: '',
-      success: '',
-      warning: '',
-      destructive: '',
-    },
   },
   defaultVariants: {
     size: 'md',
-    variant: 'default',
   },
 });
 
-const barColors = {
-  default: 'bg-primary',
-  success: 'bg-emerald-500',
-  warning: 'bg-amber-500',
-  destructive: 'bg-destructive',
-} as const;
-
 export interface ProgressProps
-  extends HTMLAttributes<HTMLDivElement>,
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'color'>,
     VariantProps<typeof progressVariants> {
   percent?: number;
   showInfo?: boolean;
   strokeColor?: string;
+  /** @default 'primary' */
+  color?: ProgressColor;
 }
 
 export function Progress({
   className,
   size,
-  variant,
+  color = 'primary',
   percent = 0,
   showInfo = false,
   strokeColor,
@@ -56,13 +48,13 @@ export function Progress({
         aria-valuenow={clamped}
         aria-valuemin={0}
         aria-valuemax={100}
-        className={cn(progressVariants({ size, variant }))}
+        className={cn(progressVariants({ size }))}
         {...props}
       >
         <div
           className={cn(
             'h-full rounded-full transition-all duration-300',
-            !strokeColor && barColors[variant ?? 'default'],
+            !strokeColor && progressBarClass(color),
           )}
           style={{
             width: `${clamped}%`,

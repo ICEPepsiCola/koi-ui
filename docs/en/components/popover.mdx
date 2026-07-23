@@ -5,42 +5,57 @@
 ```tsx preview
 import { Popover, Button } from '@koi-ui/core';
 export default () => (
-  <Popover content="Popover content">
-    <Button>Click me</Button>
-  </Popover>
+  <div className="flex justify-center py-8">
+    <Popover content="Popover content">
+      <Button>Click</Button>
+    </Popover>
+  </div>
 );
 ```
 
-## With title
+## Title
 
 ```tsx preview
 import { Popover, Button } from '@koi-ui/core';
 export default () => (
-  <Popover title="Title" content="Popover body with a title.">
-    <Button variant="outline">With title</Button>
-  </Popover>
+  <div className="flex justify-center py-8">
+    <Popover title="Title" content="Popover body with a title.">
+      <Button variant="outline">With title</Button>
+    </Popover>
+  </div>
 );
 ```
 
 ## Placement
 
 ```tsx preview
-import { Popover, Button, Space } from '@koi-ui/core';
+import { Popover, Button } from '@koi-ui/core';
+
+const cell = 'flex h-24 items-center justify-center';
+
 export default () => (
-  <Space wrap>
-    <Popover placement="top" content="Top">
-      <Button size="sm">top</Button>
-    </Popover>
-    <Popover placement="bottom" content="Bottom">
-      <Button size="sm">bottom</Button>
-    </Popover>
-    <Popover placement="left" content="Left">
-      <Button size="sm">left</Button>
-    </Popover>
-    <Popover placement="right" content="Right">
-      <Button size="sm">right</Button>
-    </Popover>
-  </Space>
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    <div className={cell}>
+      <Popover placement="top" content="Top" defaultOpen>
+        <Button size="sm">top</Button>
+      </Popover>
+    </div>
+    <div className={cell}>
+      <Popover placement="bottom" content="Bottom" defaultOpen>
+        <Button size="sm">bottom</Button>
+      </Popover>
+    </div>
+    <div className={cell}>
+      <Popover placement="left" content="Left" defaultOpen>
+        <Button size="sm">left</Button>
+      </Popover>
+    </div>
+    <div className={cell}>
+      <Popover placement="right" content="Right" defaultOpen>
+        <Button size="sm">right</Button>
+      </Popover>
+    </div>
+  </div>
 );
 ```
 
@@ -49,9 +64,11 @@ export default () => (
 ```tsx preview
 import { Popover, Button } from '@koi-ui/core';
 export default () => (
-  <Popover trigger="hover" content="Shown on hover">
-    <Button variant="soft">Hover trigger</Button>
-  </Popover>
+  <div className="flex justify-center py-8">
+    <Popover trigger="hover" content="Shown on hover">
+      <Button variant="soft">Hover me</Button>
+    </Popover>
+  </div>
 );
 ```
 

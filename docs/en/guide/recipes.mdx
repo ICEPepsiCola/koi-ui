@@ -99,9 +99,9 @@ export default () => {
             title: 'Status',
             render: (value) =>
               value === 'active' ? (
-                <Tag variant="success">Active</Tag>
+                <Tag color="success">Active</Tag>
               ) : value === 'trial' ? (
-                <Tag variant="warning">Trial</Tag>
+                <Tag color="warning">Trial</Tag>
               ) : (
                 <Tag variant="ghost">Paused</Tag>
               ),
@@ -109,7 +109,7 @@ export default () => {
           {
             key: 'owners',
             title: 'Members',
-            render: (value) => <Badge count={Number(value)} variant="soft" />,
+            render: (value) => <Badge count={Number(value)} color="primary" variant="soft" />,
           },
         ]}
         data={data}

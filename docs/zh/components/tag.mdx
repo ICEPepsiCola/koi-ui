@@ -1,4 +1,3 @@
-
 # Tag 标签
 
 ## 基础用法
@@ -8,13 +7,26 @@ import { Tag, Space } from '@koi-ui/core';
 export default () => (
   <Space wrap>
     <Tag>默认</Tag>
-    <Tag variant="soft">Soft</Tag>
-    <Tag variant="secondary">次要</Tag>
-    <Tag variant="outline">Outline</Tag>
-    <Tag variant="ghost">Ghost</Tag>
-    <Tag variant="success">成功</Tag>
-    <Tag variant="warning">警告</Tag>
-    <Tag variant="destructive">危险</Tag>
+    <Tag color="secondary">次要</Tag>
+    <Tag color="info">信息</Tag>
+    <Tag color="success">成功</Tag>
+    <Tag color="warning">警告</Tag>
+    <Tag color="error">危险</Tag>
+  </Space>
+);
+```
+
+## 样式变体
+
+```tsx preview
+import { Tag, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Tag color="primary" variant="soft">Soft</Tag>
+    <Tag color="primary" variant="outline">Outline</Tag>
+    <Tag color="primary" variant="dash">Dash</Tag>
+    <Tag color="primary" variant="solid">Solid</Tag>
+    <Tag color="primary" variant="ghost">Ghost</Tag>
   </Space>
 );
 ```

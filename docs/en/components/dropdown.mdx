@@ -15,7 +15,7 @@ export default () => (
 );
 ```
 
-## Disabled items
+## Disabled & error items
 
 ```tsx preview
 import { Dropdown, Button } from '@koi-ui/core';
@@ -25,7 +25,8 @@ export default () => (
     items={[
       { key: 'edit', label: 'Edit' },
       { key: 'copy', label: 'Copy' },
-      { key: 'delete', label: 'Delete', disabled: true },
+      { key: 'delete', label: 'Delete', color: 'error' },
+      { key: 'archive', label: 'Archive', disabled: true },
     ]}
   />
 );

@@ -1,18 +1,20 @@
-import { useId, useRef, type ReactNode } from 'react';
+import { useId, useRef } from 'react';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
+import { cn } from '../../utils/cn';
 import { Portal } from '../../utils/portal';
 import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
+import {
+  ModalBoxContent,
+  modalBoxVariants,
+  placementOverlayClass,
+  placementToMotion,
+} from './modalStyles';
+import type { ModalPanelProps } from './types';
 
-export interface ModalViewProps {
-  open: boolean;
-  onClose: () => void;
-  title?: ReactNode;
-  children?: ReactNode;
-  footer?: ReactNode;
-}
+export type ModalViewProps = ModalPanelProps;
 
 export function ModalView({
   open,
@@ -20,6 +22,11 @@ export function ModalView({
   title,
   children,
   footer,
+  placement = 'middle',
+  size = 'md',
+  closable = false,
+  maskClosable = true,
+  className,
 }: ModalViewProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -38,37 +45,33 @@ export function ModalView({
 
   return (
     <Portal>
-      <Overlay open={open} onClick={onClose}>
-        <div className="flex h-full items-center justify-center p-4">
-          <MotionPanel
-            ref={dialogRef}
-            variant="center"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={title ? titleId : undefined}
-            aria-describedby={descriptionId}
-            tabIndex={-1}
-            className="w-full max-w-lg rounded-box border border-border/80 bg-surface shadow-overlay"
-            onClick={(e) => e.stopPropagation()}
+      <Overlay
+        open={open}
+        onClick={maskClosable ? onClose : undefined}
+        className={cn('h-full', placementOverlayClass[placement])}
+      >
+        <MotionPanel
+          ref={dialogRef}
+          variant={placementToMotion[placement]}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={title ? titleId : undefined}
+          aria-describedby={descriptionId}
+          tabIndex={-1}
+          className={cn(modalBoxVariants({ placement, size }), className)}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ModalBoxContent
+            title={title}
+            footer={footer}
+            closable={closable}
+            onClose={onClose}
+            titleId={titleId}
+            descriptionId={descriptionId}
           >
-            {title ? (
-              <div
-                id={titleId}
-                className="border-b border-border/80 px-6 py-4 text-lg font-semibold"
-              >
-                {title}
-              </div>
-            ) : null}
-            <div id={descriptionId} className="px-6 py-4">
-              {children}
-            </div>
-            {footer ? (
-              <div className="flex justify-end gap-2 border-t border-border/80 px-6 py-4">
-                {footer}
-              </div>
-            ) : null}
-          </MotionPanel>
-        </div>
+            {children}
+          </ModalBoxContent>
+        </MotionPanel>
       </Overlay>
     </Portal>
   );
