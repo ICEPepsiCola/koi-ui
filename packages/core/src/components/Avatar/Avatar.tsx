@@ -1,6 +1,12 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import {
+  useState,
+  type HTMLAttributes,
+  type MouseEvent,
+  type ReactNode,
+} from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { Portal } from '../../utils/portal';
 
 const avatarVariants = tv({
   base: 'relative inline-flex shrink-0 items-center justify-center overflow-hidden bg-muted text-muted-foreground font-medium ring-2 ring-surface',
@@ -56,6 +62,8 @@ export interface AvatarProps
   alt?: string;
   fallback?: ReactNode;
   children?: ReactNode;
+  /** Click image to preview. Only works when `src` is set. @default true */
+  preview?: boolean;
   /** Presence indicator. */
   status?: 'online' | 'offline' | 'busy' | 'away';
 }
@@ -68,27 +76,72 @@ export function Avatar({
   alt,
   fallback,
   children,
+  preview = true,
   status,
+  onClick,
   ...props
 }: AvatarProps) {
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
   const content = children ?? fallback ?? (alt ? alt.charAt(0).toUpperCase() : '?');
+  const hasImage = Boolean(src) && !imageFailed;
+  const canPreview = preview && hasImage;
+
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    onClick?.(event);
+    if (!canPreview || event.defaultPrevented) return;
+    setPreviewOpen(true);
+  };
 
   return (
-    <div className={cn('relative inline-flex shrink-0', className)} {...props}>
-      <div className={avatarVariants({ size, shape })}>
-        {src ? (
-          <img src={src} alt={alt ?? ''} className="h-full w-full object-cover" />
-        ) : (
-          <span>{content}</span>
+    <>
+      <div
+        className={cn(
+          'relative inline-flex shrink-0',
+          canPreview && 'cursor-zoom-in',
+          className,
         )}
+        onClick={canPreview || onClick ? handleClick : onClick}
+        {...props}
+      >
+        <div className={avatarVariants({ size, shape })}>
+          {hasImage ? (
+            <img
+              src={src}
+              alt={alt ?? ''}
+              className="h-full w-full object-cover"
+              draggable={false}
+              onError={() => setImageFailed(true)}
+            />
+          ) : (
+            <span>{content}</span>
+          )}
+        </div>
+        {status ? (
+          <span
+            className={statusDot({ size, status })}
+            aria-label={status}
+          />
+        ) : null}
       </div>
-      {status ? (
-        <span
-          className={statusDot({ size, status })}
-          aria-label={status}
-        />
+      {canPreview && previewOpen ? (
+        <Portal>
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4"
+            onClick={() => setPreviewOpen(false)}
+            role="presentation"
+          >
+            <img
+              src={src}
+              alt={alt ?? ''}
+              className="max-h-full max-w-full object-contain"
+              draggable={false}
+              onClick={(event) => event.stopPropagation()}
+            />
+          </div>
+        </Portal>
       ) : null}
-    </div>
+    </>
   );
 }
 
@@ -117,7 +170,12 @@ export function AvatarGroup({
     >
       {visible}
       {rest > 0 ? (
-        <Avatar size={size} fallback={`+${rest}`} className="z-0" />
+        <Avatar
+          size={size}
+          fallback={`+${rest}`}
+          className="z-0"
+          preview={false}
+        />
       ) : null}
     </div>
   );

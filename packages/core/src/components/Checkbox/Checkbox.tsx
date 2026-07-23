@@ -7,25 +7,14 @@ import {
 } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
-import {
-  controlCheckedBg,
-  type ControlColor,
-} from '../../utils/controlColor';
+import { type ControlColor } from '../../utils/controlColor';
 import { Text } from '../../primitives/Text';
 
-const CHECKMARK =
-  "checked:bg-[url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.5l3 3 6-6' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")]";
-
-const checkboxVariants = tv({
+const checkboxBoxVariants = tv({
   base: cn(
-    'shrink-0 appearance-none rounded-selector border border-border bg-surface',
-    'bg-center bg-no-repeat transition-[background-color,border-color,box-shadow]',
-    'duration-fast ease-emphasized',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-    'focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
-    'disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none',
-    'checked:bg-[length:70%_70%]',
-    CHECKMARK,
+    'relative inline-flex shrink-0 items-center justify-center rounded-sm border border-border bg-surface',
+    'transition-[background-color,border-color,box-shadow]',
+    'duration-fast ease-emphasized motion-reduce:transition-none',
   ),
   variants: {
     size: {
@@ -34,18 +23,60 @@ const checkboxVariants = tv({
       lg: 'h-5 w-5',
     },
     color: {
-      neutral: controlCheckedBg.neutral,
-      primary: controlCheckedBg.primary,
-      secondary: controlCheckedBg.secondary,
-      info: controlCheckedBg.info,
-      success: controlCheckedBg.success,
-      warning: controlCheckedBg.warning,
-      error: controlCheckedBg.error,
+      neutral: '',
+      primary: '',
+      secondary: '',
+      info: '',
+      success: '',
+      warning: '',
+      error: '',
+    },
+    checked: {
+      true: '',
+      false: '',
     },
   },
+  compoundVariants: [
+    {
+      checked: true,
+      color: 'neutral',
+      class: 'border-muted-foreground bg-muted-foreground',
+    },
+    {
+      checked: true,
+      color: 'primary',
+      class: 'border-primary bg-primary',
+    },
+    {
+      checked: true,
+      color: 'secondary',
+      class: 'border-secondary bg-secondary',
+    },
+    {
+      checked: true,
+      color: 'info',
+      class: 'border-info bg-info',
+    },
+    {
+      checked: true,
+      color: 'success',
+      class: 'border-success bg-success',
+    },
+    {
+      checked: true,
+      color: 'warning',
+      class: 'border-warning bg-warning',
+    },
+    {
+      checked: true,
+      color: 'error',
+      class: 'border-error bg-error',
+    },
+  ],
   defaultVariants: {
     size: 'md',
     color: 'primary',
+    checked: false,
   },
 });
 
@@ -66,7 +97,7 @@ export interface CheckboxProps
       InputHTMLAttributes<HTMLInputElement>,
       'size' | 'onChange' | 'color'
     >,
-    VariantProps<typeof checkboxVariants> {
+    VariantProps<typeof checkboxBoxVariants> {
   label?: ReactNode;
   onChange?: (checked: boolean) => void;
   checkboxValue?: string;
@@ -117,13 +148,41 @@ export function Checkbox({
     >
       <input
         type="checkbox"
-        className={checkboxVariants({ size: resolvedSize, color: resolvedColor })}
+        className="peer sr-only"
         checked={isChecked}
         defaultChecked={isGrouped ? undefined : defaultChecked}
         disabled={isDisabled}
         onChange={(e) => handleChange(e.target.checked)}
         {...props}
       />
+      <span
+        aria-hidden
+        className={cn(
+          checkboxBoxVariants({
+            size: resolvedSize,
+            color: resolvedColor,
+            checked: Boolean(isChecked),
+          }),
+          'peer-focus-visible:ring-2 peer-focus-visible:ring-primary',
+          'peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface',
+          'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
+        )}
+      >
+        <svg
+          viewBox="0 0 16 16"
+          className={cn(
+            'h-[70%] w-[70%] text-white transition-all duration-fast ease-emphasized motion-reduce:transition-none',
+            isChecked ? 'scale-100 opacity-100' : 'scale-75 opacity-0',
+          )}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3.5 8.5 6.5 11.5 12.5 5.5" />
+        </svg>
+      </span>
       {label ? <Text size="sm">{label}</Text> : null}
     </label>
   );
