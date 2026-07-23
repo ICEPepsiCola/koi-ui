@@ -101,7 +101,13 @@ export * from './components/Progress';
 export * from './components/Result';
 export * from './components/Skeleton';
 export * from './components/Spin';
-export { toast, Toast, type ToastOptions, type ToastType } from './components/Toast';
+export {
+  toast,
+  Toast,
+  type ToastOptions,
+  type ToastPosition,
+  type ToastType,
+} from './components/Toast';
 export * from './components/Popup';
 export * from './components/ActionSheet';
 export * from './components/Loading';

@@ -79,3 +79,35 @@ export const floatPanelVariants: Variants = {
     transition: { ...motionTransition, duration: 0.14 },
   },
 };
+
+/** Imperative toast presence — keyed by viewport position. */
+export const toastPresenceVariants: Record<
+  'center' | 'top' | 'bottom',
+  Variants
+> = {
+  center: {
+    open: { opacity: 1, y: 0, scale: 1, transition: motionTransition },
+    closed: {
+      opacity: 0,
+      y: 6,
+      scale: 0.96,
+      transition: { ...motionTransition, duration: 0.16 },
+    },
+  },
+  top: {
+    open: { opacity: 1, y: 0, transition: motionTransition },
+    closed: {
+      opacity: 0,
+      y: -10,
+      transition: { ...motionTransition, duration: 0.16 },
+    },
+  },
+  bottom: {
+    open: { opacity: 1, y: 0, transition: motionTransition },
+    closed: {
+      opacity: 0,
+      y: 10,
+      transition: { ...motionTransition, duration: 0.16 },
+    },
+  },
+};

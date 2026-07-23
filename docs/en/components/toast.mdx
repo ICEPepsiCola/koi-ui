@@ -24,6 +24,27 @@ export default () => (
 );
 ```
 
+## Position
+
+Default is center. Pass `position` for top / bottom.
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button onClick={() => toast.show({ content: 'Center', position: 'center' })}>
+      Center
+    </Button>
+    <Button variant="outline" onClick={() => toast.show({ content: 'Top', position: 'top' })}>
+      Top
+    </Button>
+    <Button color="secondary" onClick={() => toast.show({ content: 'Bottom', position: 'bottom' })}>
+      Bottom
+    </Button>
+  </Space>
+);
+```
+
 ## Duration
 
 ```tsx preview
@@ -32,7 +53,9 @@ export default () => (
   <Space wrap>
     <Button onClick={() => toast.success('Closes in 2s', 2000)}>Success 2s</Button>
     <Button variant="outline" onClick={() => toast.info('Custom duration', 4000)}>Info 4s</Button>
-    <Button color="secondary"onClick={() => toast.show({ content: 'Does not auto-close', duration: 0 })}
+    <Button
+      color="secondary"
+      onClick={() => toast.show({ content: 'Does not auto-close', duration: 0 })}
     >
       No auto-close
     </Button>
@@ -46,7 +69,8 @@ export default () => (
 import { Button, Space, toast } from '@koi-ui/core';
 export default () => (
   <Space wrap>
-    <Button onClick={() => {
+    <Button
+      onClick={() => {
         toast.info('First');
         toast.success('Second', 5000);
         toast.warning('Third', 5000);
@@ -62,5 +86,9 @@ export default () => (
 ```
 
 ## API
+
+Imperative: `toast(content)` / `toast.success(content)` / `Toast.show(options)`.
+
+`Toast.show` options:
 
 <API name="Toast" />

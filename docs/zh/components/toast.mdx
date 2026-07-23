@@ -24,6 +24,27 @@ export default () => (
 );
 ```
 
+## 位置
+
+默认居中。可通过 `position` 指定顶部 / 底部。
+
+```tsx preview
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button onClick={() => toast.show({ content: '居中', position: 'center' })}>
+      居中
+    </Button>
+    <Button variant="outline" onClick={() => toast.show({ content: '顶部', position: 'top' })}>
+      顶部
+    </Button>
+    <Button color="secondary" onClick={() => toast.show({ content: '底部', position: 'bottom' })}>
+      底部
+    </Button>
+  </Space>
+);
+```
+
 ## 时长
 
 ```tsx preview
@@ -32,7 +53,9 @@ export default () => (
   <Space wrap>
     <Button onClick={() => toast.success('2 秒后关闭', 2000)}>成功 2s</Button>
     <Button variant="outline" onClick={() => toast.info('自定义时长', 4000)}>信息 4s</Button>
-    <Button color="secondary"onClick={() => toast.show({ content: '不自动关闭', duration: 0 })}
+    <Button
+      color="secondary"
+      onClick={() => toast.show({ content: '不自动关闭', duration: 0 })}
     >
       不自动关闭
     </Button>
@@ -46,7 +69,8 @@ export default () => (
 import { Button, Space, toast } from '@koi-ui/core';
 export default () => (
   <Space wrap>
-    <Button onClick={() => {
+    <Button
+      onClick={() => {
         toast.info('第一条');
         toast.success('第二条', 5000);
         toast.warning('第三条', 5000);
@@ -62,5 +86,9 @@ export default () => (
 ```
 
 ## API
+
+命令式调用：`toast(content)` / `toast.success(content)` / `Toast.show(options)`。
+
+`Toast.show` 的 options：
 
 <API name="Toast" />

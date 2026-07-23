@@ -102,6 +102,9 @@
     "loop": { "en": "Loop", "zh": "是否循环" },
     "autoplay": { "en": "Autoplay", "zh": "自动播放" },
     "interval": { "en": "Interval (ms)", "zh": "自动播放间隔（毫秒）" },
-    "threshold": { "en": "Swipe threshold", "zh": "滑动切换阈值" }
+    "threshold": { "en": "Swipe threshold", "zh": "滑动切换阈值" },
+    "duration": { "en": "Display duration (ms), 0 means no auto-close", "zh": "展示时长（毫秒），0 表示不自动关闭" },
+    "position": { "en": "Placement on screen", "zh": "展示位置" },
+    "type": { "en": "Semantic type", "zh": "语义类型" }
   }
 }

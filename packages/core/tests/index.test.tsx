@@ -878,10 +878,25 @@ test('toast shows and clears content imperatively', async () => {
   await waitFor(() => {
     expect(screen.getByText('保存成功')).toBeInTheDocument();
   });
+  expect(
+    document.querySelector('[data-koi-toast-viewport="center"]'),
+  ).toContainElement(screen.getByText('保存成功'));
   toast.clear();
   await waitFor(() => {
     expect(screen.queryByText('保存成功')).not.toBeInTheDocument();
   });
+});
+
+test('toast respects position option', async () => {
+  toast.clear();
+  toast.show({ content: '顶部提示', position: 'top' });
+  await waitFor(() => {
+    expect(screen.getByText('顶部提示')).toBeInTheDocument();
+  });
+  expect(
+    document.querySelector('[data-koi-toast-viewport="top"]'),
+  ).toContainElement(screen.getByText('顶部提示'));
+  toast.clear();
 });
 
 test('Calendar selects a day and calls onChange', () => {
