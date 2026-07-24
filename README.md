@@ -2,7 +2,7 @@
 
 Adaptive **React** component library for desktop and mobile — one API that switches layouts by breakpoint.
 
-Inspired by the coverage of Ant Design + Ant Design Mobile, built with React 19, Tailwind CSS v4, Rslib, and Rspress.
+Built with React 19, Tailwind CSS v4, daisyUI-aligned tokens, Rslib, and Rspress.
 
 [Documentation](https://icepepsicola.github.io/koi-ui/) · [Getting started](https://icepepsicola.github.io/koi-ui/guide/getting-started) · [Components](https://icepepsicola.github.io/koi-ui/components/button)
 
@@ -35,8 +35,8 @@ export function App() {
   return (
     <KoiProvider>
       <Stack direction="row" gap={4}>
-        <Button variant="primary">Primary</Button>
-        <Button variant="secondary">Secondary</Button>
+        <Button color="primary">Primary</Button>
+        <Button color="secondary">Secondary</Button>
       </Stack>
     </KoiProvider>
   );

@@ -197,7 +197,7 @@ interface KoiProviderProps {
   --color-surface-foreground: hsl(222 47% 11%);
   --color-muted: hsl(210 40% 96%);
   --color-border: hsl(214 32% 91%);
-  --color-destructive: hsl(0 84% 60%);
+  --color-error: hsl(0 84% 60%);
 
   /* 圆角 */
   --radius-sm: 0.25rem;
@@ -341,7 +341,8 @@ interface ModalProps {
 
 ```tsx
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive'
+  color?: 'neutral' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error'
+  variant?: 'solid' | 'soft' | 'outline' | 'dash' | 'ghost' | 'link'
   size?: 'sm' | 'md' | 'lg'
   loading?: boolean
   disabled?: boolean

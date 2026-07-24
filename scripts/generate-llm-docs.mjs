@@ -350,7 +350,6 @@ function writeOutputs(llmsTxt, llmsFull, registry) {
       version: readCoreVersion(),
       docsOrigin: DOCS_ORIGIN,
       docsBase: DOCS_BASE,
-      generatedAt: new Date().toISOString(),
       components: registry,
     },
     null,

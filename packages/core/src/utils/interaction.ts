@@ -5,7 +5,7 @@ import { tv } from 'tailwind-variants';
  * Prefer these over one-off `transition-colors` / `opacity-90` hover hacks.
  */
 
-/** Default field control scale — aligned with Ant Design controlHeight (24 / 32 / 40). */
+/** Default field control scale — sm / md / lg → 24 / 32 / 40px. */
 export type FieldSize = 'sm' | 'md' | 'lg';
 
 export const fieldSizeVariants = tv({
