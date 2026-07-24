@@ -67,7 +67,6 @@ export const TEST_CASES = [
   { name: 'Result', code: `<Result status="success" title="成功" />`, imports: "import { Result } from '../../src/components/Result';" },
   { name: 'Skeleton', code: `<Skeleton active />`, imports: "import { Skeleton } from '../../src/components/Skeleton';" },
   { name: 'Spin', code: `<Spin />`, imports: "import { Spin } from '../../src/components/Spin';" },
-  { name: 'Popup', code: `<Popup open onClose={() => {}}>弹出</Popup>`, imports: "import { Popup } from '../../src/components/Popup';" },
   { name: 'ActionSheet', code: `<ActionSheet open onClose={() => {}} actions={[{ key: '1', text: '选项' }]} />`, imports: "import { ActionSheet } from '../../src/components/ActionSheet';" },
   { name: 'Loading', code: `<Loading open />`, imports: "import { Loading } from '../../src/components/Loading';" },
   { name: 'Mask', code: `<Mask open />`, imports: "import { Mask } from '../../src/components/Mask';" },

@@ -109,7 +109,6 @@ export {
   type ToastPosition,
   type ToastColor,
 } from './components/Toast';
-export * from './components/Popup';
 export * from './components/ActionSheet';
 export * from './components/Loading';
 export * from './components/Mask';

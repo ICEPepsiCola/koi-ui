@@ -11,13 +11,13 @@ import { Progress } from '../../src/components/Progress';
 import { Result } from '../../src/components/Result';
 import { Skeleton } from '../../src/components/Skeleton';
 import { Spin } from '../../src/components/Spin';
-import { Popup } from '../../src/components/Popup';
 import { ActionSheet } from '../../src/components/ActionSheet';
 import { Loading } from '../../src/components/Loading';
 import { Mask } from '../../src/components/Mask';
 import { Watermark } from '../../src/components/Watermark';
 import { BackTop } from '../../src/components/BackTop';
 import { FloatButton } from '../../src/components/FloatButton';
+import { PullToRefresh } from '../../src/components/PullToRefresh';
 
 
 test('Drawer renders without error', () => {
@@ -76,13 +76,6 @@ test('Spin renders without error', () => {
   expect(container.firstChild ?? document.body.firstElementChild).toBeTruthy();
 });
 
-test('Popup renders without error', () => {
-  const { container } = render(
-    <KoiProvider><Popup open onClose={() => {}}>弹出</Popup></KoiProvider>,
-  );
-  expect(container.firstChild ?? document.body.firstElementChild).toBeTruthy();
-});
-
 test('ActionSheet renders without error', () => {
   const { container } = render(
     <KoiProvider><ActionSheet open onClose={() => {}} actions={[{ key: '1', text: '选项' }]} /></KoiProvider>,
@@ -121,6 +114,13 @@ test('BackTop renders without error', () => {
 test('FloatButton renders without error', () => {
   const { container } = render(
     <KoiProvider><FloatButton /></KoiProvider>,
+  );
+  expect(container.firstChild ?? document.body.firstElementChild).toBeTruthy();
+});
+
+test('PullToRefresh renders without error', () => {
+  const { container } = render(
+    <KoiProvider><PullToRefresh onRefresh={async () => {}}><div>列表</div></PullToRefresh></KoiProvider>,
   );
   expect(container.firstChild ?? document.body.firstElementChild).toBeTruthy();
 });

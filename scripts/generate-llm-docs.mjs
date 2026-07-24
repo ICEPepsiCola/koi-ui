@@ -289,7 +289,6 @@ function renderLlmsFull(registry) {
     '   - `InputNumber` = editable number field; `Stepper` = tap/hold quantity control',
     '   - `Spin` = inline loading; `Loading` = fullscreen/blocking overlay',
     '   - `Steps` = wizard progress; `Stepper` = numeric ±',
-    '   - `Modal` = adaptive dialog; `Popup` = compact centered dialog',
     '',
   ];
 
