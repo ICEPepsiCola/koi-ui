@@ -1,11 +1,11 @@
 /**
  * Generate LLM-oriented docs for the docs site + npm package.
  *
- * Outputs (identical twins):
+ * Outputs (identical twins, gitignored — produced on CI):
  *   docs/public/{llms.txt,llms-full.txt,registry.json}
  *   packages/core/{llms.txt,llms-full.txt,registry.json}
  *
- * Run: `pnpm llm:generate`
+ * Invoked by `doc:build` and release prepare. Local: `pnpm llm:generate` (optional).
  */
 import { createRequire } from 'node:module';
 import fs from 'node:fs';

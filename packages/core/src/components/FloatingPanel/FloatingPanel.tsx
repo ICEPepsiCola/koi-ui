@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/cn';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
@@ -25,6 +26,21 @@ export interface FloatingPanelProps
   anchors?: number[];
   defaultAnchor?: number;
   showOverlay?: boolean;
+  /**
+   * Click the overlay (or outside the panel when `showOverlay={false}`) to close.
+   * @default true
+   */
+  maskClosable?: boolean;
+  /**
+   * Press Escape to close.
+   * @default true
+   */
+  closeOnEscape?: boolean;
+  /**
+   * Drag below half of the lowest anchor to close.
+   * @default true
+   */
+  closeOnDrag?: boolean;
 }
 
 function resolveViewportHeight(
@@ -48,6 +64,9 @@ export function FloatingPanel({
   anchors = [0.4, 0.7],
   defaultAnchor = 0.4,
   showOverlay = true,
+  maskClosable = true,
+  closeOnEscape = true,
+  closeOnDrag = true,
   onDrag: _onDrag,
   onDragStart: _onDragStart,
   onDragEnd: _onDragEnd,
@@ -57,21 +76,38 @@ export function FloatingPanel({
   ...props
 }: FloatingPanelProps) {
   const { portalContainer } = useKoiContext();
+  const panelRef = useRef<HTMLDivElement>(null);
   const [height, setHeightState] = useState<number | null>(null);
   const heightRef = useRef(0);
   const startY = useRef(0);
   const startHeight = useRef(0);
   const dragging = useRef(false);
   const activePointerId = useRef<number | null>(null);
+  const dragMoved = useRef(false);
   const anchorsRef = useRef(anchors);
   const onCloseRef = useRef(onClose);
   const defaultAnchorRef = useRef(defaultAnchor);
+  const closeOnDragRef = useRef(closeOnDrag);
 
   useEffect(() => {
     anchorsRef.current = anchors;
     onCloseRef.current = onClose;
     defaultAnchorRef.current = defaultAnchor;
-  }, [anchors, onClose, defaultAnchor]);
+    closeOnDragRef.current = closeOnDrag;
+  }, [anchors, onClose, defaultAnchor, closeOnDrag]);
+
+  const handleDismiss = useCallback(() => {
+    onCloseRef.current?.();
+  }, []);
+
+  useDismissibleLayer({
+    open,
+    onDismiss: handleDismiss,
+    containerRef: panelRef,
+    closeOnEscape,
+    // No scrim — outside click plays the same role as overlay click.
+    closeOnPointerDownOutside: !showOverlay && maskClosable,
+  });
 
   const setHeight = useCallback((next: number) => {
     heightRef.current = next;
@@ -82,11 +118,15 @@ export function FloatingPanel({
     (h: number) => {
       const vh = resolveViewportHeight(portalContainer);
       const ratios = anchorsRef.current.map((a) => a * vh);
+      const lowest = Math.min(...ratios);
+      if (closeOnDragRef.current && h < lowest * 0.5) {
+        onCloseRef.current?.();
+        return;
+      }
       const closest = ratios.reduce((prev, curr) =>
         Math.abs(curr - h) < Math.abs(prev - h) ? curr : prev,
       );
       setHeight(closest);
-      if (closest < 50) onCloseRef.current?.();
     },
     [portalContainer, setHeight],
   );
@@ -130,6 +170,7 @@ export function FloatingPanel({
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
     dragging.current = true;
+    dragMoved.current = false;
     activePointerId.current = e.pointerId;
     startY.current = e.clientY;
     startHeight.current = heightRef.current;
@@ -139,14 +180,17 @@ export function FloatingPanel({
   const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!dragging.current || activePointerId.current !== e.pointerId) return;
     const diff = startY.current - e.clientY;
+    if (Math.abs(diff) > 4) dragMoved.current = true;
     setHeight(Math.max(0, startHeight.current + diff));
   };
 
   const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!dragging.current || activePointerId.current !== e.pointerId) return;
+    const moved = dragMoved.current;
     dragging.current = false;
     activePointerId.current = null;
-    snapToAnchor(heightRef.current);
+    dragMoved.current = false;
+    if (moved) snapToAnchor(heightRef.current);
     if (e.currentTarget.hasPointerCapture?.(e.pointerId)) {
       e.currentTarget.releasePointerCapture?.(e.pointerId);
     }
@@ -154,9 +198,15 @@ export function FloatingPanel({
 
   const onPointerCancel = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!dragging.current || activePointerId.current !== e.pointerId) return;
+    const moved = dragMoved.current;
     dragging.current = false;
     activePointerId.current = null;
-    snapToAnchor(heightRef.current);
+    dragMoved.current = false;
+    if (moved) snapToAnchor(heightRef.current);
+  };
+
+  const stopPanelClick = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
   };
 
   const panelClassName = cn(
@@ -190,6 +240,7 @@ export function FloatingPanel({
         <AnimatePresence>
           {open ? (
             <MotionPanel
+              ref={panelRef}
               variant="bottom"
               initial="closed"
               animate="open"
@@ -197,6 +248,7 @@ export function FloatingPanel({
               className={cn(panelClassName, 'fixed bottom-0 left-0 right-0 z-50')}
               style={{ height: height ?? undefined }}
               {...props}
+              onClick={stopPanelClick}
             >
               {panelBody}
             </MotionPanel>
@@ -208,12 +260,18 @@ export function FloatingPanel({
 
   return (
     <Portal>
-      <Overlay open={open} onClick={onClose} className="flex items-end">
+      <Overlay
+        open={open}
+        onClick={maskClosable ? onClose : undefined}
+        className="flex items-end"
+      >
         <MotionPanel
+          ref={panelRef}
           variant="bottom"
           className={panelClassName}
           style={{ height: height ?? undefined }}
           {...props}
+          onClick={stopPanelClick}
         >
           {panelBody}
         </MotionPanel>

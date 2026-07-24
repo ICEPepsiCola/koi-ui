@@ -34,6 +34,7 @@ export function PullToRefresh({
 }: PullToRefreshProps) {
   const [pullDistance, setPullDistance] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
+  const [pulling, setPulling] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const startY = useRef(0);
   const pullingRef = useRef(false);
@@ -52,6 +53,7 @@ export function PullToRefresh({
   const endPull = useCallback(async () => {
     if (!pullingRef.current) return;
     pullingRef.current = false;
+    setPulling(false);
 
     const distance = distanceRef.current;
     if (distance >= threshold && !refreshingRef.current) {
@@ -73,6 +75,7 @@ export function PullToRefresh({
     const el = containerRef.current;
     if (!el || el.scrollTop > 0) return;
     pullingRef.current = true;
+    setPulling(true);
     startY.current = e.clientY;
     setDistance(0);
     e.currentTarget.setPointerCapture?.(e.pointerId);
@@ -85,6 +88,7 @@ export function PullToRefresh({
     // 已向下滚过则取消下拉
     if (el.scrollTop > 0) {
       pullingRef.current = false;
+      setPulling(false);
       setDistance(0);
       return;
     }
@@ -107,6 +111,7 @@ export function PullToRefresh({
   const onPointerCancel = () => {
     if (!pullingRef.current) return;
     pullingRef.current = false;
+    setPulling(false);
     setDistance(0);
   };
 
@@ -126,6 +131,11 @@ export function PullToRefresh({
       {...props}
       className={cn(
         'relative overflow-y-auto overscroll-y-contain touch-pan-y',
+        refreshing
+          ? 'cursor-wait'
+          : pulling
+            ? 'cursor-grabbing'
+            : 'cursor-grab',
         className,
       )}
       onPointerDown={onPointerDown}

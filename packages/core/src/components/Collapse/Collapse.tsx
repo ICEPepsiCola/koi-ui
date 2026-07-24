@@ -1,5 +1,12 @@
 import { useState, type HTMLAttributes, type ReactNode } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { ChevronDownIcon } from '@koi-ui/icons';
 import { cn } from '../../utils/cn';
+import { controlTransition } from '../../utils/interaction';
+import {
+  collapsePanelVariants,
+  collapseTransition,
+} from '../../motion/presets';
 
 export interface CollapseItem {
   key: string;
@@ -28,6 +35,8 @@ export function Collapse({
 }: CollapseProps) {
   const [internalKeys, setInternalKeys] = useState(defaultActiveKeys);
   const activeKeys = controlledKeys ?? internalKeys;
+  const reduce = useReducedMotion();
+  const transition = reduce ? { duration: 0 } : collapseTransition;
 
   const toggle = (key: string) => {
     let next: string[];
@@ -44,7 +53,10 @@ export function Collapse({
 
   return (
     <div
-      className={cn('divide-y divide-border rounded-lg border border-border', className)}
+      className={cn(
+        'divide-y divide-border overflow-hidden rounded-lg border border-border',
+        className,
+      )}
       {...props}
     >
       {items.map((item) => {
@@ -55,34 +67,46 @@ export function Collapse({
               type="button"
               disabled={item.disabled}
               className={cn(
-                'flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium',
+                'flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm font-medium text-surface-foreground',
+                controlTransition,
+                !item.disabled && 'hover:bg-muted/50',
                 item.disabled && 'cursor-not-allowed opacity-50',
               )}
               onClick={() => !item.disabled && toggle(item.key)}
               aria-expanded={open}
             >
               {item.label}
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+              <ChevronDownIcon
                 aria-hidden
                 className={cn(
-                  'h-5 w-5 shrink-0 text-muted-foreground transition-transform',
+                  'h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
                   open && 'rotate-180',
                 )}
-              >
-                <path d="M6 9l6 6 6-6" />
-              </svg>
+              />
             </button>
-            {open ? (
-              <div className="border-t border-border px-4 py-3 text-sm text-muted-foreground">
-                {item.children}
-              </div>
-            ) : null}
+            <AnimatePresence initial={false}>
+              {open ? (
+                <motion.div
+                  key={`${item.key}-panel`}
+                  className="overflow-hidden"
+                  variants={collapsePanelVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  transition={transition}
+                >
+                  <motion.div
+                    initial={reduce ? false : { y: -8, opacity: 0.35 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={reduce ? undefined : { y: -6, opacity: 0 }}
+                    transition={transition}
+                    className="border-t border-border px-4 py-3 text-sm leading-relaxed text-muted-foreground"
+                  >
+                    {item.children}
+                  </motion.div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
         );
       })}

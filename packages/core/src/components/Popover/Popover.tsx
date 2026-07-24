@@ -21,14 +21,16 @@ import { floatPanel } from '../../utils/interaction';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import {
+  clampPortalFixedPosition,
   getPreviewScrollRoot,
   toPortalFixedPosition,
+  type PortalFixedAnchor,
 } from '../../utils/toPortalFixedPosition';
 
 type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right';
 
 const popoverVariants = tv({
-  base: cn('z-50 max-w-xs p-3', floatPanel),
+  base: cn('z-[200] max-w-xs p-3', floatPanel),
   variants: {
     placement: {
       top: '',
@@ -56,6 +58,14 @@ const motionOffset: Record<PopoverPlacement, { x?: number; y?: number }> = {
   bottom: { y: -4 },
   left: { x: 4 },
   right: { x: -4 },
+};
+
+/** `pos` anchor after CSS translate — for clamping inside the preview portal. */
+const clampAnchor: Record<PopoverPlacement, PortalFixedAnchor> = {
+  top: 'bottom-center',
+  bottom: 'top-center',
+  left: 'right-center',
+  right: 'left-center',
 };
 
 export interface PopoverProps
@@ -91,6 +101,7 @@ export function Popover({
   const triggerRef = useRef<HTMLSpanElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ top: 0, left: 0 });
+  const [ready, setReady] = useState(false);
   const reduce = useReducedMotion();
 
   const setOpen = useCallback(
@@ -100,6 +111,10 @@ export function Popover({
     },
     [controlledOpen, onOpenChange],
   );
+
+  useEffect(() => {
+    if (!open) setReady(false);
+  }, [open]);
 
   useLayoutEffect(() => {
     if (!open || !triggerRef.current) return;
@@ -126,8 +141,19 @@ export function Popover({
           left: rect.right + GAP,
         },
       }[placement];
-      // Avoid clamp that collapses gap near preview edges (same as Tooltip).
-      setPos(toPortalFixedPosition(point.top, point.left, portalContainer));
+
+      let next = toPortalFixedPosition(point.top, point.left, portalContainer);
+      const floating = contentRef.current;
+      if (floating) {
+        next = clampPortalFixedPosition(
+          next,
+          floating,
+          portalContainer,
+          clampAnchor[placement],
+        );
+      }
+      setPos(next);
+      setReady(true);
     };
 
     update();
@@ -185,9 +211,13 @@ export function Popover({
                 'fixed w-max',
                 className,
               )}
-              style={{ top: pos.top, left: pos.left }}
+              style={{
+                top: pos.top,
+                left: pos.left,
+                visibility: ready ? 'visible' : 'hidden',
+              }}
               initial={{ opacity: 0, ...offset }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
+              animate={{ opacity: ready ? 1 : 0, x: 0, y: 0 }}
               exit={{
                 opacity: 0,
                 ...offset,

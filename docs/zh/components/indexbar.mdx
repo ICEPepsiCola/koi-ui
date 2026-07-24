@@ -4,38 +4,95 @@
 
 ```tsx preview
 import { IndexBar } from '@koi-ui/core';
+
 const groups = [
-  { index: 'A', items: ['Apple', 'Ant', 'Avocado'] },
-  { index: 'B', items: ['Banana', 'Blueberry'] },
-  { index: 'C', items: ['Cherry', 'Coconut'] },
-  { index: 'D', items: ['Date', 'Dragonfruit'] },
+  { index: 'A', items: ['Apple', 'Ant', 'Avocado', 'Apricot', 'Asparagus', 'Almond'] },
+  { index: 'B', items: ['Banana', 'Blueberry', 'Blackberry', 'Broccoli', 'Basil'] },
+  { index: 'C', items: ['Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Carrot', 'Celery'] },
+  { index: 'D', items: ['Date', 'Dragonfruit', 'Durian', 'Dill'] },
+  { index: 'E', items: ['Elderberry', 'Eggplant', 'Endive'] },
+  { index: 'F', items: ['Fig', 'Fennel', 'Feijoa'] },
+  { index: 'G', items: ['Grape', 'Guava', 'Gooseberry', 'Garlic', 'Ginger'] },
+  { index: 'H', items: ['Honeydew', 'Hazelnut', 'Horseradish'] },
+  { index: 'I', items: ['Iceberg lettuce', 'Indian fig'] },
+  { index: 'J', items: ['Jackfruit', 'Jujube', 'Jalapeño'] },
+  { index: 'K', items: ['Kiwi', 'Kale', 'Kohlrabi'] },
+  { index: 'L', items: ['Lemon', 'Lime', 'Lychee', 'Lettuce', 'Leek'] },
+  { index: 'M', items: ['Mango', 'Melon', 'Mulberry', 'Mushroom', 'Mint'] },
+  { index: 'N', items: ['Nectarine', 'Nutmeg'] },
+  { index: 'O', items: ['Orange', 'Olive', 'Oregano', 'Okra'] },
+  { index: 'P', items: ['Pear', 'Peach', 'Papaya', 'Pineapple', 'Plum', 'Potato'] },
+  { index: 'Q', items: ['Quince', 'Quandong'] },
+  { index: 'R', items: ['Raspberry', 'Rambutan', 'Radish', 'Rosemary'] },
+  { index: 'S', items: ['Strawberry', 'Starfruit', 'Spinach', 'Sage', 'Soybean'] },
+  { index: 'T', items: ['Tomato', 'Tangerine', 'Turnip', 'Thyme'] },
+  { index: 'U', items: ['Ugli fruit', 'Ube'] },
+  { index: 'V', items: ['Vanilla', 'Vine leaf'] },
+  { index: 'W', items: ['Watermelon', 'Walnut', 'Wasabi', 'Watercress'] },
+  { index: 'X', items: ['Xigua', 'Ximenia'] },
+  { index: 'Y', items: ['Yam', 'Yuzu', 'Yarrow'] },
+  { index: 'Z', items: ['Zucchini', 'Zest'] },
 ];
+
 export default () => (
-  <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
-    <IndexBar className="min-h-0 min-w-0 flex-1" groups={groups} renderItem={(item) => <span>{item}</span>} />
+  <div className="koi-indexbar-demo flex min-h-0 overflow-hidden rounded-md border border-border">
+    <IndexBar
+      className="h-full min-h-0 min-w-0 flex-1"
+      groups={groups}
+      renderItem={(item) => <span>{item}</span>}
+    />
   </div>
 );
 ```
 
-## stickyOffset 与 onIndexChange
+## 吸顶偏移与索引回调
+
+`stickyOffset`：上方有固定顶栏时，用来给分组标题吸顶和锚点跳转留出像素偏移，避免标题被挡住。  
+`onIndexChange`：当前索引变化时回调（侧栏点选或列表滚动到某组），便于同步展示当前字母等。
 
 ```tsx preview
 import { IndexBar, Text } from '@koi-ui/core';
 import { useState } from 'react';
+
 const groups = [
-  { index: 'A', title: 'A 组', items: ['Apple', 'Ant', 'Avocado', 'Apricot'] },
-  { index: 'B', title: 'B 组', items: ['Banana', 'Blueberry', 'Blackberry'] },
-  { index: 'C', title: 'C 组', items: ['Cherry', 'Coconut', 'Cranberry'] },
-  { index: 'D', title: 'D 组', items: ['Date', 'Dragonfruit', 'Durian'] },
+  { index: 'A', title: 'A 组', items: ['Apple', 'Ant', 'Avocado', 'Apricot', 'Asparagus'] },
+  { index: 'B', title: 'B 组', items: ['Banana', 'Blueberry', 'Blackberry', 'Broccoli'] },
+  { index: 'C', title: 'C 组', items: ['Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Carrot'] },
+  { index: 'D', title: 'D 组', items: ['Date', 'Dragonfruit', 'Durian', 'Dill'] },
+  { index: 'E', title: 'E 组', items: ['Elderberry', 'Eggplant', 'Endive'] },
+  { index: 'F', title: 'F 组', items: ['Fig', 'Fennel', 'Feijoa'] },
+  { index: 'G', title: 'G 组', items: ['Grape', 'Guava', 'Gooseberry', 'Garlic'] },
+  { index: 'H', title: 'H 组', items: ['Honeydew', 'Hazelnut', 'Horseradish'] },
+  { index: 'I', title: 'I 组', items: ['Iceberg lettuce', 'Indian fig'] },
+  { index: 'J', title: 'J 组', items: ['Jackfruit', 'Jujube', 'Jalapeño'] },
+  { index: 'K', title: 'K 组', items: ['Kiwi', 'Kale', 'Kohlrabi'] },
+  { index: 'L', title: 'L 组', items: ['Lemon', 'Lime', 'Lychee', 'Lettuce'] },
+  { index: 'M', title: 'M 组', items: ['Mango', 'Melon', 'Mulberry', 'Mint'] },
+  { index: 'N', title: 'N 组', items: ['Nectarine', 'Nutmeg'] },
+  { index: 'O', title: 'O 组', items: ['Orange', 'Olive', 'Oregano'] },
+  { index: 'P', title: 'P 组', items: ['Pear', 'Peach', 'Papaya', 'Pineapple', 'Plum'] },
+  { index: 'Q', title: 'Q 组', items: ['Quince', 'Quandong'] },
+  { index: 'R', title: 'R 组', items: ['Raspberry', 'Rambutan', 'Radish'] },
+  { index: 'S', title: 'S 组', items: ['Strawberry', 'Starfruit', 'Spinach', 'Sage'] },
+  { index: 'T', title: 'T 组', items: ['Tomato', 'Tangerine', 'Turnip'] },
+  { index: 'U', title: 'U 组', items: ['Ugli fruit', 'Ube'] },
+  { index: 'V', title: 'V 组', items: ['Vanilla', 'Vine leaf'] },
+  { index: 'W', title: 'W 组', items: ['Watermelon', 'Walnut', 'Wasabi'] },
+  { index: 'X', title: 'X 组', items: ['Xigua', 'Ximenia'] },
+  { index: 'Y', title: 'Y 组', items: ['Yam', 'Yuzu'] },
+  { index: 'Z', title: 'Z 组', items: ['Zucchini', 'Zest'] },
 ];
+
 export default () => {
   const [active, setActive] = useState('A');
   return (
-    <div className="space-y-2">
-      <Text muted size="sm">当前索引：{active}</Text>
-      <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
+    <div className="koi-indexbar-demo flex min-h-0 flex-col overflow-hidden rounded-md border border-border">
+      <Text muted size="sm" className="shrink-0 border-b border-border px-3 py-2">
+        当前索引：{active}
+      </Text>
+      <div className="min-h-0 flex-1 overflow-hidden">
         <IndexBar
-          className="min-h-0 min-w-0 flex-1"
+          className="h-full min-h-0"
           groups={groups}
           stickyOffset={8}
           onIndexChange={setActive}

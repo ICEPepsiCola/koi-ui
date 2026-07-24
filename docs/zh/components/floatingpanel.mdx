@@ -8,12 +8,12 @@ import { useState } from 'react';
 export default () => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="koi-floatingpanel-demo">
       <Button onClick={() => setOpen(true)}>打开面板</Button>
       <FloatingPanel open={open} onClose={() => setOpen(false)} title="面板标题">
         拖拽顶部手柄可调整高度，点击遮罩关闭。
       </FloatingPanel>
-    </>
+    </div>
   );
 };
 ```
@@ -26,7 +26,7 @@ import { useState } from 'react';
 export default () => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="koi-floatingpanel-demo">
       <Button onClick={() => setOpen(true)}>多锚点</Button>
       <FloatingPanel
         open={open}
@@ -37,12 +37,20 @@ export default () => {
       >
         松手后吸附到最近的视口高度比例。
       </FloatingPanel>
-    </>
+    </div>
   );
 };
 ```
 
 ## 无遮罩
+
+无遮罩时没有点击遮罩这一项；关闭行为仍由下列属性控制（默认均为 `true`）：
+
+- `maskClosable`：点击面板外关闭
+- `closeOnDrag`：向下拖过最低锚点一半关闭
+- `closeOnEscape`：按 `Esc` 关闭
+
+也可自行调用 `onClose`（例如页面上的关闭按钮）。
 
 ```tsx preview
 import { FloatingPanel, Button } from '@koi-ui/core';
@@ -50,17 +58,20 @@ import { useState } from 'react';
 export default () => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="koi-floatingpanel-demo">
       <Button onClick={() => setOpen(true)}>无遮罩面板</Button>
       <FloatingPanel
         open={open}
         onClose={() => setOpen(false)}
         title="无遮罩"
         showOverlay={false}
+        maskClosable
+        closeOnDrag
+        closeOnEscape
       >
-        showOverlay 为 false 时不显示遮罩层。
+        可用属性开关关闭方式：点外部 / 下拖 / Esc。
       </FloatingPanel>
-    </>
+    </div>
   );
 };
 ```

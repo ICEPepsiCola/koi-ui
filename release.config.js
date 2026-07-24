@@ -72,7 +72,7 @@ export default {
       '@semantic-release/exec',
       {
         prepareCmd:
-          'node scripts/set-release-version.mjs ${nextRelease.version} && pnpm build',
+          'node scripts/set-release-version.mjs ${nextRelease.version} && pnpm llm:generate && pnpm build',
         publishCmd:
           'pnpm --filter "@koi-ui/*" publish --access public --no-git-checks',
       },

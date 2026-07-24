@@ -8,12 +8,12 @@ import { useState } from 'react';
 export default () => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="koi-floatingpanel-demo">
       <Button onClick={() => setOpen(true)}>Open panel</Button>
       <FloatingPanel open={open} onClose={() => setOpen(false)} title="Panel title">
         Drag the handle to resize. Tap the mask to close.
       </FloatingPanel>
-    </>
+    </div>
   );
 };
 ```
@@ -26,7 +26,7 @@ import { useState } from 'react';
 export default () => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="koi-floatingpanel-demo">
       <Button onClick={() => setOpen(true)}>Multiple anchors</Button>
       <FloatingPanel
         open={open}
@@ -37,12 +37,20 @@ export default () => {
       >
         Snaps to the nearest viewport height ratio on release.
       </FloatingPanel>
-    </>
+    </div>
   );
 };
 ```
 
 ## Without overlay
+
+Without a mask, closing is still controlled by these props (all default `true`):
+
+- `maskClosable` — click outside the panel
+- `closeOnDrag` — drag below half of the lowest anchor
+- `closeOnEscape` — press `Esc`
+
+You can also call `onClose` yourself (e.g. a close button).
 
 ```tsx preview
 import { FloatingPanel, Button } from '@koi-ui/core';
@@ -50,17 +58,20 @@ import { useState } from 'react';
 export default () => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="koi-floatingpanel-demo">
       <Button onClick={() => setOpen(true)}>No overlay</Button>
       <FloatingPanel
         open={open}
         onClose={() => setOpen(false)}
         title="No overlay"
         showOverlay={false}
+        maskClosable
+        closeOnDrag
+        closeOnEscape
       >
-        When showOverlay is false, the mask is hidden.
+        Toggle close gestures with maskClosable / closeOnDrag / closeOnEscape.
       </FloatingPanel>
-    </>
+    </div>
   );
 };
 ```

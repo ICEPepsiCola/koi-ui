@@ -4,15 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
+/** Icons + smoke tests must stay committed. LLM docs are CI/`doc:build` only. */
 const GENERATED_TARGETS = [
   'packages/core/tests/components',
   'packages/icons/src',
-  'docs/public/llms.txt',
-  'docs/public/llms-full.txt',
-  'docs/public/registry.json',
-  'packages/core/llms.txt',
-  'packages/core/llms-full.txt',
-  'packages/core/registry.json',
 ];
 
 function run(command, args) {
@@ -62,7 +57,6 @@ const before = buildSignature(files);
 
 run('pnpm', ['icons:generate']);
 run('pnpm', ['tests:generate']);
-run('pnpm', ['llm:generate']);
 
 const after = buildSignature(files);
 const changedFiles = getChangedFiles(before, after);
@@ -73,7 +67,7 @@ if (changedFiles.length > 0) {
     console.error(`- ${file}`);
   }
   console.error(
-    'Commit regenerated outputs from `pnpm icons:generate`, `pnpm tests:generate`, or `pnpm llm:generate`.',
+    'Commit regenerated outputs from `pnpm icons:generate` or `pnpm tests:generate`.',
   );
   process.exit(1);
 }

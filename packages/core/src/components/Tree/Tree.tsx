@@ -1,5 +1,7 @@
 import { useState, type ReactNode } from 'react';
+import { ChevronRightIcon } from '@koi-ui/icons';
 import { cn } from '../../utils/cn';
+import { controlTransition } from '../../utils/interaction';
 
 export interface TreeNode {
   key: string;
@@ -46,40 +48,55 @@ export function Tree({
   };
 
   const renderNode = (node: TreeNode, depth = 0) => {
-    const hasChildren = node.children && node.children.length > 0;
+    const hasChildren = Boolean(node.children?.length);
     const expanded = expandedKeys.includes(node.key);
     const selected = selectedKeys.includes(node.key);
 
     return (
       <div key={node.key}>
         <div
+          role="treeitem"
+          aria-expanded={hasChildren ? expanded : undefined}
+          aria-selected={selected}
           className={cn(
             'flex cursor-pointer items-center gap-1 rounded-md px-2 py-1.5 text-sm',
-            selected && 'bg-primary/10 text-primary',
-            node.disabled && 'cursor-not-allowed opacity-50',
+            'hover:bg-muted/70',
+            selected && 'bg-primary/10 text-primary hover:bg-primary/10',
+            node.disabled && 'pointer-events-none cursor-not-allowed opacity-50',
           )}
           style={{ paddingLeft: `${depth * 16 + 8}px` }}
-          onClick={() => !node.disabled && handleSelect(node.key)}
+          onClick={() => {
+            if (node.disabled) return;
+            handleSelect(node.key);
+            if (hasChildren) toggleExpand(node.key);
+          }}
         >
           {hasChildren ? (
-            <button
-              type="button"
-              className="shrink-0 rounded p-0.5 hover:bg-muted"
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleExpand(node.key);
-              }}
-              aria-expanded={expanded}
+            <span
+              className={cn(
+                'inline-flex h-4 w-4 shrink-0 items-center justify-center text-muted-foreground',
+                selected && 'text-primary',
+              )}
+              aria-hidden
             >
-              {expanded ? '▾' : '▸'}
-            </button>
+              <ChevronRightIcon
+                className={cn(
+                  'h-3.5 w-3.5',
+                  controlTransition,
+                  expanded && 'rotate-90',
+                )}
+              />
+            </span>
           ) : (
-            <span className="w-4 shrink-0" />
+            <span className="w-4 shrink-0" aria-hidden />
           )}
-          <span>{node.title}</span>
+          <span className="min-w-0 flex-1 truncate">{node.title}</span>
         </div>
         {hasChildren && expanded ? (
-          <div className={cn(showLine && 'border-l border-border ml-4')}>
+          <div
+            role="group"
+            className={cn(showLine && 'ml-4 border-l border-border')}
+          >
             {node.children!.map((child) => renderNode(child, depth + 1))}
           </div>
         ) : null}

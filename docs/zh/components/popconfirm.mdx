@@ -5,7 +5,7 @@
 ```tsx preview
 import { Popconfirm, Button } from '@koi-ui/core';
 export default () => (
-  <Popconfirm title="确定删除吗？" onConfirm={() => {}}>
+  <Popconfirm title="确定删除吗？" onConfirm={() => undefined}>
     <Button color="error">删除</Button>
   </Popconfirm>
 );
@@ -19,7 +19,7 @@ export default () => (
   <Popconfirm
     title="删除记录"
     description="删除后无法恢复，请谨慎操作。"
-    onConfirm={() => {}}
+    onConfirm={() => undefined}
   >
     <Button variant="outline">带描述</Button>
   </Popconfirm>
@@ -36,7 +36,7 @@ export default () => (
     okType="error"
     confirmText="删除"
     cancelText="再想想"
-    onConfirm={() => {}}
+    onConfirm={() => undefined}
   >
     <Button color="error">危险操作</Button>
   </Popconfirm>
@@ -49,10 +49,10 @@ export default () => (
 import { Popconfirm, Button, Space } from '@koi-ui/core';
 export default () => (
   <Space>
-    <Popconfirm title="可用" onConfirm={() => {}}>
+    <Popconfirm title="可用" onConfirm={() => undefined}>
       <Button>可用</Button>
     </Popconfirm>
-    <Popconfirm title="不会弹出" disabled onConfirm={() => {}}>
+    <Popconfirm title="不会弹出" disabled onConfirm={() => undefined}>
       <Button disabled>禁用</Button>
     </Popconfirm>
   </Space>

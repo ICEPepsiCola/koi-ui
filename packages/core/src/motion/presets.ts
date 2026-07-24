@@ -64,6 +64,27 @@ export function resolvePanelVariants(variant: MotionPanelVariant): Variants {
   return panelSideVariants[variant];
 }
 
+/** Accordion / collapse panel height — slightly slower than overlays so it reads. */
+export const COLLAPSE_DURATION_S = 0.34;
+
+export const collapseTransition: Transition = {
+  duration: COLLAPSE_DURATION_S,
+  ease: MOTION_EASE,
+};
+
+export const collapsePanelVariants: Variants = {
+  open: {
+    height: 'auto',
+    opacity: 1,
+    transition: collapseTransition,
+  },
+  closed: {
+    height: 0,
+    opacity: 0,
+    transition: collapseTransition,
+  },
+};
+
 /** Anchored dropdown / listbox under a field trigger. */
 export const floatPanelVariants: Variants = {
   open: {

@@ -82,6 +82,14 @@ temp/
 *.orig
 .temp/
 
+# LLM docs — generated on CI / `doc:build` / release, not committed
+docs/public/llms.txt
+docs/public/llms-full.txt
+docs/public/registry.json
+packages/core/llms.txt
+packages/core/llms-full.txt
+packages/core/registry.json
+
 # Misc
 *.pem
 *.key

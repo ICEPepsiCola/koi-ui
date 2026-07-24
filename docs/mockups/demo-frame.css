@@ -188,6 +188,7 @@
 
 .koi-demo__viewport {
   position: relative;
+  z-index: 0;
   width: 100%;
   min-height: 12rem;
   overflow: auto;
@@ -202,17 +203,22 @@
   position: relative;
   width: 100%;
   min-height: 12rem;
+  /* 浮层在 portal 内定位；勿裁剪兄弟 portal */
+  overflow: visible;
 }
 
 .koi-demo__frame > .koi-demo__viewport {
   /* 高度由外层（mockup / phone）约束；frame 本身不滚动 */
+  z-index: 0;
   min-height: inherit;
 }
 
 .koi-demo__frame > .koi-demo__portal {
   position: absolute;
   inset: 0;
-  z-index: 50;
+  /* 必须高于 viewport，否则 Popover / Popconfirm 会被内容层盖住 */
+  z-index: 100;
+  overflow: visible;
   pointer-events: none;
   /* 不随 viewport 滚动；内部 fixed 相对本层 */
   transform: translateZ(0);
@@ -296,7 +302,8 @@
 .koi-demo__phone-wrap .koi-demo__portal {
   position: absolute;
   inset: 0;
-  z-index: 50;
+  z-index: 100;
+  overflow: visible;
   pointer-events: none;
   transform: translateZ(0);
 }
@@ -339,35 +346,61 @@
   height: auto;
 }
 
-/* InfiniteScroll / PullToRefresh / FloatingPanel：占满演示视口 */
+/* InfiniteScroll / PullToRefresh：占满演示视口 */
 .koi-demo__content:has(.koi-infinitescroll-demo),
-.koi-demo__content:has(.koi-pulltorefresh-demo),
-.koi-demo__content:has(.koi-floatingpanel-demo) {
+.koi-demo__content:has(.koi-pulltorefresh-demo) {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 .mockup-browser .koi-demo__content:has(.koi-infinitescroll-demo),
-.mockup-browser .koi-demo__content:has(.koi-pulltorefresh-demo),
-.mockup-browser .koi-demo__content:has(.koi-floatingpanel-demo) {
+.mockup-browser .koi-demo__content:has(.koi-pulltorefresh-demo) {
   height: 36rem;
   max-height: 36rem;
   box-sizing: border-box;
 }
 
 .koi-demo__phone-wrap .koi-demo__content:has(.koi-infinitescroll-demo),
-.koi-demo__phone-wrap .koi-demo__content:has(.koi-pulltorefresh-demo),
-.koi-demo__phone-wrap .koi-demo__content:has(.koi-floatingpanel-demo) {
+.koi-demo__phone-wrap .koi-demo__content:has(.koi-pulltorefresh-demo) {
   height: 100%;
-  /* 列表铺满机壳：只留刘海，去掉四周 padding，滚动条贯穿可视区 */
   padding: 0;
   padding-top: 3rem;
 }
 
 .koi-infinitescroll-demo,
-.koi-pulltorefresh-demo,
+.koi-pulltorefresh-demo {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+/* FloatingPanel：PC 预览需要更高视口，方便拖拽锚点 */
+.koi-demo__content:has(.koi-floatingpanel-demo) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mockup-browser .koi-demo__content:has(.koi-floatingpanel-demo) {
+  height: 44rem;
+  max-height: 44rem;
+  box-sizing: border-box;
+}
+
+.mockup-browser:has(.koi-floatingpanel-demo) > .koi-demo__frame,
+.mockup-browser:has(.koi-floatingpanel-demo) > .koi-demo__frame > .koi-demo__viewport {
+  max-height: 44rem;
+}
+
+.koi-demo__phone-wrap .koi-demo__content:has(.koi-floatingpanel-demo) {
+  height: 100%;
+  padding: 0;
+  padding-top: 3rem;
+}
+
 .koi-floatingpanel-demo {
+  position: relative;
   flex: 1;
   min-height: 0;
   height: auto;
