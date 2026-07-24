@@ -1,6 +1,6 @@
 {
   "name": "@koi-ui/tokens",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "description": "Design tokens and CSS reset for Koi UI",
   "license": "MIT",
   "type": "module",
