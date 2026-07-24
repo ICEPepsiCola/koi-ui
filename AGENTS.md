@@ -17,6 +17,7 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 - 手动发版：Actions → **Release** → bump 选 `auto` / `patch` / `minor` / `major`（与自动同一套流程，手动仅多强制 bump 级别）
 - Commit messages must follow Conventional Commits (enforced by husky + commitlint). Release mapping: `feat`→minor, `fix`/`perf`→patch, `BREAKING CHANGE`/`!`→major; `docs`/`chore`/`ci`/`test`/`refactor` 默认不发版。
 - Docs: hand-write `docs/{en,zh}/**/*.mdx`. API tables use global `<API name="Button" />`（虚拟模块 HMR，无需生成 `api-data.json`）. Sidebar：`docs/catalog.ts` + `docs/theme-locales.ts`.
+- LLM docs: `pnpm llm:generate` writes `docs/public/{llms.txt,llms-full.txt,registry.json}` and the same files into `packages/core/` for npm. `doc:build` runs this automatically.
 - Packages use source `exports` locally; `publishConfig.exports` remaps to `dist` on `pnpm publish`（必须用 pnpm，勿改 npm publish）。
 
 ## Quality requirements

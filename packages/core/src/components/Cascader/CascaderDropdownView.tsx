@@ -128,7 +128,7 @@ export function CascaderDropdownView({
           <ul
             key={level}
             role="listbox"
-            className="max-h-60 min-w-36 overflow-y-auto overscroll-contain border-r border-border/60 p-1.5 last:border-r-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="max-h-60 min-w-36 overflow-y-auto overscroll-contain border-r border-border/60 p-1.5 last:border-r-0 [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
           >
             {col.map((opt) => {
               const active = activePath[level] === opt.value;

@@ -12,11 +12,17 @@
       "types": "./src/index.tsx",
       "import": "./src/index.tsx"
     },
-    "./styles.css": "./src/styles.css"
+    "./styles.css": "./src/styles.css",
+    "./llms.txt": "./llms.txt",
+    "./llms-full.txt": "./llms-full.txt",
+    "./registry.json": "./registry.json"
   },
   "types": "./src/index.tsx",
   "files": [
-    "dist"
+    "dist",
+    "llms.txt",
+    "llms-full.txt",
+    "registry.json"
   ],
   "publishConfig": {
     "access": "public",
@@ -25,7 +31,10 @@
         "types": "./dist/index.d.ts",
         "import": "./dist/index.js"
       },
-      "./styles.css": "./dist/styles.css"
+      "./styles.css": "./dist/styles.css",
+      "./llms.txt": "./llms.txt",
+      "./llms-full.txt": "./llms-full.txt",
+      "./registry.json": "./registry.json"
     },
     "types": "./dist/index.d.ts"
   },

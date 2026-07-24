@@ -135,7 +135,7 @@ export function TimeDropdownView({
       ref={containerRef}
       className={cn(
         'koi-timepicker-demo relative w-full',
-        withSeconds ? 'max-w-[252px]' : 'max-w-[196px]',
+        withSeconds ? 'max-w-63' : 'max-w-49',
       )}
     >
       <FieldTrigger

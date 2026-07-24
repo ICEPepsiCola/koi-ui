@@ -393,7 +393,7 @@ export function Button({
           wide,
           active,
         }),
-        loading && '!cursor-wait',
+        loading && 'cursor-wait!',
         className,
       )}
       disabled={isDisabled}

@@ -42,6 +42,16 @@ The same API switches layouts between desktop and mobile:
 
 Pass `responsive={false}` to lock the desktop layout.
 
+## For AI assistants
+
+Koi UI ships LLM-oriented docs so coding agents can use the library accurately:
+
+- Docs site: [/llms.txt](/llms.txt) (index) and [/llms-full.txt](/llms-full.txt) (full API + examples)
+- After `pnpm add @koi-ui/core`: `node_modules/@koi-ui/core/llms.txt` (same content), plus `llms-full.txt` / `registry.json`
+- Import path: `@koi-ui/core/llms.txt`
+
+Point your agent at these files (or `@` them in Cursor) before generating UI code.
+
 ## Imperative toast
 
 ```ts

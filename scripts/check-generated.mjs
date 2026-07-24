@@ -7,6 +7,12 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const GENERATED_TARGETS = [
   'packages/core/tests/components',
   'packages/icons/src',
+  'docs/public/llms.txt',
+  'docs/public/llms-full.txt',
+  'docs/public/registry.json',
+  'packages/core/llms.txt',
+  'packages/core/llms-full.txt',
+  'packages/core/registry.json',
 ];
 
 function run(command, args) {
@@ -16,14 +22,21 @@ function run(command, args) {
   });
 }
 
-function listTrackedFiles() {
-  return execFileSync('git', ['ls-files', '--', ...GENERATED_TARGETS], {
+function listGeneratedFiles() {
+  const tracked = execFileSync('git', ['ls-files', '--', ...GENERATED_TARGETS], {
     cwd: ROOT,
     encoding: 'utf8',
   })
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean);
+
+  const explicit = GENERATED_TARGETS.filter((target) => {
+    const absolutePath = path.join(ROOT, target);
+    return fs.existsSync(absolutePath) && fs.statSync(absolutePath).isFile();
+  });
+
+  return [...new Set([...tracked, ...explicit])];
 }
 
 function buildSignature(files) {
@@ -44,11 +57,12 @@ function getChangedFiles(before, after) {
   );
 }
 
-const files = listTrackedFiles();
+const files = listGeneratedFiles();
 const before = buildSignature(files);
 
 run('pnpm', ['icons:generate']);
 run('pnpm', ['tests:generate']);
+run('pnpm', ['llm:generate']);
 
 const after = buildSignature(files);
 const changedFiles = getChangedFiles(before, after);
@@ -59,7 +73,7 @@ if (changedFiles.length > 0) {
     console.error(`- ${file}`);
   }
   console.error(
-    'Commit regenerated outputs from `pnpm icons:generate` or `pnpm tests:generate`.',
+    'Commit regenerated outputs from `pnpm icons:generate`, `pnpm tests:generate`, or `pnpm llm:generate`.',
   );
   process.exit(1);
 }

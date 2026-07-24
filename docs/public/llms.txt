@@ -1,0 +1,136 @@
+# Koi UI
+
+> Adaptive React component library for desktop and mobile (`@koi-ui/core`).
+
+> Docs: https://icepepsicola.github.io/koi-ui/
+> npm: `@koi-ui/core` (also ships `llms.txt`, `llms-full.txt`, `registry.json`)
+
+## How AI assistants should use this
+
+- Prefer `@koi-ui/core` imports. Wrap the app in `KoiProvider`.
+- Import styles: `@import "@koi-ui/core/styles.css";`
+- Semantic error color is `error` (not `danger` / `destructive`).
+- Button / Tag / Alert / Badge use `color` × `variant`.
+- Many overlays adapt on mobile (`Modal` → sheet). Use `responsive={false}` to lock desktop.
+- Read `llms-full.txt` for per-component API + examples, or `registry.json` for machine-readable data.
+
+## Install
+
+```bash
+pnpm add @koi-ui/core
+```
+
+## Companion files
+
+- Full docs for LLMs: https://icepepsicola.github.io/koi-ui/llms-full.txt
+- Registry JSON: https://icepepsicola.github.io/koi-ui/registry.json
+- In the npm package: `node_modules/@koi-ui/core/llms-full.txt` and `registry.json`
+
+## Components
+
+### General
+
+- [Button](https://icepepsicola.github.io/koi-ui/en/components/button) (按钮): `color` sets the semantic tone; `variant` sets the surface style.
+- [Icon](https://icepepsicola.github.io/koi-ui/en/components/icon) (图标): Icon component from @koi-ui/core
+- [Typography](https://icepepsicola.github.io/koi-ui/en/components/typography) (排版): Typography component from @koi-ui/core
+
+### Layout
+
+- [Divider](https://icepepsicola.github.io/koi-ui/en/components/divider) (分割线): Divider component from @koi-ui/core
+- [Grid](https://icepepsicola.github.io/koi-ui/en/components/grid) (栅格): Grid component from @koi-ui/core
+- [Layout](https://icepepsicola.github.io/koi-ui/en/components/layout) (布局): Layout component from @koi-ui/core
+- [Space](https://icepepsicola.github.io/koi-ui/en/components/space) (间距): Space component from @koi-ui/core
+- [Flex](https://icepepsicola.github.io/koi-ui/en/components/flex) (弹性布局): Flex component from @koi-ui/core
+- [Stack](https://icepepsicola.github.io/koi-ui/en/components/stack) (堆叠): Stack component from @koi-ui/core
+- [Box](https://icepepsicola.github.io/koi-ui/en/components/box) (容器): Box component from @koi-ui/core
+- [SafeArea](https://icepepsicola.github.io/koi-ui/en/components/safearea) (安全区): SafeArea component from @koi-ui/core
+
+### Navigation
+
+- [Affix](https://icepepsicola.github.io/koi-ui/en/components/affix) (固钉): Affix component from @koi-ui/core
+- [Breadcrumb](https://icepepsicola.github.io/koi-ui/en/components/breadcrumb) (面包屑): Breadcrumb component from @koi-ui/core
+- [Dropdown](https://icepepsicola.github.io/koi-ui/en/components/dropdown) (下拉菜单): Dropdown component from @koi-ui/core
+- [Menu](https://icepepsicola.github.io/koi-ui/en/components/menu) (菜单): Menu component from @koi-ui/core
+- [Pagination](https://icepepsicola.github.io/koi-ui/en/components/pagination) (分页): Pagination component from @koi-ui/core
+- [Steps](https://icepepsicola.github.io/koi-ui/en/components/steps) (步骤条): Steps component from @koi-ui/core
+- [Tabs](https://icepepsicola.github.io/koi-ui/en/components/tabs) (标签页): Tabs component from @koi-ui/core
+- [NavBar](https://icepepsicola.github.io/koi-ui/en/components/navbar) (导航栏): NavBar component from @koi-ui/core
+- [TabBar](https://icepepsicola.github.io/koi-ui/en/components/tabbar) (标签栏): TabBar component from @koi-ui/core
+- [IndexBar](https://icepepsicola.github.io/koi-ui/en/components/indexbar) (索引栏): IndexBar component from @koi-ui/core
+
+### Data entry
+
+- [AutoComplete](https://icepepsicola.github.io/koi-ui/en/components/autocomplete) (自动完成): AutoComplete component from @koi-ui/core
+- [Checkbox](https://icepepsicola.github.io/koi-ui/en/components/checkbox) (多选框): Checkbox component from @koi-ui/core
+- [DatePicker](https://icepepsicola.github.io/koi-ui/en/components/datepicker) (日期选择): DatePicker component from @koi-ui/core
+- [Form](https://icepepsicola.github.io/koi-ui/en/components/form) (表单): Form component from @koi-ui/core
+- [Input](https://icepepsicola.github.io/koi-ui/en/components/input) (输入框): Input component from @koi-ui/core
+- [InputNumber](https://icepepsicola.github.io/koi-ui/en/components/inputnumber) (数字输入): InputNumber component from @koi-ui/core
+- [Radio](https://icepepsicola.github.io/koi-ui/en/components/radio) (单选框): Radio component from @koi-ui/core
+- [Rate](https://icepepsicola.github.io/koi-ui/en/components/rate) (评分): Rate component from @koi-ui/core
+- [Select](https://icepepsicola.github.io/koi-ui/en/components/select) (选择器): Select component from @koi-ui/core
+- [Slider](https://icepepsicola.github.io/koi-ui/en/components/slider) (滑动输入): Slider component from @koi-ui/core
+- [Switch](https://icepepsicola.github.io/koi-ui/en/components/switch) (开关): Switch component from @koi-ui/core
+- [TextArea](https://icepepsicola.github.io/koi-ui/en/components/textarea) (文本域): TextArea component from @koi-ui/core
+- [TimePicker](https://icepepsicola.github.io/koi-ui/en/components/timepicker) (时间选择): TimePicker component from @koi-ui/core
+- [Upload](https://icepepsicola.github.io/koi-ui/en/components/upload) (上传): Upload component from @koi-ui/core
+- [Cascader](https://icepepsicola.github.io/koi-ui/en/components/cascader) (级联选择): Cascader component from @koi-ui/core
+- [Picker](https://icepepsicola.github.io/koi-ui/en/components/picker) (选择器(移动)): Picker component from @koi-ui/core
+- [SearchBar](https://icepepsicola.github.io/koi-ui/en/components/searchbar) (搜索栏): SearchBar component from @koi-ui/core
+- [Stepper](https://icepepsicola.github.io/koi-ui/en/components/stepper) (步进器): Stepper component from @koi-ui/core
+
+### Data display
+
+- [Avatar](https://icepepsicola.github.io/koi-ui/en/components/avatar) (头像): Avatar component from @koi-ui/core
+- [Badge](https://icepepsicola.github.io/koi-ui/en/components/badge) (徽标): Badge component from @koi-ui/core
+- [Calendar](https://icepepsicola.github.io/koi-ui/en/components/calendar) (日历): Embedded month panel for dashboards, scheduling, or any inline date display. For form inputs with desktop popover and mo
+- [Card](https://icepepsicola.github.io/koi-ui/en/components/card) (卡片): Card component from @koi-ui/core
+- [Collapse](https://icepepsicola.github.io/koi-ui/en/components/collapse) (折叠面板): Collapse component from @koi-ui/core
+- [Descriptions](https://icepepsicola.github.io/koi-ui/en/components/descriptions) (描述列表): Descriptions component from @koi-ui/core
+- [Empty](https://icepepsicola.github.io/koi-ui/en/components/empty) (空状态): Empty component from @koi-ui/core
+- [Image](https://icepepsicola.github.io/koi-ui/en/components/image) (图片): Image component from @koi-ui/core
+- [List](https://icepepsicola.github.io/koi-ui/en/components/list) (列表): List component from @koi-ui/core
+- [Popover](https://icepepsicola.github.io/koi-ui/en/components/popover) (气泡卡片): Popover component from @koi-ui/core
+- [Segmented](https://icepepsicola.github.io/koi-ui/en/components/segmented) (分段控制器): Segmented component from @koi-ui/core
+- [Statistic](https://icepepsicola.github.io/koi-ui/en/components/statistic) (统计数值): Statistic component from @koi-ui/core
+- [Table](https://icepepsicola.github.io/koi-ui/en/components/table) (表格): Table component from @koi-ui/core
+- [Tag](https://icepepsicola.github.io/koi-ui/en/components/tag) (标签): Tag component from @koi-ui/core
+- [Timeline](https://icepepsicola.github.io/koi-ui/en/components/timeline) (时间轴): Timeline component from @koi-ui/core
+- [Tooltip](https://icepepsicola.github.io/koi-ui/en/components/tooltip) (文字提示): Tooltip component from @koi-ui/core
+- [Tree](https://icepepsicola.github.io/koi-ui/en/components/tree) (树形控件): Tree component from @koi-ui/core
+- [NoticeBar](https://icepepsicola.github.io/koi-ui/en/components/noticebar) (通告栏): NoticeBar component from @koi-ui/core
+- [Swiper](https://icepepsicola.github.io/koi-ui/en/components/swiper) (滑块视图): Swiper component from @koi-ui/core
+- [Ellipsis](https://icepepsicola.github.io/koi-ui/en/components/ellipsis) (文本省略): Ellipsis component from @koi-ui/core
+
+### Feedback
+
+- [Alert](https://icepepsicola.github.io/koi-ui/en/components/alert) (警告提示): Alert component from @koi-ui/core
+- [Drawer](https://icepepsicola.github.io/koi-ui/en/components/drawer) (抽屉): Side / edge panel with the same chrome as Modal (no section borders, optional `closable`).
+- [Modal](https://icepepsicola.github.io/koi-ui/en/components/modal) (对话框): Desktop: centered dialog (daisyUI `modal-middle`). Mobile: bottom sheet when `responsive`.
+- [Notification](https://icepepsicola.github.io/koi-ui/en/components/notification) (通知提醒): Notification component from @koi-ui/core
+- [Popconfirm](https://icepepsicola.github.io/koi-ui/en/components/popconfirm) (气泡确认): Popconfirm component from @koi-ui/core
+- [Progress](https://icepepsicola.github.io/koi-ui/en/components/progress) (进度条): Progress component from @koi-ui/core
+- [Result](https://icepepsicola.github.io/koi-ui/en/components/result) (结果): Result component from @koi-ui/core
+- [Skeleton](https://icepepsicola.github.io/koi-ui/en/components/skeleton) (骨架屏): Skeleton component from @koi-ui/core
+- [Spin](https://icepepsicola.github.io/koi-ui/en/components/spin) (加载中): Spin component from @koi-ui/core
+- [Toast](https://icepepsicola.github.io/koi-ui/en/components/toast) (轻提示): Toast component from @koi-ui/core
+- [Popup](https://icepepsicola.github.io/koi-ui/en/components/popup) (弹出层): Compact centered dialog — same chrome as Modal, default `size="sm"`.
+- [ActionSheet](https://icepepsicola.github.io/koi-ui/en/components/actionsheet) (动作面板): ActionSheet component from @koi-ui/core
+- [Loading](https://icepepsicola.github.io/koi-ui/en/components/loading) (加载): Loading component from @koi-ui/core
+- [Mask](https://icepepsicola.github.io/koi-ui/en/components/mask) (背景蒙层): Mask component from @koi-ui/core
+- [Watermark](https://icepepsicola.github.io/koi-ui/en/components/watermark) (水印): Watermark component from @koi-ui/core
+
+### Other
+
+- [BackTop](https://icepepsicola.github.io/koi-ui/en/components/backtop) (回到顶部): BackTop component from @koi-ui/core
+- [FloatButton](https://icepepsicola.github.io/koi-ui/en/components/floatbutton) (悬浮按钮): FloatButton component from @koi-ui/core
+- [PullToRefresh](https://icepepsicola.github.io/koi-ui/en/components/pulltorefresh) (下拉刷新): PullToRefresh component from @koi-ui/core
+- [Footer](https://icepepsicola.github.io/koi-ui/en/components/footer) (页脚): Footer component from @koi-ui/core
+- [FloatingPanel](https://icepepsicola.github.io/koi-ui/en/components/floatingpanel) (浮动面板): FloatingPanel component from @koi-ui/core
+- [InfiniteScroll](https://icepepsicola.github.io/koi-ui/en/components/infinitescroll) (无限滚动): InfiniteScroll component from @koi-ui/core
+
+## Optional packages
+
+- `@koi-ui/hooks` — breakpoint helpers
+- `@koi-ui/tokens` — CSS theme tokens
+- `@koi-ui/icons` — icon set

@@ -241,7 +241,7 @@ export function Tooltip({
               <span
                 aria-hidden
                 className={cn(
-                  'absolute block h-1 w-2.5 bg-[var(--koi-tooltip-bg)]',
+                  'absolute block h-1 w-2.5 bg-(--koi-tooltip-bg)',
                   arrowClass[placement],
                 )}
                 style={{

@@ -56,7 +56,7 @@ export function Timeline({
 }: TimelineProps) {
   return (
     <div className={cn(timelineVariants({ mode }), className)} {...props}>
-      <div className="absolute bottom-0 left-[7px] top-0 w-px bg-border" />
+      <div className="absolute bottom-0 left-1.75 top-0 w-px bg-border" />
       {items.map((item) => (
         <div key={item.key} className="relative pb-6 last:pb-0">
           <div className="absolute -left-6 top-1">

@@ -1,0 +1,4688 @@
+# Koi UI — full LLM reference
+
+Generated from component docs + TypeScript props. Prefer this file when implementing UI with `@koi-ui/core`.
+
+## Global conventions
+
+1. `import { X } from '@koi-ui/core'`
+2. Root: `<KoiProvider>…</KoiProvider>`
+3. Styles: `@import "@koi-ui/core/styles.css";`
+4. Use semantic `color="error"` (never `danger` / `destructive`)
+5. Surface components: `color` × `variant` (`solid` | `soft` | `outline` | `dash` | `ghost` | `link` where applicable)
+6. Choosing similar components:
+   - `InputNumber` = editable number field; `Stepper` = tap/hold quantity control
+   - `Spin` = inline loading; `Loading` = fullscreen/blocking overlay
+   - `Steps` = wizard progress; `Stepper` = numeric ±
+   - `Modal` = adaptive dialog; `Popup` = compact centered dialog
+
+## Button
+
+Chinese name: 按钮
+
+`color` sets the semantic tone; `variant` sets the surface style.
+
+Category: General / 通用
+
+```ts
+import { Button } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/button | https://icepepsicola.github.io/koi-ui/zh/components/button
+
+### Props
+
+- `loading` (optional): `boolean`
+- `responsiveSize` (optional): `boolean`, default: `true` — Shrink one size step on mobile breakpoints.
+- `variant` (optional): `"solid" | "soft" | "outline" | "dash" | "ghost" | "link"`, default: `solid`
+- `color` (optional): `"neutral" | "primary" | "secondary" | "info" | "success" | "warning" | "error"`, default: `neutral`
+- `size` (optional): `"md" | "xs" | "sm" | "lg" | "xl"`, default: `md`
+- `shape` (optional): `"default" | "square" | "circle"`, default: `default`
+- `block` (optional): `boolean`
+- `wide` (optional): `boolean`
+- `active` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button>Default</Button>
+    <Button color="secondary">Secondary</Button>
+    <Button color="primary">Primary</Button>
+  </Space>
+);
+```
+
+```tsx
+import { Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button color="neutral">Neutral</Button>
+    <Button color="primary">Primary</Button>
+    <Button color="secondary">Secondary</Button>
+    <Button color="info">Info</Button>
+    <Button color="success">Success</Button>
+    <Button color="warning">Warning</Button>
+    <Button color="error">Error</Button>
+  </Space>
+);
+```
+
+## Icon
+
+Chinese name: 图标
+
+Icon component from @koi-ui/core
+
+Category: General / 通用
+
+```ts
+import { Icon } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/icon | https://icepepsicola.github.io/koi-ui/zh/components/icon
+
+### Props
+
+- `name` (required): `IconName`
+- `size` (optional): `"md" | "xs" | "sm" | "lg" | "xl"`
+
+## Typography
+
+Chinese name: 排版
+
+Typography component from @koi-ui/core
+
+Category: General / 通用
+
+```ts
+import { Typography } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/typography | https://icepepsicola.github.io/koi-ui/zh/components/typography
+
+### Props
+
+- `level` (optional): `1 | 2 | 3 | 4 | 5 | 6`, default: `1`
+- `ellipsis` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Typography } from '@koi-ui/core';
+const { Title, Text, Paragraph, Link } = Typography;
+export default () => (
+  <div className="space-y-2">
+    <Title level={3}>Title</Title>
+    <Paragraph>Paragraph for longer body copy.</Paragraph>
+    <Text type="secondary">Secondary text</Text>
+    {' · '}
+    <Link href="#">Link</Link>
+  </div>
+);
+```
+
+```tsx
+import { Typography } from '@koi-ui/core';
+const { Title } = Typography;
+export default () => (
+  <div className="space-y-2">
+    <Title level={1}>H1 Title</Title>
+    <Title level={2}>H2 Title</Title>
+    <Title level={3}>H3 Title</Title>
+    <Title level={4}>H4 Title</Title>
+    <Title level={5}>H5 Title</Title>
+    <Title level={6}>H6 Title</Title>
+    <Title level={4} ellipsis className="max-w-48">
+      Long titles truncate with an ellipsis when overflowing
+    </Title>
+  </div>
+);
+```
+
+## Divider
+
+Chinese name: 分割线
+
+Divider component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { Divider } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/divider | https://icepepsicola.github.io/koi-ui/zh/components/divider
+
+### Props
+
+- `orientationMargin` (optional): `string | number`
+- `type` (optional): `"horizontal" | "vertical"`, default: `horizontal`
+- `dashed` (optional): `boolean`
+- `plain` (optional): `boolean`, default: `true`
+
+### Examples
+
+```tsx
+import { Divider } from '@koi-ui/core';
+export default () => (
+  <div>
+    <p>Content above</p>
+    <Divider />
+    <p>Content below</p>
+  </div>
+);
+```
+
+```tsx
+import { Divider } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Divider plain={false}>Section</Divider>
+    <Divider plain={false} dashed>Dashed section</Divider>
+  </div>
+);
+```
+
+## Grid
+
+Chinese name: 栅格
+
+Grid component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { Grid } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/grid | https://icepepsicola.github.io/koi-ui/zh/components/grid
+
+### Props
+
+- `gutter` (optional): `"md" | "none" | "sm" | "lg" | [number, number]`, default: `md`
+- `align` (optional): `"top" | "middle" | "bottom" | "stretch"`
+- `justify` (optional): `"start" | "center" | "end" | "between" | "around"`
+
+### Examples
+
+```tsx
+import { Row, Col } from '@koi-ui/core';
+const cell = 'rounded-md bg-muted p-3 text-center text-sm';
+export default () => (
+  <Row gutter="md">
+    <Col span={12}><div className={cell}>span-12</div></Col>
+    <Col span={12}><div className={cell}>span-12</div></Col>
+  </Row>
+);
+```
+
+```tsx
+import { Row, Col } from '@koi-ui/core';
+const cell = 'rounded-md bg-muted p-3 text-center text-sm';
+export default () => (
+  <div className="space-y-3">
+    <Row gutter="md">
+      <Col span={6}><div className={cell}>6</div></Col>
+      <Col span={6}><div className={cell}>6</div></Col>
+      <Col span={6}><div className={cell}>6</div></Col>
+      <Col span={6}><div className={cell}>6</div></Col>
+    </Row>
+    <Row gutter="md">
+      <Col span={8}><div className={cell}>8</div></Col>
+      <Col span={8}><div className={cell}>8</div></Col>
+      <Col span={8}><div className={cell}>8</div></Col>
+    </Row>
+    <Row gutter="md">
+      <Col span={16}><div className={cell}>16</div></Col>
+      <Col span={8}><div className={cell}>8</div></Col>
+    </Row>
+  </div>
+);
+```
+
+## Layout
+
+Chinese name: 布局
+
+Layout component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { Layout } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/layout | https://icepepsicola.github.io/koi-ui/zh/components/layout
+
+### Props
+
+- `hasSider` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Layout } from '@koi-ui/core';
+const { Header, Content, Footer } = Layout;
+export default () => (
+  <Layout className="overflow-hidden rounded-md border border-border">
+    <Header className="bg-muted px-4 py-2">Header</Header>
+    <Content className="px-4 py-6">Content</Content>
+    <Footer className="bg-muted px-4 py-2 text-center text-sm">Footer</Footer>
+  </Layout>
+);
+```
+
+```tsx
+import { Layout } from '@koi-ui/core';
+const { Header, Sider, Content, Footer } = Layout;
+export default () => (
+  <Layout className="overflow-hidden rounded-md border border-border">
+    <Header className="!py-2">Header</Header>
+    <Layout hasSider>
+      <Sider className="p-3 text-sm">Sider</Sider>
+      <Content className="!p-4">Content</Content>
+    </Layout>
+    <Footer className="!py-2 text-center">Footer</Footer>
+  </Layout>
+);
+```
+
+## Space
+
+Chinese name: 间距
+
+Space component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { Space } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/space | https://icepepsicola.github.io/koi-ui/zh/components/space
+
+### Props
+
+- `split` (optional): `ReactNode`
+- `direction` (optional): `"horizontal" | "vertical"`
+- `size` (optional): `"small" | "middle" | "large"`
+- `align` (optional): `"center" | "start" | "end" | "baseline"`
+- `wrap` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Button>Button 1</Button>
+    <Button>Button 2</Button>
+    <Button>Button 3</Button>
+  </Space>
+);
+```
+
+```tsx
+import { Space, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Space size="small">
+      <Button size="sm">small</Button>
+      <Button size="sm">small</Button>
+      <Button size="sm">small</Button>
+    </Space>
+    <Space size="middle">
+      <Button size="sm">middle</Button>
+      <Button size="sm">middle</Button>
+      <Button size="sm">middle</Button>
+    </Space>
+    <Space size="large">
+      <Button size="sm">large</Button>
+      <Button size="sm">large</Button>
+      <Button size="sm">large</Button>
+    </Space>
+  </div>
+);
+```
+
+## Flex
+
+Chinese name: 弹性布局
+
+Flex component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { Flex } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/flex | https://icepepsicola.github.io/koi-ui/zh/components/flex
+
+### Props
+
+- `gap` (optional): `string | number` — Gap between items. Numbers use the Tailwind spacing scale
+(`3` → `gap-3` equivalent). Strings are raw CSS lengths.
+- `direction` (optional): `"row" | "column" | "rowReverse" | "columnReverse"`
+- `align` (optional): `"stretch" | "start" | "center" | "end" | "baseline"`
+- `justify` (optional): `"start" | "center" | "end" | "between" | "around" | "evenly"`
+- `wrap` (optional): `"wrap" | "nowrap" | "wrapReverse"`
+- `vertical` (optional): `boolean`
+- `inline` (optional): `boolean`
+- `responsive` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Flex, Button } from '@koi-ui/core';
+export default () => (
+  <Flex justify="between" align="center" className="rounded-md border border-border p-4">
+    <span>Left</span>
+    <Button size="sm">Action</Button>
+  </Flex>
+);
+```
+
+```tsx
+import { Flex, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Flex gap={2}>
+      <Tag>row</Tag>
+      <Tag color="secondary">default</Tag>
+    </Flex>
+    <Flex direction="column" gap={2}>
+      <Tag>column</Tag>
+      <Tag color="secondary">vertical</Tag>
+    </Flex>
+    <Flex vertical gap={2}>
+      <Tag>vertical</Tag>
+      <Tag color="secondary">shorthand</Tag>
+    </Flex>
+  </div>
+);
+```
+
+## Stack
+
+Chinese name: 堆叠
+
+Stack component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { Stack } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/stack | https://icepepsicola.github.io/koi-ui/zh/components/stack
+
+### Props
+
+- `gap` (optional): `string | number`, default: `4` — Gap between items. Numbers use the Tailwind spacing scale
+(`3` → `gap-3` equivalent). Strings are raw CSS lengths.
+- `direction` (optional): `"col" | "row"`
+- `align` (optional): `"stretch" | "start" | "center" | "end"`
+- `justify` (optional): `"start" | "center" | "end" | "between"`
+- `responsive` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Stack, Text } from '@koi-ui/core';
+export default () => (
+  <Stack gap={2}>
+    <Text weight="bold">Title</Text>
+    <Text muted>Description</Text>
+  </Stack>
+);
+```
+
+```tsx
+import { Stack, Tag } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-4">
+    <Stack direction="col" gap={2}>
+      <Tag>col gap 2</Tag>
+      <Tag color="secondary">column</Tag>
+    </Stack>
+    <Stack direction="row" gap={4}>
+      <Tag>row gap 4</Tag>
+      <Tag color="secondary">row</Tag>
+      <Tag variant="outline">row</Tag>
+    </Stack>
+    <Stack direction="row" gap={10}>
+      <Tag>row gap 10</Tag>
+      <Tag color="secondary">any number</Tag>
+    </Stack>
+  </div>
+);
+```
+
+## Box
+
+Chinese name: 容器
+
+Box component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { Box } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/box | https://icepepsicola.github.io/koi-ui/zh/components/box
+
+### Props
+
+- `p` (optional): `string | number`, default: `4` — Padding. Numbers use the Tailwind spacing scale
+(`3` → `p-3` equivalent). Strings are raw CSS lengths.
+- `rounded` (optional): `"md" | "none" | "sm" | "lg"`
+- `bg` (optional): `"surface" | "muted" | "primary"`
+- `border` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Box, Text } from '@koi-ui/core';
+export default () => (
+  <Box p={6} border rounded="md">
+    <Text>Container</Text>
+  </Box>
+);
+```
+
+```tsx
+import { Box, Text } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-3">
+    <Box p={2} border><Text size="sm">p=2</Text></Box>
+    <Box p={3} border><Text size="sm">p=3</Text></Box>
+    <Box p={4} border><Text size="sm">p=4</Text></Box>
+    <Box p={10} border><Text size="sm">p=10</Text></Box>
+  </div>
+);
+```
+
+## SafeArea
+
+Chinese name: 安全区
+
+SafeArea component from @koi-ui/core
+
+Category: Layout / 布局
+
+```ts
+import { SafeArea } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/safearea | https://icepepsicola.github.io/koi-ui/zh/components/safearea
+
+### Props
+
+- `position` (optional): `"top" | "bottom" | "both"`, default: `both`
+
+### Examples
+
+```tsx
+import { SafeArea, Text } from '@koi-ui/core';
+export default () => (
+  <div
+    className="koi-safe-area-demo flex h-full min-h-[28rem] flex-col overflow-hidden bg-primary/25"
+    style={{ ['--koi-safe-area-top']: '48px', ['--koi-safe-area-bottom']: '34px' }}
+  >
+    <SafeArea className="flex h-full min-h-0 flex-col bg-muted">
+      <div className="flex flex-1 flex-col items-center justify-center gap-2 px-4 text-center">
+        <Text className="font-medium">Safe area content</Text>
+        <Text muted size="sm">Colored bands mark the safe area (default both)</Text>
+      </div>
+    </SafeArea>
+  </div>
+);
+```
+
+```tsx
+import { SafeArea, Space, Text } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    {(['top', 'bottom', 'both'] as const).map((position) => (
+      <div
+        key={position}
+        className="overflow-hidden rounded-md bg-primary/25"
+        style={{ ['--koi-safe-area-top']: '24px', ['--koi-safe-area-bottom']: '24px' }}
+      >
+        <SafeArea position={position} className="bg-muted px-3 py-2">
+          <Text size="sm">position=&quot;{position}&quot;</Text>
+        </SafeArea>
+      </div>
+    ))}
+  </Space>
+);
+```
+
+## Affix
+
+Chinese name: 固钉
+
+Affix component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { Affix } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/affix | https://icepepsicola.github.io/koi-ui/zh/components/affix
+
+### Props
+
+- `offsetTop` (optional): `number`
+- `offsetBottom` (optional): `number`
+- `target` (optional): `(() => HTMLElement | Window | null)`
+- `onChange` (optional): `((affixed: boolean) => void)`
+
+### Examples
+
+```tsx
+import { Affix, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-3 pb-8 text-sm text-muted-foreground">
+    <p className="font-medium text-surface-foreground">Scroll down to see Affix</p>
+    <Affix offsetTop={0}>
+      <Button>Pin to top</Button>
+    </Affix>
+    {Array.from({ length: 40 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+  </div>
+);
+```
+
+```tsx
+import { Affix, Button } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-3 pb-8 text-sm text-muted-foreground">
+    <p className="font-medium text-surface-foreground">Scroll down — the button sticks to the bottom</p>
+    {Array.from({ length: 40 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+    <Affix offsetBottom={0}>
+      <Button>Pin to bottom</Button>
+    </Affix>
+  </div>
+);
+```
+
+## Breadcrumb
+
+Chinese name: 面包屑
+
+Breadcrumb component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { Breadcrumb } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/breadcrumb | https://icepepsicola.github.io/koi-ui/zh/components/breadcrumb
+
+### Props
+
+- `items` (required): `BreadcrumbItem[]`
+- `separator` (optional): `ReactNode`, default: `/`
+
+### Examples
+
+```tsx
+import { Breadcrumb } from '@koi-ui/core';
+export default () => (
+  <Breadcrumb
+    items={[
+      { title: 'Home' },
+      { title: 'List' },
+      { title: 'Details' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Breadcrumb, BreadcrumbSeparator, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Breadcrumb
+      separator=">"
+      items={[
+        { title: 'Home' },
+        { title: 'Components' },
+        { title: 'Breadcrumb' },
+      ]}
+    />
+    <Breadcrumb
+      separator={<BreadcrumbSeparator />}
+      items={[
+        { title: 'Home' },
+        { title: 'Components' },
+        { title: 'Breadcrumb' },
+      ]}
+    />
+  </Space>
+);
+```
+
+## Dropdown
+
+Chinese name: 下拉菜单
+
+Dropdown component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { Dropdown } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/dropdown | https://icepepsicola.github.io/koi-ui/zh/components/dropdown
+
+### Props
+
+- `trigger` (required): `ReactNode`
+- `items` (required): `DropdownItem[]`
+- `title` (optional): `ReactNode`
+- `placement` (optional): `"bottom-start" | "bottom-end" | "top-start" | "top-end"`
+- `disabled` (optional): `boolean`
+- `responsive` (optional): `boolean`, default: `true`
+- `onSelect` (optional): `((key: string) => void)`
+
+### Examples
+
+```tsx
+import { Dropdown, Button } from '@koi-ui/core';
+export default () => (
+  <Dropdown
+    trigger={<Button>Dropdown</Button>}
+    items={[
+      { key: '1', label: 'Option 1' },
+      { key: '2', label: 'Option 2' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Dropdown, Button } from '@koi-ui/core';
+export default () => (
+  <Dropdown
+    trigger={<Button>Actions</Button>}
+    items={[
+      { key: 'edit', label: 'Edit' },
+      { key: 'copy', label: 'Copy' },
+      { key: 'delete', label: 'Delete', color: 'error' },
+      { key: 'archive', label: 'Archive', disabled: true },
+    ]}
+  />
+);
+```
+
+## Menu
+
+Chinese name: 菜单
+
+Menu component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { Menu } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/menu | https://icepepsicola.github.io/koi-ui/zh/components/menu
+
+### Props
+
+- `items` (required): `MenuItemType[]`
+- `selectedKey` (optional): `string`
+- `defaultSelectedKey` (optional): `string`
+- `openKeys` (optional): `string[]`
+- `defaultOpenKeys` (optional): `string[]`, default: `[]`
+- `onSelect` (optional): `((key: string) => void)`
+- `onOpenChange` (optional): `((openKeys: string[]) => void)`
+- `mode` (optional): `"vertical" | "horizontal" | "inline"`, default: `vertical`
+
+### Examples
+
+```tsx
+import { Menu } from '@koi-ui/core';
+export default () => (
+  <Menu
+    defaultSelectedKey="1"
+    items={[
+      { key: '1', label: 'Nav 1' },
+      { key: '2', label: 'Nav 2' },
+      { key: '3', label: 'Nav 3' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Menu, Space, Text } from '@koi-ui/core';
+
+const items = [
+  { key: '1', label: 'Home' },
+  { key: '2', label: 'Explore' },
+  { key: '3', label: 'Profile' },
+];
+
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">vertical</Text>
+      <Menu mode="vertical" defaultSelectedKey="1" items={items} />
+    </div>
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">horizontal</Text>
+      <Menu mode="horizontal" defaultSelectedKey="2" items={items} />
+    </div>
+    <div>
+      <Text size="sm" className="mb-2 block text-muted-foreground">inline</Text>
+      <Menu mode="inline" defaultSelectedKey="3" items={items} />
+    </div>
+  </Space>
+);
+```
+
+## Pagination
+
+Chinese name: 分页
+
+Pagination component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { Pagination } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/pagination | https://icepepsicola.github.io/koi-ui/zh/components/pagination
+
+### Props
+
+- `current` (required): `number`
+- `total` (required): `number`
+- `pageSize` (optional): `number`, default: `10`
+- `onChange` (optional): `((page: number) => void)`
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Pagination } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [page, setPage] = useState(1);
+  return <Pagination current={page} total={50} onChange={setPage} />;
+};
+```
+
+```tsx
+import { Pagination, Space, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [page, setPage] = useState(1);
+  return (
+    <Space direction="vertical" size="middle" className="w-full">
+      <div>
+        <Text muted size="sm" className="mb-2 block">pageSize=10 · total=100</Text>
+        <Pagination current={page} total={100} pageSize={10} onChange={setPage} />
+      </div>
+      <div>
+        <Text muted size="sm" className="mb-2 block">pageSize=20 · total=100</Text>
+        <Pagination current={1} total={100} pageSize={20} />
+      </div>
+    </Space>
+  );
+};
+```
+
+## Steps
+
+Chinese name: 步骤条
+
+Steps component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { Steps } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/steps | https://icepepsicola.github.io/koi-ui/zh/components/steps
+
+### Props
+
+- `items` (required): `StepItem[]`
+- `current` (optional): `number`
+- `onChange` (optional): `((current: number) => void)`
+- `direction` (optional): `"horizontal" | "vertical"`, default: `horizontal`
+- `size` (optional): `"md" | "sm" | "lg"`
+
+### Examples
+
+```tsx
+import { Steps } from '@koi-ui/core';
+export default () => (
+  <Steps
+    current={1}
+    items={[
+      { title: 'Done' },
+      { title: 'In progress' },
+      { title: 'Waiting' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Steps } from '@koi-ui/core';
+export default () => (
+  <Steps
+    current={3}
+    items={[
+      { title: 'Details', description: 'Done' },
+      { title: 'Confirm', description: 'Done' },
+      { title: 'Pay', description: 'Done' },
+      { title: 'Complete' },
+    ]}
+  />
+);
+```
+
+## Tabs
+
+Chinese name: 标签页
+
+Tabs component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { Tabs } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/tabs | https://icepepsicola.github.io/koi-ui/zh/components/tabs
+
+### Props
+
+- `items` (required): `TabItem[]`
+- `defaultActiveKey` (optional): `string`
+- `activeKey` (optional): `string`
+- `onChange` (optional): `((key: string) => void)`
+- `className` (optional): `string`
+- `variant` (optional): `"line" | "boxed" | "bordered" | "lifted"`, default: `line`
+
+### Examples
+
+```tsx
+import { Tabs, Text } from '@koi-ui/core';
+export default () => (
+  <Tabs
+    items={[
+      { key: '1', label: 'Tab1', children: <Text>Content 1</Text> },
+      { key: '2', label: 'Tab2', children: <Text>Content 2</Text> },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Tabs, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [key, setKey] = useState('profile');
+  return (
+    <Tabs
+      activeKey={key}
+      onChange={setKey}
+      items={[
+        { key: 'profile', label: 'Profile', children: <Text>Profile panel</Text> },
+        { key: 'settings', label: 'Settings', children: <Text>Settings panel</Text> },
+      ]}
+    />
+  );
+};
+```
+
+## NavBar
+
+Chinese name: 导航栏
+
+NavBar component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { NavBar } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/navbar | https://icepepsicola.github.io/koi-ui/zh/components/navbar
+
+### Props
+
+- `title` (optional): `ReactNode`
+- `left` (optional): `ReactNode`
+- `right` (optional): `ReactNode`
+- `onBack` (optional): `(() => void)`
+- `backIcon` (optional): `ReactNode`
+- `fixed` (optional): `boolean` — 是否固定在视口顶部。
+文档预览（KoiProvider.previewDevice）下默认 false，避免脱出演示容器。
+- `safeArea` (optional): `boolean`
+- `bordered` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { NavBar } from '@koi-ui/core';
+export default () => <NavBar title="Page title" onBack={() => {}} />;
+```
+
+```tsx
+import { NavBar, Button, Icon, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <NavBar
+      title="Custom back icon"
+      onBack={() => {}}
+      backIcon={<Icon name="close" size="md" />}
+    />
+    <NavBar
+      title="Custom left"
+      left={<Button size="sm" variant="ghost">Close</Button>}
+      right={<Button size="sm" variant="ghost">Share</Button>}
+    />
+  </Space>
+);
+```
+
+## TabBar
+
+Chinese name: 标签栏
+
+TabBar component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { TabBar } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/tabbar | https://icepepsicola.github.io/koi-ui/zh/components/tabbar
+
+### Props
+
+- `items` (required): `TabBarItem[]`
+- `activeKey` (optional): `string`
+- `defaultActiveKey` (optional): `string`
+- `onChange` (optional): `((key: string) => void)`
+- `safeArea` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { TabBar } from '@koi-ui/core';
+export default () => (
+  <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+    <TabBar
+      className="relative"
+      defaultActiveKey="home"
+      items={[
+        { key: 'home', label: 'Home' },
+        { key: 'discover', label: 'Discover' },
+        { key: 'mine', label: 'Me' },
+      ]}
+    />
+  </div>
+);
+```
+
+```tsx
+import { TabBar, Icon } from '@koi-ui/core';
+export default () => (
+  <div className="relative h-16 overflow-hidden rounded-lg border border-border">
+    <TabBar
+      className="relative"
+      defaultActiveKey="home"
+      items={[
+        { key: 'home', label: 'Home', icon: <Icon name="check" size="sm" /> },
+        { key: 'search', label: 'Search', icon: <Icon name="search" size="sm" />, badge: 3 },
+        { key: 'mine', label: 'Me', icon: <Icon name="plus" size="sm" />, badge: 'New' },
+      ]}
+    />
+  </div>
+);
+```
+
+## IndexBar
+
+Chinese name: 索引栏
+
+IndexBar component from @koi-ui/core
+
+Category: Navigation / 导航
+
+```ts
+import { IndexBar } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/indexbar | https://icepepsicola.github.io/koi-ui/zh/components/indexbar
+
+### Props
+
+- `groups` (required): `IndexBarGroup<T>[]`
+- `renderItem` (required): `(item: T, index: number) => ReactNode`
+- `stickyOffset` (optional): `number`
+- `onIndexChange` (optional): `((index: string) => void)`
+
+### Examples
+
+```tsx
+import { IndexBar } from '@koi-ui/core';
+const groups = [
+  { index: 'A', items: ['Apple', 'Ant', 'Avocado'] },
+  { index: 'B', items: ['Banana', 'Blueberry'] },
+  { index: 'C', items: ['Cherry', 'Coconut'] },
+  { index: 'D', items: ['Date', 'Dragonfruit'] },
+];
+export default () => (
+  <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
+    <IndexBar className="min-h-0 min-w-0 flex-1" groups={groups} renderItem={(item) => <span>{item}</span>} />
+  </div>
+);
+```
+
+```tsx
+import { IndexBar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+const groups = [
+  { index: 'A', title: 'Group A', items: ['Apple', 'Ant', 'Avocado', 'Apricot'] },
+  { index: 'B', title: 'Group B', items: ['Banana', 'Blueberry', 'Blackberry'] },
+  { index: 'C', title: 'Group C', items: ['Cherry', 'Coconut', 'Cranberry'] },
+  { index: 'D', title: 'Group D', items: ['Date', 'Dragonfruit', 'Durian'] },
+];
+export default () => {
+  const [active, setActive] = useState('A');
+  return (
+    <div className="space-y-2">
+      <Text muted size="sm">Active index: {active}</Text>
+      <div className="koi-indexbar-demo flex h-[20rem] min-h-0 overflow-hidden rounded-md border border-border">
+        <IndexBar
+          className="min-h-0 min-w-0 flex-1"
+          groups={groups}
+          stickyOffset={8}
+          onIndexChange={setActive}
+          renderItem={(item) => <span>{item}</span>}
+        />
+      </div>
+    </div>
+  );
+};
+```
+
+## AutoComplete
+
+Chinese name: 自动完成
+
+AutoComplete component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { AutoComplete } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/autocomplete | https://icepepsicola.github.io/koi-ui/zh/components/autocomplete
+
+### Props
+
+- `options` (required): `AutoCompleteOption[]`
+- `value` (optional): `string`
+- `defaultValue` (optional): `string`
+- `onChange` (optional): `((value: string) => void)`
+- `onSelect` (optional): `((option: AutoCompleteOption) => void)`
+- `placeholder` (optional): `string`, default: `请输入`
+- `disabled` (optional): `boolean`
+- `size` (optional): `"sm" | "md" | "lg"`, default: `md`
+- `error` (optional): `string | boolean` — String shows message; boolean only styles the border (Form.Item owns copy).
+- `className` (optional): `string`
+- `filterOption` (optional): `((input: string, option: AutoCompleteOption) => boolean)`
+- `clearable` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { AutoComplete } from '@koi-ui/core';
+export default () => (
+  <AutoComplete
+    options={[
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+    ]}
+    placeholder="Search"
+  />
+);
+```
+
+```tsx
+import { AutoComplete } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('apple');
+  return (
+    <AutoComplete
+      value={value}
+      onChange={setValue}
+      clearable
+      options={[
+        { value: 'apple', label: 'Apple' },
+        { value: 'banana', label: 'Banana' },
+      ]}
+      placeholder="Search"
+    />
+  );
+};
+```
+
+## Checkbox
+
+Chinese name: 多选框
+
+Checkbox component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Checkbox } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/checkbox | https://icepepsicola.github.io/koi-ui/zh/components/checkbox
+
+### Props
+
+- `label` (optional): `ReactNode`
+- `onChange` (optional): `((checked: boolean) => void)`
+- `checkboxValue` (optional): `string`
+- `size` (optional): `"md" | "sm" | "lg"`, default: `md`
+- `color` (optional): `ControlColor`, default: `primary`
+
+### Examples
+
+```tsx
+import { Checkbox, CheckboxGroup } from '@koi-ui/core';
+export default () => (
+  <CheckboxGroup defaultValue={['a']}>
+    <Checkbox checkboxValue="a" label="Option A" />
+    <Checkbox checkboxValue="b" label="Option B" />
+  </CheckboxGroup>
+);
+```
+
+```tsx
+import { Checkbox, CheckboxGroup, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [values, setValues] = useState(['read']);
+  return (
+    <div>
+      <CheckboxGroup value={values} onChange={setValues}>
+        <Checkbox checkboxValue="read" label="Read" />
+        <Checkbox checkboxValue="write" label="Write" />
+        <Checkbox checkboxValue="code" label="Code" />
+      </CheckboxGroup>
+      <Text muted className="mt-2 block text-sm">Selected: {values.join(', ') || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## DatePicker
+
+Chinese name: 日期选择
+
+DatePicker component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { DatePicker } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/datepicker | https://icepepsicola.github.io/koi-ui/zh/components/datepicker
+
+### Props
+
+- `value` (optional): `string`
+- `onChange` (optional): `((value: string) => void)`
+- `placeholder` (optional): `string`
+- `disabled` (optional): `boolean`
+- `min` (optional): `string`
+- `max` (optional): `string`
+- `clearable` (optional): `boolean`
+- `responsive` (optional): `boolean`, default: `true`
+- `size` (optional): `FieldSize`
+
+### Examples
+
+```tsx
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('');
+  return <DatePicker value={v} onChange={setV} placeholder="Select date" />;
+};
+```
+
+```tsx
+import { DatePicker, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [date, setDate] = useState('2026-07-12');
+  return (
+    <div>
+      <DatePicker value={date} onChange={setDate} placeholder="Select date" />
+      <Text muted className="mt-2 block text-sm">Selected: {date || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## Form
+
+Chinese name: 表单
+
+Form component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Form } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/form | https://icepepsicola.github.io/koi-ui/zh/components/form
+
+### Props
+
+- `form` (optional): `FormInstance<Values>`
+- `initialValues` (optional): `Partial<Values>`
+- `layout` (optional): `FormLayout`
+- `responsive` (optional): `boolean`
+- `onValuesChange` (optional): `((changed: Partial<Values>, allValues: Values) => void)`
+- `onFinish` (optional): `((values: Values) => void)`
+- `onFinishFailed` (optional): `((errorInfo: ValidateErrorEntity<Values>) => void)`
+
+### Examples
+
+```tsx
+import { Form, Input, Button, toast } from '@koi-ui/core';
+
+export default () => (
+  <Form
+    layout="vertical"
+    onFinish={(values) => toast.success(`Hello ${values.username}`)}
+  >
+    <Form.Item
+      name="username"
+      label="Username"
+      rules={[{ required: true, message: 'Enter textUsername' }]}
+    >
+      <Input placeholder="Enter text" clearable />
+    </Form.Item>
+    <Button color="primary" type="submit">Submit</Button>
+  </Form>
+);
+```
+
+```tsx
+import { Form, Input, InputNumber, Switch, Button, Space, toast } from '@koi-ui/core';
+
+export default () => {
+  const [form] = Form.useForm();
+  return (
+    <Form
+      form={form}
+      layout="vertical"
+      initialValues={{ age: 18, notify: true }}
+      onFinish={(values) => toast.success(JSON.stringify(values))}
+      onFinishFailed={() => toast.error('请检查表单')}
+    >
+      <Form.Item
+        name="email"
+        label="Email"
+        rules={[
+          { required: true, message: '必填' },
+          { type: 'email', message: 'Email格式不正确' },
+        ]}
+      >
+        <Input placeholder="name@example.com" clearable />
+      </Form.Item>
+      <Form.Item name="age" label="Age" rules={[{ type: 'number', min: 1, max: 120, message: '1-120' }]}>
+        <InputNumber />
+      </Form.Item>
+      <Form.Item name="notify" label="Notice" valuePropName="checked">
+        <Switch />
+      </Form.Item>
+      <Space>
+        <Button color="primary" type="submit">Submit</Button>
+        <Button type="button" variant="outline" onClick={() => form.resetFields()}>重置</Button>
+      </Space>
+    </Form>
+  );
+};
+```
+
+## Input
+
+Chinese name: 输入框
+
+Input component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Input } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/input | https://icepepsicola.github.io/koi-ui/zh/components/input
+
+### Props
+
+- `onChange` (optional): `((value: string) => void)`
+- `error` (optional): `string | boolean` — String shows message; boolean only styles the border (Form.Item owns copy).
+- `size` (optional): `"sm" | "md" | "lg"`
+- `clearable` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Input } from '@koi-ui/core';
+export default () => <Input placeholder="Enter text" />;
+```
+
+```tsx
+import { Input, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Input placeholder="Normal" />
+    <Input placeholder="Invalid" error="Enter valid content" />
+    <Input placeholder="Disabled" disabled />
+  </Stack>
+);
+```
+
+## InputNumber
+
+Chinese name: 数字输入
+
+InputNumber component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { InputNumber } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/inputnumber | https://icepepsicola.github.io/koi-ui/zh/components/inputnumber
+
+### Props
+
+- `value` (optional): `number`
+- `defaultValue` (optional): `number`
+- `onChange` (optional): `((value: number) => void)`
+- `min` (optional): `number`
+- `max` (optional): `number`
+- `step` (optional): `number`, default: `1`
+- `disabled` (optional): `boolean`
+- `size` (optional): `"sm" | "md" | "lg"`, default: `md`
+- `error` (optional): `string | boolean` — String shows message; boolean only styles the border (Form.Item owns copy).
+- `className` (optional): `string`
+- `placeholder` (optional): `string`
+- `clearable` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { InputNumber } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState(1);
+  return <InputNumber value={v} onChange={setV} />;
+};
+```
+
+```tsx
+import { InputNumber } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState(12);
+  return <InputNumber value={v} onChange={setV} clearable />;
+};
+```
+
+## Radio
+
+Chinese name: 单选框
+
+Radio component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Radio } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/radio | https://icepepsicola.github.io/koi-ui/zh/components/radio
+
+### Props
+
+- `label` (optional): `ReactNode`
+- `radioValue` (required): `string`
+- `onChange` (optional): `((value: string) => void)`
+- `size` (optional): `"md" | "sm" | "lg"`, default: `md`
+- `color` (optional): `ControlColor`, default: `primary`
+
+### Examples
+
+```tsx
+import { Radio, RadioGroup } from '@koi-ui/core';
+export default () => (
+  <RadioGroup defaultValue="a">
+    <Radio radioValue="a" label="Option A" />
+    <Radio radioValue="b" label="Option B" />
+  </RadioGroup>
+);
+```
+
+```tsx
+import { Radio, RadioGroup, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [value, setValue] = useState('a');
+  return (
+    <div>
+      <RadioGroup value={value} onChange={setValue}>
+        <Radio radioValue="a" label="Plan A" />
+        <Radio radioValue="b" label="Plan B" />
+      </RadioGroup>
+      <Text muted className="mt-2 block text-sm">Current: {value}</Text>
+    </div>
+  );
+};
+```
+
+## Rate
+
+Chinese name: 评分
+
+Rate component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Rate } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/rate | https://icepepsicola.github.io/koi-ui/zh/components/rate
+
+### Props
+
+- `value` (optional): `number`
+- `defaultValue` (optional): `number`
+- `onChange` (optional): `((value: number) => void)`
+- `count` (optional): `number`, default: `5`
+- `allowHalf` (optional): `boolean`
+- `disabled` (optional): `boolean`
+- `color` (optional): `ControlColor`, default: `warning`
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Rate } from '@koi-ui/core';
+export default () => <Rate defaultValue={3} />;
+```
+
+```tsx
+import { Rate } from '@koi-ui/core';
+export default () => <Rate allowHalf defaultValue={2.5} />;
+```
+
+## Select
+
+Chinese name: 选择器
+
+Select component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Select } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/select | https://icepepsicola.github.io/koi-ui/zh/components/select
+
+### Props
+
+- `options` (required): `SelectOption[]`
+- `value` (optional): `string`
+- `onChange` (optional): `((value: string) => void)`
+- `placeholder` (optional): `string`
+- `disabled` (optional): `boolean`
+- `clearable` (optional): `boolean`
+- `responsive` (optional): `boolean`, default: `true`
+- `size` (optional): `FieldSize`
+
+### Examples
+
+```tsx
+import { Select } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('');
+  return (
+    <Select
+      options={[
+        { label: 'Beijing', value: 'bj' },
+        { label: 'Shanghai', value: 'sh' },
+      ]}
+      value={v}
+      onChange={setV}
+      placeholder="Select city"
+    />
+  );
+};
+```
+
+```tsx
+import { Select, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [city, setCity] = useState('sh');
+  return (
+    <div>
+      <Select
+        value={city}
+        onChange={setCity}
+        placeholder="Select city"
+        options={[
+          { label: 'Beijing', value: 'bj' },
+          { label: 'Shanghai', value: 'sh' },
+          { label: 'Guangzhou', value: 'gz' },
+        ]}
+      />
+      <Text muted className="mt-2 block text-sm">Current: {city}</Text>
+    </div>
+  );
+};
+```
+
+## Slider
+
+Chinese name: 滑动输入
+
+Slider component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Slider } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/slider | https://icepepsicola.github.io/koi-ui/zh/components/slider
+
+### Props
+
+- `value` (optional): `number`
+- `defaultValue` (optional): `number`
+- `onChange` (optional): `((value: number) => void)`
+- `min` (optional): `number`
+- `max` (optional): `number`, default: `100`
+- `step` (optional): `number`, default: `1`
+- `size` (optional): `"md" | "sm" | "lg"`
+- `color` (optional): `ControlColor`, default: `primary`
+- `showValue` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Slider } from '@koi-ui/core';
+export default () => <Slider defaultValue={40} />;
+```
+
+```tsx
+import { Slider, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={4}>
+    <Slider size="sm" defaultValue={30} />
+    <Slider size="md" defaultValue={50} />
+    <Slider size="lg" defaultValue={70} />
+  </Stack>
+);
+```
+
+## Switch
+
+Chinese name: 开关
+
+Switch component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Switch } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/switch | https://icepepsicola.github.io/koi-ui/zh/components/switch
+
+### Props
+
+- `checked` (optional): `boolean`
+- `defaultChecked` (optional): `boolean`
+- `onChange` (optional): `((checked: boolean) => void)`
+- `size` (optional): `"sm" | "md" | "lg"`, default: `md`
+- `color` (optional): `ControlColor`, default: `primary`
+
+### Examples
+
+```tsx
+import { Switch } from '@koi-ui/core';
+export default () => <Switch defaultChecked />;
+```
+
+```tsx
+import { Switch, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center">
+    <Switch size="sm" defaultChecked />
+    <Switch size="md" defaultChecked />
+    <Switch size="lg" defaultChecked />
+  </Space>
+);
+```
+
+## TextArea
+
+Chinese name: 文本域
+
+TextArea component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { TextArea } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/textarea | https://icepepsicola.github.io/koi-ui/zh/components/textarea
+
+### Props
+
+- `onChange` (optional): `((value: string) => void)`
+- `error` (optional): `string | boolean` — String shows message; boolean only styles the border (Form.Item owns copy).
+- `size` (optional): `"md" | "sm" | "lg"`
+- `showCount` (optional): `boolean`
+- `maxLength` (optional): `number`
+- `clearable` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { TextArea } from '@koi-ui/core';
+export default () => <TextArea placeholder="Enter multiple lines" rows={3} />;
+```
+
+```tsx
+import { TextArea, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <TextArea size="sm" placeholder="sm" rows={2} />
+    <TextArea size="md" placeholder="md" rows={3} />
+    <TextArea size="lg" placeholder="lg" rows={4} />
+  </Space>
+);
+```
+
+## TimePicker
+
+Chinese name: 时间选择
+
+TimePicker component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { TimePicker } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/timepicker | https://icepepsicola.github.io/koi-ui/zh/components/timepicker
+
+### Props
+
+- `value` (optional): `string`
+- `onChange` (optional): `((value: string) => void)`
+- `placeholder` (optional): `string`
+- `disabled` (optional): `boolean`
+- `format` (optional): `"HH:mm" | "HH:mm:ss"`
+- `clearable` (optional): `boolean`
+- `responsive` (optional): `boolean`, default: `true`
+- `size` (optional): `FieldSize`
+
+### Examples
+
+```tsx
+import { TimePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('');
+  return <TimePicker value={v} onChange={setV} placeholder="Select time" />;
+};
+```
+
+```tsx
+import { TimePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('09:30');
+  return <TimePicker value={v} onChange={setV} clearable placeholder="Select time" />;
+};
+```
+
+## Upload
+
+Chinese name: 上传
+
+Upload component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Upload } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/upload | https://icepepsicola.github.io/koi-ui/zh/components/upload
+
+### Props
+
+- `value` (optional): `UploadFileItem[]`
+- `defaultValue` (optional): `UploadFileItem[]`, default: `[]`
+- `onChange` (optional): `((files: UploadFileItem[]) => void)`
+- `accept` (optional): `string`
+- `multiple` (optional): `boolean`
+- `disabled` (optional): `boolean`
+- `maxCount` (optional): `number`
+- `className` (optional): `string`
+- `hint` (optional): `string`, default: `点击或拖拽文件到此处上传`
+
+### Examples
+
+```tsx
+import { Upload } from '@koi-ui/core';
+export default () => <Upload accept="image/*" />;
+```
+
+```tsx
+import { Upload } from '@koi-ui/core';
+export default () => (
+  <Upload accept="image/*" hint="JPG/PNG only, max 5MB per file" />
+);
+```
+
+## Cascader
+
+Chinese name: 级联选择
+
+Cascader component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Cascader } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/cascader | https://icepepsicola.github.io/koi-ui/zh/components/cascader
+
+### Props
+
+- `options` (required): `CascaderOption[]`
+- `value` (optional): `string[]`
+- `onChange` (optional): `((value: string[], labels: string[]) => void)`
+- `placeholder` (optional): `string`
+- `disabled` (optional): `boolean`
+- `clearable` (optional): `boolean`
+- `responsive` (optional): `boolean`, default: `true`
+- `size` (optional): `FieldSize`
+
+### Examples
+
+```tsx
+import { Cascader } from '@koi-ui/core';
+import { useState } from 'react';
+const options = [
+  {
+    label: 'Zhejiang',
+    value: 'zj',
+    children: [
+      {
+        label: 'Hangzhou',
+        value: 'hz',
+        children: [
+          { label: 'Xihu', value: 'xh' },
+          { label: 'Yuhang', value: 'yh' },
+          { label: 'Binjiang', value: 'bj' },
+        ],
+      },
+      {
+        label: 'Ningbo',
+        value: 'nb',
+        children: [
+          { label: 'Haishu', value: 'hs' },
+          { label: 'Yinzhou', value: 'yz' },
+          { label: 'Beilun', value: 'bl' },
+        ],
+      },
+      {
+        label: 'Wenzhou',
+        value: 'wz',
+        children: [
+          { label: 'Lucheng', value: 'lc' },
+          { label: 'Ouhai', value: 'oh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Jiangsu',
+    value: 'js',
+    children: [
+      {
+        label: 'Nanjing',
+        value: 'nj',
+        children: [
+          { label: 'Xuanwu', value: 'xw' },
+          { label: 'Qinhuai', value: 'qh' },
+          { label: 'Jianye', value: 'jy' },
+        ],
+      },
+      {
+        label: 'Suzhou',
+        value: 'sz',
+        children: [
+          { label: 'Gusu', value: 'gs' },
+          { label: 'SIP', value: 'gyyq' },
+          { label: 'Wuzhong', value: 'wz2' },
+        ],
+      },
+      {
+        label: 'Wuxi',
+        value: 'wx',
+        children: [
+          { label: 'Liangxi', value: 'lx' },
+          { label: 'Binhu', value: 'bh' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Guangdong',
+    value: 'gd',
+    children: [
+      {
+        label: 'Guangzhou',
+        value: 'gz',
+        children: [
+          { label: 'Tianhe', value: 'th' },
+          { label: 'Yuexiu', value: 'yx' },
+          { label: 'Haizhu', value: 'hz2' },
+        ],
+      },
+      {
+        label: 'Shenzhen',
+        value: 'sz2',
+        children: [
+          { label: 'Nanshan', value: 'ns' },
+          { label: 'Futian', value: 'ft' },
+          { label: 'Baoan', value: 'ba' },
+        ],
+      },
+      {
+        label: 'Zhuhai',
+        value: 'zh',
+        children: [
+          { label: 'Xiangzhou', value: 'xz' },
+          { label: 'Jinwan', value: 'jw' },
+        ],
+      },
+    ],
+  },
+];
+export default () => {
+  const [value, setValue] = useState<string[]>([]);
+  return <Cascader value={value} onChange={setValue} options={options} placeholder="Select region" />;
+};
+```
+
+```tsx
+import { Cascader } from '@koi-ui/core';
+import { useState } from 'react';
+const options = [
+  {
+    label: 'Zhejiang',
+    value: 'zj',
+    children: [
+      {
+        label: 'Hangzhou',
+        value: 'hz',
+        children: [
+          { label: 'Xihu', value: 'xh' },
+          { label: 'Yuhang', value: 'yh' },
+          { label: 'Binjiang', value: 'bj' },
+        ],
+      },
+      {
+        label: 'Ningbo',
+        value: 'nb',
+        children: [
+          { label: 'Haishu', value: 'hs' },
+          { label: 'Yinzhou', value: 'yz' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Jiangsu',
+    value: 'js',
+    children: [
+      {
+        label: 'Nanjing',
+        value: 'nj',
+        children: [
+          { label: 'Xuanwu', value: 'xw' },
+          { label: 'Qinhuai', value: 'qh' },
+        ],
+      },
+      {
+        label: 'Suzhou',
+        value: 'sz',
+        children: [
+          { label: 'Gusu', value: 'gs' },
+          { label: 'SIP', value: 'gyyq' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Guangdong',
+    value: 'gd',
+    children: [
+      {
+        label: 'Guangzhou',
+        value: 'gz',
+        children: [
+          { label: 'Tianhe', value: 'th' },
+          { label: 'Yuexiu', value: 'yx' },
+        ],
+      },
+      {
+        label: 'Shenzhen',
+        value: 'sz2',
+        children: [
+          { label: 'Nanshan', value: 'ns' },
+          { label: 'Futian', value: 'ft' },
+        ],
+      },
+    ],
+  },
+];
+export default () => {
+  const [value, setValue] = useState(['zj', 'hz', 'xh']);
+  return <Cascader value={value} onChange={setValue} options={options} clearable placeholder="Select region" />;
+};
+```
+
+## Picker
+
+Chinese name: 选择器(移动)
+
+Picker component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Picker } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/picker | https://icepepsicola.github.io/koi-ui/zh/components/picker
+
+### Props
+
+- `columns` (required): `PickerColumn[]`
+- `value` (optional): `string[]`
+- `onChange` (optional): `((value: string[]) => void)`
+- `placeholder` (optional): `string`
+- `disabled` (optional): `boolean`
+- `clearable` (optional): `boolean`
+- `responsive` (optional): `boolean`, default: `true`
+- `size` (optional): `FieldSize`
+
+### Examples
+
+```tsx
+import { Picker } from '@koi-ui/core';
+export default () => (
+  <Picker
+    placeholder="Select"
+    columns={[
+      { options: [{ label: 'Mon', value: '1' }, { label: 'Tue', value: '2' }, { label: 'Wed', value: '3' }] },
+      { options: [{ label: 'AM', value: 'am' }, { label: 'PM', value: 'pm' }] },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Picker } from '@koi-ui/core';
+import { useState } from 'react';
+const columns = [
+  { options: [{ label: 'Mon', value: '1' }, { label: 'Tue', value: '2' }, { label: 'Wed', value: '3' }] },
+  { options: [{ label: 'AM', value: 'am' }, { label: 'PM', value: 'pm' }] },
+];
+export default () => {
+  const [value, setValue] = useState(['2', 'pm']);
+  return <Picker value={value} onChange={setValue} columns={columns} clearable placeholder="Select slot" />;
+};
+```
+
+## SearchBar
+
+Chinese name: 搜索栏
+
+SearchBar component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { SearchBar } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/searchbar | https://icepepsicola.github.io/koi-ui/zh/components/searchbar
+
+### Props
+
+- `value` (optional): `string`
+- `defaultValue` (optional): `string`
+- `onChange` (optional): `((value: string) => void)`
+- `onSearch` (optional): `((value: string) => void)`
+- `placeholder` (optional): `string`
+- `disabled` (optional): `boolean`
+- `className` (optional): `string`
+- `showCancel` (optional): `boolean`
+- `clearable` (optional): `boolean`
+- `responsive` (optional): `boolean`, default: `true`
+- `size` (optional): `FieldSize`
+
+### Examples
+
+```tsx
+import { SearchBar } from '@koi-ui/core';
+export default () => <SearchBar placeholder="Search" />;
+```
+
+```tsx
+import { SearchBar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [keyword, setKeyword] = useState('');
+  return (
+    <div>
+      <SearchBar value={keyword} onChange={setKeyword} placeholder="Search products" />
+      <Text muted className="mt-2 block text-sm">Keyword: {keyword || 'None'}</Text>
+    </div>
+  );
+};
+```
+
+## Stepper
+
+Chinese name: 步进器
+
+Stepper component from @koi-ui/core
+
+Category: Data entry / 数据录入
+
+```ts
+import { Stepper } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/stepper | https://icepepsicola.github.io/koi-ui/zh/components/stepper
+
+### Props
+
+- `value` (optional): `number`
+- `defaultValue` (optional): `number`
+- `onChange` (optional): `((value: number) => void)`
+- `min` (optional): `number`
+- `max` (optional): `number`
+- `step` (optional): `number`, default: `1`
+- `disabled` (optional): `boolean`
+- `size` (optional): `"sm" | "md" | "lg"`, default: `md`
+- `color` (optional): `ControlColor`, default: `primary` — Accent color.
+- `label` (optional): `string`
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Stepper } from '@koi-ui/core';
+export default () => <Stepper defaultValue={1} />;
+```
+
+```tsx
+import { Stepper, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="middle">
+    <Stepper size="sm" defaultValue={1} />
+    <Stepper size="md" defaultValue={2} />
+    <Stepper size="lg" defaultValue={3} />
+  </Space>
+);
+```
+
+## Avatar
+
+Chinese name: 头像
+
+Avatar component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Avatar } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/avatar | https://icepepsicola.github.io/koi-ui/zh/components/avatar
+
+### Props
+
+- `src` (optional): `string`
+- `alt` (optional): `string`
+- `fallback` (optional): `ReactNode`
+- `preview` (optional): `boolean`, default: `true` — Click image to preview. Only works when `src` is set.
+- `status` (optional): `"online" | "offline" | "busy" | "away"` — Presence indicator.
+- `size` (optional): `"md" | "sm" | "lg" | "xl"`
+- `shape` (optional): `"circle" | "square"`
+
+### Examples
+
+```tsx
+import { Avatar, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Avatar fallback="K" />
+    <Avatar src="https://api.dicebear.com/9.x/avataaars/svg?seed=koi" alt="Koi" />
+  </Space>
+);
+```
+
+```tsx
+import { Avatar, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center">
+    <Avatar size="sm" fallback="S" />
+    <Avatar size="md" fallback="M" />
+    <Avatar size="lg" fallback="L" />
+    <Avatar size="xl" fallback="XL" />
+  </Space>
+);
+```
+
+## Badge
+
+Chinese name: 徽标
+
+Badge component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Badge } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/badge | https://icepepsicola.github.io/koi-ui/zh/components/badge
+
+### Props
+
+- `count` (optional): `number`
+- `max` (optional): `number`, default: `99`
+- `showZero` (optional): `boolean`
+- `color` (optional): `"neutral" | "primary" | "secondary" | "info" | "success" | "warning" | "error"`
+- `variant` (optional): `"soft" | "outline" | "dash" | "solid" | "ghost"`
+- `size` (optional): `"md" | "sm" | "lg"`
+- `dot` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Badge, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space>
+    <Badge count={5}><Button>Messages</Button></Badge>
+    <Badge count={99}><Button>Alerts</Button></Badge>
+    <Badge count={100} max={99}><Button>Overflow</Button></Badge>
+  </Space>
+);
+```
+
+```tsx
+import { Badge, Button, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Badge count={5} color="error"><Button>error</Button></Badge>
+    <Badge count={3} color="primary" variant="soft"><Button variant="soft">soft</Button></Badge>
+    <Badge count={9} color="secondary"><Button color="secondary">secondary</Button></Badge>
+    <Badge count={4} color="info" variant="outline"><Button variant="outline">outline</Button></Badge>
+    <Badge count={1} color="success" variant="ghost"><Button variant="ghost">ghost</Button></Badge>
+  </Space>
+);
+```
+
+## Calendar
+
+Chinese name: 日历
+
+Embedded month panel for dashboards, scheduling, or any inline date display. For form inputs with desktop popover and mobile wheel picker, use [DatePicker](/components/datepicker).
+
+Category: Data display / 数据展示
+
+```ts
+import { Calendar } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/calendar | https://icepepsicola.github.io/koi-ui/zh/components/calendar
+
+### Props
+
+- `value` (optional): `Date`
+- `defaultValue` (optional): `Date`
+- `onChange` (optional): `((date: Date) => void)`
+- `disabledDate` (optional): `((date: Date) => boolean)`
+
+### Examples
+
+```tsx
+import { Calendar } from '@koi-ui/core';
+export default () => <Calendar />;
+```
+
+```tsx
+import { Calendar, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [date, setDate] = useState(new Date(2026, 6, 15));
+  return (
+    <div>
+      <Calendar value={date} onChange={setDate} />
+      <Text muted className="mt-3 block text-sm">
+        Selected: {date.toLocaleDateString('en-US')}
+      </Text>
+    </div>
+  );
+};
+```
+
+## Card
+
+Chinese name: 卡片
+
+Card component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Card } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/card | https://icepepsicola.github.io/koi-ui/zh/components/card
+
+### Props
+
+- `title` (optional): `ReactNode`
+- `cover` (optional): `ReactNode` — Image / media region (daisyUI figure).
+- `footer` (optional): `ReactNode`
+- `actions` (optional): `ReactNode` — Action row (buttons), daisyUI card-actions.
+- `padding` (optional): `"md" | "none" | "sm" | "lg"`, default: `md`
+- `hoverable` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Card, Text } from '@koi-ui/core';
+export default () => (
+  <Card title="Card title">
+    <Text>Card content</Text>
+  </Card>
+);
+```
+
+```tsx
+import { Card, Text, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <Card padding="sm" title="sm"><Text size="sm">Small padding</Text></Card>
+    <Card padding="md" title="md"><Text size="sm">Default padding</Text></Card>
+    <Card padding="lg" title="lg"><Text size="sm">Large padding</Text></Card>
+  </Space>
+);
+```
+
+## Collapse
+
+Chinese name: 折叠面板
+
+Collapse component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Collapse } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/collapse | https://icepepsicola.github.io/koi-ui/zh/components/collapse
+
+### Props
+
+- `items` (required): `CollapseItem[]`
+- `defaultActiveKeys` (optional): `string[]`, default: `[]`
+- `activeKeys` (optional): `string[]`
+- `onChange` (optional): `((keys: string[]) => void)`
+- `accordion` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Collapse } from '@koi-ui/core';
+export default () => (
+  <Collapse
+    defaultActiveKeys={['1']}
+    items={[
+      { key: '1', label: 'Panel one', children: 'Content of panel one.' },
+      { key: '2', label: 'Panel two', children: 'Content of panel two.' },
+      { key: '3', label: 'Panel three', children: 'Content of panel three.' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Collapse } from '@koi-ui/core';
+export default () => (
+  <Collapse
+    accordion
+    defaultActiveKeys={['1']}
+    items={[
+      { key: '1', label: 'Only one open', children: 'With accordion, only one panel stays open.' },
+      { key: '2', label: 'Another', children: 'Opening this closes the previous one.' },
+      { key: '3', label: 'Disabled', children: 'Cannot expand', disabled: true },
+    ]}
+  />
+);
+```
+
+## Descriptions
+
+Chinese name: 描述列表
+
+Descriptions component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Descriptions } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/descriptions | https://icepepsicola.github.io/koi-ui/zh/components/descriptions
+
+### Props
+
+- `title` (optional): `ReactNode`
+- `items` (required): `DescriptionItem[]`
+- `column` (optional): `number`, default: `3`
+- `bordered` (optional): `boolean`
+- `size` (optional): `"sm" | "md" | "lg"`, default: `md`
+- `layout` (optional): `"horizontal" | "vertical"`, default: `horizontal`
+
+### Examples
+
+```tsx
+import { Descriptions } from '@koi-ui/core';
+export default () => (
+  <Descriptions
+    items={[
+      { key: 'name', label: 'Name', children: 'Alice' },
+      { key: 'phone', label: 'Phone', children: '138****0000' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Descriptions } from '@koi-ui/core';
+export default () => (
+  <Descriptions
+    title="User profile"
+    column={2}
+    items={[
+      { key: 'name', label: 'Name', children: 'Alice' },
+      { key: 'phone', label: 'Phone', children: '138****0000' },
+      { key: 'city', label: 'City', children: 'Shanghai' },
+      { key: 'role', label: 'Role', children: 'Admin' },
+      { key: 'address', label: 'Address', children: '88 Example Road', span: 2 },
+    ]}
+  />
+);
+```
+
+## Empty
+
+Chinese name: 空状态
+
+Empty component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Empty } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/empty | https://icepepsicola.github.io/koi-ui/zh/components/empty
+
+### Props
+
+- `description` (optional): `ReactNode`
+- `image` (optional): `ReactNode`
+
+### Examples
+
+```tsx
+import { Empty } from '@koi-ui/core';
+export default () => <Empty description="No data" />;
+```
+
+```tsx
+import { Empty, Button } from '@koi-ui/core';
+export default () => (
+  <Empty description="Nothing here yet">
+    <Button size="sm">Create</Button>
+  </Empty>
+);
+```
+
+## Image
+
+Chinese name: 图片
+
+Image component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Image } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/image | https://icepepsicola.github.io/koi-ui/zh/components/image
+
+### Props
+
+- `fallback` (optional): `ReactNode`
+- `preview` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Image } from '@koi-ui/core';
+export default () => (
+  <Image src="https://picsum.photos/200/120" alt="demo" width={200} height={120} />
+);
+```
+
+```tsx
+import { Image } from '@koi-ui/core';
+export default () => (
+  <Image
+    src="https://picsum.photos/240/160"
+    alt="preview"
+    width={240}
+    height={160}
+    preview
+  />
+);
+```
+
+## List
+
+Chinese name: 列表
+
+List component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { List } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/list | https://icepepsicola.github.io/koi-ui/zh/components/list
+
+### Props
+
+- `items` (required): `ListItem[]`
+- `header` (optional): `ReactNode`
+- `footer` (optional): `ReactNode`
+- `bordered` (optional): `boolean`
+- `size` (optional): `"md" | "sm" | "lg"`, default: `md`
+
+### Examples
+
+```tsx
+import { List } from '@koi-ui/core';
+export default () => (
+  <List
+    items={[
+      { key: '1', title: 'Item one', description: 'Description one' },
+      { key: '2', title: 'Item two', description: 'Description two' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { List, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle" className="w-full">
+    <List
+      bordered
+      size="sm"
+      items={[
+        { key: '1', title: 'Small list', description: 'size=sm' },
+        { key: '2', title: 'Another item', description: 'Desc' },
+      ]}
+    />
+    <List
+      bordered
+      size="lg"
+      items={[
+        { key: '1', title: 'Large list', description: 'size=lg' },
+        { key: '2', title: 'Another item', description: 'Desc' },
+      ]}
+    />
+  </Space>
+);
+```
+
+## Popover
+
+Chinese name: 气泡卡片
+
+Popover component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Popover } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/popover | https://icepepsicola.github.io/koi-ui/zh/components/popover
+
+### Props
+
+- `content` (required): `ReactNode`
+- `title` (optional): `ReactNode`
+- `placement` (optional): `PopoverPlacement`, default: `bottom`
+- `open` (optional): `boolean`
+- `defaultOpen` (optional): `boolean`
+- `onOpenChange` (optional): `((open: boolean) => void)`
+- `trigger` (optional): `"click" | "hover"`, default: `click`
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Popover, Button } from '@koi-ui/core';
+export default () => (
+  <div className="flex justify-center py-8">
+    <Popover content="Popover content">
+      <Button>Click</Button>
+    </Popover>
+  </div>
+);
+```
+
+```tsx
+import { Popover, Button } from '@koi-ui/core';
+export default () => (
+  <div className="flex justify-center py-8">
+    <Popover title="Title" content="Popover body with a title.">
+      <Button variant="outline">With title</Button>
+    </Popover>
+  </div>
+);
+```
+
+## Segmented
+
+Chinese name: 分段控制器
+
+Segmented component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Segmented } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/segmented | https://icepepsicola.github.io/koi-ui/zh/components/segmented
+
+### Props
+
+- `options` (required): `SegmentedOption[]`
+- `value` (optional): `string`
+- `defaultValue` (optional): `string`
+- `onChange` (optional): `((value: string) => void)`
+- `className` (optional): `string`
+- `size` (optional): `"md" | "sm" | "lg"`
+- `block` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Segmented } from '@koi-ui/core';
+export default () => (
+  <Segmented
+    defaultValue="day"
+    options={[
+      { value: 'day', label: 'Day' },
+      { value: 'week', label: 'Week' },
+      { value: 'month', label: 'Month' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Segmented, Space } from '@koi-ui/core';
+export default () => (
+  <Space direction="vertical" size="middle">
+    <Segmented size="sm" defaultValue="a" options={[{ value: 'a', label: 'sm' }, { value: 'b', label: 'Option' }]} />
+    <Segmented size="md" defaultValue="a" options={[{ value: 'a', label: 'md' }, { value: 'b', label: 'Option' }]} />
+    <Segmented size="lg" defaultValue="a" options={[{ value: 'a', label: 'lg' }, { value: 'b', label: 'Option' }]} />
+  </Space>
+);
+```
+
+## Statistic
+
+Chinese name: 统计数值
+
+Statistic component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Statistic } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/statistic | https://icepepsicola.github.io/koi-ui/zh/components/statistic
+
+### Props
+
+- `title` (optional): `ReactNode`
+- `value` (optional): `ReactNode`
+- `prefix` (optional): `ReactNode`
+- `suffix` (optional): `ReactNode`
+- `precision` (optional): `number`
+- `size` (optional): `"md" | "sm" | "lg"`, default: `md`
+
+### Examples
+
+```tsx
+import { Statistic } from '@koi-ui/core';
+export default () => <Statistic title="Active users" value={112893} />;
+```
+
+```tsx
+import { Statistic, Space } from '@koi-ui/core';
+export default () => (
+  <Space size="large">
+    <Statistic title="Balance" value={1128.89} prefix="$" precision={2} />
+    <Statistic title="Growth" value={12.5} suffix="%" precision={1} />
+  </Space>
+);
+```
+
+## Table
+
+Chinese name: 表格
+
+Table component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Table } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/table | https://icepepsicola.github.io/koi-ui/zh/components/table
+
+### Props
+
+- `columns` (required): `ColumnDef<T>[]`
+- `data` (required): `T[]`
+- `mobileFields` (optional): `(keyof T)[]`
+- `loading` (optional): `boolean`
+- `emptyText` (optional): `string`
+- `onRowClick` (optional): `((row: T) => void)`
+- `responsive` (optional): `boolean`, default: `true`
+
+### Examples
+
+```tsx
+import { Table } from '@koi-ui/core';
+export default () => (
+  <Table
+    columns={[
+      { key: 'name', title: 'Name' },
+      { key: 'age', title: 'Age' },
+    ]}
+    data={[
+      { name: 'Alice', age: '20' },
+      { name: 'Bob', age: '25' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Table } from '@koi-ui/core';
+export default () => (
+  <Table
+    columns={[
+      { key: 'name', title: 'Name' },
+      { key: 'role', title: 'Role' },
+    ]}
+    data={[]}
+    emptyText="No members"
+  />
+);
+```
+
+## Tag
+
+Chinese name: 标签
+
+Tag component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Tag } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/tag | https://icepepsicola.github.io/koi-ui/zh/components/tag
+
+### Props
+
+- `onClose` (optional): `(() => void)`
+- `color` (optional): `"neutral" | "primary" | "secondary" | "info" | "success" | "warning" | "error"`
+- `variant` (optional): `"soft" | "outline" | "dash" | "solid" | "ghost"`
+- `closable` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Tag, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Tag>Default</Tag>
+    <Tag color="secondary">Secondary</Tag>
+    <Tag color="info">Info</Tag>
+    <Tag color="success">Success</Tag>
+    <Tag color="warning">Warning</Tag>
+    <Tag color="error">Error</Tag>
+  </Space>
+);
+```
+
+```tsx
+import { Tag, Space } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Tag color="primary" variant="soft">Soft</Tag>
+    <Tag color="primary" variant="outline">Outline</Tag>
+    <Tag color="primary" variant="dash">Dash</Tag>
+    <Tag color="primary" variant="solid">Solid</Tag>
+    <Tag color="primary" variant="ghost">Ghost</Tag>
+  </Space>
+);
+```
+
+## Timeline
+
+Chinese name: 时间轴
+
+Timeline component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Timeline } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/timeline | https://icepepsicola.github.io/koi-ui/zh/components/timeline
+
+### Props
+
+- `items` (required): `TimelineItem[]`
+- `pending` (optional): `ReactNode`
+- `mode` (optional): `"left" | "alternate"`
+
+### Examples
+
+```tsx
+import { Timeline } from '@koi-ui/core';
+export default () => (
+  <Timeline
+    items={[
+      { key: '1', children: 'Create project' },
+      { key: '2', children: 'Ship release' },
+      { key: '3', children: 'Keep iterating' },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Timeline } from '@koi-ui/core';
+export default () => (
+  <Timeline
+    items={[
+      { key: '1', label: '2024-01', children: 'Kickoff', color: 'primary' },
+      { key: '2', label: '2024-03', children: 'Beta passed', color: 'success' },
+      { key: '3', label: '2024-05', children: 'Risk note', color: 'warning' },
+      { key: '4', label: '2024-06', children: 'Hotfix', color: 'error' },
+      { key: '5', label: '2024-07', children: 'GA release', color: 'info' },
+    ]}
+  />
+);
+```
+
+## Tooltip
+
+Chinese name: 文字提示
+
+Tooltip component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Tooltip } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/tooltip | https://icepepsicola.github.io/koi-ui/zh/components/tooltip
+
+### Props
+
+- `content` (required): `ReactNode`
+- `color` (optional): `"neutral" | "primary" | "secondary" | "info" | "success" | "warning" | "error"`, default: `neutral`
+- `placement` (optional): `"top" | "bottom" | "left" | "right"`, default: `top`
+- `open` (optional): `boolean`
+- `defaultOpen` (optional): `boolean`
+- `onOpenChange` (optional): `((open: boolean) => void)`
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Tooltip, Button } from '@koi-ui/core';
+export default () => (
+  <div className="flex justify-center pt-12">
+    <Tooltip content="Tip text">
+      <Button>Hover</Button>
+    </Tooltip>
+  </div>
+);
+```
+
+```tsx
+import { Tooltip, Button } from '@koi-ui/core';
+
+const cell = 'flex h-24 items-center justify-center';
+
+export default () => (
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    <div className={cell}>
+      <Tooltip placement="top" content="Top" open>
+        <Button size="sm">top</Button>
+      </Tooltip>
+    </div>
+    <div className={cell}>
+      <Tooltip placement="bottom" content="Bottom" open>
+        <Button size="sm">bottom</Button>
+      </Tooltip>
+    </div>
+    <div className={cell}>
+      <Tooltip placement="left" content="Left" open>
+        <Button size="sm">left</Button>
+      </Tooltip>
+    </div>
+    <div className={cell}>
+      <Tooltip placement="right" content="Right" open>
+        <Button size="sm">right</Button>
+      </Tooltip>
+    </div>
+  </div>
+);
+```
+
+## Tree
+
+Chinese name: 树形控件
+
+Tree component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Tree } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/tree | https://icepepsicola.github.io/koi-ui/zh/components/tree
+
+### Props
+
+- `data` (required): `TreeNode[]`
+- `defaultExpandedKeys` (optional): `string[]`, default: `[]`
+- `expandedKeys` (optional): `string[]`
+- `selectedKeys` (optional): `string[]`, default: `[]`
+- `onSelect` (optional): `((keys: string[]) => void)`
+- `onExpand` (optional): `((keys: string[]) => void)`
+- `className` (optional): `string`
+- `showLine` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Tree } from '@koi-ui/core';
+export default () => (
+  <Tree
+    data={[
+      {
+        key: '1',
+        title: 'Docs',
+        children: [
+          { key: '1-1', title: 'Intro' },
+          { key: '1-2', title: 'Quick start' },
+        ],
+      },
+      {
+        key: '2',
+        title: 'Components',
+        children: [{ key: '2-1', title: 'Button' }],
+      },
+    ]}
+  />
+);
+```
+
+```tsx
+import { Tree } from '@koi-ui/core';
+export default () => (
+  <Tree
+    showLine
+    defaultExpandedKeys={['1']}
+    data={[
+      {
+        key: '1',
+        title: 'Parent',
+        children: [
+          { key: '1-1', title: 'Child A' },
+          { key: '1-2', title: 'Child B' },
+        ],
+      },
+    ]}
+  />
+);
+```
+
+## NoticeBar
+
+Chinese name: 通告栏
+
+NoticeBar component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { NoticeBar } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/noticebar | https://icepepsicola.github.io/koi-ui/zh/components/noticebar
+
+### Props
+
+- `content` (required): `ReactNode`
+- `leftIcon` (optional): `ReactNode`
+- `closable` (optional): `boolean`
+- `scrollable` (optional): `boolean`
+- `onClose` (optional): `(() => void)`
+- `color` (optional): `"primary" | "info" | "success" | "warning" | "error"`, default: `primary`
+
+### Examples
+
+```tsx
+import { NoticeBar } from '@koi-ui/core';
+export default () => <NoticeBar content="This is a notice" />;
+```
+
+```tsx
+import { NoticeBar, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <NoticeBar color="primary" content="Default notice" />
+    <NoticeBar color="info" content="Update available" />
+    <NoticeBar color="success" content="Sync complete" />
+    <NoticeBar color="warning" content="Please review the risks" />
+    <NoticeBar color="error" content="Something went wrong. Try again later." />
+  </Stack>
+);
+```
+
+## Swiper
+
+Chinese name: 滑块视图
+
+Swiper component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Swiper } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/swiper | https://icepepsicola.github.io/koi-ui/zh/components/swiper
+
+### Props
+
+- `loop` (optional): `boolean`, default: `true`
+- `autoplay` (optional): `boolean`
+- `interval` (optional): `number`, default: `3000`
+- `threshold` (optional): `number`, default: `40` — 滑动切换阈值（px），默认 40
+- `showDots` (optional): `boolean`, default: `true`
+- `showArrows` (optional): `boolean`
+- `onChange` (optional): `((index: number) => void)`
+
+### Examples
+
+```tsx
+import { Swiper } from '@koi-ui/core';
+export default () => (
+  <Swiper>
+    <div className="flex h-32 items-center justify-center bg-muted text-lg font-medium">Slide 1</div>
+    <div className="flex h-32 items-center justify-center bg-primary/10 text-lg font-medium">Slide 2</div>
+    <div className="flex h-32 items-center justify-center bg-muted/80 text-lg font-medium">Slide 3</div>
+    <div className="flex h-32 items-center justify-center bg-primary/20 text-lg font-medium">Slide 4</div>
+  </Swiper>
+);
+```
+
+```tsx
+import { Swiper } from '@koi-ui/core';
+export default () => (
+  <Swiper showArrows>
+    <div className="flex h-32 items-center justify-center bg-muted text-lg font-medium">Slide 1</div>
+    <div className="flex h-32 items-center justify-center bg-primary/10 text-lg font-medium">Slide 2</div>
+    <div className="flex h-32 items-center justify-center bg-muted/80 text-lg font-medium">Slide 3</div>
+    <div className="flex h-32 items-center justify-center bg-primary/20 text-lg font-medium">Slide 4</div>
+  </Swiper>
+);
+```
+
+## Ellipsis
+
+Chinese name: 文本省略
+
+Ellipsis component from @koi-ui/core
+
+Category: Data display / 数据展示
+
+```ts
+import { Ellipsis } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/ellipsis | https://icepepsicola.github.io/koi-ui/zh/components/ellipsis
+
+### Props
+
+- `content` (required): `ReactNode`
+- `rows` (optional): `number`, default: `1`
+- `expandable` (optional): `boolean`, default: `true`
+- `expandText` (optional): `string`, default: `展开`
+- `collapseText` (optional): `string`, default: `收起`
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis content="This is a long paragraph used to demonstrate text ellipsis: when content exceeds the container width, the overflow is truncated with an ellipsis so lists and cards stay readable." />
+);
+```
+
+```tsx
+import { Ellipsis } from '@koi-ui/core';
+export default () => (
+  <Ellipsis
+    rows={2}
+    content="This long paragraph demonstrates multi-line ellipsis. Content is clamped to the given row count. Expand to read everything, then collapse again."
+  />
+);
+```
+
+## Alert
+
+Chinese name: 警告提示
+
+Alert component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Alert } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/alert | https://icepepsicola.github.io/koi-ui/zh/components/alert
+
+### Props
+
+- `title` (optional): `ReactNode`
+- `description` (optional): `ReactNode`
+- `icon` (optional): `ReactNode` — Custom icon. Pass `null` to hide the default status icon.
+- `action` (optional): `ReactNode` — Trailing actions (e.g. buttons).
+- `responsive` (optional): `boolean` — Vertical on narrow screens, horizontal from `sm` up.
+Overrides `layout` when true.
+- `closable` (optional): `boolean`
+- `onClose` (optional): `(() => void)`
+- `color` (optional): `"neutral" | "info" | "success" | "warning" | "error"`, default: `info`
+- `variant` (optional): `"soft" | "outline" | "dash" | "solid"`, default: `soft`
+- `layout` (optional): `"horizontal" | "vertical"`, default: `horizontal`
+
+### Examples
+
+```tsx
+import { Alert } from '@koi-ui/core';
+export default () => (
+  <Alert color="info" title="Info" description="This is an info message" />
+);
+```
+
+```tsx
+import { Alert, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={3}>
+    <Alert color="neutral" title="Neutral" description="Neutral tip" />
+    <Alert color="info" title="Info" description="General tip" />
+    <Alert color="success" title="Success" description="Done" />
+    <Alert color="warning" title="Warning" description="Please check input" />
+    <Alert color="error" title="Error" description="Submit failed" />
+  </Stack>
+);
+```
+
+## Drawer
+
+Chinese name: 抽屉
+
+Side / edge panel with the same chrome as Modal (no section borders, optional `closable`).
+
+Category: Feedback / 反馈
+
+```ts
+import { Drawer } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/drawer | https://icepepsicola.github.io/koi-ui/zh/components/drawer
+
+### Props
+
+- `open` (required): `boolean`
+- `onClose` (required): `() => void`
+- `title` (optional): `ReactNode`
+- `footer` (optional): `ReactNode`
+- `maskClosable` (optional): `boolean`, default: `true`
+- `closable` (optional): `boolean`
+- `className` (optional): `string`
+- `placement` (optional): `"right" | "left" | "top" | "bottom"`, default: `right`
+- `size` (optional): `"md" | "sm" | "lg"`, default: `md`
+
+### Examples
+
+```tsx
+import { Drawer, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open drawer</Button>
+      <Drawer open={open} onClose={() => setOpen(false)} title="Drawer" closable>
+        Content
+      </Drawer>
+    </>
+  );
+};
+```
+
+```tsx
+import { Drawer, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [placement, setPlacement] = useState<'left' | 'right' | 'top' | 'bottom'>('right');
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Space wrap>
+        {(['left', 'right', 'top', 'bottom'] as const).map((p) => (
+          <Button
+            key={p}
+            size="sm"
+            variant={placement === p ? 'solid' : 'outline'}
+            onClick={() => {
+              setPlacement(p);
+              setOpen(true);
+            }}
+          >
+            {p}
+          </Button>
+        ))}
+      </Space>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`placement=${placement}`}
+        placement={placement}
+        closable
+      >
+        Slides in from {placement}
+      </Drawer>
+    </>
+  );
+};
+```
+
+## Modal
+
+Chinese name: 对话框
+
+Desktop: centered dialog (daisyUI `modal-middle`). Mobile: bottom sheet when `responsive`.
+
+Category: Feedback / 反馈
+
+```ts
+import { Modal } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/modal | https://icepepsicola.github.io/koi-ui/zh/components/modal
+
+### Props
+
+- `responsive` (optional): `boolean`, default: `true` — Switch to bottom sheet on mobile breakpoint.
+- `open` (required): `boolean`
+- `onClose` (required): `() => void`
+- `title` (optional): `ReactNode`
+- `footer` (optional): `ReactNode`
+- `placement` (optional): `ModalPlacement`, default: `'middle'` — Desktop placement. Mobile adaptive path always uses bottom sheet.
+- `size` (optional): `ModalSize`, default: `'md'`
+- `closable` (optional): `boolean`, default: `false`
+- `maskClosable` (optional): `boolean`, default: `true`
+- `mobileFullscreen` (optional): `boolean`, default: `true` — Mobile sheet height. Ignored on desktop.
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Modal, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} title="Hello!">
+        Press ESC or click the mask to close.
+      </Modal>
+    </>
+  );
+};
+```
+
+```tsx
+import { Modal, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Confirm</Button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Confirm delete"
+        closable
+        footer={
+          <Space>
+            <Button color="neutral" variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button color="error" onClick={() => setOpen(false)}>
+              Delete
+            </Button>
+          </Space>
+        }
+      >
+        Delete this record?
+      </Modal>
+    </>
+  );
+};
+```
+
+## Notification
+
+Chinese name: 通知提醒
+
+Notification component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Notification } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/notification | https://icepepsicola.github.io/koi-ui/zh/components/notification
+
+### Props
+
+- `title` (optional): `ReactNode`
+- `description` (optional): `ReactNode`
+- `open` (optional): `boolean`, default: `true`
+- `onClose` (optional): `(() => void)`
+- `placement` (optional): `NotificationPlacement`, default: `topRight`
+- `color` (optional): `NotificationColor`, default: `info`
+
+### Examples
+
+```tsx
+import { Notification, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Show notification</Button>
+      <Notification
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Notice"
+        description="This is a notification message"
+      />
+    </>
+  );
+};
+```
+
+```tsx
+import { Notification, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [color, setColor] = useState(null);
+  return (
+    <>
+      <Space wrap>
+        <Button variant="outline" onClick={() => setColor('info')}>info</Button>
+        <Button variant="soft" onClick={() => setColor('success')}>success</Button>
+        <Button color="secondary" onClick={() => setColor('warning')}>warning</Button>
+        <Button color="error" onClick={() => setColor('error')}>error</Button>
+      </Space>
+      {color ? (
+        <Notification
+          color={color}
+          open
+          onClose={() => setColor(null)}
+          title={color}
+          description={`${color} notification`}
+        />
+      ) : null}
+    </>
+  );
+};
+```
+
+## Popconfirm
+
+Chinese name: 气泡确认
+
+Popconfirm component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Popconfirm } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/popconfirm | https://icepepsicola.github.io/koi-ui/zh/components/popconfirm
+
+### Props
+
+- `title` (required): `ReactNode`
+- `description` (optional): `ReactNode`
+- `onConfirm` (optional): `(() => void)`
+- `onCancel` (optional): `(() => void)`
+- `confirmText` (optional): `string`, default: `确定`
+- `cancelText` (optional): `string`, default: `取消`
+- `okType` (optional): `"primary" | "error"`, default: `primary`
+- `disabled` (optional): `boolean`
+
+### Examples
+
+```tsx
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => (
+  <Popconfirm title="Delete this item?" onConfirm={() => {}}>
+    <Button color="error">Delete</Button>
+  </Popconfirm>
+);
+```
+
+```tsx
+import { Popconfirm, Button } from '@koi-ui/core';
+export default () => (
+  <Popconfirm
+    title="Delete record"
+    description="This cannot be undone. Proceed carefully."
+    onConfirm={() => {}}
+  >
+    <Button variant="outline">With description</Button>
+  </Popconfirm>
+);
+```
+
+## Progress
+
+Chinese name: 进度条
+
+Progress component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Progress } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/progress | https://icepepsicola.github.io/koi-ui/zh/components/progress
+
+### Props
+
+- `percent` (optional): `number`
+- `showInfo` (optional): `boolean`
+- `strokeColor` (optional): `string`
+- `color` (optional): `"primary" | "info" | "success" | "warning" | "error"`, default: `primary`
+- `size` (optional): `"md" | "sm" | "lg"`
+
+### Examples
+
+```tsx
+import { Progress } from '@koi-ui/core';
+export default () => <Progress percent={60} />;
+```
+
+```tsx
+import { Progress, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={4}>
+    <Progress percent={30} showInfo />
+    <Progress percent={70} color="success" showInfo />
+    <Progress percent={55} color="warning" showInfo />
+    <Progress percent={50} color="error" showInfo />
+    <Progress percent={40} color="info" showInfo />
+  </Stack>
+);
+```
+
+## Result
+
+Chinese name: 结果
+
+Result component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Result } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/result | https://icepepsicola.github.io/koi-ui/zh/components/result
+
+### Props
+
+- `title` (optional): `ReactNode`
+- `subTitle` (optional): `ReactNode`
+- `icon` (optional): `ReactNode`
+- `extra` (optional): `ReactNode`
+- `status` (optional): `"info" | "success" | "error" | "warning" | "404" | "403" | "500"`, default: `info`
+
+### Examples
+
+```tsx
+import { Result, Button } from '@koi-ui/core';
+export default () => (
+  <Result status="success" title="Submitted" extra={<Button>Back</Button>} />
+);
+```
+
+```tsx
+import { Result, Stack } from '@koi-ui/core';
+export default () => (
+  <Stack gap={6}>
+    <Result status="success" title="Success" subTitle="Operation completed" />
+    <Result status="error" title="Error" subTitle="Please try again" />
+    <Result status="info" title="Info" subTitle="Check for updates" />
+    <Result status="warning" title="Warning" subTitle="Confirm before continue" />
+    <Result status="404" title="Not found" subTitle="Check the URL" />
+    <Result status="403" title="Forbidden" subTitle="Contact an admin" />
+    <Result status="500" title="Server error" subTitle="Try again later" />
+  </Stack>
+);
+```
+
+## Skeleton
+
+Chinese name: 骨架屏
+
+Skeleton component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Skeleton } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/skeleton | https://icepepsicola.github.io/koi-ui/zh/components/skeleton
+
+### Props
+
+- `width` (optional): `string | number`
+- `height` (optional): `string | number`
+- `active` (optional): `boolean`, default: `true`
+- `variant` (optional): `"text" | "circular" | "rectangular"`
+
+### Examples
+
+```tsx
+import { Skeleton } from '@koi-ui/core';
+export default () => (
+  <div className="space-y-2">
+    <Skeleton />
+    <Skeleton width="80%" />
+    <Skeleton width="60%" />
+  </div>
+);
+```
+
+```tsx
+import { Skeleton, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="middle">
+    <Skeleton variant="text" width={160} />
+    <Skeleton variant="circular" width={40} height={40} />
+    <Skeleton variant="rectangular" width={120} height={64} />
+  </Space>
+);
+```
+
+## Spin
+
+Chinese name: 加载中
+
+Spin component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Spin } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/spin | https://icepepsicola.github.io/koi-ui/zh/components/spin
+
+### Props
+
+- `spinning` (optional): `boolean`, default: `true`
+- `tip` (optional): `ReactNode`
+- `indicator` (optional): `SpinnerStyle`, default: `spinner` — Loading indicator style.
+- `color` (optional): `ControlColor`, default: `primary`
+- `size` (optional): `"md" | "sm" | "lg"`, default: `md`
+
+### Examples
+
+```tsx
+import { Spin } from '@koi-ui/core';
+export default () => <Spin tip="Loading..." />;
+```
+
+```tsx
+import { Spin, Space } from '@koi-ui/core';
+export default () => (
+  <Space align="center" size="large">
+    <Spin size="sm" tip="sm" />
+    <Spin size="md" tip="md" />
+    <Spin size="lg" tip="lg" />
+  </Space>
+);
+```
+
+## Toast
+
+Chinese name: 轻提示
+
+Toast component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Toast } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/toast | https://icepepsicola.github.io/koi-ui/zh/components/toast
+
+### Examples
+
+```tsx
+import { Button, toast } from '@koi-ui/core';
+export default () => (
+  <Button onClick={() => toast('Default toast')}>Show toast</Button>
+);
+```
+
+```tsx
+import { Button, Space, toast } from '@koi-ui/core';
+export default () => (
+  <Space wrap>
+    <Button onClick={() => toast('Default')}>default</Button>
+    <Button variant="outline" onClick={() => toast.info('Info toast')}>info</Button>
+    <Button variant="soft" onClick={() => toast.success('Success')}>success</Button>
+    <Button color="secondary" onClick={() => toast.warning('Warning')}>warning</Button>
+    <Button color="error" onClick={() => toast.error('Error')}>error</Button>
+  </Space>
+);
+```
+
+## Popup
+
+Chinese name: 弹出层
+
+Compact centered dialog — same chrome as Modal, default `size="sm"`.
+
+Category: Feedback / 反馈
+
+```ts
+import { Popup } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/popup | https://icepepsicola.github.io/koi-ui/zh/components/popup
+
+### Props
+
+- `open` (required): `boolean`
+- `onClose` (required): `() => void`
+- `title` (optional): `ReactNode`
+- `footer` (optional): `ReactNode`
+- `size` (optional): `ModalSize`, default: `sm` — Compact centered dialog (defaults to `sm`).
+- `closable` (optional): `boolean` — Corner close button.
+- `maskClosable` (optional): `boolean`, default: `true` — Close when clicking the mask.
+- `className` (optional): `string`
+
+### Examples
+
+```tsx
+import { Popup, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open popup</Button>
+      <Popup open={open} onClose={() => setOpen(false)} title="Notice">
+        Centered popup content.
+      </Popup>
+    </>
+  );
+};
+```
+
+```tsx
+import { Popup, Button, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>With footer</Button>
+      <Popup
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Confirm"
+        closable
+        footer={
+          <Space>
+            <Button color="neutral" variant="ghost" size="sm" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button color="primary" size="sm" onClick={() => setOpen(false)}>
+              OK
+            </Button>
+          </Space>
+        }
+      >
+        Continue?
+      </Popup>
+    </>
+  );
+};
+```
+
+## ActionSheet
+
+Chinese name: 动作面板
+
+ActionSheet component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { ActionSheet } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/actionsheet | https://icepepsicola.github.io/koi-ui/zh/components/actionsheet
+
+### Props
+
+- `open` (required): `boolean`
+- `onClose` (required): `() => void`
+- `title` (optional): `ReactNode`
+- `description` (optional): `ReactNode`
+- `actions` (required): `ActionSheetAction[]`
+- `cancelText` (optional): `ReactNode`
+- `closeOnAction` (optional): `boolean`, default: `true`
+- `maskClosable` (optional): `boolean`, default: `true`
+
+### Examples
+
+```tsx
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        actions={[
+          { key: '1', text: 'Option 1' },
+          { key: '2', text: 'Option 2' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
+```tsx
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>More</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Share to"
+        description="Pick a platform"
+        actions={[
+          { key: 'wechat', text: 'WeChat' },
+          { key: 'link', text: 'Copy link' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
+## Loading
+
+Chinese name: 加载
+
+Loading component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Loading } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/loading | https://icepepsicola.github.io/koi-ui/zh/components/loading
+
+### Props
+
+- `open` (optional): `boolean`, default: `true`
+- `tip` (optional): `ReactNode`
+- `fullscreen` (optional): `boolean`, default: `true`
+- `className` (optional): `string`
+- `indicator` (optional): `SpinnerStyle`, default: `spinner`
+- `color` (optional): `ControlColor`, default: `primary`
+
+### Examples
+
+```tsx
+import { Loading, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => {
+          setOpen(true);
+          setTimeout(() => setOpen(false), 1500);
+        }}
+      >
+        Fullscreen loading
+      </Button>
+      <Loading open={open} tip="Loading..." />
+    </>
+  );
+};
+```
+
+```tsx
+import { Loading } from '@koi-ui/core';
+export default () => <Loading open fullscreen={false} tip="Please wait" />;
+```
+
+## Mask
+
+Chinese name: 背景蒙层
+
+Mask component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Mask } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/mask | https://icepepsicola.github.io/koi-ui/zh/components/mask
+
+### Props
+
+- `visible` (optional): `boolean`, default: `true`
+- `zIndex` (optional): `number`, default: `50`
+- `open` (optional): `boolean`
+- `onClick` (optional): `(() => void)`
+- `durationMs` (optional): `number` — Exit animation duration in ms (kept for API compat; Motion uses seconds).
+- `ref` (optional): `Ref<HTMLDivElement>`
+- `key` (optional): `Key | null`
+- `defaultChecked` (optional): `boolean`
+- `defaultValue` (optional): `string | number | readonly string[]`
+- `suppressContentEditableWarning` (optional): `boolean`
+- `suppressHydrationWarning` (optional): `boolean`
+- `accessKey` (optional): `string`
+- `autoCapitalize` (optional): `"off" | "none" | "on" | "sentences" | "words" | "characters" | (string & {})`
+- `autoFocus` (optional): `boolean`
+- `className` (optional): `string`
+- `contentEditable` (optional): `"inherit" | Booleanish | "plaintext-only"`
+- `contextMenu` (optional): `string`
+- `dir` (optional): `string`
+- `draggable` (optional): `Booleanish`
+- `enterKeyHint` (optional): `"search" | "enter" | "done" | "go" | "next" | "previous" | "send"`
+- `hidden` (optional): `boolean`
+- `id` (optional): `string`
+- `lang` (optional): `string`
+- `nonce` (optional): `string`
+- `slot` (optional): `string`
+- `spellCheck` (optional): `Booleanish`
+- `tabIndex` (optional): `number`
+- `title` (optional): `string`
+- `translate` (optional): `"yes" | "no"`
+- `radioGroup` (optional): `string`
+- `role` (optional): `AriaRole`
+- `about` (optional): `string`
+- `content` (optional): `string`
+- `datatype` (optional): `string`
+- `inlist` (optional): `any`
+- `prefix` (optional): `string`
+- `property` (optional): `string`
+- `rel` (optional): `string`
+- `resource` (optional): `string`
+- `rev` (optional): `string`
+- `typeof` (optional): `string`
+- `vocab` (optional): `string`
+- `autoCorrect` (optional): `string`
+- `autoSave` (optional): `string`
+- `color` (optional): `string`
+- `itemProp` (optional): `string`
+- `itemScope` (optional): `boolean`
+- `itemType` (optional): `string`
+- `itemID` (optional): `string`
+- `itemRef` (optional): `string`
+- `results` (optional): `number`
+- `security` (optional): `string`
+- `unselectable` (optional): `"off" | "on"`
+- `popover` (optional): `"" | "auto" | "manual" | "hint"`
+- `popoverTargetAction` (optional): `"toggle" | "show" | "hide"`
+- `popoverTarget` (optional): `string`
+- `inert` (optional): `boolean`
+- `inputMode` (optional): `"search" | "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal"`
+- `is` (optional): `string`
+- `exportparts` (optional): `string`
+- `part` (optional): `string`
+- `aria-activedescendant` (optional): `string`
+- `aria-atomic` (optional): `Booleanish`
+- `aria-autocomplete` (optional): `"none" | "list" | "inline" | "both"`
+- `aria-braillelabel` (optional): `string`
+- `aria-brailleroledescription` (optional): `string`
+- `aria-busy` (optional): `Booleanish`
+- `aria-checked` (optional): `boolean | "true" | "false" | "mixed"`
+- `aria-colcount` (optional): `number`
+- `aria-colindex` (optional): `number`
+- `aria-colindextext` (optional): `string`
+- `aria-colspan` (optional): `number`
+- `aria-controls` (optional): `string`
+- `aria-current` (optional): `boolean | "page" | "true" | "false" | "step" | "location" | "date" | "time"`
+- `aria-describedby` (optional): `string`
+- `aria-description` (optional): `string`
+- `aria-details` (optional): `string`
+- `aria-disabled` (optional): `Booleanish`
+- `aria-dropeffect` (optional): `"link" | "none" | "copy" | "execute" | "move" | "popup"`
+- `aria-errormessage` (optional): `string`
+- `aria-expanded` (optional): `Booleanish`
+- `aria-flowto` (optional): `string`
+- `aria-grabbed` (optional): `Booleanish`
+- `aria-haspopup` (optional): `boolean | "grid" | "true" | "false" | "dialog" | "listbox" | "menu" | "tree"`
+- `aria-hidden` (optional): `Booleanish`
+- `aria-invalid` (optional): `boolean | "true" | "false" | "grammar" | "spelling"`
+- `aria-keyshortcuts` (optional): `string`
+- `aria-label` (optional): `string`
+- `aria-labelledby` (optional): `string`
+- `aria-level` (optional): `number`
+- `aria-live` (optional): `"off" | "assertive" | "polite"`
+- `aria-modal` (optional): `Booleanish`
+- `aria-multiline` (optional): `Booleanish`
+- `aria-multiselectable` (optional): `Booleanish`
+- `aria-orientation` (optional): `"horizontal" | "vertical"`
+- `aria-owns` (optional): `string`
+- `aria-placeholder` (optional): `string`
+- `aria-posinset` (optional): `number`
+- `aria-pressed` (optional): `boolean | "true" | "false" | "mixed"`
+- `aria-readonly` (optional): `Booleanish`
+- `aria-relevant` (optional): `"all" | "text" | "additions" | "additions removals" | "additions text" | "removals" | "removals additions" | "removals text" | "text additions" | "text removals"`
+- `aria-required` (optional): `Booleanish`
+- `aria-roledescription` (optional): `string`
+- `aria-rowcount` (optional): `number`
+- `aria-rowindex` (optional): `number`
+- `aria-rowindextext` (optional): `string`
+- `aria-rowspan` (optional): `number`
+- `aria-selected` (optional): `Booleanish`
+- `aria-setsize` (optional): `number`
+- `aria-sort` (optional): `"none" | "ascending" | "descending" | "other"`
+- `aria-valuemax` (optional): `number`
+- `aria-valuemin` (optional): `number`
+- `aria-valuenow` (optional): `number`
+- `aria-valuetext` (optional): `string`
+- `dangerouslySetInnerHTML` (optional): `{ __html: string | TrustedHTML; }`
+- `onCopy` (optional): `ClipboardEventHandler<HTMLDivElement>`
+- `onCopyCapture` (optional): `ClipboardEventHandler<HTMLDivElement>`
+- `onCut` (optional): `ClipboardEventHandler<HTMLDivElement>`
+- `onCutCapture` (optional): `ClipboardEventHandler<HTMLDivElement>`
+- `onPaste` (optional): `ClipboardEventHandler<HTMLDivElement>`
+- `onPasteCapture` (optional): `ClipboardEventHandler<HTMLDivElement>`
+- `onCompositionEnd` (optional): `CompositionEventHandler<HTMLDivElement>`
+- `onCompositionEndCapture` (optional): `CompositionEventHandler<HTMLDivElement>`
+- `onCompositionStart` (optional): `CompositionEventHandler<HTMLDivElement>`
+- `onCompositionStartCapture` (optional): `CompositionEventHandler<HTMLDivElement>`
+- `onCompositionUpdate` (optional): `CompositionEventHandler<HTMLDivElement>`
+- `onCompositionUpdateCapture` (optional): `CompositionEventHandler<HTMLDivElement>`
+- `onFocus` (optional): `FocusEventHandler<HTMLDivElement>`
+- `onFocusCapture` (optional): `FocusEventHandler<HTMLDivElement>`
+- `onBlur` (optional): `FocusEventHandler<HTMLDivElement>`
+- `onBlurCapture` (optional): `FocusEventHandler<HTMLDivElement>`
+- `onChange` (optional): `ChangeEventHandler<HTMLDivElement, Element>`
+- `onChangeCapture` (optional): `ChangeEventHandler<HTMLDivElement, Element>`
+- `onBeforeInput` (optional): `InputEventHandler<HTMLDivElement>`
+- `onBeforeInputCapture` (optional): `InputEventHandler<HTMLDivElement>`
+- `onInput` (optional): `InputEventHandler<HTMLDivElement>`
+- `onInputCapture` (optional): `InputEventHandler<HTMLDivElement>`
+- `onReset` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onResetCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSubmit` (optional): `SubmitEventHandler<HTMLDivElement>`
+- `onSubmitCapture` (optional): `SubmitEventHandler<HTMLDivElement>`
+- `onInvalid` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onInvalidCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoad` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoadCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onError` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onErrorCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onKeyDown` (optional): `KeyboardEventHandler<HTMLDivElement>`
+- `onKeyDownCapture` (optional): `KeyboardEventHandler<HTMLDivElement>`
+- `onKeyPress` (optional): `KeyboardEventHandler<HTMLDivElement>`
+- `onKeyPressCapture` (optional): `KeyboardEventHandler<HTMLDivElement>`
+- `onKeyUp` (optional): `KeyboardEventHandler<HTMLDivElement>`
+- `onKeyUpCapture` (optional): `KeyboardEventHandler<HTMLDivElement>`
+- `onAbort` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onAbortCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onCanPlay` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onCanPlayCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onCanPlayThrough` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onCanPlayThroughCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onDurationChange` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onDurationChangeCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onEmptied` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onEmptiedCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onEncrypted` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onEncryptedCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onEnded` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onEndedCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoadedData` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoadedDataCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoadedMetadata` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoadedMetadataCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoadStart` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onLoadStartCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onPause` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onPauseCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onPlay` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onPlayCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onPlaying` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onPlayingCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onProgress` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onProgressCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onRateChange` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onRateChangeCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSeeked` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSeekedCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSeeking` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSeekingCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onStalled` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onStalledCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSuspend` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSuspendCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onTimeUpdate` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onTimeUpdateCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onVolumeChange` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onVolumeChangeCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onWaiting` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onWaitingCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onAuxClick` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onAuxClickCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onClickCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onContextMenu` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onContextMenuCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onDoubleClick` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onDoubleClickCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onDragCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragEndCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragEnter` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragEnterCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragExit` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragExitCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragLeave` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragLeaveCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragOver` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragOverCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDragStartCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDrop` (optional): `DragEventHandler<HTMLDivElement>`
+- `onDropCapture` (optional): `DragEventHandler<HTMLDivElement>`
+- `onMouseDown` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseDownCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseEnter` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseLeave` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseMove` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseMoveCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseOut` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseOutCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseOver` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseOverCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseUp` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onMouseUpCapture` (optional): `MouseEventHandler<HTMLDivElement>`
+- `onSelect` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onSelectCapture` (optional): `ReactEventHandler<HTMLDivElement>`
+- `onTouchCancel` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onTouchCancelCapture` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onTouchEnd` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onTouchEndCapture` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onTouchMove` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onTouchMoveCapture` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onTouchStart` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onTouchStartCapture` (optional): `TouchEventHandler<HTMLDivElement>`
+- `onPointerDown` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerDownCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerMove` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerMoveCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerUp` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerUpCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerCancel` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerCancelCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerEnter` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerLeave` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerOver` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerOverCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerOut` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onPointerOutCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onGotPointerCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onGotPointerCaptureCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onLostPointerCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onLostPointerCaptureCapture` (optional): `PointerEventHandler<HTMLDivElement>`
+- `onScroll` (optional): `UIEventHandler<HTMLDivElement>`
+- `onScrollCapture` (optional): `UIEventHandler<HTMLDivElement>`
+- `onScrollEnd` (optional): `UIEventHandler<HTMLDivElement>`
+- `onScrollEndCapture` (optional): `UIEventHandler<HTMLDivElement>`
+- `onWheel` (optional): `WheelEventHandler<HTMLDivElement>`
+- `onWheelCapture` (optional): `WheelEventHandler<HTMLDivElement>`
+- `onAnimationStartCapture` (optional): `AnimationEventHandler<HTMLDivElement>`
+- `onAnimationEnd` (optional): `AnimationEventHandler<HTMLDivElement>`
+- `onAnimationEndCapture` (optional): `AnimationEventHandler<HTMLDivElement>`
+- `onAnimationIteration` (optional): `AnimationEventHandler<HTMLDivElement>`
+- `onAnimationIterationCapture` (optional): `AnimationEventHandler<HTMLDivElement>`
+- `onToggle` (optional): `ToggleEventHandler<HTMLDivElement>`
+- `onBeforeToggle` (optional): `ToggleEventHandler<HTMLDivElement>`
+- `onTransitionCancel` (optional): `TransitionEventHandler<HTMLDivElement>`
+- `onTransitionCancelCapture` (optional): `TransitionEventHandler<HTMLDivElement>`
+- `onTransitionEnd` (optional): `TransitionEventHandler<HTMLDivElement>`
+- `onTransitionEndCapture` (optional): `TransitionEventHandler<HTMLDivElement>`
+- `onTransitionRun` (optional): `TransitionEventHandler<HTMLDivElement>`
+- `onTransitionRunCapture` (optional): `TransitionEventHandler<HTMLDivElement>`
+- `onTransitionStart` (optional): `TransitionEventHandler<HTMLDivElement>`
+- `onTransitionStartCapture` (optional): `TransitionEventHandler<HTMLDivElement>`
+
+### Examples
+
+```tsx
+import { Mask, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Show mask</Button>
+      <Mask open={open} onClick={() => setOpen(false)} />
+    </>
+  );
+};
+```
+
+```tsx
+import { Mask, Button, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Mask with content</Button>
+      <Mask open={open} zIndex={80} onClick={() => setOpen(false)}>
+        <div
+          className="absolute left-1/2 top-1/2 w-64 -translate-x-1/2 -translate-y-1/2 rounded-box bg-surface p-4 shadow-float"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Text className="mb-3 block font-medium">Overlay content</Text>
+          <Text muted size="sm" className="mb-4 block">
+            Click the mask to close, or use the button below.
+          </Text>
+          <Button size="sm" onClick={() => setOpen(false)}>Close</Button>
+        </div>
+      </Mask>
+    </>
+  );
+};
+```
+
+## Watermark
+
+Chinese name: 水印
+
+Watermark component from @koi-ui/core
+
+Category: Feedback / 反馈
+
+```ts
+import { Watermark } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/watermark | https://icepepsicola.github.io/koi-ui/zh/components/watermark
+
+### Props
+
+- `content` (optional): `ReactNode`, default: `Koi UI`
+- `gap` (optional): `[number, number]`, default: `[100, 100]`
+- `rotate` (optional): `number`, default: `-22`
+- `fontSize` (optional): `number`, default: `14`
+- `fontColor` (optional): `string`, default: `rgba(0,0,0,0.08)`
+- `zIndex` (optional): `number`, default: `9`
+
+### Examples
+
+```tsx
+import { Watermark } from '@koi-ui/core';
+export default () => (
+  <Watermark content="Koi UI">
+    <div className="flex h-32 items-center justify-center rounded-md border border-border">
+      Watermark area
+    </div>
+  </Watermark>
+);
+```
+
+```tsx
+import { Watermark } from '@koi-ui/core';
+export default () => (
+  <Watermark content="Confidential" gap={[80, 80]} rotate={-30}>
+    <div className="flex h-40 items-center justify-center rounded-md border border-border">
+      Tune gap and rotate
+    </div>
+  </Watermark>
+);
+```
+
+## BackTop
+
+Chinese name: 回到顶部
+
+BackTop component from @koi-ui/core
+
+Category: Other / 其他
+
+```ts
+import { BackTop } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/backtop | https://icepepsicola.github.io/koi-ui/zh/components/backtop
+
+### Props
+
+- `visibilityHeight` (optional): `number`, default: `400`
+- `target` (optional): `(() => HTMLElement | Window | null)`
+
+### Examples
+
+```tsx
+import { BackTop, Text } from '@koi-ui/core';
+export default () => (
+  <div className="relative space-y-2 pb-8 text-sm text-muted-foreground">
+    <Text className="font-medium text-surface-foreground">Scroll down to reveal BackTop</Text>
+    {Array.from({ length: 50 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+    <BackTop visibilityHeight={120} />
+  </div>
+);
+```
+
+```tsx
+import { BackTop, Text } from '@koi-ui/core';
+export default () => (
+  <div className="relative space-y-2 pb-8 text-sm text-muted-foreground">
+    <Text className="font-medium text-surface-foreground">visibilityHeight=40 — appears after a short scroll</Text>
+    {Array.from({ length: 50 }, (_, i) => (
+      <p key={i}>Row {i + 1}</p>
+    ))}
+    <BackTop visibilityHeight={40} />
+  </div>
+);
+```
+
+## FloatButton
+
+Chinese name: 悬浮按钮
+
+FloatButton component from @koi-ui/core
+
+Category: Other / 其他
+
+```ts
+import { FloatButton } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/floatbutton | https://icepepsicola.github.io/koi-ui/zh/components/floatbutton
+
+### Props
+
+- `icon` (optional): `ReactNode`
+- `description` (optional): `ReactNode`
+- `color` (optional): `"primary" | "secondary" | "neutral"`
+- `size` (optional): `"md" | "sm" | "lg"`
+- `placement` (optional): `"bottom-right" | "bottom-left" | "top-right" | "top-left"`
+
+### Examples
+
+```tsx
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <FloatButton
+    icon={<Icon name="plus" />}
+    description="Create"
+  />
+);
+```
+
+```tsx
+import { FloatButton, Icon } from '@koi-ui/core';
+export default () => (
+  <>
+    <FloatButton
+      color="primary"
+      placement="bottom-right"
+      icon={<Icon name="plus" />}
+      description="Primary"
+    />
+    <FloatButton
+      color="secondary"
+      placement="bottom-left"
+      icon={<Icon name="search" />}
+      description="Secondary"
+    />
+  </>
+);
+```
+
+## PullToRefresh
+
+Chinese name: 下拉刷新
+
+PullToRefresh component from @koi-ui/core
+
+Category: Other / 其他
+
+```ts
+import { PullToRefresh } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/pulltorefresh | https://icepepsicola.github.io/koi-ui/zh/components/pulltorefresh
+
+### Props
+
+- `onRefresh` (required): `() => void | Promise<void>`
+- `pullingText` (optional): `ReactNode`, default: `下拉刷新`
+- `releaseText` (optional): `ReactNode`, default: `释放刷新`
+- `refreshingText` (optional): `ReactNode`, default: `刷新中...`
+- `threshold` (optional): `number`, default: `60`
+
+### Examples
+
+```tsx
+import { PullToRefresh, List, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [items, setItems] = useState([
+    { key: '1', title: 'Item 1' },
+    { key: '2', title: 'Item 2' },
+    { key: '3', title: 'Item 3' },
+  ]);
+  return (
+    <div className="space-y-2">
+      <Text muted size="sm">Pull down from the top of the list to refresh</Text>
+      <PullToRefresh
+        className="h-64 rounded-md border border-border"
+        onRefresh={async () => {
+          await new Promise((r) => setTimeout(r, 800));
+          setItems((prev) => [
+            { key: String(Date.now()), title: `Refreshed at ${new Date().toLocaleTimeString()}` },
+            ...prev,
+          ]);
+        }}
+      >
+        <List items={items} />
+      </PullToRefresh>
+    </div>
+  );
+};
+```
+
+```tsx
+import { PullToRefresh, List } from '@koi-ui/core';
+export default () => (
+  <PullToRefresh
+    className="h-64 rounded-md border border-border"
+    threshold={80}
+    pullingText="Keep pulling…"
+    releaseText="Release to refresh"
+    refreshingText="Refreshing…"
+    onRefresh={async () => {
+      await new Promise((r) => setTimeout(r, 1000));
+    }}
+  >
+    <List
+      items={[
+        { key: '1', title: 'threshold=80' },
+        { key: '2', title: 'Custom status texts' },
+        { key: '3', title: 'Item 3' },
+      ]}
+    />
+  </PullToRefresh>
+);
+```
+
+## Footer
+
+Chinese name: 页脚
+
+Footer component from @koi-ui/core
+
+Category: Other / 其他
+
+```ts
+import { Footer } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/footer | https://icepepsicola.github.io/koi-ui/zh/components/footer
+
+### Props
+
+- `copyright` (optional): `ReactNode`
+- `links` (optional): `{ key: string; label: ReactNode; href?: string; }[]`
+
+### Examples
+
+```tsx
+import { Footer } from '@koi-ui/core';
+export default () => <Footer>© 2026 Koi UI</Footer>;
+```
+
+```tsx
+import { Footer } from '@koi-ui/core';
+export default () => (
+  <Footer
+    links={[
+      { key: 'docs', label: 'Docs', href: '#' },
+      { key: 'github', label: 'GitHub', href: '#' },
+      { key: 'changelog', label: 'Changelog', href: '#' },
+    ]}
+    copyright="© 2026 Koi UI. All rights reserved."
+  />
+);
+```
+
+## FloatingPanel
+
+Chinese name: 浮动面板
+
+FloatingPanel component from @koi-ui/core
+
+Category: Other / 其他
+
+```ts
+import { FloatingPanel } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/floatingpanel | https://icepepsicola.github.io/koi-ui/zh/components/floatingpanel
+
+### Props
+
+- `open` (optional): `boolean`, default: `true`
+- `onClose` (optional): `(() => void)`
+- `title` (optional): `ReactNode`
+- `anchors` (optional): `number[]`, default: `[0.4, 0.7]`
+- `defaultAnchor` (optional): `number`, default: `0.4`
+- `showOverlay` (optional): `boolean`, default: `true`
+
+### Examples
+
+```tsx
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open panel</Button>
+      <FloatingPanel open={open} onClose={() => setOpen(false)} title="Panel title">
+        Drag the handle to resize. Tap the mask to close.
+      </FloatingPanel>
+    </>
+  );
+};
+```
+
+```tsx
+import { FloatingPanel, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Multiple anchors</Button>
+      <FloatingPanel
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Anchors"
+        anchors={[0.3, 0.5, 0.8]}
+        defaultAnchor={0.5}
+      >
+        Snaps to the nearest viewport height ratio on release.
+      </FloatingPanel>
+    </>
+  );
+};
+```
+
+## InfiniteScroll
+
+Chinese name: 无限滚动
+
+InfiniteScroll component from @koi-ui/core
+
+Category: Other / 其他
+
+```ts
+import { InfiniteScroll } from '@koi-ui/core';
+```
+
+Docs: https://icepepsicola.github.io/koi-ui/en/components/infinitescroll | https://icepepsicola.github.io/koi-ui/zh/components/infinitescroll
+
+### Props
+
+- `loadMore` (required): `() => void | Promise<void>`
+- `hasMore` (required): `boolean`
+- `threshold` (optional): `number`, default: `100`
+- `loadingText` (optional): `ReactNode`, default: `加载中...`
+- `endText` (optional): `ReactNode`, default: `没有更多了`
+
+### Examples
+
+```tsx
+import { InfiniteScroll, List, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [items, setItems] = useState(
+    Array.from({ length: 8 }, (_, i) => ({ key: String(i), title: `Item ${i + 1}` })),
+  );
+  const [hasMore, setHasMore] = useState(true);
+  return (
+    <div className="space-y-2">
+      <Text muted size="sm">Scroll to the bottom to load more</Text>
+      <InfiniteScroll
+        className="h-64 rounded-md border border-border"
+        hasMore={hasMore}
+        loadMore={async () => {
+          await new Promise((r) => setTimeout(r, 600));
+          setItems((prev) => {
+            const next = [
+              ...prev,
+              ...Array.from({ length: 5 }, (_, i) => ({
+                key: String(prev.length + i),
+                title: `Item ${prev.length + i + 1}`,
+              })),
+            ];
+            if (next.length >= 25) setHasMore(false);
+            return next;
+          });
+        }}
+      >
+        <List items={items} />
+      </InfiniteScroll>
+    </div>
+  );
+};
+```
+
+```tsx
+import { InfiniteScroll, List } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [items, setItems] = useState(
+    Array.from({ length: 6 }, (_, i) => ({ key: String(i), title: `Row ${i + 1}` })),
+  );
+  const [hasMore, setHasMore] = useState(true);
+  return (
+    <InfiniteScroll
+      className="h-64 rounded-md border border-border"
+      hasMore={hasMore}
+      loadingText="Loading more…"
+      endText="That's all"
+      loadMore={async () => {
+        await new Promise((r) => setTimeout(r, 500));
+        setItems((prev) => {
+          const next = [
+            ...prev,
+            ...Array.from({ length: 4 }, (_, i) => ({
+              key: String(prev.length + i),
+              title: `Row ${prev.length + i + 1}`,
+            })),
+          ];
+          if (next.length >= 18) setHasMore(false);
+          return next;
+        });
+      }}
+    >
+      <List items={items} />
+    </InfiniteScroll>
+  );
+};
+```

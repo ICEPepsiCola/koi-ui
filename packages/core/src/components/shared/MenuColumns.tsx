@@ -91,7 +91,7 @@ function MenuColumn({
     <ul
       ref={scrollerRef}
       role="listbox"
-      className="h-full overflow-y-auto overscroll-contain p-1.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="h-full overflow-y-auto overscroll-contain p-1.5 [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
       style={{ height }}
     >
       {options.map((opt) => {

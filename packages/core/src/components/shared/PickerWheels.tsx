@@ -84,14 +84,14 @@ export function PickerWheels({
       {drumMode ? (
         <div
           className={cn(
-            'pointer-events-none absolute top-1/2 z-[1] h-8 -translate-y-1/2 rounded-md',
+            'pointer-events-none absolute top-1/2 z-1 h-8 -translate-y-1/2 rounded-md',
             inset,
             'bg-muted/70',
           )}
         />
       ) : null}
       <div
-        className="relative z-[2] grid h-full"
+        className="relative z-2 grid h-full"
         style={{
           gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
         }}
@@ -198,7 +198,7 @@ function WheelColumn({
       data-picker-column
       role="listbox"
       className={cn(
-        'h-full overflow-y-auto overscroll-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+        'h-full overflow-y-auto overscroll-contain [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden',
         drumMode && 'touch-pan-y snap-y snap-mandatory',
       )}
       style={

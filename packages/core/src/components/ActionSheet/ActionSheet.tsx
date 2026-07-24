@@ -76,7 +76,7 @@ export function ActionSheet({
           tabIndex={-1}
           className={cn(
             'w-full rounded-t-box bg-surface pb-safe',
-            'shadow-[0_25px_50px_-12px_rgb(0_0_0_/_0.25)]',
+            'shadow-2xl',
           )}
           onClick={(e) => e.stopPropagation()}
         >
