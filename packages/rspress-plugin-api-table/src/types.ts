@@ -4,6 +4,8 @@ export interface PropDoc {
   name: string;
   required?: boolean;
   description?: string;
+  /** Version that introduced this API, sourced from `@since`. */
+  since?: string;
   type: { name: string };
   defaultValue?: { value?: string };
 }
@@ -11,6 +13,8 @@ export interface PropDoc {
 export interface ComponentDoc {
   displayName?: string;
   description?: string;
+  /** Version that introduced this API, sourced from `@since`. */
+  since?: string;
   props?: Record<string, PropDoc>;
 }
 

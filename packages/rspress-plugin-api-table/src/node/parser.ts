@@ -26,6 +26,7 @@ function createParser(tsconfigAbs: string) {
   return withCustomConfig(tsconfigAbs, {
     shouldExtractLiteralValuesFromEnum: true,
     shouldRemoveUndefinedFromOptional: true,
+    shouldIncludePropTagMap: true,
     propFilter: (prop) => {
       if (prop.declarations?.length) {
         return prop.declarations.some(
@@ -35,6 +36,21 @@ function createParser(tsconfigAbs: string) {
       return true;
     },
   });
+}
+
+function tagValue(
+  tags: Record<string, unknown> | undefined,
+  name: string,
+): string | undefined {
+  const value = tags?.[name];
+  if (typeof value === 'string' && value.trim()) return value.trim();
+  if (Array.isArray(value)) {
+    const first = value.find(
+      (entry): entry is string => typeof entry === 'string' && Boolean(entry.trim()),
+    );
+    return first?.trim();
+  }
+  return undefined;
 }
 
 /**
@@ -76,6 +92,7 @@ function toComponentDocs(
   return docs.map((doc) => ({
     displayName: doc.displayName,
     description: doc.description ?? '',
+    since: tagValue(doc.tags, 'since'),
     props: Object.fromEntries(
       Object.entries(doc.props ?? {}).map(([propName, prop]) => [
         propName,
@@ -83,6 +100,7 @@ function toComponentDocs(
           name: prop.name,
           required: Boolean(prop.required),
           description: prop.description ?? '',
+          since: tagValue(prop.tags, 'since'),
           type: { name: formatPropTypeName(prop) },
           defaultValue: prop.defaultValue?.value
             ? { value: String(prop.defaultValue.value) }
@@ -169,6 +187,18 @@ function jsDocDefault(node: import('typescript').Node, ts: typeof import('typesc
   return ts.getTextOfJSDocComment(defaultTag.comment)?.trim().replace(/^['"]|['"]$/g, '');
 }
 
+function jsDocSince(
+  node: import('typescript').Node,
+  ts: typeof import('typescript'),
+): string | undefined {
+  const tag = ts
+    .getJSDocTags(node)
+    .find((entry) => entry.tagName.text === 'since');
+  if (!tag?.comment) return undefined;
+  if (typeof tag.comment === 'string') return tag.comment.trim();
+  return ts.getTextOfJSDocComment(tag.comment)?.trim();
+}
+
 function jsDocDescription(node: import('typescript').Node, ts: typeof import('typescript')): string {
   const comments = ts.getJSDocCommentsAndTags(node);
   for (const entry of comments) {
@@ -221,11 +251,13 @@ function extractOptionsInterfaceDoc(
           : checker.getTypeAtLocation(member);
         const typeName = formatCheckerType(type, checker, ts, member);
         const defaultValue = jsDocDefault(member, ts);
+        const since = jsDocSince(member, ts);
 
         props[name] = {
           name,
           required: !optional,
           description: jsDocDescription(member, ts),
+          since,
           type: { name: typeName || 'unknown' },
           defaultValue: defaultValue ? { value: defaultValue } : undefined,
         };
@@ -236,6 +268,7 @@ function extractOptionsInterfaceDoc(
       return {
         displayName: componentName,
         description: jsDocDescription(statement, ts),
+        since: jsDocSince(statement, ts),
         props,
       };
     }

@@ -29,16 +29,19 @@ export interface FloatingPanelProps
   /**
    * Click the overlay (or outside the panel when `showOverlay={false}`) to close.
    * @default true
+   * @since 1.12.0
    */
   maskClosable?: boolean;
   /**
    * Press Escape to close.
    * @default true
+   * @since 1.12.0
    */
   closeOnEscape?: boolean;
   /**
    * Drag below half of the lowest anchor to close.
    * @default true
+   * @since 1.12.0
    */
   closeOnDrag?: boolean;
 }

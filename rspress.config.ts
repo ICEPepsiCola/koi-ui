@@ -65,17 +65,20 @@ export default function DemoWrapper() {
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
+  themeDir: path.join(__dirname, 'docs/theme'),
   base: process.env.DOCS_BASE ?? '/',
   route: {
     exclude: [
       '**/superpowers/**',
       '**/Demo.tsx',
       '**/DevicePreviewShell.tsx',
+      '**/HomeBody.tsx',
       '**/IconGallery.tsx',
       '**/ThemeLab.tsx',
       '**/catalog.ts',
       '**/theme-locales.ts',
       '**/icon-name-zh.ts',
+      '**/theme/**',
       '**/mockups/**',
       '**/.generated/**',
     ],

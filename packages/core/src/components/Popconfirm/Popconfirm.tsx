@@ -20,6 +20,7 @@ export interface PopconfirmProps {
   disabled?: boolean;
   /**
    * @default 'bottom'
+   * @since 1.12.0
    */
   placement?: 'top' | 'bottom' | 'left' | 'right';
 }

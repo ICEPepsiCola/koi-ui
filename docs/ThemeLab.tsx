@@ -22,11 +22,11 @@ const LABELS: Record<KoiThemeName, { en: string; zh: string }> = {
 
 const COPY = {
   en: {
-    title: 'Theme lab',
-    hint: 'Pick a skin — controls below update together.',
+    title: 'Theme skins',
+    hint: 'Pick a skin — the controls below update together.',
   },
   zh: {
-    title: '主题实验室',
+    title: '主题皮肤',
     hint: '点选皮肤，下方控件会一起变色。',
   },
 } as const;

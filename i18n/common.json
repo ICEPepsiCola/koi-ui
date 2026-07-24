@@ -24,6 +24,7 @@
     "description": { "en": "Description", "zh": "描述" },
     "type": { "en": "Type", "zh": "类型" },
     "defaultValue": { "en": "Default", "zh": "默认值" },
+    "since": { "en": "Since", "zh": "引入版本" },
     "required": { "en": "required", "zh": "必填" },
     "empty": { "en": "_No API documentation yet._", "zh": "_暂无 API 文档_" }
   },

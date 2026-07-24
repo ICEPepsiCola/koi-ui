@@ -74,9 +74,14 @@ export interface TabBarProps
   /**
    * Pin to the viewport bottom.
    * Docs preview (`KoiProvider.previewDevice`) defaults to `false` so it stays in the demo frame.
+   * @since 1.12.0
    */
   fixed?: boolean;
-  /** Show border around the bar. @default true */
+  /**
+   * Show border around the bar.
+   * @default true
+   * @since 1.12.0
+   */
   bordered?: boolean;
 }
 

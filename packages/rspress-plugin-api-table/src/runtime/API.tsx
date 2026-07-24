@@ -70,10 +70,16 @@ function ComponentDocBlock({
   }
 
   const requiredLabel = tApi('required', lang);
+  const sinceLabel = tApi('since', lang);
 
   return (
     <div className="koi-api-docs-section">
-      {doc.displayName ? <h3>{doc.displayName}</h3> : null}
+      {doc.displayName ? (
+        <h3>
+          {doc.displayName}
+          {doc.since ? <small> {sinceLabel} {doc.since}</small> : null}
+        </h3>
+      ) : null}
       {intro ? <p>{intro}</p> : null}
       <table>
         <thead>
@@ -82,6 +88,7 @@ function ComponentDocBlock({
             <th>{tApi('description', lang)}</th>
             <th>{tApi('type', lang)}</th>
             <th>{tApi('defaultValue', lang)}</th>
+            <th>{sinceLabel}</th>
           </tr>
         </thead>
         <tbody>
@@ -110,6 +117,7 @@ function ComponentDocBlock({
                 <td>
                   <code>{defaultText}</code>
                 </td>
+                <td>{prop.since ?? ''}</td>
               </tr>
             );
           })}
