@@ -75,7 +75,7 @@ pnpm add @koi-ui/core
 - [TimePicker](https://icepepsicola.github.io/koi-ui/en/components/timepicker) (时间选择): TimePicker component from @koi-ui/core
 - [Upload](https://icepepsicola.github.io/koi-ui/en/components/upload) (上传): Upload component from @koi-ui/core
 - [Cascader](https://icepepsicola.github.io/koi-ui/en/components/cascader) (级联选择): Cascader component from @koi-ui/core
-- [Picker](https://icepepsicola.github.io/koi-ui/en/components/picker) (选择器(移动)): Picker component from @koi-ui/core
+- [Picker](https://icepepsicola.github.io/koi-ui/en/components/picker) (多列选择器): Picker component from @koi-ui/core
 - [SearchBar](https://icepepsicola.github.io/koi-ui/en/components/searchbar) (搜索栏): SearchBar component from @koi-ui/core
 - [Stepper](https://icepepsicola.github.io/koi-ui/en/components/stepper) (步进器): Stepper component from @koi-ui/core
 

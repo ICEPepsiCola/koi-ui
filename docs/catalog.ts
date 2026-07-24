@@ -130,7 +130,7 @@ export const COMPONENT_ZH: Record<string, string> = {
   TimePicker: '时间选择',
   Upload: '上传',
   Cascader: '级联选择',
-  Picker: '选择器(移动)',
+  Picker: '多列选择器',
   SearchBar: '搜索栏',
   Stepper: '步进器',
   Avatar: '头像',

@@ -2077,7 +2077,7 @@
     },
     {
       "name": "Picker",
-      "zhName": "选择器(移动)",
+      "zhName": "多列选择器",
       "category": "dataEntry",
       "categoryLabel": {
         "en": "Data entry",

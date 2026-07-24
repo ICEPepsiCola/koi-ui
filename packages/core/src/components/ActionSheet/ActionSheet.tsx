@@ -74,20 +74,20 @@ export function ActionSheet({
           aria-labelledby={title ? titleId : undefined}
           aria-describedby={title || description ? descriptionId : undefined}
           tabIndex={-1}
-          className={cn(
-            'w-full rounded-t-box bg-surface pb-safe',
-            'shadow-2xl',
-          )}
+          className="w-full rounded-t-[14px] bg-muted pb-safe shadow-overlay"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="mx-auto mt-2 h-1 w-10 shrink-0 rounded-full bg-border" />
+          <div className="mx-auto mt-2.5 h-1 w-9 shrink-0 rounded-full bg-border/80" />
           {title || description ? (
             <div
               id={title || description ? descriptionId : undefined}
-              className="px-4 pb-2 pt-3 text-center"
+              className="px-4 pb-1 pt-3 text-center"
             >
               {title ? (
-                <div id={titleId} className="text-sm font-semibold">
+                <div
+                  id={titleId}
+                  className="text-sm font-semibold text-surface-foreground"
+                >
                   {title}
                 </div>
               ) : null}
@@ -98,8 +98,8 @@ export function ActionSheet({
               ) : null}
             </div>
           ) : null}
-          <div className="px-2 pb-2">
-            <div className="overflow-hidden rounded-box bg-muted/40">
+          <div className="flex flex-col gap-2.5 px-3 pb-3 pt-2">
+            <div className="overflow-hidden rounded-[12px] bg-surface">
               {actions.map((action, index) => {
                 const isDanger = action.color === 'error';
                 return (
@@ -108,13 +108,13 @@ export function ActionSheet({
                     type="button"
                     disabled={action.disabled}
                     className={cn(
-                      'w-full px-4 py-3.5 text-center text-base',
+                      'w-full px-4 py-3.5 text-center text-[15px] font-normal text-surface-foreground',
                       controlTransition,
                       pressable,
-                      'hover:bg-muted/80',
-                      index > 0 && 'border-t border-border/60',
-                      isDanger && 'text-error',
-                      action.disabled && 'cursor-not-allowed opacity-50',
+                      'hover:bg-muted/60 active:bg-muted',
+                      index > 0 && 'border-t border-border/70',
+                      isDanger && 'font-medium text-error',
+                      action.disabled && 'cursor-not-allowed opacity-40',
                     )}
                     onClick={() => {
                       action.onClick?.();
@@ -129,10 +129,10 @@ export function ActionSheet({
             <button
               type="button"
               className={cn(
-                'mt-2 w-full rounded-box bg-muted/40 px-4 py-3.5 text-center text-base font-semibold',
+                'w-full rounded-[12px] px-4 py-3.5 text-center text-[15px] font-semibold text-primary',
                 controlTransition,
                 pressable,
-                'hover:bg-muted/80',
+                'hover:bg-surface/60 active:bg-surface/80',
               )}
               onClick={onClose}
             >

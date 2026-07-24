@@ -2051,7 +2051,7 @@ export default () => {
 
 ## Picker
 
-Chinese name: 选择器(移动)
+Chinese name: 多列选择器
 
 Picker component from @koi-ui/core
 
