@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps } from 'react';
 import { Button } from '../src/components/Button';
 import { Form, FormItem, useForm } from '../src/components/Form';
+import { createFormInstance } from '../src/components/Form/store';
 import { Input } from '../src/components/Input';
 import { Switch } from '../src/components/Switch';
 import { KoiProvider } from '../src/provider';
@@ -175,4 +176,26 @@ test('Form.Item does not rerender unrelated fields on value changes', async () =
 
   expect(screen.getByPlaceholderText('first')).toHaveValue('Grace');
   expect(lastNameRenders).toBe(rendersAfterMount);
+});
+
+test('Form releases cached field snapshots on reset and unregister', () => {
+  const form = createFormInstance();
+  form.__INTERNAL__.setInitialValues({ name: 'Ada' });
+  const unregister = form.__INTERNAL__.registerField('name', {});
+
+  const first = form.__INTERNAL__.getFieldSnapshot('name');
+  expect(form.__INTERNAL__.getFieldSnapshot('name')).toBe(first);
+
+  form.setFieldValue('name', 'Grace');
+  form.resetFields(['name']);
+  const afterReset = form.__INTERNAL__.getFieldSnapshot('name');
+
+  expect(afterReset).not.toBe(first);
+  expect(afterReset.value).toBe('Ada');
+
+  unregister();
+  const afterUnregister = form.__INTERNAL__.getFieldSnapshot('name');
+
+  expect(afterUnregister).not.toBe(afterReset);
+  expect(afterUnregister.value).toBe('Ada');
 });

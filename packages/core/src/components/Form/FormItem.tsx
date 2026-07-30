@@ -2,7 +2,6 @@
  * Field wrapper: layout + rules + inject value/onChange into a single child.
  *
  * TODO(form): support `children={(control) => <Input {...control} />}`
- * TODO(form): subscribe only to this field's value/error (not full snapshot)
  * TODO(form): `dependencies` / `shouldUpdate` for cross-field UI
  */
 import {
@@ -13,8 +12,9 @@ import {
   useSyncExternalStore,
   type ReactElement,
   type ReactNode,
-} from 'react';import { cn } from '../../utils/cn';
+} from 'react';
 import { Text } from '../../primitives/Text';
+import { cn } from '../../utils/cn';
 import { useOptionalFormContext } from './FormContext';
 import { mergeValidateTriggers } from './store';
 import type {

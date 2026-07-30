@@ -136,6 +136,9 @@ export function createFormInstance<
       values = nextValues;
       touched = nextTouched;
       errors = nextErrors;
+      for (const name of keys) {
+        fieldSnapshots.delete(name);
+      }
       notify();
     },
     validateFields: async (names) => {
@@ -188,6 +191,7 @@ export function createFormInstance<
         }
         return () => {
           fields.delete(name);
+          fieldSnapshots.delete(name);
         };
       },
       subscribe: (listener) => {
