@@ -26,12 +26,25 @@ function listGeneratedFiles() {
     .map((line) => line.trim())
     .filter(Boolean);
 
-  const explicit = GENERATED_TARGETS.filter((target) => {
+  const explicit = GENERATED_TARGETS.flatMap((target) => {
     const absolutePath = path.join(ROOT, target);
-    return fs.existsSync(absolutePath) && fs.statSync(absolutePath).isFile();
+    if (!fs.existsSync(absolutePath)) return [];
+    if (fs.statSync(absolutePath).isFile()) return [target];
+    return listFilesRecursive(absolutePath).map((file) =>
+      path.relative(ROOT, file).replaceAll(path.sep, '/'),
+    );
   });
 
   return [...new Set([...tracked, ...explicit])];
+}
+
+function listFilesRecursive(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  return entries.flatMap((entry) => {
+    const absolutePath = path.join(dir, entry.name);
+    if (entry.isDirectory()) return listFilesRecursive(absolutePath);
+    return entry.isFile() ? [absolutePath] : [];
+  });
 }
 
 function buildSignature(files) {
@@ -52,13 +65,12 @@ function getChangedFiles(before, after) {
   );
 }
 
-const files = listGeneratedFiles();
-const before = buildSignature(files);
+const before = buildSignature(listGeneratedFiles());
 
 run('pnpm', ['icons:generate']);
 run('pnpm', ['tests:generate']);
 
-const after = buildSignature(files);
+const after = buildSignature(listGeneratedFiles());
 const changedFiles = getChangedFiles(before, after);
 
 if (changedFiles.length > 0) {

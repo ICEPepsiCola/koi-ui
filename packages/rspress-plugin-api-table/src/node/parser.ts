@@ -329,23 +329,27 @@ export function parseAll(
   for (const componentName of componentNames) {
     const sourcePath = resolveComponentSource(workspaceRoot, componentName);
     const prev = previous?.[componentName];
+    const sourceSignature = computeFilesMtimeSignature([sourcePath, tsconfigAbs]) ?? '';
 
     if (!fs.existsSync(sourcePath)) {
       result[componentName] = {
         componentName,
         sourcePath,
+        sourceSignature,
         docs: null,
       };
       continue;
     }
 
-    if (prev && prev.sourcePath === sourcePath) {
-      const prevSig = computeFilesMtimeSignature([sourcePath]);
-      const cachedSig = computeFilesMtimeSignature([prev.sourcePath]);
-      if (prevSig && prevSig === cachedSig) {
-        result[componentName] = prev;
-        continue;
-      }
+    if (
+      prev &&
+      prev.sourcePath === sourcePath &&
+      prev.sourceSignature &&
+      sourceSignature &&
+      prev.sourceSignature === sourceSignature
+    ) {
+      result[componentName] = prev;
+      continue;
     }
 
     try {
@@ -360,7 +364,12 @@ export function parseAll(
         if (ifaceDoc) docs = [ifaceDoc];
       }
 
-      result[componentName] = { componentName, sourcePath, docs };
+      result[componentName] = {
+        componentName,
+        sourcePath,
+        sourceSignature,
+        docs,
+      };
       if (options.debug) {
         console.log(
           `[plugin-api-table] parsed ${componentName}: ${docs.length} export(s)`,
@@ -369,7 +378,12 @@ export function parseAll(
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.warn(`[plugin-api-table] parse failed for ${componentName}: ${message}`);
-      result[componentName] = { componentName, sourcePath, docs: null };
+      result[componentName] = {
+        componentName,
+        sourcePath,
+        sourceSignature,
+        docs: null,
+      };
     }
   }
 

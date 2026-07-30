@@ -21,6 +21,8 @@ export interface ComponentDoc {
 export interface ParsedComponent {
   componentName: string;
   sourcePath: string;
+  /** Internal cache signature for the parsed source + parser config. */
+  sourceSignature?: string;
   docs: ComponentDoc[] | null;
 }
 
