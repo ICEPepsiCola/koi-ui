@@ -21,6 +21,21 @@ function resolvePath(workspaceRoot: string, relOrAbs: string): string {
     : path.resolve(workspaceRoot, relOrAbs);
 }
 
+function readTsConfig(tsconfigAbs: string): import('typescript').ParsedCommandLine {
+  const ts = require('typescript') as typeof import('typescript');
+  const configFile = ts.readConfigFile(tsconfigAbs, ts.sys.readFile);
+  if (configFile.error) {
+    throw new Error(
+      ts.flattenDiagnosticMessageText(configFile.error.messageText, '\n'),
+    );
+  }
+  return ts.parseJsonConfigFileContent(
+    configFile.config,
+    ts.sys,
+    path.dirname(tsconfigAbs),
+  );
+}
+
 function createParser(tsconfigAbs: string) {
   const { withCustomConfig } = require('react-docgen-typescript') as typeof import('react-docgen-typescript');
   return withCustomConfig(tsconfigAbs, {
@@ -279,21 +294,100 @@ function extractOptionsInterfaceDoc(
 
 function createTsProgram(tsconfigAbs: string): import('typescript').Program {
   const ts = require('typescript') as typeof import('typescript');
-  const configFile = ts.readConfigFile(tsconfigAbs, ts.sys.readFile);
-  if (configFile.error) {
-    throw new Error(
-      ts.flattenDiagnosticMessageText(configFile.error.messageText, '\n'),
-    );
-  }
-  const parsed = ts.parseJsonConfigFileContent(
-    configFile.config,
-    ts.sys,
-    path.dirname(tsconfigAbs),
-  );
+  const parsed = readTsConfig(tsconfigAbs);
   return ts.createProgram({
     rootNames: parsed.fileNames,
     options: parsed.options,
   });
+}
+
+export function collectSourceDependencyFiles(
+  workspaceRoot: string,
+  sourcePath: string,
+  tsconfigAbs: string,
+): string[] {
+  const ts = require('typescript') as typeof import('typescript');
+  const parsed = readTsConfig(tsconfigAbs);
+  const workspaceAbs = path.resolve(workspaceRoot);
+  const moduleResolutionCache = ts.createModuleResolutionCache(
+    path.dirname(tsconfigAbs),
+    (fileName) => fileName,
+    parsed.options,
+  );
+  const dependencies = new Set<string>();
+  const visited = new Set<string>();
+
+  const isWorkspaceFile = (fileName: string) => {
+    const normalized = path.resolve(fileName);
+    return (
+      normalized === workspaceAbs ||
+      normalized.startsWith(`${workspaceAbs}${path.sep}`)
+    ) && !normalized.includes(`${path.sep}node_modules${path.sep}`);
+  };
+
+  const resolveModule = (specifier: string, containingFile: string) => {
+    const resolved = ts.resolveModuleName(
+      specifier,
+      containingFile,
+      parsed.options,
+      ts.sys,
+      moduleResolutionCache,
+    ).resolvedModule?.resolvedFileName;
+
+    if (!resolved || !isWorkspaceFile(resolved)) return null;
+    return path.resolve(resolved);
+  };
+
+  const visitFile = (fileName: string) => {
+    const abs = path.resolve(fileName);
+    if (visited.has(abs)) return;
+    visited.add(abs);
+    if (!fs.existsSync(abs)) return;
+
+    dependencies.add(abs);
+    const sourceFile = ts.createSourceFile(
+      abs,
+      fs.readFileSync(abs, 'utf8'),
+      ts.ScriptTarget.Latest,
+      true,
+    );
+
+    const visitNode = (node: import('typescript').Node) => {
+      if (
+        (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+        node.moduleSpecifier &&
+        ts.isStringLiteral(node.moduleSpecifier)
+      ) {
+        const resolved = resolveModule(node.moduleSpecifier.text, abs);
+        if (resolved) visitFile(resolved);
+      }
+
+      if (
+        ts.isImportTypeNode(node) &&
+        ts.isLiteralTypeNode(node.argument) &&
+        ts.isStringLiteral(node.argument.literal)
+      ) {
+        const resolved = resolveModule(node.argument.literal.text, abs);
+        if (resolved) visitFile(resolved);
+      }
+
+      if (
+        ts.isImportEqualsDeclaration(node) &&
+        ts.isExternalModuleReference(node.moduleReference) &&
+        ts.isStringLiteral(node.moduleReference.expression)
+      ) {
+        const resolved = resolveModule(node.moduleReference.expression.text, abs);
+        if (resolved) visitFile(resolved);
+      }
+
+      ts.forEachChild(node, visitNode);
+    };
+
+    visitNode(sourceFile);
+  };
+
+  visitFile(sourcePath);
+  return [...dependencies].sort();
 }
 
 export function computeFilesMtimeSignature(files: string[]): string | null {
@@ -329,7 +423,11 @@ export function parseAll(
   for (const componentName of componentNames) {
     const sourcePath = resolveComponentSource(workspaceRoot, componentName);
     const prev = previous?.[componentName];
-    const sourceSignature = computeFilesMtimeSignature([sourcePath, tsconfigAbs]) ?? '';
+    const sourceDependencies = fs.existsSync(sourcePath)
+      ? collectSourceDependencyFiles(workspaceRoot, sourcePath, tsconfigAbs)
+      : [sourcePath];
+    const sourceSignature =
+      computeFilesMtimeSignature([tsconfigAbs, ...sourceDependencies]) ?? '';
 
     if (!fs.existsSync(sourcePath)) {
       result[componentName] = {
@@ -395,9 +493,13 @@ export function collectDependencyFiles(
   options: PluginApiTableOptions,
 ): string[] {
   const componentNames = options.getComponentNames();
+  const tsconfigAbs = resolvePath(workspaceRoot, options.coreTsconfig);
   const files = new Set<string>([
-    resolvePath(workspaceRoot, options.coreTsconfig),
-    ...collectComponentSourceFiles(workspaceRoot, componentNames),
+    tsconfigAbs,
+    ...collectComponentSourceFiles(workspaceRoot, componentNames).flatMap(
+      (sourcePath) =>
+        collectSourceDependencyFiles(workspaceRoot, sourcePath, tsconfigAbs),
+    ),
     ...(options.watchFiles ?? []).map((file) =>
       resolvePath(workspaceRoot, file),
     ),
