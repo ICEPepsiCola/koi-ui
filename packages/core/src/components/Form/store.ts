@@ -1,6 +1,7 @@
 import { validateRules } from './rules';
 import type {
   FieldError,
+  FormFieldSnapshot,
   FieldMeta,
   FieldName,
   FormCallbacks,
@@ -14,6 +15,8 @@ import type {
 function cloneStore<T extends FormStore>(values: T): T {
   return { ...values };
 }
+
+const EMPTY_ERRORS: string[] = [];
 
 export function createFormInstance<
   Values extends FormStore = FormStore,
@@ -31,6 +34,7 @@ export function createFormInstance<
     touched,
     fields,
   };
+  const fieldSnapshots = new Map<FieldName, FormFieldSnapshot>();
 
   const notify = () => {
     snapshot = {
@@ -43,6 +47,28 @@ export function createFormInstance<
   };
 
   const getSnapshot = (): FormInternalSnapshot => snapshot;
+  const getFieldSnapshot = (name: FieldName): FormFieldSnapshot => {
+    const value = values[name];
+    const fieldErrors = errors[name] ?? EMPTY_ERRORS;
+    const isTouched = Boolean(touched[name]);
+    const prev = fieldSnapshots.get(name);
+    if (
+      prev &&
+      prev.value === value &&
+      prev.errors === fieldErrors &&
+      prev.touched === isTouched
+    ) {
+      return prev;
+    }
+
+    const next = {
+      value,
+      errors: fieldErrors,
+      touched: isTouched,
+    };
+    fieldSnapshots.set(name, next);
+    return next;
+  };
   const setErrors = (name: FieldName, next: string[]) => {
     if (next.length === 0) {
       if (!(name in errors)) return;
@@ -171,6 +197,7 @@ export function createFormInstance<
         };
       },
       getInternalSnapshot: getSnapshot,
+      getFieldSnapshot,
     },
   };
 

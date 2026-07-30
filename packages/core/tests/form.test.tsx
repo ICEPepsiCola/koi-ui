@@ -1,5 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import type { ComponentProps } from 'react';
 import { Button } from '../src/components/Button';
 import { Form, FormItem, useForm } from '../src/components/Form';
 import { Input } from '../src/components/Input';
@@ -137,4 +138,41 @@ test('Form.Item validates on change', async () => {
   await waitFor(() => {
     expect(screen.queryByRole('alert')).toBeNull();
   });
+});
+
+test('Form.Item does not rerender unrelated fields on value changes', async () => {
+  let lastNameRenders = 0;
+
+  function LastNameInput(props: ComponentProps<typeof Input>) {
+    lastNameRenders += 1;
+    return <Input placeholder="last" {...props} />;
+  }
+
+  render(
+    <KoiProvider>
+      <Form
+        layout="vertical"
+        initialValues={{ firstName: 'Ada', lastName: 'Lovelace' }}
+      >
+        <FormItem name="firstName" label="First">
+          <Input placeholder="first" />
+        </FormItem>
+        <FormItem name="lastName" label="Last">
+          <LastNameInput />
+        </FormItem>
+      </Form>
+    </KoiProvider>,
+  );
+
+  await waitFor(() => {
+    expect(screen.getByPlaceholderText('last')).toHaveValue('Lovelace');
+  });
+
+  const rendersAfterMount = lastNameRenders;
+  fireEvent.change(screen.getByPlaceholderText('first'), {
+    target: { value: 'Grace' },
+  });
+
+  expect(screen.getByPlaceholderText('first')).toHaveValue('Grace');
+  expect(lastNameRenders).toBe(rendersAfterMount);
 });

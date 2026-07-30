@@ -63,6 +63,7 @@ export interface FormInstance<Values extends FormStore = FormStore> {
     registerField: (name: FieldName, meta: FieldMeta) => () => void;
     subscribe: (listener: () => void) => () => void;
     getInternalSnapshot: () => FormInternalSnapshot;
+    getFieldSnapshot: (name: FieldName) => FormFieldSnapshot;
   };
 }
 
@@ -85,4 +86,10 @@ export interface FormInternalSnapshot {
   errors: Record<FieldName, string[]>;
   touched: Record<FieldName, boolean>;
   fields: Map<FieldName, FieldMeta>;
+}
+
+export interface FormFieldSnapshot {
+  value: StoreValue;
+  errors: string[];
+  touched: boolean;
 }

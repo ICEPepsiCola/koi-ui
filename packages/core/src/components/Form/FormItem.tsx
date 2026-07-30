@@ -19,26 +19,25 @@ import { useOptionalFormContext } from './FormContext';
 import { mergeValidateTriggers } from './store';
 import type {
   FieldName,
+  FormFieldSnapshot,
   FieldStatus,
-  FormInternalSnapshot,
   Rule,
   StoreValue,
   ValidateTrigger,
 } from './types';
 
-const EMPTY_SNAPSHOT: FormInternalSnapshot = {
-  values: {},
-  errors: {},
-  touched: {},
-  fields: new Map(),
+const EMPTY_FIELD_SNAPSHOT: FormFieldSnapshot = {
+  value: undefined,
+  errors: [],
+  touched: false,
 };
 
 function subscribeEmpty() {
   return () => undefined;
 }
 
-function getEmptySnapshot() {
-  return EMPTY_SNAPSHOT;
+function getEmptyFieldSnapshot() {
+  return EMPTY_FIELD_SNAPSHOT;
 }
 
 export interface FormItemProps {
@@ -104,17 +103,21 @@ export function FormItem({
     throw new Error('Form.Item with `name` must be used inside Form');
   }
 
-  const snapshot = useSyncExternalStore(
-    form ? form.__INTERNAL__.subscribe : subscribeEmpty,
-    form ? form.__INTERNAL__.getInternalSnapshot : getEmptySnapshot,
-    form ? form.__INTERNAL__.getInternalSnapshot : getEmptySnapshot,
+  const fieldSnapshot = useSyncExternalStore(
+    name && form ? form.__INTERNAL__.subscribe : subscribeEmpty,
+    name && form
+      ? () => form.__INTERNAL__.getFieldSnapshot(name)
+      : getEmptyFieldSnapshot,
+    name && form
+      ? () => form.__INTERNAL__.getFieldSnapshot(name)
+      : getEmptyFieldSnapshot,
   );
   useEffect(() => {
     if (!name || !form) return;
     return form.__INTERNAL__.registerField(name, { rules, validateTrigger });
   }, [form, name, rules, validateTrigger]);
 
-  const fieldErrors = name ? (snapshot.errors[name] ?? []) : [];
+  const fieldErrors = fieldSnapshot.errors;
   const errorMessage = fieldErrors[0];
   const status: FieldStatus = errorMessage ? 'error' : statusProp;
   const showRequired = resolveRequired(rules, required);
@@ -124,7 +127,7 @@ export function FormItem({
     const child = Children.only(children) as ReactElement<
       Record<string, unknown>
     >;
-    const value = snapshot.values[name];
+    const value = fieldSnapshot.value;
     const childOnChange = child.props.onChange as
       | ((...args: unknown[]) => void)
       | undefined;
