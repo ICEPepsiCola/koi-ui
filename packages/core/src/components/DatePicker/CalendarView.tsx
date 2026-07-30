@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useKoiContext } from '../../provider/context';
 import type { FieldSize } from '../../utils/interaction';
 import { CalendarMonthPanel } from '../shared/CalendarMonthPanel';
@@ -40,19 +41,12 @@ export function CalendarView({
   const containerRef = useRef<HTMLDivElement>(null);
   const hasValue = Boolean(value);
 
-  useEffect(() => {
-    if (!open) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
+  useDismissibleLayer({
+    open,
+    onDismiss: () => setOpen(false),
+    containerRef,
+    closeOnPointerDownOutside: true,
+  });
 
   useEffect(() => {
     if (!open || !value) return;

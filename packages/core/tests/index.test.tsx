@@ -17,6 +17,7 @@ import { Calendar } from '../src/components/Calendar';
 import { Swiper } from '../src/components/Swiper';
 import { Tabs } from '../src/components/Tabs';
 import { toast } from '../src/components/Toast';
+import { Dropdown } from '../src/components/Dropdown';
 import { mockWidth } from './setup';
 
 test('Button renders children', () => {
@@ -62,6 +63,40 @@ test('Button soft and outline variants render', () => {
   expect(screen.getByText('Outline')).toBeInTheDocument();
   expect(screen.getByText('Error')).toBeInTheDocument();
   expect(screen.getByRole('button', { name: 'icon' })).toBeInTheDocument();
+});
+
+test('Dropdown closes on outside pointer down', () => {
+  render(
+    <KoiProvider>
+      <Dropdown
+        trigger={<Button>Actions</Button>}
+        items={[{ key: 'edit', label: 'Edit' }]}
+      />
+    </KoiProvider>,
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
+  expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
+
+  fireEvent.pointerDown(document.body);
+  expect(screen.queryByRole('menuitem', { name: 'Edit' })).not.toBeInTheDocument();
+});
+
+test('Dropdown closes on Escape', () => {
+  render(
+    <KoiProvider>
+      <Dropdown
+        trigger={<Button>Actions</Button>}
+        items={[{ key: 'edit', label: 'Edit' }]}
+      />
+    </KoiProvider>,
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
+  expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
+
+  fireEvent.keyDown(document, { key: 'Escape' });
+  expect(screen.queryByRole('menuitem', { name: 'Edit' })).not.toBeInTheDocument();
 });
 
 test('KoiProvider applies data-theme and CSS overrides', () => {

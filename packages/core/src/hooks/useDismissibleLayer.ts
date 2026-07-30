@@ -24,7 +24,7 @@ export function useDismissibleLayer({
       onDismiss();
     };
 
-    const handlePointerDown = (event: MouseEvent) => {
+    const handlePointerDown = (event: PointerEvent) => {
       if (!closeOnPointerDownOutside) return;
       const container = containerRef.current;
       if (!container) return;
@@ -35,11 +35,11 @@ export function useDismissibleLayer({
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('pointerdown', handlePointerDown);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('pointerdown', handlePointerDown);
     };
   }, [
     closeOnEscape,

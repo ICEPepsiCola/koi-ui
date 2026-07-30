@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import {
@@ -75,19 +76,12 @@ export function TimeDropdownView({
     setSecond(next.second);
   }, [open, value]);
 
-  useEffect(() => {
-    if (!open) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
+  useDismissibleLayer({
+    open,
+    onDismiss: () => setOpen(false),
+    containerRef,
+    closeOnPointerDownOutside: true,
+  });
 
   const confirm = (h = hour, m = minute, s = second) => {
     onChange?.(formatTime(h, m, s, withSeconds));

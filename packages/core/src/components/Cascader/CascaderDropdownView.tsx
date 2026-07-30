@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useKoiContext } from '../../provider/context';
 import { cn } from '../../utils/cn';
 import { controlTransition } from '../../utils/interaction';
@@ -71,19 +72,12 @@ export function CascaderDropdownView({
     setActivePath(value);
   }, [open, value]);
 
-  useEffect(() => {
-    if (!open) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
+  useDismissibleLayer({
+    open,
+    onDismiss: () => setOpen(false),
+    containerRef,
+    closeOnPointerDownOutside: true,
+  });
 
   const selectAtLevel = (level: number, opt: CascaderOption) => {
     if (opt.disabled) return;

@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { tv } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { fieldBase, fieldSizeVariants } from '../../utils/interaction';
@@ -75,21 +76,12 @@ export function AutoComplete({
     return options.filter((opt) => matcher(internal, opt));
   }, [options, internal, filterOption]);
 
-  useEffect(() => {
-    if (!open) return;
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
+  useDismissibleLayer({
+    open,
+    onDismiss: () => setOpen(false),
+    containerRef,
+    closeOnPointerDownOutside: true,
+  });
 
   const showClear = clearable && !disabled && internal.length > 0;
   const showSuggestions = open && filtered.length > 0;
