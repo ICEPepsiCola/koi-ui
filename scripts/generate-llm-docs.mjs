@@ -26,43 +26,122 @@ const OUT_DIRS = [
 
 const PRIMITIVE_COMPONENTS = new Set(['Box', 'Stack']);
 
+function unwrapExpression(ts, expression) {
+  let current = expression;
+  while (
+    ts.isAsExpression(current) ||
+    ts.isParenthesizedExpression(current) ||
+    ts.isSatisfiesExpression?.(current)
+  ) {
+    current = current.expression;
+  }
+  return current;
+}
+
+function propertyNameText(ts, name) {
+  if (ts.isIdentifier(name) || ts.isStringLiteral(name) || ts.isNumericLiteral(name)) {
+    return name.text;
+  }
+  return null;
+}
+
+function stringLiteralValue(ts, expression) {
+  const value = unwrapExpression(ts, expression);
+  if (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value)) {
+    return value.text;
+  }
+  return null;
+}
+
+function catalogDeclaration(ts, sourceFile, name) {
+  for (const statement of sourceFile.statements) {
+    if (!ts.isVariableStatement(statement)) continue;
+    for (const declaration of statement.declarationList.declarations) {
+      if (!ts.isIdentifier(declaration.name)) continue;
+      if (declaration.name.text === name) return declaration;
+    }
+  }
+  return null;
+}
+
+function objectLiteralInitializer(ts, sourceFile, name) {
+  const declaration = catalogDeclaration(ts, sourceFile, name);
+  const initializer = declaration?.initializer
+    ? unwrapExpression(ts, declaration.initializer)
+    : null;
+  if (!initializer || !ts.isObjectLiteralExpression(initializer)) {
+    throw new Error(`Failed to parse ${name} from catalog.ts`);
+  }
+  return initializer;
+}
+
+function readStringArrayProperty(ts, property) {
+  if (!ts.isPropertyAssignment(property)) return null;
+  const value = unwrapExpression(ts, property.initializer);
+  if (!ts.isArrayLiteralExpression(value)) return null;
+  return value.elements.map((entry) => {
+    const text = stringLiteralValue(ts, entry);
+    if (text === null) {
+      throw new Error('catalog.ts arrays must contain string literals');
+    }
+    return text;
+  });
+}
+
+function readStringRecord(ts, objectLiteral) {
+  const record = {};
+  for (const property of objectLiteral.properties) {
+    if (!ts.isPropertyAssignment(property)) continue;
+    const key = propertyNameText(ts, property.name);
+    const value = stringLiteralValue(ts, property.initializer);
+    if (key && value !== null) record[key] = value;
+  }
+  return record;
+}
+
+function readCategoryLabels(ts, objectLiteral) {
+  const labels = {};
+  for (const property of objectLiteral.properties) {
+    if (!ts.isPropertyAssignment(property)) continue;
+    const key = propertyNameText(ts, property.name);
+    const value = unwrapExpression(ts, property.initializer);
+    if (!key || !ts.isObjectLiteralExpression(value)) continue;
+    const entries = readStringRecord(ts, value);
+    labels[key] = {
+      en: entries.en ?? key,
+      zh: entries.zh ?? key,
+    };
+  }
+  return labels;
+}
+
 function loadCatalog() {
+  const ts = require('typescript');
   const src = fs.readFileSync(path.join(ROOT, 'docs/catalog.ts'), 'utf8');
+  const sourceFile = ts.createSourceFile(
+    'catalog.ts',
+    src,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TS,
+  );
+
   const categories = {};
-  const catMatch = src.match(
-    /export const CATEGORIES = \{([\s\S]*?)\n\} as const;/,
-  );
-  if (!catMatch) throw new Error('Failed to parse CATEGORIES from catalog.ts');
-
-  for (const block of catMatch[1].matchAll(
-    /(\w+):\s*\[([\s\S]*?)\],/g,
-  )) {
-    const key = block[1];
-    const names = [...block[2].matchAll(/'([^']+)'/g)].map((m) => m[1]);
-    categories[key] = names;
+  const categoriesObject = objectLiteralInitializer(ts, sourceFile, 'CATEGORIES');
+  for (const property of categoriesObject.properties) {
+    const key = propertyNameText(ts, property.name);
+    const names = readStringArrayProperty(ts, property);
+    if (key && names) categories[key] = names;
   }
 
-  const zh = {};
-  const zhMatch = src.match(
-    /export const COMPONENT_ZH: Record<string, string> = \{([\s\S]*?)\n\};/,
+  const zh = readStringRecord(
+    ts,
+    objectLiteralInitializer(ts, sourceFile, 'COMPONENT_ZH'),
   );
-  if (zhMatch) {
-    for (const m of zhMatch[1].matchAll(/(\w+):\s*'([^']*)'/g)) {
-      zh[m[1]] = m[2];
-    }
-  }
-
-  const categoryLabels = {};
-  const labelMatch = src.match(
-    /export const CATEGORY_LABELS = \{([\s\S]*?)\n\} as const;/,
+  const categoryLabels = readCategoryLabels(
+    ts,
+    objectLiteralInitializer(ts, sourceFile, 'CATEGORY_LABELS'),
   );
-  if (labelMatch) {
-    for (const m of labelMatch[1].matchAll(
-      /(\w+):\s*\{\s*en:\s*'([^']*)',\s*zh:\s*'([^']*)'\s*\}/g,
-    )) {
-      categoryLabels[m[1]] = { en: m[2], zh: m[3] };
-    }
-  }
 
   return { categories, zh, categoryLabels };
 }
