@@ -76,6 +76,33 @@ export default () => {
 };
 ```
 
+## 拖拽关闭
+
+按住顶部把手下拉可关闭（`closeOnDrag`，默认开启）。
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>拖拽关闭</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="下拉关闭"
+        description="按住灰色把手向下拖"
+        actions={[
+          { key: '1', text: '选项一' },
+          { key: '2', text: '选项二' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
 ## API
 
 <API name="ActionSheet" />

@@ -5,8 +5,6 @@
  *
  * TODO(form): replace `cloneElement` with render-prop / `children(field)` API
  * TODO(form): nested `name` paths + `Form.List` for dynamic rows
- * TODO(form): per-field store subscription (avoid whole-form re-render)
- * TODO(form): scroll/focus first error on `onFinishFailed`
  * TODO(form): clarify `min`/`max` semantics (string length vs number magnitude)
  * TODO(form): optional external schema bridge (Zod) without adding a hard dependency
  */
@@ -21,6 +19,7 @@ import { cn } from '../../utils/cn';
 import { FormProvider } from './FormContext';
 import { FormItem } from './FormItem';
 import { useForm } from './useForm';
+import { useWatch } from './useWatch';
 import type {
   FormInstance,
   FormLayout,
@@ -34,6 +33,8 @@ export interface FormProps<Values extends FormStore = FormStore>
   initialValues?: Partial<Values>;
   layout?: FormLayout;
   responsive?: boolean;
+  /** Scroll to the first invalid field after a failed submit. @default true */
+  scrollToFirstError?: boolean;
   onValuesChange?: (
     changed: Partial<Values>,
     allValues: Values,
@@ -48,6 +49,7 @@ function FormInner<Values extends FormStore = FormStore>({
   initialValues,
   layout = 'horizontal',
   responsive = true,
+  scrollToFirstError = true,
   onValuesChange,
   onFinish,
   onFinishFailed,
@@ -67,8 +69,9 @@ function FormInner<Values extends FormStore = FormStore>({
       onValuesChange,
       onFinish,
       onFinishFailed,
+      scrollToFirstError,
     });
-  }, [form, onValuesChange, onFinish, onFinishFailed]);
+  }, [form, onValuesChange, onFinish, onFinishFailed, scrollToFirstError]);
 
   useEffect(() => {
     form.__INTERNAL__.setInitialValues(initialValues ?? {});
@@ -104,4 +107,5 @@ function FormInner<Values extends FormStore = FormStore>({
 export const Form = Object.assign(FormInner, {
   Item: FormItem,
   useForm,
+  useWatch,
 });

@@ -41,6 +41,7 @@ export {
   FormItem,
   useForm,
   useFormContext,
+  useWatch,
   type FieldError,
   type FieldStatus,
   type FormInstance,
@@ -49,6 +50,7 @@ export {
   type FormProps,
   type FormStore,
   type Rule,
+  type ScrollToFieldOptions,
   type ValidateErrorEntity,
   type ValidateTrigger,
 } from './components/Form';

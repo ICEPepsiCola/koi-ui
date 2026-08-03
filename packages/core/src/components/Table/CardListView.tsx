@@ -14,6 +14,12 @@ export interface CardListViewProps<T extends Record<string, unknown>> {
   loading?: boolean;
   emptyText?: string;
   onRowClick?: (row: T) => void;
+  /** Desktop-only; accepted so AdaptiveRender can share props. */
+  stickyHeader?: boolean;
+  maxHeight?: number | string;
+  virtual?: boolean;
+  rowHeight?: number;
+  overscan?: number;
 }
 
 export function CardListView<T extends Record<string, unknown>>({

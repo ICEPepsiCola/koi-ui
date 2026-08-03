@@ -2,12 +2,14 @@ import {
   useEffect,
   useLayoutEffect,
   useRef,
+  useState,
   type ReactNode,
 } from 'react';
 import { cn } from '../../utils/cn';
 import { controlTransition } from '../../utils/interaction';
 
 export const WHEEL_ITEM_H = 32;
+const SETTLE_MS = 48;
 
 export interface WheelColumnData {
   key?: string;
@@ -59,6 +61,23 @@ function resolveLayout(
     visibleRows,
     viewportH: visibleRows * WHEEL_ITEM_H,
   };
+}
+
+function nearestEnabledIndex(
+  options: WheelColumnData['options'],
+  rawIndex: number,
+) {
+  if (options.length === 0) return -1;
+  const clamped = Math.max(0, Math.min(options.length - 1, rawIndex));
+  if (!options[clamped]?.disabled) return clamped;
+
+  for (let distance = 1; distance < options.length; distance += 1) {
+    const before = clamped - distance;
+    const after = clamped + distance;
+    if (before >= 0 && !options[before]?.disabled) return before;
+    if (after < options.length && !options[after]?.disabled) return after;
+  }
+  return clamped;
 }
 
 /**
@@ -132,6 +151,11 @@ function WheelColumn({
   const settleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const optionsKey = options.map((o) => o.value).join('\0');
   const spacerH = drumMode ? viewportH / 2 - WHEEL_ITEM_H / 2 : 0;
+  const selectedIndex = Math.max(
+    0,
+    options.findIndex((o) => o.value === value),
+  );
+  const [visualIndex, setVisualIndex] = useState(selectedIndex);
 
   useEffect(() => {
     optionsRef.current = options;
@@ -139,14 +163,32 @@ function WheelColumn({
     onChangeRef.current = onChange;
   });
 
+  const snapToIndex = (index: number, behavior: ScrollBehavior = 'auto') => {
+    const root = scrollerRef.current;
+    if (!root || !drumMode) return;
+    const top = index * WHEEL_ITEM_H;
+    if (Math.abs(root.scrollTop - top) <= 1) return;
+    ignoreScrollRef.current = true;
+    root.scrollTo({ top, behavior });
+    const release = () => {
+      ignoreScrollRef.current = false;
+    };
+    if (behavior === 'smooth') {
+      window.setTimeout(release, 180);
+    } else {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(release);
+      });
+    }
+  };
+
   useLayoutEffect(() => {
     const root = scrollerRef.current;
     if (!root) return;
     const idx = options.findIndex((o) => o.value === value);
     if (idx < 0) return;
-    const nextTop = drumMode ? idx * WHEEL_ITEM_H : 0;
+    setVisualIndex(idx);
     if (!drumMode) {
-      // List mode: keep selected in view without centering spacers.
       const selectedTop = idx * WHEEL_ITEM_H;
       if (
         selectedTop < root.scrollTop ||
@@ -156,14 +198,7 @@ function WheelColumn({
       }
       return;
     }
-    if (Math.abs(root.scrollTop - nextTop) <= 1) return;
-    ignoreScrollRef.current = true;
-    root.scrollTop = nextTop;
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        ignoreScrollRef.current = false;
-      });
-    });
+    snapToIndex(idx, 'auto');
     // eslint-disable-next-line react-hooks/exhaustive-deps -- optionsKey tracks content
   }, [value, optionsKey, viewportH, drumMode]);
 
@@ -173,24 +208,60 @@ function WheelColumn({
     };
   }, []);
 
-  const commitFromScroll = () => {
+  const commitFromScroll = (smoothSnap = true) => {
     if (!drumMode) return;
     const root = scrollerRef.current;
     if (!root || ignoreScrollRef.current) return;
-    const idx = Math.round(root.scrollTop / WHEEL_ITEM_H);
-    const clamped = Math.max(0, Math.min(optionsRef.current.length - 1, idx));
-    const opt = optionsRef.current[clamped];
-    if (!opt || opt.disabled) return;
+    const raw = Math.round(root.scrollTop / WHEEL_ITEM_H);
+    const nextIndex = nearestEnabledIndex(optionsRef.current, raw);
+    if (nextIndex < 0) return;
+    setVisualIndex(nextIndex);
+    const opt = optionsRef.current[nextIndex];
+    if (!opt) return;
     if (opt.value !== valueRef.current) {
       onChangeRef.current(opt.value);
     }
+    snapToIndex(nextIndex, smoothSnap ? 'smooth' : 'auto');
   };
 
   const scheduleCommit = () => {
     if (!drumMode || ignoreScrollRef.current) return;
+    const root = scrollerRef.current;
+    if (root) {
+      const raw = Math.round(root.scrollTop / WHEEL_ITEM_H);
+      setVisualIndex(nearestEnabledIndex(optionsRef.current, raw));
+    }
     if (settleTimerRef.current) clearTimeout(settleTimerRef.current);
-    settleTimerRef.current = setTimeout(commitFromScroll, 80);
+    settleTimerRef.current = setTimeout(() => commitFromScroll(true), SETTLE_MS);
   };
+
+  useEffect(() => {
+    const root = scrollerRef.current;
+    if (!root || !drumMode) return;
+    const onScrollEnd = () => {
+      if (ignoreScrollRef.current) return;
+      const raw = Math.round(root.scrollTop / WHEEL_ITEM_H);
+      const nextIndex = nearestEnabledIndex(optionsRef.current, raw);
+      if (nextIndex < 0) return;
+      setVisualIndex(nextIndex);
+      const opt = optionsRef.current[nextIndex];
+      if (opt && opt.value !== valueRef.current) {
+        onChangeRef.current(opt.value);
+      }
+      const top = nextIndex * WHEEL_ITEM_H;
+      if (Math.abs(root.scrollTop - top) > 1) {
+        ignoreScrollRef.current = true;
+        root.scrollTo({ top, behavior: 'auto' });
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            ignoreScrollRef.current = false;
+          });
+        });
+      }
+    };
+    root.addEventListener('scrollend', onScrollEnd);
+    return () => root.removeEventListener('scrollend', onScrollEnd);
+  }, [drumMode]);
 
   return (
     <div
@@ -205,9 +276,9 @@ function WheelColumn({
         drumMode
           ? {
               maskImage:
-                'linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent)',
+                'linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent)',
               WebkitMaskImage:
-                'linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent)',
+                'linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent)',
             }
           : undefined
       }
@@ -216,8 +287,15 @@ function WheelColumn({
       {spacerH > 0 ? (
         <div className="shrink-0" style={{ height: spacerH }} aria-hidden />
       ) : null}
-      {options.map((opt) => {
+      {options.map((opt, index) => {
         const active = opt.value === value;
+        const distance = Math.abs(index - visualIndex);
+        const drumTone =
+          distance === 0
+            ? 'font-semibold text-surface-foreground scale-100'
+            : distance === 1
+              ? 'font-normal text-muted-foreground/70 scale-[0.96]'
+              : 'font-normal text-muted-foreground/40 scale-[0.92]';
         return (
           <div
             key={opt.value}
@@ -228,14 +306,12 @@ function WheelColumn({
             className={cn(
               'flex w-full shrink-0 items-center justify-center px-1 leading-none',
               drumMode ? 'text-[17px] tabular-nums' : 'text-[15px]',
-              drumMode && 'snap-center',
+              drumMode && 'snap-center [scroll-snap-stop:always]',
               controlTransition,
-              active
-                ? drumMode
-                  ? 'font-semibold text-surface-foreground'
-                  : 'rounded-md bg-muted/80 font-semibold text-surface-foreground'
-                : drumMode
-                  ? 'font-normal text-muted-foreground/55'
+              drumMode
+                ? drumTone
+                : active
+                  ? 'rounded-md bg-muted/80 font-semibold text-surface-foreground'
                   : 'font-normal text-muted-foreground/80',
               !drumMode && !active && 'hover:bg-muted/50',
               opt.disabled

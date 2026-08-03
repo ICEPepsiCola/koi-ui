@@ -45,6 +45,12 @@ export interface ValidateErrorEntity<Values extends FormStore = FormStore> {
   errorFields: FieldError[];
 }
 
+export interface ScrollToFieldOptions {
+  /** Focus the field control after scrolling. @default true */
+  focus?: boolean;
+  behavior?: ScrollBehavior;
+}
+
 export interface FormInstance<Values extends FormStore = FormStore> {
   getFieldValue: (name: FieldName) => StoreValue;
   getFieldsValue: (names?: FieldName[]) => Values;
@@ -56,6 +62,8 @@ export interface FormInstance<Values extends FormStore = FormStore> {
   resetFields: (names?: FieldName[]) => void;
   validateFields: (names?: FieldName[]) => Promise<Values>;
   submit: () => void;
+  /** Scroll to a field control (`id` defaults to the field `name`). */
+  scrollToField: (name: FieldName, options?: ScrollToFieldOptions) => void;
   /** Internal — bound by <Form> */
   __INTERNAL__: {
     setCallbacks: (callbacks: FormCallbacks<Values>) => void;
@@ -79,6 +87,8 @@ export interface FormCallbacks<Values extends FormStore = FormStore> {
   ) => void;
   onFinish?: (values: Values) => void;
   onFinishFailed?: (errorInfo: ValidateErrorEntity<Values>) => void;
+  /** When true, failed submit scrolls to the first error field. */
+  scrollToFirstError?: boolean;
 }
 
 export interface FormInternalSnapshot {

@@ -194,3 +194,37 @@ export default () => {
   );
 };
 ```
+
+## 移动端壳（NavBar + TabBar）
+
+```tsx preview
+import { useState } from 'react';
+import { Icon, NavBar, SafeArea, Stack, TabBar, Text } from '@koi-ui/core';
+
+const tabs = [
+  { key: 'home', label: '首页', icon: <Icon name="check" size="sm" /> },
+  { key: 'me', label: '我的', icon: <Icon name="search" size="sm" /> },
+  { key: 'settings', label: '设置', icon: <Icon name="plus" size="sm" /> },
+];
+
+export default () => {
+  const [active, setActive] = useState('home');
+  const current = tabs.find((tab) => tab.key === active);
+  return (
+    <Stack className="relative mx-auto min-h-[420px] w-full max-w-sm overflow-hidden rounded-xl border border-border bg-surface">
+      <SafeArea position="top" />
+      <NavBar title={current?.label ?? '首页'} />
+      <div className="flex flex-1 items-center justify-center px-4">
+        <Text muted>当前：{current?.label}</Text>
+      </div>
+      <TabBar
+        activeKey={active}
+        items={tabs}
+        onChange={setActive}
+        fixed={false}
+      />
+      <SafeArea position="bottom" />
+    </Stack>
+  );
+};
+```

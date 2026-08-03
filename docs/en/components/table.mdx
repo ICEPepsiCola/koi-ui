@@ -96,6 +96,50 @@ export default () => (
 );
 ```
 
+## Sticky header / virtual rows / fixed columns
+
+Desktop supports sticky headers, row virtualization, and left/right fixed columns. Prefer `virtual` for large data; set `width` on fixed columns.
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+
+const data = Array.from({ length: 200 }, (_, i) => ({
+  id: String(i + 1),
+  name: `Member ${i + 1}`,
+  role: i % 2 === 0 ? 'Design' : 'Dev',
+  city: i % 3 === 0 ? 'Hangzhou' : 'Shanghai',
+  status: i % 4 === 0 ? 'Trial' : 'Active',
+}));
+
+export default () => (
+  <Table
+    stickyHeader
+    virtual
+    maxHeight={280}
+    columns={[
+      { key: 'id', title: 'ID', width: 72, fixed: 'left' },
+      { key: 'name', title: 'Name', width: 120, fixed: 'left' },
+      { key: 'role', title: 'Role', width: 100 },
+      { key: 'city', title: 'City', width: 100 },
+      { key: 'status', title: 'Status', width: 96, fixed: 'right' },
+    ]}
+    data={data}
+  />
+);
+```
+
+## Limitations
+
+Table is a **lightweight adaptive table**:
+
+| Capability | Status |
+|------------|--------|
+| Desktop table ↔ mobile cards | Supported (`responsive`) |
+| Sticky header | Supported (`stickyHeader` + `maxHeight`) |
+| Virtualization | Supported (`virtual`, fixed row height) |
+| Fixed columns | Supported (`column.fixed` + `width`) |
+| Column drag / tree data / cell merge | Not supported |
+
 ## API
 
 <API name="Table" />

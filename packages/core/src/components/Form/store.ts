@@ -166,8 +166,28 @@ export function createFormInstance<
         },
         (errorInfo: ValidateErrorEntity<Values>) => {
           callbacks.onFinishFailed?.(errorInfo);
+          const first = errorInfo.errorFields[0]?.name;
+          if (first && callbacks.scrollToFirstError) {
+            instance.scrollToField(first);
+          }
         },
       );
+    },
+    scrollToField: (name, options) => {
+      const el = document.getElementById(name);
+      if (!el) return;
+      el.scrollIntoView({
+        block: 'center',
+        behavior: options?.behavior ?? 'smooth',
+      });
+      if (options?.focus === false) return;
+      if (el instanceof HTMLElement) {
+        try {
+          el.focus({ preventScroll: true });
+        } catch {
+          el.focus();
+        }
+      }
     },
     __INTERNAL__: {
       setCallbacks: (next) => {

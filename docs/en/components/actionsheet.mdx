@@ -76,6 +76,33 @@ export default () => {
 };
 ```
 
+## Drag to dismiss
+
+Drag the top handle down to close (`closeOnDrag`, on by default).
+
+```tsx preview
+import { ActionSheet, Button } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Drag to close</Button>
+      <ActionSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Drag down"
+        description="Grab the gray handle and pull down"
+        actions={[
+          { key: '1', text: 'Option A' },
+          { key: '2', text: 'Option B' },
+        ]}
+      />
+    </>
+  );
+};
+```
+
 ## API
 
 <API name="ActionSheet" />

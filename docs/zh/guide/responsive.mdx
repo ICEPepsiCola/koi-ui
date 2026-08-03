@@ -31,3 +31,17 @@
 ```text
 <KoiProvider ssrMode="mobile">...</KoiProvider>
 ```
+
+## 平板与「中间态」
+
+默认在 **lg（1024px）** 一切换桌面 / 移动形态。平板常落在中间：
+
+- **偏后台、要表格密度** → 关键组件或全局用 `responsive={false}`，保持桌面布局，自行处理窄屏滚动。
+- **偏 App / H5** → 保持默认自适应，或把 `KoiProvider` 的 `breakpoint` 调到 `md`，更早进入移动形态。
+- **同一页混用** → 列表可用移动卡片，编辑弹层用 `Modal responsive={false}` 锁桌面。
+
+Koi 不做第三套「平板专用」布局，避免再维护一套组件树；用断点与 `responsive` 表达意图即可。
+
+## 密度
+
+控件密度主要通过 `size`（如 Input / Select 的 `sm` | `md`）与布局间距控制，没有全局 `density` token。后台页优先 `sm` + 紧凑 `Space`/`Stack`；移动页保持默认 `md` 触控热区。

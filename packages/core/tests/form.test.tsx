@@ -2,11 +2,12 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps } from 'react';
 import { Button } from '../src/components/Button';
-import { Form, FormItem, useForm } from '../src/components/Form';
+import { Form, FormItem, useForm, useWatch } from '../src/components/Form';
 import { createFormInstance } from '../src/components/Form/store';
 import { Input } from '../src/components/Input';
 import { Switch } from '../src/components/Switch';
 import { KoiProvider } from '../src/provider';
+import { Text } from '../src/primitives/Text';
 
 test('Form validates required fields on submit', async () => {
   let finished: Record<string, unknown> | null = null;
@@ -176,6 +177,57 @@ test('Form.Item does not rerender unrelated fields on value changes', async () =
 
   expect(screen.getByPlaceholderText('first')).toHaveValue('Grace');
   expect(lastNameRenders).toBe(rendersAfterMount);
+});
+
+test('Form.useWatch tracks field values', async () => {
+  function Preview() {
+    const nickname = useWatch('nickname');
+    return <Text data-testid="preview">{String(nickname ?? '')}</Text>;
+  }
+
+  render(
+    <KoiProvider>
+      <Form layout="vertical" initialValues={{ nickname: 'Ada' }}>
+        <FormItem name="nickname" label="Nickname">
+          <Input />
+        </FormItem>
+        <Preview />
+      </Form>
+    </KoiProvider>,
+  );
+
+  expect(screen.getByTestId('preview')).toHaveTextContent('Ada');
+  fireEvent.change(screen.getByRole('textbox'), {
+    target: { value: 'Grace' },
+  });
+  await waitFor(() => {
+    expect(screen.getByTestId('preview')).toHaveTextContent('Grace');
+  });
+});
+
+test('Form.scrollToField focuses the field control', () => {
+  const form = createFormInstance();
+  form.__INTERNAL__.setInitialValues({ email: '' });
+
+  render(
+    <KoiProvider>
+      <Form form={form} layout="vertical" scrollToFirstError={false}>
+        <FormItem name="email" label="Email">
+          <Input />
+        </FormItem>
+      </Form>
+    </KoiProvider>,
+  );
+
+  const input = screen.getByRole('textbox');
+  let scrolled = false;
+  input.scrollIntoView = (() => {
+    scrolled = true;
+  }) as typeof input.scrollIntoView;
+
+  form.scrollToField('email');
+  expect(scrolled).toBe(true);
+  expect(document.activeElement).toBe(input);
 });
 
 test('Form releases cached field snapshots on reset, setInitialValues, and unregister', () => {

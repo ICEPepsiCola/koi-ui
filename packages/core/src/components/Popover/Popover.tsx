@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useId,
   useLayoutEffect,
   useRef,
   useState,
@@ -18,6 +19,8 @@ import {
   motionTransition,
 } from '../../motion/presets';
 import { floatPanel } from '../../utils/interaction';
+import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import {
@@ -81,6 +84,8 @@ export interface PopoverProps
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   trigger?: 'click' | 'hover';
+  /** @default true — click trigger only */
+  closeOnEscape?: boolean;
   className?: string;
 }
 
@@ -93,6 +98,7 @@ export function Popover({
   defaultOpen = false,
   onOpenChange,
   trigger = 'click',
+  closeOnEscape = true,
   className,
 }: PopoverProps) {
   const { portalContainer } = useKoiContext();
@@ -103,6 +109,9 @@ export function Popover({
   const [pos, setPos] = useState({ top: 0, left: 0 });
   const [ready, setReady] = useState(false);
   const reduce = useReducedMotion();
+  const titleId = useId();
+  const isClickTrigger = trigger === 'click';
+  const layerOpen = open && isClickTrigger;
 
   const setOpen = useCallback(
     (v: boolean) => {
@@ -111,6 +120,21 @@ export function Popover({
     },
     [controlledOpen, onOpenChange],
   );
+
+  useDismissibleLayer({
+    open: layerOpen,
+    onDismiss: () => setOpen(false),
+    containerRef: contentRef,
+    excludeRef: triggerRef,
+    closeOnEscape,
+    closeOnPointerDownOutside: true,
+  });
+
+  useFocusTrap({
+    active: layerOpen,
+    containerRef: contentRef,
+    restoreFocus: true,
+  });
 
   useEffect(() => {
     if (!open) setReady(false);
@@ -169,18 +193,6 @@ export function Popover({
     };
   }, [open, placement, portalContainer, content, title]);
 
-  useEffect(() => {
-    if (!open || trigger === 'hover') return;
-    const handlePointerDown = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (triggerRef.current?.contains(target)) return;
-      if (contentRef.current?.contains(target)) return;
-      setOpen(false);
-    };
-    document.addEventListener('mousedown', handlePointerDown);
-    return () => document.removeEventListener('mousedown', handlePointerDown);
-  }, [open, setOpen, trigger]);
-
   const triggerProps =
     trigger === 'hover'
       ? {
@@ -206,9 +218,12 @@ export function Popover({
               key="koi-popover"
               ref={contentRef}
               role="dialog"
+              aria-modal={isClickTrigger || undefined}
+              aria-labelledby={title ? titleId : undefined}
+              tabIndex={-1}
               className={cn(
                 popoverVariants({ placement }),
-                'fixed w-max',
+                'fixed w-max outline-none',
                 className,
               )}
               style={{
@@ -240,7 +255,10 @@ export function Popover({
               }
             >
               {title ? (
-                <div className="mb-2 text-sm font-semibold text-surface-foreground">
+                <div
+                  id={titleId}
+                  className="mb-2 text-sm font-semibold text-surface-foreground"
+                >
                   {title}
                 </div>
               ) : null}

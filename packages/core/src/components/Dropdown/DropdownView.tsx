@@ -1,6 +1,21 @@
-import { useRef, useState, type ReactNode } from 'react';
+import {
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { cn } from '../../utils/cn';
+import {
+  findEnabledIndex,
+  findNextEnabledIndex,
+  isActivationKey,
+} from '../../utils/keyboard';
 import {
   controlTransition,
   floatPanel,
@@ -34,6 +49,16 @@ const placementClasses: Record<
   'top-end': 'right-0 bottom-full mb-1',
 };
 
+function focusItem(buttons: HTMLButtonElement[], index: number) {
+  const button = buttons[index];
+  if (!button) return;
+  try {
+    button.focus({ preventScroll: true });
+  } catch {
+    button.focus();
+  }
+}
+
 export function DropdownView({
   trigger,
   items,
@@ -42,7 +67,10 @@ export function DropdownView({
   onSelect,
 }: DropdownViewProps) {
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
+  const menuId = useId();
 
   useDismissibleLayer({
     open,
@@ -51,43 +79,137 @@ export function DropdownView({
     closeOnPointerDownOutside: true,
   });
 
+  useEffect(() => {
+    if (!open) {
+      setActiveIndex(-1);
+      return;
+    }
+    const first = findEnabledIndex(items);
+    setActiveIndex(first);
+    queueMicrotask(() => {
+      const buttons = getMenuButtons(menuRef.current);
+      if (first >= 0) focusItem(buttons, first);
+    });
+    // Focus once when the menu opens; item list is read from the latest render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- open-only
+  }, [open]);
+
+  const commit = (index: number) => {
+    const item = items[index];
+    if (!item || item.disabled) return;
+    item.onClick?.();
+    onSelect?.(item.key);
+    setOpen(false);
+  };
+
+  const handleMenuKeyDown = (event: ReactKeyboardEvent<HTMLUListElement>) => {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      setActiveIndex((current) => {
+        const next = findNextEnabledIndex(
+          items,
+          current < 0 ? 0 : current,
+          event.key === 'ArrowDown' ? 1 : -1,
+        );
+        queueMicrotask(() => focusItem(getMenuButtons(menuRef.current), next));
+        return next;
+      });
+      return;
+    }
+    if (event.key === 'Home') {
+      event.preventDefault();
+      const next = findEnabledIndex(items);
+      setActiveIndex(next);
+      queueMicrotask(() => focusItem(getMenuButtons(menuRef.current), next));
+      return;
+    }
+    if (event.key === 'End') {
+      event.preventDefault();
+      const reversed = [...items]
+        .reverse()
+        .findIndex((item) => !item.disabled);
+      const next = reversed >= 0 ? items.length - reversed - 1 : -1;
+      setActiveIndex(next);
+      queueMicrotask(() => focusItem(getMenuButtons(menuRef.current), next));
+      return;
+    }
+    if (isActivationKey(event.key)) {
+      event.preventDefault();
+      commit(activeIndex);
+    }
+  };
+
+  const handleTriggerKeyDown = (event: ReactKeyboardEvent) => {
+    if (disabled) return;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      setOpen(true);
+    }
+    if (isActivationKey(event.key)) {
+      // Let native button click fire; still ensure open for non-button triggers.
+      if (!isValidElement(trigger)) {
+        event.preventDefault();
+        setOpen((v) => !v);
+      }
+    }
+  };
+
+  const triggerNode = isValidElement(trigger)
+    ? cloneElement(trigger as ReactElement<Record<string, unknown>>, {
+        'aria-haspopup': 'menu',
+        'aria-expanded': open,
+        'aria-controls': open ? menuId : undefined,
+        onKeyDown: (event: ReactKeyboardEvent) => {
+          handleTriggerKeyDown(event);
+          const prev = (trigger as ReactElement<Record<string, unknown>>).props
+            .onKeyDown as ((e: ReactKeyboardEvent) => void) | undefined;
+          prev?.(event);
+        },
+      })
+    : trigger;
+
   return (
     <div ref={containerRef} className="relative inline-block">
       <div
         onClick={() => !disabled && setOpen((v) => !v)}
+        onKeyDown={handleTriggerKeyDown}
         className={cn(disabled && 'pointer-events-none opacity-50')}
       >
-        {trigger}
+        {triggerNode}
       </div>
       {open ? (
         <ul
+          ref={menuRef}
+          id={menuId}
           role="menu"
+          tabIndex={-1}
           className={cn(
-            'absolute z-50 min-w-40 overflow-hidden',
+            'absolute z-50 min-w-40 overflow-hidden outline-none',
             floatPanel,
             placementClasses[placement],
           )}
+          onKeyDown={handleMenuKeyDown}
         >
-          {items.map((item) => (
+          {items.map((item, index) => (
             <li key={item.key} role="none">
               <button
                 type="button"
                 role="menuitem"
+                tabIndex={index === activeIndex ? 0 : -1}
                 disabled={item.disabled}
                 className={cn(
                   'block w-full px-3 py-2 text-left text-sm',
                   controlTransition,
                   pressable,
                   'hover:bg-muted',
+                  index === activeIndex && 'bg-muted',
                   item.disabled && 'cursor-not-allowed opacity-50',
                   item.color === 'error' && 'text-error hover:bg-error/10',
                 )}
-                onClick={() => {
-                  if (item.disabled) return;
-                  item.onClick?.();
-                  onSelect?.(item.key);
-                  setOpen(false);
+                onMouseEnter={() => {
+                  if (!item.disabled) setActiveIndex(index);
                 }}
+                onClick={() => commit(index)}
               >
                 {item.label}
               </button>
@@ -96,5 +218,12 @@ export function DropdownView({
         </ul>
       ) : null}
     </div>
+  );
+}
+
+function getMenuButtons(menu: HTMLUListElement | null) {
+  if (!menu) return [] as HTMLButtonElement[];
+  return Array.from(
+    menu.querySelectorAll<HTMLButtonElement>('button[role="menuitem"]'),
   );
 }

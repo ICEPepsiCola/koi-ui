@@ -96,6 +96,50 @@ export default () => (
 );
 ```
 
+## 固定表头 / 虚拟滚动 / 固定列
+
+桌面端支持固定表头、行虚拟化与左右固定列。大数据请开 `virtual`；固定列建议写明 `width`。
+
+```tsx preview
+import { Table } from '@koi-ui/core';
+
+const data = Array.from({ length: 200 }, (_, i) => ({
+  id: String(i + 1),
+  name: `成员 ${i + 1}`,
+  role: i % 2 === 0 ? '设计' : '开发',
+  city: i % 3 === 0 ? '杭州' : '上海',
+  status: i % 4 === 0 ? '试用' : '正式',
+}));
+
+export default () => (
+  <Table
+    stickyHeader
+    virtual
+    maxHeight={280}
+    columns={[
+      { key: 'id', title: 'ID', width: 72, fixed: 'left' },
+      { key: 'name', title: '姓名', width: 120, fixed: 'left' },
+      { key: 'role', title: '角色', width: 100 },
+      { key: 'city', title: '城市', width: 100 },
+      { key: 'status', title: '状态', width: 96, fixed: 'right' },
+    ]}
+    data={data}
+  />
+);
+```
+
+## 能力边界
+
+Table 定位为**轻量自适应表格**：
+
+| 能力 | 状态 |
+|------|------|
+| 桌面表格 ↔ 移动卡片 | 支持（`responsive`） |
+| 固定表头 | 支持（`stickyHeader` + `maxHeight`） |
+| 虚拟滚动 | 支持（`virtual`，固定行高） |
+| 固定列 | 支持（`column.fixed` + `width`） |
+| 列拖拽 / 树形数据 / 单元格合并 | 不支持 |
+
 ## API
 
 <API name="Table" />

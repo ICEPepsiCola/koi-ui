@@ -137,6 +137,45 @@ export default () => (
 );
 ```
 
+## 监听字段与滚动到错误
+
+`Form.useWatch` 订阅字段值；校验失败时默认滚动并聚焦第一个错误项（可用 `scrollToFirstError={false}` 关闭）。
+
+```tsx preview
+import { Form, Input, Button, Text, toast } from '@koi-ui/core';
+
+function NicknameHint() {
+  const nickname = Form.useWatch('nickname');
+  return (
+    <Text muted className="text-sm">
+      预览：{nickname ? String(nickname) : '尚未填写'}
+    </Text>
+  );
+}
+
+export default () => {
+  const [form] = Form.useForm();
+  return (
+    <Form
+      form={form}
+      layout="vertical"
+      onFinish={() => toast.success('已提交')}
+      onFinishFailed={() => toast.error('请检查表单')}
+    >
+      <Form.Item
+        name="nickname"
+        label="昵称"
+        rules={[{ required: true, message: '请输入昵称' }]}
+      >
+        <Input placeholder="请输入" clearable />
+      </Form.Item>
+      <NicknameHint />
+      <Button color="primary" type="submit">提交</Button>
+    </Form>
+  );
+};
+```
+
 ## API
 
 <API name="Form" />

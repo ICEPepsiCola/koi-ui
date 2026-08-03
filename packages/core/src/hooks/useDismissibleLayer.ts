@@ -4,14 +4,25 @@ export interface UseDismissibleLayerOptions {
   open: boolean;
   onDismiss: () => void;
   containerRef: RefObject<HTMLElement | null>;
+  /** Extra node that counts as "inside" (e.g. portal trigger). */
+  excludeRef?: RefObject<HTMLElement | null>;
   closeOnEscape?: boolean;
   closeOnPointerDownOutside?: boolean;
+}
+
+function isInside(
+  target: EventTarget | null,
+  ...refs: RefObject<HTMLElement | null>[]
+) {
+  if (!(target instanceof Node)) return false;
+  return refs.some((ref) => ref.current?.contains(target));
 }
 
 export function useDismissibleLayer({
   open,
   onDismiss,
   containerRef,
+  excludeRef,
   closeOnEscape = true,
   closeOnPointerDownOutside = false,
 }: UseDismissibleLayerOptions) {
@@ -26,12 +37,10 @@ export function useDismissibleLayer({
 
     const handlePointerDown = (event: PointerEvent) => {
       if (!closeOnPointerDownOutside) return;
-      const container = containerRef.current;
-      if (!container) return;
-      const target = event.target;
-      if (target instanceof Node && !container.contains(target)) {
-        onDismiss();
+      if (isInside(event.target, containerRef, ...(excludeRef ? [excludeRef] : []))) {
+        return;
       }
+      onDismiss();
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -45,6 +54,7 @@ export function useDismissibleLayer({
     closeOnEscape,
     closeOnPointerDownOutside,
     containerRef,
+    excludeRef,
     onDismiss,
     open,
   ]);

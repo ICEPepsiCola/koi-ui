@@ -137,6 +137,45 @@ export default () => (
 );
 ```
 
+## Watch fields and scroll to errors
+
+`Form.useWatch` subscribes to field values. On failed submit, the form scrolls to and focuses the first error by default (`scrollToFirstError={false}` to disable).
+
+```tsx preview
+import { Form, Input, Button, Text, toast } from '@koi-ui/core';
+
+function NicknameHint() {
+  const nickname = Form.useWatch('nickname');
+  return (
+    <Text muted className="text-sm">
+      Preview: {nickname ? String(nickname) : 'empty'}
+    </Text>
+  );
+}
+
+export default () => {
+  const [form] = Form.useForm();
+  return (
+    <Form
+      form={form}
+      layout="vertical"
+      onFinish={() => toast.success('Submitted')}
+      onFinishFailed={() => toast.error('Check the form')}
+    >
+      <Form.Item
+        name="nickname"
+        label="Nickname"
+        rules={[{ required: true, message: 'Required' }]}
+      >
+        <Input placeholder="Type here" clearable />
+      </Form.Item>
+      <NicknameHint />
+      <Button color="primary" type="submit">Submit</Button>
+    </Form>
+  );
+};
+```
+
 ## API
 
 <API name="Form" />

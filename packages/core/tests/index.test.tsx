@@ -18,6 +18,8 @@ import { Swiper } from '../src/components/Swiper';
 import { Tabs } from '../src/components/Tabs';
 import { toast } from '../src/components/Toast';
 import { Dropdown } from '../src/components/Dropdown';
+import { Popover } from '../src/components/Popover';
+import { ActionSheet } from '../src/components/ActionSheet';
 import { mockWidth } from './setup';
 
 test('Button renders children', () => {
@@ -99,6 +101,69 @@ test('Dropdown closes on Escape', () => {
   expect(screen.queryByRole('menuitem', { name: 'Edit' })).not.toBeInTheDocument();
 });
 
+test('Dropdown navigates items with arrow keys and Enter', async () => {
+  let selected = '';
+  render(
+    <KoiProvider>
+      <Dropdown
+        trigger={<Button>Actions</Button>}
+        items={[
+          { key: 'edit', label: 'Edit' },
+          { key: 'share', label: 'Share' },
+          { key: 'delete', label: 'Delete', disabled: true },
+        ]}
+        onSelect={(key) => {
+          selected = key;
+        }}
+      />
+    </KoiProvider>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Actions' });
+  fireEvent.click(trigger);
+
+  const edit = await screen.findByRole('menuitem', { name: 'Edit' });
+  await waitFor(() => {
+    expect(edit).toHaveFocus();
+  });
+  expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+  fireEvent.keyDown(screen.getByRole('menu'), { key: 'ArrowDown' });
+  await waitFor(() => {
+    expect(screen.getByRole('menuitem', { name: 'Share' })).toHaveFocus();
+  });
+
+  fireEvent.keyDown(screen.getByRole('menu'), { key: 'Enter' });
+  expect(selected).toBe('share');
+  expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+});
+
+test('Popover closes on Escape and restores focus', async () => {
+  render(
+    <KoiProvider>
+      <Popover title="提示" content={<button type="button">内容</button>}>
+        <Button>打开气泡</Button>
+      </Popover>
+    </KoiProvider>,
+  );
+
+  const trigger = screen.getByRole('button', { name: '打开气泡' });
+  trigger.focus();
+  fireEvent.click(trigger);
+
+  const dialog = await screen.findByRole('dialog');
+  await waitFor(() => {
+    expect(dialog).toContainElement(document.activeElement as HTMLElement | null);
+  });
+
+  fireEvent.keyDown(document, { key: 'Escape' });
+
+  await waitFor(() => {
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(document.activeElement).toBe(trigger);
+  });
+});
+
 test('KoiProvider applies data-theme and CSS overrides', () => {
   const { container } = render(
     <KoiProvider theme={{ name: 'ocean', primaryColor: 'hsl(200 80% 40%)' }}>
@@ -133,6 +198,63 @@ test('Table loading shows spinner status', () => {
   );
   expect(screen.getByRole('status')).toBeInTheDocument();
   expect(screen.getByText('加载中...')).toBeInTheDocument();
+});
+
+test('Table virtualizes rows and pins fixed columns', () => {
+  mockWidth(BREAKPOINTS.xl);
+  const data = Array.from({ length: 80 }, (_, i) => ({
+    id: String(i),
+    name: `Row ${i}`,
+  }));
+
+  const { container } = render(
+    <KoiProvider>
+      <Table
+        stickyHeader
+        virtual
+        maxHeight={200}
+        rowHeight={40}
+        overscan={2}
+        columns={[
+          { key: 'id', title: 'ID', width: 64, fixed: 'left' },
+          { key: 'name', title: 'Name', width: 160 },
+        ]}
+        data={data}
+      />
+    </KoiProvider>,
+  );
+
+  expect(screen.queryByText('Row 79')).not.toBeInTheDocument();
+  expect(screen.getByText('Row 0')).toBeInTheDocument();
+
+  const pinned = container.querySelector('th');
+  expect(pinned).toHaveStyle({ position: 'sticky', left: '0px' });
+});
+
+test('ActionSheet drag handle dismisses past threshold', () => {
+  let closed = false;
+  render(
+    <KoiProvider>
+      <ActionSheet
+        open
+        onClose={() => {
+          closed = true;
+        }}
+        actions={[{ key: 'a', text: '选项' }]}
+      />
+    </KoiProvider>,
+  );
+
+  const handle = document.querySelector(
+    '[data-actionsheet-handle]',
+  ) as HTMLDivElement;
+  expect(handle).toBeTruthy();
+
+  fireEvent.pointerDown(handle, { button: 0, clientY: 100, pointerId: 1 });
+  fireEvent.pointerMove(handle, { clientY: 220, pointerId: 1 });
+  fireEvent.pointerUp(handle, { clientY: 220, pointerId: 1 });
+
+  expect(closed).toBe(true);
 });
 
 test('Input calls onChange', () => {

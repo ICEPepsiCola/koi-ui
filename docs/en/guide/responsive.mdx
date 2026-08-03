@@ -31,3 +31,17 @@ The server renders the desktop layout by default; the client hydrates to the rea
 ```text
 <KoiProvider ssrMode="mobile">...</KoiProvider>
 ```
+
+## Tablets and the “middle” state
+
+The default split is **lg (1024px)**. Tablets often sit in between:
+
+- **Admin density / real tables** → set `responsive={false}` on components (or keep a desktop shell) and allow horizontal scroll.
+- **App / H5 feel** → keep adaptive defaults, or lower `KoiProvider` `breakpoint` to `md` so mobile layouts kick in earlier.
+- **Mixed pages** → e.g. mobile card lists with `Modal responsive={false}` for dense editors.
+
+Koi does not ship a third tablet-only layout tree; express intent with breakpoints and `responsive`.
+
+## Density
+
+Control density with per-control `size` (`sm` | `md`) and spacing — there is no global `density` token. Prefer `sm` plus tighter `Space`/`Stack` on dense admin screens; keep default `md` touch targets on mobile.
