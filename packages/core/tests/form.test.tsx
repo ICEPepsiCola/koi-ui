@@ -178,7 +178,7 @@ test('Form.Item does not rerender unrelated fields on value changes', async () =
   expect(lastNameRenders).toBe(rendersAfterMount);
 });
 
-test('Form releases cached field snapshots on reset and unregister', () => {
+test('Form releases cached field snapshots on reset, setInitialValues, and unregister', () => {
   const form = createFormInstance();
   form.__INTERNAL__.setInitialValues({ name: 'Ada' });
   const unregister = form.__INTERNAL__.registerField('name', {});
@@ -193,9 +193,15 @@ test('Form releases cached field snapshots on reset and unregister', () => {
   expect(afterReset).not.toBe(first);
   expect(afterReset.value).toBe('Ada');
 
+  form.__INTERNAL__.setInitialValues({ name: 'Katherine' });
+  const afterInitialValues = form.__INTERNAL__.getFieldSnapshot('name');
+
+  expect(afterInitialValues).not.toBe(afterReset);
+  expect(afterInitialValues.value).toBe('Katherine');
+
   unregister();
   const afterUnregister = form.__INTERNAL__.getFieldSnapshot('name');
 
-  expect(afterUnregister).not.toBe(afterReset);
-  expect(afterUnregister.value).toBe('Ada');
+  expect(afterUnregister).not.toBe(afterInitialValues);
+  expect(afterUnregister.value).toBe('Katherine');
 });

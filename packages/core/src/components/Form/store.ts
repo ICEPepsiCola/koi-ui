@@ -179,6 +179,7 @@ export function createFormInstance<
           values = { ...initialValues };
           errors = {};
           touched = {};
+          fieldSnapshots.clear();
           notify();
         }
       },
