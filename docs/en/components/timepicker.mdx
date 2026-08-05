@@ -66,6 +66,30 @@ export default () => (
 );
 ```
 
+## Time range
+
+```tsx preview
+import { TimePicker, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [range, setRange] = useState<[string, string]>(['', '']);
+  return (
+    <div>
+      <TimePicker
+        range
+        value={range}
+        onChange={setRange}
+        clearable
+        placeholder="Start ~ End"
+      />
+      <Text muted className="mt-2 block text-sm">
+        {range[0] && range[1] ? `${range[0]} ~ ${range[1]}` : 'None'}
+      </Text>
+    </div>
+  );
+};
+```
+
 ## API
 
 <API name="TimePicker" />

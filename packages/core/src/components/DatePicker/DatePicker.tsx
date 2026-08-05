@@ -1,19 +1,14 @@
 import { AdaptiveRender } from '../../adaptive/AdaptiveRender';
-import type { FieldSize } from '../../utils/interaction';
 import { BottomPickerView } from './BottomPickerView';
 import { CalendarView } from './CalendarView';
+import type { DatePickerProps } from './types';
 
-export interface DatePickerProps {
-  value?: string;
-  onChange?: (value: string) => void;
-  placeholder?: string;
-  disabled?: boolean;
-  min?: string;
-  max?: string;
-  clearable?: boolean;
-  responsive?: boolean;
-  size?: FieldSize;
-}
+export type {
+  DatePickerProps,
+  DatePickerType,
+  DatePickerValue,
+  TimeFormat,
+} from './types';
 
 export function DatePicker({ responsive = true, ...props }: DatePickerProps) {
   return (

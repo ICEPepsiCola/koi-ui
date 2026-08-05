@@ -79,6 +79,70 @@ export default () => (
 );
 ```
 
+## Year / month / week
+
+Use `picker` for granularity. Week values are ISO weeks: `YYYY-Www`.
+
+```tsx preview
+import { DatePicker, Space } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [year, setYear] = useState('2026');
+  const [month, setMonth] = useState('2026-07');
+  const [week, setWeek] = useState('2026-W28');
+  return (
+    <Space direction="vertical" size="middle" className="w-full">
+      <DatePicker picker="year" value={year} onChange={setYear} placeholder="Year" />
+      <DatePicker picker="month" value={month} onChange={setMonth} placeholder="Month" />
+      <DatePicker picker="week" value={week} onChange={setWeek} placeholder="Week" />
+    </Space>
+  );
+};
+```
+
+## Date range
+
+```tsx preview
+import { DatePicker, Text } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [range, setRange] = useState<[string, string]>(['', '']);
+  return (
+    <div>
+      <DatePicker
+        range
+        value={range}
+        onChange={setRange}
+        clearable
+        placeholder="Start ~ End"
+      />
+      <Text muted className="mt-2 block text-sm">
+        {range[0] && range[1] ? `${range[0]} ~ ${range[1]}` : 'None'}
+      </Text>
+    </div>
+  );
+};
+```
+
+## Date and time
+
+```tsx preview
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+export default () => {
+  const [v, setV] = useState('2026-07-12 09:30');
+  return (
+    <DatePicker
+      showTime
+      value={v}
+      onChange={setV}
+      clearable
+      placeholder="Date time"
+    />
+  );
+};
+```
+
 ## API
 
 <API name="DatePicker" />

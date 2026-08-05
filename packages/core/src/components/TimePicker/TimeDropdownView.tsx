@@ -8,39 +8,28 @@ import {
   pressable,
 } from '../../utils/interaction';
 import type { FieldSize } from '../../utils/interaction';
+import { pad2 } from '../DatePicker/dateUtils';
 import { FieldTrigger } from '../shared/FieldTrigger';
 import { FloatMenu } from '../shared/FloatMenu';
 import { MenuColumns } from '../shared/MenuColumns';
-import { pad2 } from '../DatePicker/dateUtils';
+import type { TimePickerValue } from './TimePicker';
+import {
+  asSingleTime,
+  displayTimeValue,
+  emptyTimeValue,
+  formatTime,
+  parseTime,
+} from './timeUtils';
 
 export interface TimeDropdownViewProps {
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: TimePickerValue;
+  onChange?: (value: TimePickerValue) => void;
   placeholder?: string;
   disabled?: boolean;
   format?: 'HH:mm' | 'HH:mm:ss';
   clearable?: boolean;
   size?: FieldSize;
-}
-
-function parseTime(value?: string) {
-  const parts = (value ?? '').split(':').map(Number);
-  return {
-    hour: Number.isFinite(parts[0]) ? parts[0]! : 0,
-    minute: Number.isFinite(parts[1]) ? parts[1]! : 0,
-    second: Number.isFinite(parts[2]) ? parts[2]! : 0,
-  };
-}
-
-function formatTime(
-  hour: number,
-  minute: number,
-  second: number,
-  withSeconds: boolean,
-) {
-  return withSeconds
-    ? `${pad2(hour)}:${pad2(minute)}:${pad2(second)}`
-    : `${pad2(hour)}:${pad2(minute)}`;
+  range?: boolean;
 }
 
 /**
@@ -54,11 +43,15 @@ export function TimeDropdownView({
   format = 'HH:mm',
   clearable = false,
   size = 'md',
+  range = false,
 }: TimeDropdownViewProps) {
-  const { messages } = useKoiContext();
+  const { messages, locale } = useKoiContext();
   const withSeconds = format === 'HH:mm:ss';
-  const parsed = parseTime(value);
+  const seed = asSingleTime(value);
+  const parsed = parseTime(seed);
   const [open, setOpen] = useState(false);
+  const [rangeStep, setRangeStep] = useState<'start' | 'end'>('start');
+  const [rangeStart, setRangeStart] = useState('');
   const [hour, setHour] = useState(parsed.hour);
   const [minute, setMinute] = useState(parsed.minute);
   const [second, setSecond] = useState(parsed.second);
@@ -66,15 +59,27 @@ export function TimeDropdownView({
 
   const hours = Array.from({ length: 24 }, (_, i) => pad2(i));
   const minutes = Array.from({ length: 60 }, (_, i) => pad2(i));
-  const hasValue = Boolean(value);
+  const display = displayTimeValue(value, range);
+  const hasValue = Boolean(display);
 
   useEffect(() => {
     if (!open) return;
-    const next = parseTime(value);
+    const source =
+      range && rangeStep === 'end' && rangeStart
+        ? rangeStart
+        : asSingleTime(value);
+    const next = parseTime(source);
     setHour(next.hour);
     setMinute(next.minute);
     setSecond(next.second);
-  }, [open, value]);
+  }, [open, value, range, rangeStep, rangeStart]);
+
+  useEffect(() => {
+    if (!open) {
+      setRangeStep('start');
+      setRangeStart('');
+    }
+  }, [open]);
 
   useDismissibleLayer({
     open,
@@ -84,7 +89,19 @@ export function TimeDropdownView({
   });
 
   const confirm = (h = hour, m = minute, s = second) => {
-    onChange?.(formatTime(h, m, s, withSeconds));
+    const next = formatTime(h, m, s, withSeconds);
+    if (range) {
+      if (rangeStep === 'start') {
+        setRangeStart(next);
+        setRangeStep('end');
+        return;
+      }
+      const ordered = rangeStart <= next ? [rangeStart, next] : [next, rangeStart];
+      onChange?.(ordered as [string, string]);
+      setOpen(false);
+      return;
+    }
+    onChange?.(next);
     setOpen(false);
   };
 
@@ -137,13 +154,13 @@ export function TimeDropdownView({
         open={open}
         disabled={disabled}
         hasValue={hasValue}
-        display={<span className="tabular-nums">{value}</span>}
+        display={<span className="tabular-nums">{display}</span>}
         placeholder={placeholder}
         clearable={clearable}
         clearLabel={messages.clearActionText}
         trailing={<ClockIcon className={cn(open && 'text-primary')} />}
         onClear={() => {
-          onChange?.('');
+          onChange?.(emptyTimeValue(range));
           setOpen(false);
         }}
         onClick={() => !disabled && setOpen((v) => !v)}
@@ -159,6 +176,17 @@ export function TimeDropdownView({
         open={open}
         className="overflow-hidden rounded-box border-border/70 p-0 shadow-sm"
       >
+        {range ? (
+          <div className="border-b border-border/70 px-3 py-2 text-xs text-muted-foreground">
+            {rangeStep === 'start'
+              ? locale === 'en-US'
+                ? 'Start time'
+                : '开始时间'
+              : locale === 'en-US'
+                ? 'End time'
+                : '结束时间'}
+          </div>
+        ) : null}
         <MenuColumns columns={columns} />
         <div className="flex items-center justify-between border-t border-border/70 px-2 py-2">
           <button
@@ -171,7 +199,7 @@ export function TimeDropdownView({
             )}
             onClick={pickNow}
           >
-            此刻
+            {locale === 'en-US' ? 'Now' : '此刻'}
           </button>
           <button
             type="button"
@@ -184,7 +212,13 @@ export function TimeDropdownView({
             )}
             onClick={() => confirm()}
           >
-            确定
+            {range && rangeStep === 'start'
+              ? locale === 'en-US'
+                ? 'Next'
+                : '下一步'
+              : locale === 'en-US'
+                ? 'OK'
+                : '确定'}
           </button>
         </div>
       </FloatMenu>

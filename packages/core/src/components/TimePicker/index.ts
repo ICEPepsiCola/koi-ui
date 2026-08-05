@@ -1,1 +1,5 @@
-export { TimePicker, type TimePickerProps } from './TimePicker';
+export {
+  TimePicker,
+  type TimePickerProps,
+  type TimePickerValue,
+} from './TimePicker';

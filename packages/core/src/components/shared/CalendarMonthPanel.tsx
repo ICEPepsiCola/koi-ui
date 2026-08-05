@@ -10,7 +10,9 @@ import {
   formatMonthLabel,
   getMonthMatrix,
   getWeekdays,
+  isInRange,
   isSameDay,
+  weeksEqual,
 } from '../DatePicker/dateUtils';
 
 export interface CalendarMonthPanelProps {
@@ -19,6 +21,11 @@ export interface CalendarMonthPanelProps {
   viewMonth: number;
   onViewChange: (year: number, month: number) => void;
   selected?: Date | null;
+  rangeStart?: Date | null;
+  rangeEnd?: Date | null;
+  /** Highlight ISO week containing this date. */
+  weekSelected?: Date | null;
+  mode?: 'date' | 'week';
   onSelect: (date: Date) => void;
   isDateDisabled?: (date: Date) => boolean;
   className?: string;
@@ -29,6 +36,10 @@ export function CalendarMonthPanel({
   viewMonth,
   onViewChange,
   selected,
+  rangeStart,
+  rangeEnd,
+  weekSelected,
+  mode = 'date',
   onSelect,
   isDateDisabled,
   className,
@@ -94,6 +105,14 @@ export function CalendarMonthPanel({
           const date = new Date(viewYear, viewMonth - 1, day);
           const disabled = isDateDisabled?.(date) ?? false;
           const isSelected = selected ? isSameDay(date, selected) : false;
+          const isRangeEdge =
+            (rangeStart ? isSameDay(date, rangeStart) : false) ||
+            (rangeEnd ? isSameDay(date, rangeEnd) : false);
+          const inRange = isInRange(date, rangeStart, rangeEnd);
+          const inWeek =
+            mode === 'week' && weekSelected
+              ? weeksEqual(date, weekSelected)
+              : false;
           const isToday = isSameDay(date, today);
 
           return (
@@ -104,15 +123,27 @@ export function CalendarMonthPanel({
               aria-label={date.toLocaleDateString(
                 locale === 'en-US' ? 'en-US' : 'zh-CN',
               )}
-              aria-pressed={isSelected}
+              aria-pressed={isSelected || isRangeEdge || inWeek}
               className={cn(
                 'h-9 rounded-selector text-sm tabular-nums',
                 controlTransition,
                 focusRing,
-                isSelected &&
+                (isSelected || isRangeEdge || inWeek) &&
                   'bg-primary/10 font-medium text-primary ring-1 ring-primary/15 hover:bg-primary/10',
-                !isSelected && !disabled && 'hover:bg-muted',
-                isToday && !isSelected && 'border border-primary/40',
+                inRange &&
+                  !isRangeEdge &&
+                  'rounded-none bg-primary/6 text-primary',
+                !isSelected &&
+                  !isRangeEdge &&
+                  !inRange &&
+                  !inWeek &&
+                  !disabled &&
+                  'hover:bg-muted',
+                isToday &&
+                  !isSelected &&
+                  !isRangeEdge &&
+                  !inWeek &&
+                  'border border-primary/40',
                 !disabled && pressable,
                 disabled && 'cursor-not-allowed opacity-40',
               )}
