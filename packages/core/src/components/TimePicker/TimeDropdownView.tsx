@@ -174,7 +174,7 @@ export function TimeDropdownView({
       />
       <FloatMenu
         open={open}
-        className="overflow-hidden rounded-box border-border/70 p-0 shadow-sm"
+        className="w-auto overflow-hidden rounded-xl border-border/70 p-0 shadow-float"
       >
         {range ? (
           <div className="border-b border-border/70 px-3 py-2 text-xs text-muted-foreground">

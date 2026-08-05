@@ -7,7 +7,11 @@ import { DatePicker } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('');
-  return <DatePicker value={v} onChange={setV} placeholder="选择日期" />;
+  return (
+    <div className="w-full max-w-xs">
+      <DatePicker value={v} onChange={setV} placeholder="选择日期" />
+    </div>
+  );
 };
 ```
 
@@ -19,7 +23,7 @@ import { useState } from 'react';
 export default () => {
   const [date, setDate] = useState('2026-07-12');
   return (
-    <div>
+    <div className="w-full max-w-xs">
       <DatePicker value={date} onChange={setDate} placeholder="选择日期" />
       <Text muted className="mt-2 block text-sm">选中：{date || '未选择'}</Text>
     </div>
@@ -34,7 +38,11 @@ import { DatePicker } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('2026-07-12');
-  return <DatePicker value={v} onChange={setV} clearable placeholder="选择日期" />;
+  return (
+    <div className="w-full max-w-xs">
+      <DatePicker value={v} onChange={setV} clearable placeholder="选择日期" />
+    </div>
+  );
 };
 ```
 
@@ -46,13 +54,15 @@ import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('2026-07-15');
   return (
-    <DatePicker
-      value={v}
-      onChange={setV}
-      min="2026-07-01"
-      max="2026-07-31"
-      placeholder="仅七月可选"
-    />
+    <div className="w-full max-w-xs">
+      <DatePicker
+        value={v}
+        onChange={setV}
+        min="2026-07-01"
+        max="2026-07-31"
+        placeholder="仅七月可选"
+      />
+    </div>
   );
 };
 ```
@@ -62,7 +72,7 @@ export default () => {
 ```tsx preview
 import { DatePicker, Space } from '@koi-ui/core';
 export default () => (
-  <Space direction="vertical" size="middle" className="w-full">
+  <Space direction="vertical" size="middle" className="w-full max-w-xs">
     <DatePicker size="sm" placeholder="sm" />
     <DatePicker size="md" placeholder="md" />
     <DatePicker size="lg" placeholder="lg" />
@@ -75,7 +85,9 @@ export default () => (
 ```tsx preview
 import { DatePicker } from '@koi-ui/core';
 export default () => (
-  <DatePicker disabled value="2026-07-12" placeholder="选择日期" />
+  <div className="w-full max-w-xs">
+    <DatePicker disabled value="2026-07-12" placeholder="选择日期" />
+  </div>
 );
 ```
 
@@ -91,7 +103,7 @@ export default () => {
   const [month, setMonth] = useState('2026-07');
   const [week, setWeek] = useState('2026-W28');
   return (
-    <Space direction="vertical" size="middle" className="w-full">
+    <Space direction="vertical" size="middle" className="w-full max-w-xs">
       <DatePicker picker="year" value={year} onChange={setYear} placeholder="选择年" />
       <DatePicker picker="month" value={month} onChange={setMonth} placeholder="选择月" />
       <DatePicker picker="week" value={week} onChange={setWeek} placeholder="选择周" />
@@ -117,13 +129,15 @@ function isDrawDay(date: Date) {
 export default () => {
   const [v, setV] = useState('');
   return (
-    <DatePicker
-      value={v}
-      onChange={setV}
-      disabledDate={isDrawDay}
-      clearable
-      placeholder="仅开奖日可选"
-    />
+    <div className="w-full max-w-xs">
+      <DatePicker
+        value={v}
+        onChange={setV}
+        disabledDate={isDrawDay}
+        clearable
+        placeholder="仅开奖日可选"
+      />
+    </div>
   );
 };
 ```
@@ -138,7 +152,7 @@ import { useState } from 'react';
 export default () => {
   const [range, setRange] = useState<[string, string]>(['', '']);
   return (
-    <Space direction="vertical" size="middle" className="w-full">
+    <Space direction="vertical" size="middle" className="w-full max-w-xl">
       <DatePicker.RangePicker
         value={range}
         onChange={setRange}
@@ -161,13 +175,15 @@ import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('2026-07-12 09:30');
   return (
-    <DatePicker
-      showTime
-      value={v}
-      onChange={setV}
-      clearable
-      placeholder="选择日期时间"
-    />
+    <div className="w-full max-w-xs">
+      <DatePicker
+        showTime
+        value={v}
+        onChange={setV}
+        clearable
+        placeholder="选择日期时间"
+      />
+    </div>
   );
 };
 ```

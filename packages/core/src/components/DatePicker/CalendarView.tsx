@@ -99,6 +99,7 @@ export function CalendarView({
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
+  const suppressTriggerToggleRef = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useDismissibleLayer({
@@ -144,8 +145,14 @@ export function CalendarView({
 
   const emit = (next: DatePickerValue) => {
     onChange?.(next);
+    // Selecting a day closes the panel; suppress the synthetic trigger click
+    // that can land underneath and reopen it.
+    suppressTriggerToggleRef.current = true;
     setOpen(false);
     setDraftStart(null);
+    window.setTimeout(() => {
+      suppressTriggerToggleRef.current = false;
+    }, 100);
   };
 
   const formatWithTime = (date: Date) => {
@@ -243,11 +250,16 @@ export function CalendarView({
           onChange?.(emptyDateValue(range));
           setOpen(false);
         }}
-        onClick={() => !disabled && setOpen((v) => !v)}
+        onClick={() => {
+          if (disabled) return;
+          if (suppressTriggerToggleRef.current) return;
+          setOpen((v) => !v);
+        }}
         onKeyDown={(event) => {
           if (disabled) return;
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
+            if (suppressTriggerToggleRef.current) return;
             setOpen((v) => !v);
           }
         }}
@@ -255,12 +267,12 @@ export function CalendarView({
       <FloatMenu
         open={open}
         className={cn(
-          'rounded-box border-border/70 p-3 shadow-sm',
+          'w-auto overflow-hidden rounded-xl border-border/70 p-3 shadow-float',
           dualMonth
-            ? 'w-max max-w-[calc(100vw-2rem)]'
+            ? 'min-w-0 max-w-[calc(100vw-2rem)]'
             : timeFormat
-              ? 'w-[22rem] max-w-[calc(100vw-2rem)]'
-              : 'max-w-xs',
+              ? 'max-w-[calc(100vw-2rem)]'
+              : '',
         )}
       >
         {picker === 'year' ? (
@@ -300,7 +312,7 @@ export function CalendarView({
         {picker === 'date' || picker === 'week' ? (
           <div className={cn(timeFormat && 'flex flex-col gap-3 sm:flex-row')}>
             {dualMonth ? (
-              <div className="flex flex-col gap-3 md:flex-row md:gap-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-2">
                 <CalendarMonthPanel
                   viewYear={viewYear}
                   viewMonth={viewMonth}
@@ -311,7 +323,10 @@ export function CalendarView({
                   }}
                   {...monthPanelProps}
                 />
-                <div className="hidden w-px bg-border/70 md:block" />
+                <div
+                  className="hidden w-px shrink-0 self-stretch bg-border/60 sm:block"
+                  aria-hidden
+                />
                 <CalendarMonthPanel
                   viewYear={rightMonth.year}
                   viewMonth={rightMonth.month}
@@ -369,10 +384,11 @@ export function CalendarView({
                 <button
                   type="button"
                   className={cn(
-                    'h-8 rounded-selector bg-primary text-sm text-primary-foreground',
+                    'mt-1 h-8 rounded-lg bg-primary text-sm font-medium text-primary-foreground shadow-sm',
                     controlTransition,
                     focusRing,
                     pressable,
+                    'hover:brightness-[1.03] active:brightness-[0.97]',
                   )}
                   onClick={confirmTime}
                 >
@@ -384,7 +400,7 @@ export function CalendarView({
         ) : null}
 
         {range && draftStart ? (
-          <p className="mt-2 text-xs text-muted-foreground">
+          <p className="mt-2.5 border-t border-border/50 pt-2 text-center text-xs text-muted-foreground">
             {locale === 'en-US'
               ? 'Select end date'
               : '请选择结束日期'}

@@ -63,14 +63,14 @@ export function CalendarMonthPanel({
   };
 
   return (
-    <div className={cn('koi-calendar-panel', className)}>
-      <div className="mb-3 flex items-center justify-between gap-2">
+    <div className={cn('koi-calendar-panel w-[268px]', className)}>
+      <div className="mb-1.5 flex items-center justify-between gap-1">
         {showPrev ? (
           <button
             type="button"
             aria-label={prevLabel}
             className={cn(
-              'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted hover:text-foreground',
+              'inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground',
               controlTransition,
               focusRing,
               pressable,
@@ -82,7 +82,7 @@ export function CalendarMonthPanel({
         ) : (
           <span className="inline-flex h-8 w-8" aria-hidden />
         )}
-        <span className="text-sm font-medium tabular-nums">
+        <span className="text-sm font-semibold tracking-tight text-surface-foreground tabular-nums">
           {formatMonthLabel(viewYear, viewMonth, locale)}
         </span>
         {showNext ? (
@@ -90,7 +90,7 @@ export function CalendarMonthPanel({
             type="button"
             aria-label={nextLabel}
             className={cn(
-              'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted hover:text-foreground',
+              'inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground',
               controlTransition,
               focusRing,
               pressable,
@@ -103,69 +103,94 @@ export function CalendarMonthPanel({
           <span className="inline-flex h-8 w-8" aria-hidden />
         )}
       </div>
-      <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
+      <div className="mb-0.5 grid grid-cols-7 text-center text-[11px] font-medium text-muted-foreground">
         {weekdays.map((label) => (
-          <span key={label} className="py-1 font-medium">
+          <span key={label} className="flex h-7 items-center justify-center">
             {label}
           </span>
         ))}
       </div>
-      <div className="mt-1 grid grid-cols-7 gap-1">
-        {weeks.flat().map((day, idx) => {
-          if (!day) {
-            return <span key={`empty-${idx}`} className="h-9" aria-hidden />;
-          }
-
-          const date = new Date(viewYear, viewMonth - 1, day);
+      <div className="grid grid-cols-7">
+        {weeks.flat().map((cell) => {
+          const date = new Date(cell.year, cell.month - 1, cell.day);
           const disabled = isDateDisabled?.(date) ?? false;
           const isSelected = selected ? isSameDay(date, selected) : false;
-          const isRangeEdge =
-            (rangeStart ? isSameDay(date, rangeStart) : false) ||
-            (rangeEnd ? isSameDay(date, rangeEnd) : false);
+          const isStart = rangeStart ? isSameDay(date, rangeStart) : false;
+          const isEnd = rangeEnd ? isSameDay(date, rangeEnd) : false;
+          const isRangeEdge = isStart || isEnd;
           const inRange = isInRange(date, rangeStart, rangeEnd);
           const inWeek =
             mode === 'week' && weekSelected
               ? weeksEqual(date, weekSelected)
               : false;
           const isToday = isSameDay(date, today);
+          const solid = isSelected || isRangeEdge || inWeek;
 
           return (
             <button
-              key={`${viewYear}-${viewMonth}-${day}`}
+              key={`${cell.year}-${cell.month}-${cell.day}`}
               type="button"
               disabled={disabled}
               aria-label={date.toLocaleDateString(
                 locale === 'en-US' ? 'en-US' : 'zh-CN',
               )}
-              aria-pressed={isSelected || isRangeEdge || inWeek}
+              aria-pressed={solid}
               className={cn(
-                'h-9 rounded-selector text-sm tabular-nums',
+                'relative flex h-9 items-center justify-center text-[13px] tabular-nums',
                 controlTransition,
                 focusRing,
-                (isSelected || isRangeEdge || inWeek) &&
-                  'bg-primary/10 font-medium text-primary ring-1 ring-primary/15 hover:bg-primary/10',
-                inRange &&
-                  !isRangeEdge &&
-                  'rounded-none bg-primary/6 text-primary',
-                !isSelected &&
-                  !isRangeEdge &&
-                  !inRange &&
-                  !inWeek &&
-                  !disabled &&
-                  'hover:bg-muted',
-                isToday &&
-                  !isSelected &&
-                  !isRangeEdge &&
-                  !inWeek &&
-                  'border border-primary/40',
                 !disabled && pressable,
-                disabled && 'cursor-not-allowed opacity-40',
+                disabled && 'cursor-not-allowed opacity-35',
+                cell.outside && !solid && !inRange && 'text-muted-foreground/45',
+                !cell.outside &&
+                  !solid &&
+                  !inRange &&
+                  !disabled &&
+                  'text-surface-foreground',
               )}
               onClick={() => {
-                if (!disabled) onSelect(date);
+                if (disabled) return;
+                if (cell.outside) {
+                  onViewChange(cell.year, cell.month);
+                }
+                onSelect(date);
               }}
             >
-              {day}
+              {inRange && !isRangeEdge ? (
+                <span
+                  className="absolute inset-y-[5px] inset-x-0 bg-primary/12"
+                  aria-hidden
+                />
+              ) : null}
+              {inRange && isStart && rangeEnd ? (
+                <span
+                  className="absolute inset-y-[5px] left-1/2 right-0 bg-primary/12"
+                  aria-hidden
+                />
+              ) : null}
+              {inRange && isEnd && rangeStart ? (
+                <span
+                  className="absolute inset-y-[5px] left-0 right-1/2 bg-primary/12"
+                  aria-hidden
+                />
+              ) : null}
+              <span
+                className={cn(
+                  'relative z-1 flex size-8 items-center justify-center rounded-full',
+                  solid &&
+                    'bg-primary font-semibold text-primary-foreground shadow-sm',
+                  !solid && inRange && 'font-medium text-primary',
+                  !solid &&
+                    !inRange &&
+                    !disabled &&
+                    'hover:bg-muted',
+                  isToday &&
+                    !solid &&
+                    'font-semibold text-primary ring-1 ring-inset ring-primary/40',
+                )}
+              >
+                {cell.day}
+              </span>
             </button>
           );
         })}

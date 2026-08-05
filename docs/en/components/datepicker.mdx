@@ -7,7 +7,11 @@ import { DatePicker } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('');
-  return <DatePicker value={v} onChange={setV} placeholder="Select date" />;
+  return (
+    <div className="w-full max-w-xs">
+      <DatePicker value={v} onChange={setV} placeholder="Select date" />
+    </div>
+  );
 };
 ```
 
@@ -19,7 +23,7 @@ import { useState } from 'react';
 export default () => {
   const [date, setDate] = useState('2026-07-12');
   return (
-    <div>
+    <div className="w-full max-w-xs">
       <DatePicker value={date} onChange={setDate} placeholder="Select date" />
       <Text muted className="mt-2 block text-sm">Selected: {date || 'None'}</Text>
     </div>
@@ -34,7 +38,11 @@ import { DatePicker } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('2026-07-12');
-  return <DatePicker value={v} onChange={setV} clearable placeholder="Select date" />;
+  return (
+    <div className="w-full max-w-xs">
+      <DatePicker value={v} onChange={setV} clearable placeholder="Select date" />
+    </div>
+  );
 };
 ```
 
@@ -46,13 +54,15 @@ import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('2026-07-15');
   return (
-    <DatePicker
-      value={v}
-      onChange={setV}
-      min="2026-07-01"
-      max="2026-07-31"
-      placeholder="July only"
-    />
+    <div className="w-full max-w-xs">
+      <DatePicker
+        value={v}
+        onChange={setV}
+        min="2026-07-01"
+        max="2026-07-31"
+        placeholder="July only"
+      />
+    </div>
   );
 };
 ```
@@ -62,7 +72,7 @@ export default () => {
 ```tsx preview
 import { DatePicker, Space } from '@koi-ui/core';
 export default () => (
-  <Space direction="vertical" size="middle" className="w-full">
+  <Space direction="vertical" size="middle" className="w-full max-w-xs">
     <DatePicker size="sm" placeholder="sm" />
     <DatePicker size="md" placeholder="md" />
     <DatePicker size="lg" placeholder="lg" />
@@ -75,7 +85,9 @@ export default () => (
 ```tsx preview
 import { DatePicker } from '@koi-ui/core';
 export default () => (
-  <DatePicker disabled value="2026-07-12" placeholder="Select date" />
+  <div className="w-full max-w-xs">
+    <DatePicker disabled value="2026-07-12" placeholder="Select date" />
+  </div>
 );
 ```
 
@@ -91,7 +103,7 @@ export default () => {
   const [month, setMonth] = useState('2026-07');
   const [week, setWeek] = useState('2026-W28');
   return (
-    <Space direction="vertical" size="middle" className="w-full">
+    <Space direction="vertical" size="middle" className="w-full max-w-xs">
       <DatePicker picker="year" value={year} onChange={setYear} placeholder="Year" />
       <DatePicker picker="month" value={month} onChange={setMonth} placeholder="Month" />
       <DatePicker picker="week" value={week} onChange={setWeek} placeholder="Week" />
@@ -117,13 +129,15 @@ function isDrawDay(date: Date) {
 export default () => {
   const [v, setV] = useState('');
   return (
-    <DatePicker
-      value={v}
-      onChange={setV}
-      disabledDate={isDrawDay}
-      clearable
-      placeholder="Draw days only"
-    />
+    <div className="w-full max-w-xs">
+      <DatePicker
+        value={v}
+        onChange={setV}
+        disabledDate={isDrawDay}
+        clearable
+        placeholder="Draw days only"
+      />
+    </div>
   );
 };
 ```
@@ -139,7 +153,7 @@ import { useState } from 'react';
 export default () => {
   const [range, setRange] = useState<[string, string]>(['', '']);
   return (
-    <Space direction="vertical" size="middle" className="w-full">
+    <Space direction="vertical" size="middle" className="w-full max-w-xl">
       <DatePicker.RangePicker
         value={range}
         onChange={setRange}
@@ -162,13 +176,15 @@ import { useState } from 'react';
 export default () => {
   const [v, setV] = useState('2026-07-12 09:30');
   return (
-    <DatePicker
-      showTime
-      value={v}
-      onChange={setV}
-      clearable
-      placeholder="Date time"
-    />
+    <div className="w-full max-w-xs">
+      <DatePicker
+        showTime
+        value={v}
+        onChange={setV}
+        clearable
+        placeholder="Date time"
+      />
+    </div>
   );
 };
 ```

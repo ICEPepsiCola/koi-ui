@@ -37,6 +37,34 @@ const MONTH_LABELS_EN = [
   'Dec',
 ];
 
+function NavButton({
+  label,
+  onClick,
+}: {
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      className={cn(
+        'inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground',
+        controlTransition,
+        focusRing,
+        pressable,
+      )}
+      onClick={onClick}
+    >
+      {label.includes('Previous') || label.includes('上') ? (
+        <ChevronLeftIcon className="h-4 w-4" aria-hidden />
+      ) : (
+        <ChevronRightIcon className="h-4 w-4" aria-hidden />
+      )}
+    </button>
+  );
+}
+
 export interface YearPanelProps {
   /** Decade start, e.g. 2020 for 2020–2029 */
   decadeStart: number;
@@ -65,35 +93,19 @@ export function YearPanel({
       : `${decadeStart}年 – ${decadeStart + 9}年`;
 
   return (
-    <div className={cn('w-64', className)}>
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <button
-          type="button"
-          aria-label={locale === 'en-US' ? 'Previous decade' : '上十年'}
-          className={cn(
-            'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
+    <div className={cn('w-[268px]', className)}>
+      <div className="mb-1.5 flex items-center justify-between gap-1">
+        <NavButton
+          label={locale === 'en-US' ? 'Previous decade' : '上十年'}
           onClick={() => onDecadeChange(decadeStart - 10)}
-        >
-          <ChevronLeftIcon className="h-4 w-4" aria-hidden />
-        </button>
-        <span className="text-sm font-medium tabular-nums">{label}</span>
-        <button
-          type="button"
-          aria-label={locale === 'en-US' ? 'Next decade' : '下十年'}
-          className={cn(
-            'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
+        />
+        <span className="text-sm font-semibold tracking-tight tabular-nums">
+          {label}
+        </span>
+        <NavButton
+          label={locale === 'en-US' ? 'Next decade' : '下十年'}
           onClick={() => onDecadeChange(decadeStart + 10)}
-        >
-          <ChevronRightIcon className="h-4 w-4" aria-hidden />
-        </button>
+        />
       </div>
       <div className="grid grid-cols-3 gap-1">
         {years.map((year) => {
@@ -108,15 +120,15 @@ export function YearPanel({
               type="button"
               disabled={disabled}
               className={cn(
-                'h-10 rounded-selector text-sm tabular-nums',
+                'flex h-9 items-center justify-center rounded-lg text-[13px] tabular-nums',
                 controlTransition,
                 focusRing,
                 selected &&
-                  'bg-primary/10 font-medium text-primary ring-1 ring-primary/15',
+                  'bg-primary font-semibold text-primary-foreground shadow-sm',
                 !selected && !disabled && 'hover:bg-muted',
-                outOfDecade && !selected && 'text-muted-foreground/50',
+                outOfDecade && !selected && 'text-muted-foreground/45',
                 !disabled && pressable,
-                disabled && 'cursor-not-allowed opacity-40',
+                disabled && 'cursor-not-allowed opacity-35',
               )}
               onClick={() => onSelect(year)}
             >
@@ -153,40 +165,22 @@ export function MonthPanel({
   const labels = locale === 'en-US' ? MONTH_LABELS_EN : MONTH_LABELS_ZH;
 
   return (
-    <div className={cn('w-64', className)}>
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <button
-          type="button"
-          aria-label={locale === 'en-US' ? 'Previous year' : '上一年'}
-          className={cn(
-            'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
+    <div className={cn('w-[268px]', className)}>
+      <div className="mb-1.5 flex items-center justify-between gap-1">
+        <NavButton
+          label={locale === 'en-US' ? 'Previous year' : '上一年'}
           onClick={() => onYearChange(year - 1)}
-        >
-          <ChevronLeftIcon className="h-4 w-4" aria-hidden />
-        </button>
-        <span className="text-sm font-medium tabular-nums">
+        />
+        <span className="text-sm font-semibold tracking-tight tabular-nums">
           {locale === 'en-US' ? year : `${year}年`}
         </span>
-        <button
-          type="button"
-          aria-label={locale === 'en-US' ? 'Next year' : '下一年'}
-          className={cn(
-            'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
+        <NavButton
+          label={locale === 'en-US' ? 'Next year' : '下一年'}
           onClick={() => onYearChange(year + 1)}
-        >
-          <ChevronRightIcon className="h-4 w-4" aria-hidden />
-        </button>
+        />
       </div>
       <div className="grid grid-cols-3 gap-1">
-        {labels.map((label, index) => {
+        {labels.map((monthLabel, index) => {
           const month = index + 1;
           const value = `${year}-${String(month).padStart(2, '0')}`;
           const disabled =
@@ -195,22 +189,22 @@ export function MonthPanel({
           const selected = selectedMonth === month;
           return (
             <button
-              key={label}
+              key={monthLabel}
               type="button"
               disabled={disabled}
               className={cn(
-                'h-10 rounded-selector text-sm',
+                'flex h-9 items-center justify-center rounded-lg text-[13px]',
                 controlTransition,
                 focusRing,
                 selected &&
-                  'bg-primary/10 font-medium text-primary ring-1 ring-primary/15',
+                  'bg-primary font-semibold text-primary-foreground shadow-sm',
                 !selected && !disabled && 'hover:bg-muted',
                 !disabled && pressable,
-                disabled && 'cursor-not-allowed opacity-40',
+                disabled && 'cursor-not-allowed opacity-35',
               )}
               onClick={() => onSelect(year, month)}
             >
-              {label}
+              {monthLabel}
             </button>
           );
         })}

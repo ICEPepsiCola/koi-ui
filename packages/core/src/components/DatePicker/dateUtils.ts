@@ -118,17 +118,47 @@ export function getDaysInMonth(year: number, month: number) {
   return new Date(year, month, 0).getDate();
 }
 
-export function getMonthMatrix(year: number, month: number) {
+export interface MonthCell {
+  year: number;
+  /** 1–12 */
+  month: number;
+  day: number;
+  /** Outside the viewed month (prev/next month filler). */
+  outside: boolean;
+}
+
+/** 6×7 matrix including adjacent-month days (antd-style). */
+export function getMonthMatrix(year: number, month: number): MonthCell[][] {
   const firstDay = new Date(year, month - 1, 1).getDay();
   const days = getDaysInMonth(year, month);
-  const cells: Array<number | null> = [];
+  const prev = shiftYearMonth(year, month, -1);
+  const prevDays = getDaysInMonth(prev.year, prev.month);
+  const next = shiftYearMonth(year, month, 1);
+  const cells: MonthCell[] = [];
 
-  for (let i = 0; i < firstDay; i++) cells.push(null);
-  for (let d = 1; d <= days; d++) cells.push(d);
+  for (let i = 0; i < firstDay; i++) {
+    const day = prevDays - firstDay + 1 + i;
+    cells.push({
+      year: prev.year,
+      month: prev.month,
+      day,
+      outside: true,
+    });
+  }
+  for (let d = 1; d <= days; d++) {
+    cells.push({ year, month, day: d, outside: false });
+  }
+  let nextDay = 1;
+  while (cells.length < 42) {
+    cells.push({
+      year: next.year,
+      month: next.month,
+      day: nextDay++,
+      outside: true,
+    });
+  }
 
-  while (cells.length % 7 !== 0) cells.push(null);
-
-  const weeks: Array<Array<number | null>> = [];
+  const weeks: MonthCell[][] = [];
   for (let i = 0; i < cells.length; i += 7) {
     weeks.push(cells.slice(i, i + 7));
   }
