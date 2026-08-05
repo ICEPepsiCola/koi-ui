@@ -68,6 +68,7 @@ export function BottomPickerView({
   disabled = false,
   min,
   max,
+  disabledDate,
   clearable = false,
   size = 'md',
   picker = 'date',
@@ -162,12 +163,31 @@ export function BottomPickerView({
     return formatDate(date);
   };
 
+  const isDateDisabled = (date: Date) => {
+    const dateStr = formatDate(date);
+    if (min && dateStr < min.slice(0, 10)) return true;
+    if (max && dateStr > max.slice(0, 10)) return true;
+    return disabledDate?.(date) ?? false;
+  };
+
   const confirm = () => {
     const next = buildValue();
     if (picker === 'date') {
       const dayPart = next.slice(0, 10);
-      if (min && dayPart < min.slice(0, 10)) return;
-      if (max && dayPart > max.slice(0, 10)) return;
+      const date = parseDate(dayPart);
+      if (!date || isDateDisabled(date)) return;
+    }
+    if (picker === 'week') {
+      const monday = getDateOfISOWeek(year, week);
+      if (isDateDisabled(monday)) return;
+    }
+    if (picker === 'month') {
+      const date = new Date(year, month - 1, 1);
+      if (isDateDisabled(date)) return;
+    }
+    if (picker === 'year') {
+      const date = new Date(year, 0, 1);
+      if (isDateDisabled(date)) return;
     }
     if (range) {
       if (rangeStep === 'start') {
@@ -234,10 +254,14 @@ export function BottomPickerView({
         },
         {
           key: 'week',
-          options: weeks.map((w) => ({
-            value: w,
-            label: locale === 'en-US' ? `W${w}` : `${Number(w)}周`,
-          })),
+          options: weeks.map((w) => {
+            const monday = getDateOfISOWeek(year, Number(w));
+            return {
+              value: w,
+              label: locale === 'en-US' ? `W${w}` : `${Number(w)}周`,
+              disabled: isDateDisabled(monday),
+            };
+          }),
           value: pad2(week),
           onChange: (v: string) => setWeek(Number(v)),
         },
@@ -259,7 +283,14 @@ export function BottomPickerView({
       },
       {
         key: 'day',
-        options: days.map((d) => ({ value: d, label: d })),
+        options: days.map((d) => {
+          const date = new Date(year, month - 1, Number(d));
+          return {
+            value: d,
+            label: d,
+            disabled: isDateDisabled(date),
+          };
+        }),
         value: pad2(day),
         onChange: (v: string) => setDay(Number(v)),
       },

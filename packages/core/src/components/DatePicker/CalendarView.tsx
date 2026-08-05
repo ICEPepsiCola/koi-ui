@@ -57,6 +57,7 @@ export function CalendarView({
   disabled = false,
   min,
   max,
+  disabledDate,
   clearable = false,
   size = 'md',
   picker = 'date',
@@ -138,7 +139,7 @@ export function CalendarView({
     const dateStr = formatDate(date);
     if (min && dateStr < min.slice(0, 10)) return true;
     if (max && dateStr > max.slice(0, 10)) return true;
-    return false;
+    return disabledDate?.(date) ?? false;
   };
 
   const emit = (next: DatePickerValue) => {
@@ -246,7 +247,11 @@ export function CalendarView({
             selectedYear={selectedDate?.getFullYear() ?? null}
             minYear={min ? Number(min.slice(0, 4)) : undefined}
             maxYear={max ? Number(max.slice(0, 4)) : undefined}
-            onSelect={(year) => emit(formatYear(new Date(year, 0, 1)))}
+            onSelect={(year) => {
+              const date = new Date(year, 0, 1);
+              if (isDateDisabled(date)) return;
+              emit(formatYear(date));
+            }}
           />
         ) : null}
 
@@ -261,9 +266,11 @@ export function CalendarView({
             }
             minMonth={min?.slice(0, 7)}
             maxMonth={max?.slice(0, 7)}
-            onSelect={(year, month) =>
-              emit(formatMonth(new Date(year, month - 1, 1)))
-            }
+            onSelect={(year, month) => {
+              const date = new Date(year, month - 1, 1);
+              if (isDateDisabled(date)) return;
+              emit(formatMonth(date));
+            }}
           />
         ) : null}
 

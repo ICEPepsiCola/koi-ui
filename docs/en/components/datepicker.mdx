@@ -100,26 +100,55 @@ export default () => {
 };
 ```
 
-## Date range
+## Disabled dates
+
+`disabledDate` matches Calendar: dates returning `true` are grayed out and not selectable (also respects `min` / `max`).
 
 ```tsx preview
-import { DatePicker, Text } from '@koi-ui/core';
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+
+/** Example: only Tue / Fri (draw days) */
+function isDrawDay(date: Date) {
+  const day = date.getDay();
+  return day !== 2 && day !== 5;
+}
+
+export default () => {
+  const [v, setV] = useState('');
+  return (
+    <DatePicker
+      value={v}
+      onChange={setV}
+      disabledDate={isDrawDay}
+      clearable
+      placeholder="Draw days only"
+    />
+  );
+};
+```
+
+## Date range
+
+Use `range`, or the Ant-style `DatePicker.RangePicker` subcomponent (tuple-typed value).
+
+```tsx preview
+import { DatePicker, Text, Space } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [range, setRange] = useState<[string, string]>(['', '']);
   return (
-    <div>
-      <DatePicker
-        range
+    <Space direction="vertical" size="middle" className="w-full">
+      <DatePicker.RangePicker
         value={range}
         onChange={setRange}
         clearable
         placeholder="Start ~ End"
       />
-      <Text muted className="mt-2 block text-sm">
+      <Text muted className="text-sm">
         {range[0] && range[1] ? `${range[0]} ~ ${range[1]}` : 'None'}
       </Text>
-    </div>
+    </Space>
   );
 };
 ```

@@ -100,26 +100,55 @@ export default () => {
 };
 ```
 
-## 日期范围
+## 禁用日期
+
+`disabledDate` 与 Calendar 一致：返回 `true` 的日期在日历上灰掉且不可点（也会遵守 `min` / `max`）。
 
 ```tsx preview
-import { DatePicker, Text } from '@koi-ui/core';
+import { DatePicker } from '@koi-ui/core';
+import { useState } from 'react';
+
+/** 示例：仅周二、周五可选（开奖日） */
+function isDrawDay(date: Date) {
+  const day = date.getDay();
+  return day !== 2 && day !== 5;
+}
+
+export default () => {
+  const [v, setV] = useState('');
+  return (
+    <DatePicker
+      value={v}
+      onChange={setV}
+      disabledDate={isDrawDay}
+      clearable
+      placeholder="仅开奖日可选"
+    />
+  );
+};
+```
+
+## 日期范围
+
+可用 `range`，或更贴近 antd 的子组件 `DatePicker.RangePicker`（值类型固定为元组）。
+
+```tsx preview
+import { DatePicker, Text, Space } from '@koi-ui/core';
 import { useState } from 'react';
 export default () => {
   const [range, setRange] = useState<[string, string]>(['', '']);
   return (
-    <div>
-      <DatePicker
-        range
+    <Space direction="vertical" size="middle" className="w-full">
+      <DatePicker.RangePicker
         value={range}
         onChange={setRange}
         clearable
         placeholder="开始 ~ 结束"
       />
-      <Text muted className="mt-2 block text-sm">
+      <Text muted className="text-sm">
         {range[0] && range[1] ? `${range[0]} ~ ${range[1]}` : '未选择'}
       </Text>
-    </div>
+    </Space>
   );
 };
 ```

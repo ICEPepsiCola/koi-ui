@@ -120,6 +120,58 @@ test('DatePicker range selects start and end', async () => {
   });
 });
 
+test('DatePicker disabledDate grays out and blocks selection', async () => {
+  mockWidth(BREAKPOINTS.xl);
+  let selected = '';
+
+  function Harness() {
+    const [value, setValue] = useState('');
+    return (
+      <KoiProvider>
+        <DatePicker
+          value={value}
+          onChange={(next) => {
+            selected = typeof next === 'string' ? next : '';
+            setValue(typeof next === 'string' ? next : '');
+          }}
+          disabledDate={(date) => date.getDay() !== 2}
+          placeholder="开奖日"
+        />
+      </KoiProvider>
+    );
+  }
+
+  render(<Harness />);
+  fireEvent.click(screen.getByRole('button', { name: /开奖日/ }));
+
+  const wednesday = screen
+    .getAllByRole('button')
+    .find((btn) => {
+      const label = btn.getAttribute('aria-label') ?? '';
+      if (!label) return false;
+      const date = new Date(label);
+      return !Number.isNaN(date.getTime()) && date.getDay() === 3;
+    });
+  expect(wednesday).toBeTruthy();
+  expect(wednesday).toBeDisabled();
+  fireEvent.click(wednesday!);
+  expect(selected).toBe('');
+
+  const tuesday = screen
+    .getAllByRole('button')
+    .find((btn) => {
+      const label = btn.getAttribute('aria-label') ?? '';
+      if (!label) return false;
+      const date = new Date(label);
+      return !Number.isNaN(date.getTime()) && date.getDay() === 2;
+    });
+  expect(tuesday).toBeTruthy();
+  fireEvent.click(tuesday!);
+  await waitFor(() => {
+    expect(selected).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+});
+
 test('TimePicker range selects start and end on desktop', async () => {
   mockWidth(BREAKPOINTS.xl);
   let selected: [string, string] = ['', ''];
