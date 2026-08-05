@@ -1,3 +1,5 @@
+## [1.15.0](https://github.com/ICEPepsiCola/koi-ui/compare/v1.14.0...v1.15.0) (2026-08-05)
+
 ## [1.14.0](https://github.com/ICEPepsiCola/koi-ui/compare/v1.13.2...v1.14.0) (2026-08-03)
 
 ## [1.13.2](https://github.com/ICEPepsiCola/koi-ui/compare/v1.13.1...v1.13.2) (2026-08-03)
