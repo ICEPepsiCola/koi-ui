@@ -4,6 +4,7 @@ import { CalendarView } from './CalendarView';
 import type { DatePickerProps, RangePickerProps } from './types';
 
 export type {
+  DatePickerPlaceholder,
   DatePickerProps,
   DatePickerType,
   DatePickerValue,

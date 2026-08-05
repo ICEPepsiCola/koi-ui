@@ -13,7 +13,6 @@ import { FloatMenu } from '../shared/FloatMenu';
 import { MenuColumns } from '../shared/MenuColumns';
 import { MonthPanel, YearPanel } from '../shared/YearMonthPanels';
 import {
-  displayDateValue,
   emptyDateValue,
   formatDate,
   formatDateTime,
@@ -26,6 +25,8 @@ import {
   parseMonth,
   parseWeek,
   parseYear,
+  resolveTriggerPlaceholder,
+  shiftYearMonth,
 } from './dateUtils';
 import {
   resolveTimeFormat,
@@ -53,7 +54,7 @@ function asRange(value?: DatePickerValue): [string, string] {
 export function CalendarView({
   value,
   onChange,
-  placeholder = '选择日期',
+  placeholder,
   disabled = false,
   min,
   max,
@@ -69,6 +70,7 @@ export function CalendarView({
   const withSeconds = timeFormat === 'HH:mm:ss';
   const single = asSingle(value);
   const [rangeStartStr, rangeEndStr] = asRange(value);
+  const dualMonth = range && (picker === 'date' || picker === 'week');
 
   const selectedDate =
     picker === 'date'
@@ -98,8 +100,6 @@ export function CalendarView({
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const display = displayDateValue(value, range);
-  const hasValue = Boolean(display);
 
   useDismissibleLayer({
     open,
@@ -208,6 +208,25 @@ export function CalendarView({
   const rangeEndDate = draftStart
     ? null
     : parseDate(rangeEndStr.split(' ')[0]);
+  const rightMonth = shiftYearMonth(viewYear, viewMonth, 1);
+  const trigger = resolveTriggerPlaceholder(
+    placeholder,
+    range,
+    locale,
+    value,
+    draftStart,
+  );
+
+  const monthPanelProps = {
+    selected:
+      picker === 'date' && !range ? (draftDate ?? selectedDate ?? null) : null,
+    rangeStart: range ? rangeStartDate : null,
+    rangeEnd: range ? rangeEndDate : null,
+    weekSelected: picker === 'week' ? (selectedDate ?? null) : null,
+    mode: (picker === 'week' ? 'week' : 'date') as 'date' | 'week',
+    onSelect: selectDate,
+    isDateDisabled,
+  };
 
   return (
     <div ref={containerRef} className="koi-datepicker-demo relative w-full">
@@ -215,9 +234,9 @@ export function CalendarView({
         size={size}
         open={open}
         disabled={disabled}
-        hasValue={hasValue}
-        display={display}
-        placeholder={placeholder}
+        hasValue={trigger.hasValue}
+        display={trigger.display}
+        placeholder={trigger.placeholder}
         clearable={clearable}
         clearLabel={messages.clearActionText}
         onClear={() => {
@@ -237,7 +256,11 @@ export function CalendarView({
         open={open}
         className={cn(
           'rounded-box border-border/70 p-3 shadow-sm',
-          timeFormat ? 'w-[22rem] max-w-[calc(100vw-2rem)]' : 'max-w-xs',
+          dualMonth
+            ? 'w-max max-w-[calc(100vw-2rem)]'
+            : timeFormat
+              ? 'w-[22rem] max-w-[calc(100vw-2rem)]'
+              : 'max-w-xs',
         )}
       >
         {picker === 'year' ? (
@@ -276,25 +299,42 @@ export function CalendarView({
 
         {picker === 'date' || picker === 'week' ? (
           <div className={cn(timeFormat && 'flex flex-col gap-3 sm:flex-row')}>
-            <CalendarMonthPanel
-              viewYear={viewYear}
-              viewMonth={viewMonth}
-              onViewChange={(year, month) => {
-                setViewYear(year);
-                setViewMonth(month);
-              }}
-              selected={
-                picker === 'date' && !range
-                  ? (draftDate ?? selectedDate ?? null)
-                  : null
-              }
-              rangeStart={range ? rangeStartDate : null}
-              rangeEnd={range ? rangeEndDate : null}
-              weekSelected={picker === 'week' ? (selectedDate ?? null) : null}
-              mode={picker === 'week' ? 'week' : 'date'}
-              onSelect={selectDate}
-              isDateDisabled={isDateDisabled}
-            />
+            {dualMonth ? (
+              <div className="flex flex-col gap-3 md:flex-row md:gap-4">
+                <CalendarMonthPanel
+                  viewYear={viewYear}
+                  viewMonth={viewMonth}
+                  showNext={false}
+                  onViewChange={(year, month) => {
+                    setViewYear(year);
+                    setViewMonth(month);
+                  }}
+                  {...monthPanelProps}
+                />
+                <div className="hidden w-px bg-border/70 md:block" />
+                <CalendarMonthPanel
+                  viewYear={rightMonth.year}
+                  viewMonth={rightMonth.month}
+                  showPrev={false}
+                  onViewChange={(year, month) => {
+                    const left = shiftYearMonth(year, month, -1);
+                    setViewYear(left.year);
+                    setViewMonth(left.month);
+                  }}
+                  {...monthPanelProps}
+                />
+              </div>
+            ) : (
+              <CalendarMonthPanel
+                viewYear={viewYear}
+                viewMonth={viewMonth}
+                onViewChange={(year, month) => {
+                  setViewYear(year);
+                  setViewMonth(month);
+                }}
+                {...monthPanelProps}
+              />
+            )}
             {timeFormat ? (
               <div className="flex min-w-28 flex-col gap-2 border-t border-border/70 pt-3 sm:border-l sm:border-t-0 sm:pl-3 sm:pt-0">
                 <MenuColumns

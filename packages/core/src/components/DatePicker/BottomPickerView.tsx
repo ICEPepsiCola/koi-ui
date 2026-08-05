@@ -8,7 +8,6 @@ import { PickerWheels } from '../shared/PickerWheels';
 import { SheetChrome } from '../shared/SheetChrome';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import {
-  displayDateValue,
   emptyDateValue,
   formatDate,
   formatDateTime,
@@ -19,12 +18,14 @@ import {
   getDaysInMonth,
   getISOWeekCount,
   getISOWeekParts,
+  normalizePlaceholderTuple,
   pad2,
   parseDate,
   parseDateTime,
   parseMonth,
   parseWeek,
   parseYear,
+  resolveTriggerPlaceholder,
 } from './dateUtils';
 import {
   resolveTimeFormat,
@@ -64,7 +65,7 @@ function parseTimeParts(value?: string) {
 export function BottomPickerView({
   value,
   onChange,
-  placeholder = '选择日期',
+  placeholder,
   disabled = false,
   min,
   max,
@@ -76,6 +77,11 @@ export function BottomPickerView({
   showTime = false,
 }: BottomPickerViewProps) {
   const { messages, locale } = useKoiContext();
+  const [startPh, endPh] = normalizePlaceholderTuple(
+    placeholder,
+    range,
+    locale,
+  );
   const timeFormat = picker === 'date' ? resolveTimeFormat(showTime) : null;
   const withSeconds = timeFormat === 'HH:mm:ss';
   const [open, setOpen] = useState(false);
@@ -111,8 +117,12 @@ export function BottomPickerView({
   const months = Array.from({ length: 12 }, (_, i) => pad2(i + 1));
   const hours = Array.from({ length: 24 }, (_, i) => pad2(i));
   const minutes = Array.from({ length: 60 }, (_, i) => pad2(i));
-  const display = displayDateValue(value, range);
-  const hasValue = Boolean(display);
+  const trigger = resolveTriggerPlaceholder(
+    placeholder,
+    range,
+    locale,
+    value,
+  );
 
   useScrollLock(open);
 
@@ -205,16 +215,11 @@ export function BottomPickerView({
     setOpen(false);
   };
 
-  const title =
-    range
-      ? rangeStep === 'start'
-        ? locale === 'en-US'
-          ? 'Start'
-          : '开始'
-        : locale === 'en-US'
-          ? 'End'
-          : '结束'
-      : placeholder;
+  const title = range
+    ? rangeStep === 'start'
+      ? startPh
+      : endPh
+    : startPh;
 
   const columns = (() => {
     const list = [];
@@ -328,9 +333,9 @@ export function BottomPickerView({
         size={size}
         open={open}
         disabled={disabled}
-        hasValue={hasValue}
-        display={<span className="tabular-nums">{display}</span>}
-        placeholder={placeholder}
+        hasValue={trigger.hasValue}
+        display={<span className="tabular-nums">{trigger.display}</span>}
+        placeholder={trigger.placeholder}
         clearable={clearable}
         clearLabel={messages.clearActionText}
         onClear={() => {

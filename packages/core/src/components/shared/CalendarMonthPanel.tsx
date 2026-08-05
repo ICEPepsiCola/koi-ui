@@ -28,6 +28,10 @@ export interface CalendarMonthPanelProps {
   mode?: 'date' | 'week';
   onSelect: (date: Date) => void;
   isDateDisabled?: (date: Date) => boolean;
+  /** @default true */
+  showPrev?: boolean;
+  /** @default true */
+  showNext?: boolean;
   className?: string;
 }
 
@@ -42,6 +46,8 @@ export function CalendarMonthPanel({
   mode = 'date',
   onSelect,
   isDateDisabled,
+  showPrev = true,
+  showNext = true,
   className,
 }: CalendarMonthPanelProps) {
   const { locale } = useKoiContext();
@@ -59,35 +65,43 @@ export function CalendarMonthPanel({
   return (
     <div className={cn('koi-calendar-panel', className)}>
       <div className="mb-3 flex items-center justify-between gap-2">
-        <button
-          type="button"
-          aria-label={prevLabel}
-          className={cn(
-            'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted hover:text-foreground',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
-          onClick={() => shiftMonth(-1)}
-        >
-          <ChevronLeftIcon className="h-4 w-4" aria-hidden />
-        </button>
+        {showPrev ? (
+          <button
+            type="button"
+            aria-label={prevLabel}
+            className={cn(
+              'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted hover:text-foreground',
+              controlTransition,
+              focusRing,
+              pressable,
+            )}
+            onClick={() => shiftMonth(-1)}
+          >
+            <ChevronLeftIcon className="h-4 w-4" aria-hidden />
+          </button>
+        ) : (
+          <span className="inline-flex h-8 w-8" aria-hidden />
+        )}
         <span className="text-sm font-medium tabular-nums">
           {formatMonthLabel(viewYear, viewMonth, locale)}
         </span>
-        <button
-          type="button"
-          aria-label={nextLabel}
-          className={cn(
-            'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted hover:text-foreground',
-            controlTransition,
-            focusRing,
-            pressable,
-          )}
-          onClick={() => shiftMonth(1)}
-        >
-          <ChevronRightIcon className="h-4 w-4" aria-hidden />
-        </button>
+        {showNext ? (
+          <button
+            type="button"
+            aria-label={nextLabel}
+            className={cn(
+              'inline-flex h-8 w-8 items-center justify-center rounded-selector text-muted-foreground hover:bg-muted hover:text-foreground',
+              controlTransition,
+              focusRing,
+              pressable,
+            )}
+            onClick={() => shiftMonth(1)}
+          >
+            <ChevronRightIcon className="h-4 w-4" aria-hidden />
+          </button>
+        ) : (
+          <span className="inline-flex h-8 w-8" aria-hidden />
+        )}
       </div>
       <div className="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
         {weekdays.map((label) => (

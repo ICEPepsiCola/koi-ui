@@ -189,3 +189,75 @@ export function displayDateValue(
 export function emptyDateValue(range: boolean): string | [string, string] {
   return range ? ['', ''] : '';
 }
+
+export function shiftYearMonth(year: number, month: number, delta: number) {
+  const next = new Date(year, month - 1 + delta, 1);
+  return { year: next.getFullYear(), month: next.getMonth() + 1 };
+}
+
+export function normalizePlaceholderTuple(
+  placeholder: string | [string, string] | undefined,
+  range: boolean,
+  locale: 'zh-CN' | 'en-US',
+): [string, string] {
+  const fallback: [string, string] =
+    locale === 'en-US'
+      ? range
+        ? ['Start date', 'End date']
+        : ['Select date', 'Select date']
+      : range
+        ? ['开始日期', '结束日期']
+        : ['选择日期', '选择日期'];
+
+  if (Array.isArray(placeholder)) {
+    return [placeholder[0] || fallback[0], placeholder[1] || fallback[1]];
+  }
+  if (typeof placeholder === 'string' && placeholder) {
+    return range ? [placeholder, placeholder] : [placeholder, placeholder];
+  }
+  return fallback;
+}
+
+/** Trigger text for empty / partial range values. */
+export function resolveTriggerPlaceholder(
+  placeholder: string | [string, string] | undefined,
+  range: boolean,
+  locale: 'zh-CN' | 'en-US',
+  value?: string | [string, string],
+  draftStart?: Date | null,
+): { placeholder: string; display: string; hasValue: boolean } {
+  const [startPh, endPh] = normalizePlaceholderTuple(
+    placeholder,
+    range,
+    locale,
+  );
+
+  if (!range) {
+    const single = typeof value === 'string' ? value : '';
+    return {
+      placeholder: startPh,
+      display: single,
+      hasValue: Boolean(single),
+    };
+  }
+
+  const [start, end] = Array.isArray(value)
+    ? [value[0] ?? '', value[1] ?? '']
+    : ['', ''];
+  const startText = draftStart ? formatDate(draftStart) : start;
+  const emptyPlaceholder = `${startPh} ~ ${endPh}`;
+
+  if (!startText && !end) {
+    return {
+      placeholder: emptyPlaceholder,
+      display: '',
+      hasValue: false,
+    };
+  }
+
+  return {
+    placeholder: emptyPlaceholder,
+    display: `${startText || startPh} ~ ${end || endPh}`,
+    hasValue: Boolean(startText || end),
+  };
+}

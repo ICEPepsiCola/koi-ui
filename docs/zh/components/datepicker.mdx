@@ -130,7 +130,7 @@ export default () => {
 
 ## 日期范围
 
-可用 `range`，或更贴近 antd 的子组件 `DatePicker.RangePicker`（值类型固定为元组）。
+可用 `range`，或 `DatePicker.RangePicker`。桌面端为**双月面板**；`placeholder` 可传 `[开始, 结束]`。
 
 ```tsx preview
 import { DatePicker, Text, Space } from '@koi-ui/core';
@@ -143,7 +143,7 @@ export default () => {
         value={range}
         onChange={setRange}
         clearable
-        placeholder="开始 ~ 结束"
+        placeholder={['开始日期', '结束日期']}
       />
       <Text muted className="text-sm">
         {range[0] && range[1] ? `${range[0]} ~ ${range[1]}` : '未选择'}

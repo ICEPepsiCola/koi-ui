@@ -97,14 +97,21 @@ test('DatePicker range selects start and end', async () => {
               setValue(next);
             }
           }}
-          placeholder="范围"
+          placeholder={['开始日期', '结束日期']}
         />
       </KoiProvider>
     );
   }
 
   render(<Harness />);
-  fireEvent.click(screen.getByRole('button', { name: /范围/ }));
+  expect(
+    screen.getByRole('button', { name: /开始日期 ~ 结束日期/ }),
+  ).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /开始日期 ~ 结束日期/ }));
+
+  // Dual-month panel: two month labels visible
+  expect(screen.getByLabelText('上个月')).toBeInTheDocument();
+  expect(screen.getByLabelText('下个月')).toBeInTheDocument();
 
   const days = screen
     .getAllByRole('button')

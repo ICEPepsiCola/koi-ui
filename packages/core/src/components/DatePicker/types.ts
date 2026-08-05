@@ -4,6 +4,9 @@ export type DatePickerType = 'date' | 'week' | 'month' | 'year';
 
 export type DatePickerValue = string | [string, string];
 
+/** Single text, or `[start, end]` for range fields. */
+export type DatePickerPlaceholder = string | [string, string];
+
 export type TimeFormat = 'HH:mm' | 'HH:mm:ss';
 
 export interface DatePickerProps {
@@ -26,7 +29,10 @@ export interface DatePickerProps {
   showTime?: boolean | { format?: TimeFormat };
   value?: DatePickerValue;
   onChange?: (value: DatePickerValue) => void;
-  placeholder?: string;
+  /**
+   * Trigger placeholder. For range, pass `[start, end]` (e.g. `['开始日期', '结束日期']`).
+   */
+  placeholder?: DatePickerPlaceholder;
   disabled?: boolean;
   min?: string;
   max?: string;

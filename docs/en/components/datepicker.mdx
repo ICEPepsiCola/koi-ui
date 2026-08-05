@@ -130,7 +130,8 @@ export default () => {
 
 ## Date range
 
-Use `range`, or the Ant-style `DatePicker.RangePicker` subcomponent (tuple-typed value).
+Use `range`, or the Ant-style `DatePicker.RangePicker` subcomponent (tuple-typed value).  
+Desktop shows a **dual-month** panel; `placeholder` accepts `[start, end]`.
 
 ```tsx preview
 import { DatePicker, Text, Space } from '@koi-ui/core';
@@ -143,7 +144,7 @@ export default () => {
         value={range}
         onChange={setRange}
         clearable
-        placeholder="Start ~ End"
+        placeholder={['Start date', 'End date']}
       />
       <Text muted className="text-sm">
         {range[0] && range[1] ? `${range[0]} ~ ${range[1]}` : 'None'}
