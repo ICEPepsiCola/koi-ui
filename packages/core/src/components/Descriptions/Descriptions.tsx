@@ -37,14 +37,12 @@ export function Descriptions({
   return (
     <div className={cn('w-full', className)} {...props}>
       {title ? (
-        <div className="mb-3 text-base font-semibold text-surface-foreground">
-          {title}
-        </div>
+        <div className="mb-3 text-base font-semibold text-label">{title}</div>
       ) : null}
 
       {bordered ? (
         <div
-          className="overflow-hidden rounded-lg border border-border"
+          className="overflow-hidden rounded-box border border-separator bg-surface"
           style={{
             display: 'grid',
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
@@ -63,26 +61,26 @@ export function Descriptions({
               <div
                 key={item.key}
                 className={cn(
-                  'grid border-border bg-surface',
+                  'grid bg-surface',
                   layout === 'horizontal'
                     ? 'grid-cols-[minmax(5.5rem,32%)_1fr]'
                     : 'grid-cols-1',
-                  isNewRow && 'border-t',
-                  !isLastCol && 'border-r',
+                  isNewRow && 'border-t border-separator',
+                  !isLastCol && 'border-r border-separator',
                 )}
                 style={{ gridColumn: `span ${span}` }}
               >
                 <div
                   className={cn(
                     pad,
-                    'bg-muted/60 text-sm text-muted-foreground',
-                    layout === 'horizontal' && 'border-r border-border',
-                    layout === 'vertical' && 'border-b border-border',
+                    'bg-fill/60 text-sm text-label-secondary',
+                    layout === 'horizontal' && 'border-r border-separator',
+                    layout === 'vertical' && 'border-b border-separator',
                   )}
                 >
                   {item.label}
                 </div>
-                <div className={cn(pad, 'text-sm text-surface-foreground')}>
+                <div className={cn(pad, 'text-sm text-label')}>
                   {item.children}
                 </div>
               </div>
@@ -110,18 +108,16 @@ export function Descriptions({
               >
                 <div
                   className={cn(
-                    'shrink-0 text-muted-foreground',
+                    'shrink-0 text-label-secondary',
                     layout === 'horizontal' && 'min-w-16',
                   )}
                 >
                   {item.label}
                   {layout === 'horizontal' ? (
-                    <span className="ml-0.5 text-muted-foreground/70">:</span>
+                    <span className="ml-0.5 text-label-secondary/70">:</span>
                   ) : null}
                 </div>
-                <div className="min-w-0 text-surface-foreground">
-                  {item.children}
-                </div>
+                <div className="min-w-0 text-label">{item.children}</div>
               </div>
             );
           })}

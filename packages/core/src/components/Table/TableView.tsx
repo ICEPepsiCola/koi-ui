@@ -214,7 +214,7 @@ export function TableView<T extends Record<string, unknown>>({
     <div
       ref={scrollRef}
       className={cn(
-        'w-full rounded-lg border border-border',
+        'w-full rounded-box border border-separator bg-surface shadow-field',
         needsScrollport ? 'overflow-auto' : 'overflow-x-auto',
       )}
       style={
@@ -225,7 +225,7 @@ export function TableView<T extends Record<string, unknown>>({
       onScroll={onScroll}
     >
       <table className="w-full min-w-full border-separate border-spacing-0 text-left text-sm">
-        <thead className="bg-muted">
+        <thead className="bg-fill/60">
           <tr>
             {columns.map((col, index) => {
               const width = columnWidth(col as ColumnDef<Record<string, unknown>>);
@@ -233,10 +233,10 @@ export function TableView<T extends Record<string, unknown>>({
                 <th
                   key={col.key}
                   className={cn(
-                    'border-b border-border bg-muted px-4 py-3 font-medium text-surface-foreground',
-                    col.fixed && 'shadow-[1px_0_0_0_var(--color-border)]',
+                    'border-b border-separator bg-fill/60 px-4 py-3 font-medium text-label',
+                    col.fixed && 'shadow-[1px_0_0_0_var(--color-separator)]',
                     col.fixed === 'right' &&
-                      'shadow-[-1px_0_0_0_var(--color-border)]',
+                      'shadow-[-1px_0_0_0_var(--color-separator)]',
                   )}
                   style={{
                     width,
@@ -273,7 +273,7 @@ export function TableView<T extends Record<string, unknown>>({
                 key={rowIndex}
                 className={cn(
                   onRowClick &&
-                    'cursor-pointer hover:bg-muted/50 focus-within:bg-muted/50',
+                    'cursor-pointer hover:bg-fill/50 focus-within:bg-fill/50',
                 )}
                 tabIndex={onRowClick ? 0 : undefined}
                 onClick={() => onRowClick?.(row)}
@@ -287,11 +287,11 @@ export function TableView<T extends Record<string, unknown>>({
                     <td
                       key={col.key}
                       className={cn(
-                        'border-t border-border bg-surface px-4 py-3',
+                        'border-t border-separator bg-surface px-4 py-3 text-label',
                         col.fixed &&
-                          'shadow-[1px_0_0_0_var(--color-border)]',
+                          'shadow-[1px_0_0_0_var(--color-separator)]',
                         col.fixed === 'right' &&
-                          'shadow-[-1px_0_0_0_var(--color-border)]',
+                          'shadow-[-1px_0_0_0_var(--color-separator)]',
                       )}
                       style={{
                         width,

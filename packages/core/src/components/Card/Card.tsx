@@ -9,7 +9,7 @@ import { cn } from '../../utils/cn';
 import { isActivationKey } from '../../utils/keyboard';
 
 const card = tv({
-  base: 'flex flex-col overflow-hidden rounded-box border border-border/80 bg-surface shadow-field',
+  base: 'flex flex-col overflow-hidden rounded-box border border-separator bg-surface shadow-field',
   variants: {
     padding: {
       none: '',
@@ -18,7 +18,7 @@ const card = tv({
       lg: '',
     },
     hoverable: {
-      true: 'cursor-pointer transition-[box-shadow,transform] duration-fast ease-emphasized hover:shadow-float active:scale-[0.995] motion-reduce:transition-none motion-reduce:active:scale-100',
+      true: 'cursor-pointer transition-[box-shadow,transform,background-color] duration-fast ease-emphasized hover:bg-fill/40 active:scale-[0.995] motion-reduce:transition-none motion-reduce:active:scale-100',
       false: '',
     },
   },
@@ -88,11 +88,11 @@ export function Card({
       ) : null}
       <div className={cn('flex min-h-0 flex-1 flex-col', pad)}>
         {title ? (
-          <div className="mb-2 text-base font-semibold text-surface-foreground">
-            {title}
-          </div>
+          <div className="mb-2 text-base font-semibold text-label">{title}</div>
         ) : null}
-        {children ? <div className="min-w-0 flex-1 text-sm">{children}</div> : null}
+        {children ? (
+          <div className="min-w-0 flex-1 text-sm text-label">{children}</div>
+        ) : null}
         {actions ? (
           <div className="mt-4 flex flex-wrap items-center justify-end gap-2">
             {actions}
@@ -101,7 +101,7 @@ export function Card({
         {footer ? (
           <div
             className={cn(
-              'mt-4 border-t border-border pt-3',
+              'mt-4 border-t border-separator pt-3 text-sm text-label-secondary',
               actions && 'mt-3',
             )}
           >

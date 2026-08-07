@@ -113,6 +113,13 @@ export const optionRowActive = 'bg-muted/70';
 /** Committed selection — text + weight; no fill (check icon carries the rest). */
 export const optionRowSelected = 'font-medium text-primary';
 
-/** Cards, alerts, empty shells. */
+/** Cards, alerts, empty shells — hairline separator, soft field shadow. */
 export const boxSurface =
-  'rounded-box border border-border/80 bg-surface shadow-field';
+  'rounded-box border border-separator bg-surface shadow-field';
+
+/**
+ * iOS-style inset-grouped list shell — rounded surface, hairline separators.
+ * Use for List `bordered`, and reuse anywhere a single grouped stack is needed.
+ */
+export const insetGroupedList =
+  'overflow-hidden rounded-box border border-separator bg-surface divide-y divide-separator shadow-field';

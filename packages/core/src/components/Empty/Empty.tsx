@@ -70,9 +70,9 @@ export function Empty({
       {...props}
     >
       {image ?? (
-        <EmptyIllustration className="mb-4 h-16 w-16 text-muted-foreground" />
+        <EmptyIllustration className="mb-4 h-16 w-16 text-label-secondary" />
       )}
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-label-secondary">
         {description ?? messages.emptyText}
       </p>
       {children ? <div className="mt-4">{children}</div> : null}

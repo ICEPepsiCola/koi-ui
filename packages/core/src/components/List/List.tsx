@@ -1,13 +1,14 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { insetGroupedList } from '../../utils/interaction';
 
 const listVariants = tv({
-  base: 'divide-y divide-border',
+  base: '',
   variants: {
     bordered: {
-      true: 'rounded-lg border border-border',
-      false: '',
+      true: insetGroupedList,
+      false: 'divide-y divide-separator',
     },
     size: {
       sm: '',
@@ -56,7 +57,14 @@ export function List({
   return (
     <div className={cn(listVariants({ bordered, size }), className)} {...props}>
       {header ? (
-        <div className={cn(itemPadding[size ?? 'md'], 'font-medium')}>{header}</div>
+        <div
+          className={cn(
+            itemPadding[size ?? 'md'],
+            'text-sm font-medium text-label-secondary',
+          )}
+        >
+          {header}
+        </div>
       ) : null}
       {items.map((item) => (
         <div
@@ -66,12 +74,10 @@ export function List({
           {item.avatar ? <div className="shrink-0">{item.avatar}</div> : null}
           <div className="min-w-0 flex-1">
             {item.title ? (
-              <div className="text-sm font-medium text-surface-foreground">
-                {item.title}
-              </div>
+              <div className="text-sm font-medium text-label">{item.title}</div>
             ) : null}
             {item.description ? (
-              <div className="mt-0.5 text-sm text-muted-foreground">
+              <div className="mt-0.5 text-sm text-label-secondary">
                 {item.description}
               </div>
             ) : null}
@@ -80,14 +86,21 @@ export function List({
             ) : null}
           </div>
           {item.extra ? (
-            <div className="shrink-0 text-sm text-muted-foreground">
+            <div className="shrink-0 text-sm text-label-secondary">
               {item.extra}
             </div>
           ) : null}
         </div>
       ))}
       {footer ? (
-        <div className={cn(itemPadding[size ?? 'md'], 'text-sm')}>{footer}</div>
+        <div
+          className={cn(
+            itemPadding[size ?? 'md'],
+            'text-sm text-label-secondary',
+          )}
+        >
+          {footer}
+        </div>
       ) : null}
     </div>
   );

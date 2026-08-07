@@ -3,6 +3,8 @@ import { Card } from '../Card/Card';
 import { useKoiContext } from '../../provider/context';
 import { Stack } from '../../primitives/Stack';
 import { Text } from '../../primitives/Text';
+import { cn } from '../../utils/cn';
+import { insetGroupedList } from '../../utils/interaction';
 import { Empty } from '../Empty/Empty';
 import { LoadingHint } from '../shared/LoadingHint';
 import type { ColumnDef } from './TableView';
@@ -46,12 +48,13 @@ export function CardListView<T extends Record<string, unknown>>({
   const getTitle = (col: ColumnDef<T>): ReactNode => col.title;
 
   return (
-    <Stack gap={4}>
+    <div className={insetGroupedList}>
       {data.map((row, i) => (
         <Card
           key={i}
           hoverable={Boolean(onRowClick)}
           onClick={() => onRowClick?.(row)}
+          className={cn('rounded-none border-0 shadow-none')}
         >
           <Stack gap={2}>
             {fields.map((field) => {
@@ -73,6 +76,6 @@ export function CardListView<T extends Record<string, unknown>>({
           </Stack>
         </Card>
       ))}
-    </Stack>
+    </div>
   );
 }
