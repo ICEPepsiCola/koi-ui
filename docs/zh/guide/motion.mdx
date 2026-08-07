@@ -1,0 +1,36 @@
+# 动效
+
+Koi 的浮层与 sheet 共用一套动效语言：进场/退场用 spring 预设，拖拽关闭用基于投影的手势物理。
+
+## Spring 预设
+
+| 预设 | 用途 |
+|------|------|
+| `springSnappy` | 浮层菜单、Popover（约 0.3s，无回弹） |
+| `springSoft` | 居中 Modal、侧向 Drawer（约 0.4s） |
+| `springMomentum` | 底部 sheet 进场，以及拖拽未关闭时的回弹 |
+
+`MotionPanel` 按 `variant` 选择预设。底部 sheet 还会套上 `sheetSurface`（thick 材质）。
+
+## Sheet 拖拽物理
+
+`ActionSheet`、`Drawer`（四边）以及移动端 `Modal`（`DrawerView`）共用：
+
+- **位移阈值：** 96px（`SHEET_DISMISS_OFFSET`）
+- **轻弹速度：** 550 px/s（`SHEET_DISMISS_VELOCITY`）
+- **投影：** 松手判定为 `offset + project(velocity)`——慢拖超过 96px，或短促轻弹投影会越过阈值，都会关闭
+- **橡皮筋：** 越过打开静止点继续拖时有阻力（`rubberband`）
+- **回弹：** 未关闭时用可打断的 `springMomentum` 弹回；新的 pointer down 会打断弹簧
+
+底部 sheet 使用 `useBottomSheetDismiss` / `useVerticalDrag`。侧向 Drawer 在 X/Y 上复用同一套阈值。
+
+选择器类 sheet（`Select` / `DatePicker` / `Picker` 移动端）通过 `MotionPanel variant="bottom"` + `SheetChrome` 继承进退场弹簧与材质，**不再**单独挂一层拖拽关闭物理。
+
+## 减少动态效果
+
+`prefers-reduced-motion: reduce` 时，面板过渡经 `resolveTransition` 变为 `duration: 0`。优先使用合成层属性（`transform` / `opacity`），让残留动效成本更低。
+
+## 相关
+
+- 主题定制 → 材质（`--material-*`、`prefers-reduced-transparency`）
+- 响应式原理 → 移动端 `Modal` 底部 sheet 与桌面 placement

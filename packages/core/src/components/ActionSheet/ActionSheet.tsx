@@ -1,22 +1,9 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  type ReactNode,
-} from 'react';
-import { animate } from 'motion/react';
+import { useId, useRef, type ReactNode } from 'react';
 import { cn } from '../../utils/cn';
+import { useBottomSheetDismiss } from '../../hooks/useBottomSheetDismiss';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
-import { useVerticalDrag } from '../../hooks/useVerticalDrag';
-import {
-  shouldDismissProjected,
-  SHEET_DISMISS_OFFSET,
-  SHEET_DISMISS_VELOCITY,
-} from '../../motion/gesture';
-import { springMomentum } from '../../motion/presets';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import { controlTransition, pressable } from '../../utils/interaction';
@@ -54,18 +41,9 @@ export interface ActionSheetProps {
   closeOnDrag?: boolean;
 }
 
-/** @internal Exported for dismiss-threshold unit tests. */
-export function shouldDismissActionSheet(options: {
-  offset: number;
-  velocity: number;
-}): boolean {
-  return shouldDismissProjected({
-    offset: options.offset,
-    velocity: options.velocity,
-    dismissOffset: SHEET_DISMISS_OFFSET,
-    dismissVelocity: SHEET_DISMISS_VELOCITY,
-  });
-}
+export {
+  shouldDismissBottomSheet as shouldDismissActionSheet,
+} from '../../hooks/useBottomSheetDismiss';
 
 export function ActionSheet({
   open,
@@ -83,65 +61,18 @@ export function ActionSheet({
   const titleId = useId();
   const descriptionId = useId();
   const resolvedCancelText = cancelText ?? messages.cancelActionText;
-  const onCloseRef = useRef(onClose);
-  const springRef = useRef<{ stop: () => void } | null>(null);
-  const setOffsetRef = useRef<(value: number) => void>(() => {});
-
-  useEffect(() => {
-    onCloseRef.current = onClose;
-  }, [onClose]);
-
-  const stopSpring = useCallback(() => {
-    springRef.current?.stop();
-    springRef.current = null;
-  }, []);
-
-  const handleDragEnd = useCallback(
-    ({ offset, velocity }: { offset: number; velocity: number }) => {
-      if (
-        shouldDismissActionSheet({
-          offset,
-          velocity,
-        })
-      ) {
-        onCloseRef.current();
-        return;
-      }
-
-      stopSpring();
-      springRef.current = animate(offset, 0, {
-        ...springMomentum,
-        velocity,
-        onUpdate: (value) => {
-          setOffsetRef.current(value);
-        },
-        onComplete: () => {
-          springRef.current = null;
-        },
-      });
-    },
-    [stopSpring],
-  );
 
   const {
-    offset: dragY,
-    setOffset,
-    dragging,
-    onPointerDown: dragPointerDown,
+    contentStyle,
+    onPointerDown,
     onPointerMove,
     onPointerUp,
     onPointerCancel,
-  } = useVerticalDrag({
-    enabled: closeOnDrag && open,
-    min: 0,
-    dimension:
-      typeof window !== 'undefined' ? window.innerHeight : 400,
-    onDragEnd: handleDragEnd,
+  } = useBottomSheetDismiss({
+    open,
+    enabled: closeOnDrag,
+    onDismiss: onClose,
   });
-
-  useEffect(() => {
-    setOffsetRef.current = setOffset;
-  }, [setOffset]);
 
   useScrollLock(open);
   useDismissibleLayer({
@@ -153,18 +84,6 @@ export function ActionSheet({
     active: open,
     containerRef: sheetRef,
   });
-
-  useEffect(() => {
-    if (!open) {
-      stopSpring();
-      setOffset(0);
-    }
-  }, [open, setOffset, stopSpring]);
-
-  const onPointerDown = (event: Parameters<typeof dragPointerDown>[0]) => {
-    stopSpring();
-    dragPointerDown(event);
-  };
 
   return (
     <Portal>
@@ -184,13 +103,7 @@ export function ActionSheet({
           className="w-full overflow-hidden rounded-t-[14px] bg-muted pb-safe shadow-overlay"
           onClick={(e) => e.stopPropagation()}
         >
-          <div
-            style={{
-              transform: `translateY(${dragY}px)`,
-              // Interruptible spring owns settle; disable CSS while dragging.
-              transition: dragging ? 'none' : undefined,
-            }}
-          >
+          <div style={contentStyle}>
             <div
               className={cn(
                 'flex touch-none flex-col items-center pb-1 pt-2.5',

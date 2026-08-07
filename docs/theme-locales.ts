@@ -67,6 +67,10 @@ function buildLocale(lang: Lang) {
           link: localePath(lang, '/guide/responsive'),
         },
         {
+          text: isZh ? '动效' : 'Motion',
+          link: localePath(lang, '/guide/motion'),
+        },
+        {
           text: isZh ? '场景示例' : 'Recipes',
           link: localePath(lang, '/guide/recipes'),
         },

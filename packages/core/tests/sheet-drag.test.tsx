@@ -2,6 +2,8 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ActionSheet, shouldDismissActionSheet } from '../src/components/ActionSheet/ActionSheet';
 import { Drawer, shouldDismissDrawer } from '../src/components/Drawer/Drawer';
+import { DrawerView } from '../src/components/Modal/DrawerView';
+import { shouldDismissBottomSheet } from '../src/hooks/useBottomSheetDismiss';
 import { KoiProvider } from '../src/provider';
 import { project } from '../src/motion/physics';
 import {
@@ -154,4 +156,68 @@ test('Drawer bottom handle drag past threshold closes', () => {
   fireEvent.pointerUp(handle, { clientY: 220, pointerId: 1 });
 
   expect(closed).toBe(true);
+});
+
+test('shouldDismissBottomSheet matches shared sheet thresholds', () => {
+  expect(
+    shouldDismissBottomSheet({
+      offset: SHEET_DISMISS_OFFSET,
+      velocity: 0,
+    }),
+  ).toBe(true);
+  expect(
+    shouldDismissBottomSheet({
+      offset: 0,
+      velocity: SHEET_DISMISS_VELOCITY,
+    }),
+  ).toBe(true);
+  expect(
+    shouldDismissBottomSheet({
+      offset: 10,
+      velocity: 50,
+    }),
+  ).toBe(false);
+});
+
+test('Modal DrawerView handle drag past threshold closes', () => {
+  let closed = false;
+  render(
+    <KoiProvider>
+      <DrawerView
+        open
+        onClose={() => {
+          closed = true;
+        }}
+        title="移动 Modal"
+      >
+        sheet 内容
+      </DrawerView>
+    </KoiProvider>,
+  );
+
+  expect(screen.getByText('sheet 内容')).toBeInTheDocument();
+
+  const handle = document.querySelector(
+    '[data-modal-drawer-handle]',
+  ) as HTMLDivElement;
+  expect(handle).toBeTruthy();
+
+  fireEvent.pointerDown(handle, { button: 0, clientY: 100, pointerId: 1 });
+  fireEvent.pointerMove(handle, { clientY: 220, pointerId: 1 });
+  fireEvent.pointerUp(handle, { clientY: 220, pointerId: 1 });
+
+  expect(closed).toBe(true);
+});
+
+test('Modal DrawerView closeOnDrag=false keeps static handle', () => {
+  render(
+    <KoiProvider>
+      <DrawerView open onClose={() => {}} closeOnDrag={false}>
+        无拖拽
+      </DrawerView>
+    </KoiProvider>,
+  );
+
+  expect(document.querySelector('[data-modal-drawer-handle]')).toBeNull();
+  expect(screen.getByText('无拖拽')).toBeInTheDocument();
 });

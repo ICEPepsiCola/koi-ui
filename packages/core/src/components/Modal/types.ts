@@ -26,6 +26,13 @@ export interface ModalPanelProps {
    */
   maskClosable?: boolean;
   /**
+   * Mobile bottom sheet: drag the handle downward to dismiss.
+   * Uses shared projection + px/s velocity thresholds (96px / 550px/s).
+   * Ignored on desktop.
+   * @default true
+   */
+  closeOnDrag?: boolean;
+  /**
    * Mobile sheet height. Ignored on desktop.
    * @default true
    */

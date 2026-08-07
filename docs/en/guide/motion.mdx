@@ -1,0 +1,36 @@
+# Motion
+
+Koi overlays and sheets share one motion language: spring presets for enter/exit, and projection-based gesture physics for drag dismiss.
+
+## Spring presets
+
+| Preset | Use |
+|--------|-----|
+| `springSnappy` | Float menus, popovers (~0.3s, no bounce) |
+| `springSoft` | Center modals, side drawers (~0.4s) |
+| `springMomentum` | Bottom sheets enter + settle after drag |
+
+`MotionPanel` picks the preset from its `variant`. Bottom sheets also apply `sheetSurface` (thick material).
+
+## Sheet drag physics
+
+`ActionSheet`, `Drawer` (all edges), and mobile `Modal` (`DrawerView`) share:
+
+- **Travel threshold:** 96px (`SHEET_DISMISS_OFFSET`)
+- **Flick velocity:** 550 px/s (`SHEET_DISMISS_VELOCITY`)
+- **Projection:** release position is `offset + project(velocity)` — a slow drag past 96px or a short flick that would coast past it both dismiss
+- **Rubber-band:** dragging past the open rest compresses with resistance (`rubberband`)
+- **Settle:** if not dismissed, an interruptible `springMomentum` springs back to rest (a new pointer down cancels the spring)
+
+Bottom sheets use `useBottomSheetDismiss` / `useVerticalDrag`. Edge drawers reuse the same thresholds on X or Y.
+
+Picker sheets (`Select` / `DatePicker` / `Picker` mobile views) inherit enter/exit springs and materials via `MotionPanel variant="bottom"` + `SheetChrome`. They do not add a separate drag-dismiss layer.
+
+## Reduced motion
+
+`prefers-reduced-motion: reduce` collapses panel transitions to `duration: 0` through `resolveTransition`. Prefer compositor props (`transform` / `opacity`) so remaining motion stays cheap.
+
+## Related
+
+- Theming → materials (`--material-*`, `prefers-reduced-transparency`)
+- Responsive → mobile `Modal` bottom sheet vs desktop placement

@@ -1,5 +1,6 @@
 import { useId, useRef } from 'react';
 import { cn } from '../../utils/cn';
+import { useBottomSheetDismiss } from '../../hooks/useBottomSheetDismiss';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
@@ -21,11 +22,24 @@ export function DrawerView({
   size = 'md',
   closable = false,
   maskClosable = true,
+  closeOnDrag = true,
   className,
 }: DrawerViewProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const descriptionId = useId();
+
+  const {
+    contentStyle,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+    onPointerCancel,
+  } = useBottomSheetDismiss({
+    open,
+    enabled: closeOnDrag,
+    onDismiss: onClose,
+  });
 
   useScrollLock(open);
   useDismissibleLayer({
@@ -37,6 +51,21 @@ export function DrawerView({
     active: open,
     containerRef: drawerRef,
   });
+
+  const dragHandle = closeOnDrag ? (
+    <div
+      className="flex shrink-0 touch-none cursor-grab justify-center py-1 active:cursor-grabbing"
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
+      data-modal-drawer-handle
+    >
+      <div className="h-1 w-10 shrink-0 rounded-full bg-border" />
+    </div>
+  ) : (
+    <div className="mx-auto mb-4 h-1 w-10 shrink-0 rounded-full bg-border" />
+  );
 
   return (
     <Portal>
@@ -61,19 +90,27 @@ export function DrawerView({
           )}
           onClick={(e) => e.stopPropagation()}
         >
-          <ModalBoxContent
-            title={title}
-            footer={footer}
-            closable={closable}
-            onClose={onClose}
-            titleId={titleId}
-            descriptionId={descriptionId}
-            headerExtra={
-              <div className="mx-auto mb-4 h-1 w-10 shrink-0 rounded-full bg-border" />
-            }
+          <div
+            style={{
+              ...contentStyle,
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: 0,
+              height: '100%',
+            }}
           >
-            {children}
-          </ModalBoxContent>
+            {dragHandle}
+            <ModalBoxContent
+              title={title}
+              footer={footer}
+              closable={closable}
+              onClose={onClose}
+              titleId={titleId}
+              descriptionId={descriptionId}
+            >
+              {children}
+            </ModalBoxContent>
+          </div>
         </MotionPanel>
       </Overlay>
     </Portal>
