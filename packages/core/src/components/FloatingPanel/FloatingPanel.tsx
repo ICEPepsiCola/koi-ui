@@ -7,10 +7,18 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from 'react';
-import { AnimatePresence } from 'motion/react';
+import { animate, AnimatePresence } from 'motion/react';
 import { cn } from '../../utils/cn';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useScrollLock } from '../../hooks/useScrollLock';
+import {
+  nearestAnchor,
+  shouldDismiss,
+  velocityFromSamples,
+  type PointSample,
+} from '../../motion/gesture';
+import { project, rubberband } from '../../motion/physics';
+import { springMomentum } from '../../motion/presets';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import { getPortalFixedRoot } from '../../utils/toPortalFixedPosition';
@@ -39,12 +47,16 @@ export interface FloatingPanelProps
    */
   closeOnEscape?: boolean;
   /**
-   * Drag below half of the lowest anchor to close.
+   * Drag down to a projected closed endpoint to close.
+   * @breaking The release projection and downward velocity now determine dismissal.
    * @default true
    * @since 1.12.0
    */
   closeOnDrag?: boolean;
 }
+
+const VELOCITY_SAMPLES_MAX = 20;
+const VELOCITY_SAMPLES_WINDOW_MS = 200;
 
 function resolveViewportHeight(
   portalContainer: HTMLElement | null | undefined,
@@ -52,6 +64,25 @@ function resolveViewportHeight(
   const root = getPortalFixedRoot(portalContainer);
   if (root && root.clientHeight > 0) return root.clientHeight;
   return typeof window !== 'undefined' ? window.innerHeight : 400;
+}
+
+export function shouldDismissFloatingPanel({
+  projectedHeight,
+  gestureVelocity,
+}: {
+  projectedHeight: number;
+  gestureVelocity: number;
+}): boolean {
+  return (
+    gestureVelocity > 0 &&
+    projectedHeight <= 0 &&
+    shouldDismiss({
+      velocity: 0,
+      offset: -projectedHeight,
+      dismissOffset: 0,
+      dismissVelocity: Number.POSITIVE_INFINITY,
+    })
+  );
 }
 
 /**
@@ -87,6 +118,8 @@ export function FloatingPanel({
   const dragging = useRef(false);
   const activePointerId = useRef<number | null>(null);
   const dragMoved = useRef(false);
+  const samples = useRef<PointSample[]>([]);
+  const spring = useRef<{ stop: () => void } | null>(null);
   const anchorsRef = useRef(anchors);
   const onCloseRef = useRef(onClose);
   const defaultAnchorRef = useRef(defaultAnchor);
@@ -117,21 +150,45 @@ export function FloatingPanel({
     setHeightState((prev) => (prev === next ? prev : next));
   }, []);
 
+  const stopSpring = useCallback(() => {
+    spring.current?.stop();
+    spring.current = null;
+  }, []);
+
   const snapToAnchor = useCallback(
-    (h: number) => {
-      const vh = resolveViewportHeight(portalContainer);
-      const ratios = anchorsRef.current.map((a) => a * vh);
-      const lowest = Math.min(...ratios);
-      if (closeOnDragRef.current && h < lowest * 0.5) {
+    (currentHeight: number, gestureVelocity = 0) => {
+      const viewportHeight = resolveViewportHeight(portalContainer);
+      const anchorHeights = anchorsRef.current.map(
+        (anchor) => anchor * viewportHeight,
+      );
+      const minAnchor = Math.min(...anchorHeights);
+      const maxAnchor = Math.max(...anchorHeights);
+      // Pointer Y grows downward, while panel height grows upward.
+      const projectedHeight = currentHeight - project(gestureVelocity);
+
+      if (
+        closeOnDragRef.current &&
+        shouldDismissFloatingPanel({ projectedHeight, gestureVelocity })
+      ) {
         onCloseRef.current?.();
         return;
       }
-      const closest = ratios.reduce((prev, curr) =>
-        Math.abs(curr - h) < Math.abs(prev - h) ? curr : prev,
+
+      const target = nearestAnchor(
+        Math.min(maxAnchor, Math.max(minAnchor, projectedHeight)),
+        anchorHeights,
       );
-      setHeight(closest);
+      stopSpring();
+      spring.current = animate(currentHeight, target, {
+        ...springMomentum,
+        velocity: -gestureVelocity,
+        onUpdate: setHeight,
+        onComplete: () => {
+          spring.current = null;
+        },
+      });
     },
-    [portalContainer, setHeight],
+    [portalContainer, setHeight, stopSpring],
   );
 
   useEffect(() => {
@@ -172,11 +229,13 @@ export function FloatingPanel({
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
+    stopSpring();
     dragging.current = true;
     dragMoved.current = false;
     activePointerId.current = e.pointerId;
     startY.current = e.clientY;
     startHeight.current = heightRef.current;
+    samples.current = [{ y: e.clientY, t: performance.now() }];
     e.currentTarget.setPointerCapture?.(e.pointerId);
   };
 
@@ -184,7 +243,30 @@ export function FloatingPanel({
     if (!dragging.current || activePointerId.current !== e.pointerId) return;
     const diff = startY.current - e.clientY;
     if (Math.abs(diff) > 4) dragMoved.current = true;
-    setHeight(Math.max(0, startHeight.current + diff));
+    const viewportHeight = resolveViewportHeight(portalContainer);
+    const anchorHeights = anchorsRef.current.map(
+      (anchor) => anchor * viewportHeight,
+    );
+    const minAnchor = Math.min(...anchorHeights);
+    const maxAnchor = Math.max(...anchorHeights);
+    const rawHeight = startHeight.current + diff;
+    const nextHeight =
+      rawHeight > maxAnchor
+        ? maxAnchor + rubberband(rawHeight - maxAnchor, viewportHeight)
+        : rawHeight < minAnchor
+          ? minAnchor - rubberband(minAnchor - rawHeight, viewportHeight)
+          : rawHeight;
+
+    setHeight(nextHeight);
+    const now = performance.now();
+    samples.current.push({ y: e.clientY, t: now });
+    const cutoff = now - VELOCITY_SAMPLES_WINDOW_MS;
+    while (
+      samples.current.length > VELOCITY_SAMPLES_MAX ||
+      (samples.current.length > 2 && samples.current[0].t < cutoff)
+    ) {
+      samples.current.shift();
+    }
   };
 
   const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -193,7 +275,9 @@ export function FloatingPanel({
     dragging.current = false;
     activePointerId.current = null;
     dragMoved.current = false;
-    if (moved) snapToAnchor(heightRef.current);
+    const gestureVelocity = velocityFromSamples(samples.current);
+    samples.current = [];
+    if (moved) snapToAnchor(heightRef.current, gestureVelocity);
     if (e.currentTarget.hasPointerCapture?.(e.pointerId)) {
       e.currentTarget.releasePointerCapture?.(e.pointerId);
     }
@@ -205,6 +289,7 @@ export function FloatingPanel({
     dragging.current = false;
     activePointerId.current = null;
     dragMoved.current = false;
+    samples.current = [];
     if (moved) snapToAnchor(heightRef.current);
   };
 
@@ -216,6 +301,12 @@ export function FloatingPanel({
     'flex w-full flex-col rounded-t-box border border-border/80 bg-surface shadow-overlay',
     className,
   );
+  const viewportHeight = resolveViewportHeight(portalContainer);
+  const minAnchor = Math.min(
+    ...anchors.map((anchor) => anchor * viewportHeight),
+  );
+  const scrimOpacity =
+    height === null ? undefined : Math.min(1, Math.max(0, height / minAnchor));
 
   const panelBody = (
     <>
@@ -267,6 +358,7 @@ export function FloatingPanel({
         open={open}
         onClick={maskClosable ? onClose : undefined}
         className="flex items-end"
+        style={{ opacity: scrimOpacity }}
       >
         <MotionPanel
           ref={panelRef}

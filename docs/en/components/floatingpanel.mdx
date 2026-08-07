@@ -47,10 +47,13 @@ export default () => {
 Without a mask, closing is still controlled by these props (all default `true`):
 
 - `maskClosable` — click outside the panel
-- `closeOnDrag` — drag below half of the lowest anchor
+- `closeOnDrag` — release a downward drag whose projected endpoint reaches closed
 - `closeOnEscape` — press `Esc`
 
 You can also call `onClose` yourself (e.g. a close button).
+
+> **Breaking change:** drag dismissal now considers release momentum and direction,
+> rather than only the panel height relative to the lowest anchor.
 
 ```tsx preview
 import { FloatingPanel, Button } from '@koi-ui/core';
