@@ -78,10 +78,10 @@ export const fieldTriggerOpen =
 
 /** Frosted material surfaces — regular (menus) and thick (sheets). */
 export const materialRegular =
-  'bg-[var(--material-regular-bg)] backdrop-blur-xl backdrop-saturate-150 border border-white/40 dark:border-white/10';
+  'bg-[var(--material-regular-bg)] backdrop-blur-[length:var(--blur-regular)] backdrop-saturate-150 border border-white/40 dark:border-white/10';
 
 export const materialThick =
-  'bg-[var(--material-thick-bg)] backdrop-blur-2xl backdrop-saturate-150 border border-white/40 dark:border-white/10';
+  'bg-[var(--material-thick-bg)] backdrop-blur-[length:var(--blur-thick)] backdrop-saturate-150 border border-white/40 dark:border-white/10';
 
 /** Floating menus / listboxes under a trigger. */
 export const floatPanel = cn('rounded-box p-1 shadow-float', materialRegular);

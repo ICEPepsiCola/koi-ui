@@ -134,10 +134,14 @@ html.rp-dark,
   [data-theme='dark'],
   :root {
     --material-regular-bg: hsl(0 0% 100%);
+    --material-thick-bg: hsl(0 0% 100%);
     --blur-regular: 0px;
     --blur-thick: 0px;
   }
+  html.dark,
+  html.rp-dark,
   [data-theme='dark'] {
     --material-regular-bg: hsl(240 6% 12%);
+    --material-thick-bg: hsl(240 6% 12%);
   }
 }
