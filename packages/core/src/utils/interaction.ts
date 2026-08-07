@@ -1,4 +1,5 @@
 import { tv } from 'tailwind-variants';
+import { cn } from './cn';
 
 /**
  * Shared interaction / surface class fragments for consistent motion language.
@@ -75,9 +76,15 @@ export const fieldBase = [
 export const fieldTriggerOpen =
   'border-primary shadow-[0_0_0_3px] shadow-primary/15';
 
+/** Frosted material surfaces — regular (menus) and thick (sheets). */
+export const materialRegular =
+  'bg-[var(--material-regular-bg)] backdrop-blur-xl backdrop-saturate-150 border border-white/40 dark:border-white/10';
+
+export const materialThick =
+  'bg-[var(--material-thick-bg)] backdrop-blur-2xl backdrop-saturate-150 border border-white/40 dark:border-white/10';
+
 /** Floating menus / listboxes under a trigger. */
-export const floatPanel =
-  'rounded-field border border-border/80 bg-surface p-1 shadow-float';
+export const floatPanel = cn('rounded-box p-1 shadow-float', materialRegular);
 
 /** Single option row inside float menus / sheets. */
 export const optionRowBase = [
