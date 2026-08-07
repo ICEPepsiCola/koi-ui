@@ -54,14 +54,10 @@
   --breakpoint-mobile: 1024px;
 }
 
+/* Reduced motion: components handle via motion-reduce: / useReducedMotion — no global duration nuke (preserves press feedback). */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  html {
+    scroll-behavior: auto;
   }
 }
 

@@ -58,9 +58,9 @@ export const focusRing =
 export const controlTransition =
   'transition-[color,background-color,border-color,box-shadow,opacity,transform] duration-fast ease-emphasized motion-reduce:transition-none';
 
-/** Subtle press feedback for clickable controls. */
+/** Instant press — scale ~0.97 on pointer-down feel via :active */
 export const pressable =
-  'active:scale-[0.98] motion-reduce:active:scale-100';
+  'active:scale-[0.97] transition-transform duration-100 ease-out motion-reduce:active:scale-100 motion-reduce:transition-none';
 
 /** Trigger / field chrome (Input, Select, SearchBar, …). */
 export const fieldBase = [

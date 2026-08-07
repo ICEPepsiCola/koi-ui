@@ -1,5 +1,7 @@
 import type { Transition, Variants } from 'motion/react';
 
+export { project, rubberband, relativeVelocity } from './physics';
+
 /** Matches `--duration-normal` (200ms) — used for scrim timing and CSS fallbacks. */
 export const MOTION_DURATION_S = 0.2;
 
