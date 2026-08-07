@@ -17,6 +17,7 @@ import {
   springSnappy,
   springSoft,
 } from '../../motion/presets';
+import { materialRegular } from '../../utils/interaction';
 import { Portal } from '../../utils/portal';
 import { StatusIcon } from '../../utils/semanticSurface';
 import { Button } from '../Button';
@@ -24,14 +25,16 @@ import { Button } from '../Button';
 const notificationVariants = tv({
   base: cn(
     'pointer-events-auto relative flex w-80 gap-3 rounded-box p-4 pr-10 shadow-float',
-    'border border-border/80 bg-surface text-surface-foreground',
+    materialRegular,
+    'text-surface-foreground',
   ),
   variants: {
     color: {
-      info: 'border-info/20 bg-info/10 text-info',
-      success: 'border-success/20 bg-success/10 text-success',
-      warning: 'border-warning/20 bg-warning/10 text-warning',
-      error: 'border-error/20 bg-error/10 text-error',
+      // Status via StatusIcon; frosted material shell stays consistent.
+      info: '',
+      success: '',
+      warning: '',
+      error: '',
     },
   },
   defaultVariants: {

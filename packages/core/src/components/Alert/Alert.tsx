@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
-import { controlTransition } from '../../utils/interaction';
+import { boxSurface, controlTransition } from '../../utils/interaction';
 import {
   semanticSurfaceCompounds,
   StatusIcon,
@@ -11,11 +11,12 @@ import {
 /**
  * Alert: daisyUI-aligned color × variant (soft / outline / dash / solid),
  * default status icons, optional action slot, horizontal / vertical layout.
+ * Inline surface uses `boxSurface` chrome (separator + soft field shadow).
  */
 const alertVariants = tv({
   base: cn(
-    'relative flex w-full gap-3 rounded-box border px-4 py-3 text-sm',
-    'text-start shadow-field',
+    'relative flex w-full gap-3 px-4 py-3 text-sm text-start',
+    boxSurface,
   ),
   variants: {
     color: {

@@ -425,6 +425,20 @@ article code,
   color: var(--color-muted-foreground, #6b7280);
 }
 
+.koi-theme-lab__primary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.koi-theme-lab__primary-label {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-muted-foreground, #6b7280);
+}
+
 .koi-theme-lab__swatches {
   display: flex;
   flex-wrap: wrap;

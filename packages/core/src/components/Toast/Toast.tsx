@@ -13,18 +13,23 @@ import {
   toastPresenceVariants,
 } from '../../motion/presets';
 import { cn } from '../../utils/cn';
+import { materialRegular } from '../../utils/interaction';
 import { StatusIcon, type StatusColor } from '../../utils/semanticSurface';
 
 const toastVariants = tv({
-  base: 'pointer-events-auto mx-4 my-1 flex max-w-sm items-center gap-2 rounded-box border px-4 py-3 text-sm shadow-float',
+  base: cn(
+    'pointer-events-auto mx-4 my-1 flex max-w-sm items-center gap-2 rounded-box px-4 py-3 text-sm shadow-float',
+    materialRegular,
+    'text-surface-foreground',
+  ),
   variants: {
     color: {
-      default:
-        'border-transparent bg-surface-foreground text-surface',
-      info: 'border-info/15 bg-info/10 text-info',
-      success: 'border-transparent bg-success text-success-foreground',
-      warning: 'border-transparent bg-warning text-warning-foreground',
-      error: 'border-transparent bg-error text-error-foreground',
+      // Status carried by StatusIcon; shell stays frosted material.
+      default: '',
+      info: '',
+      success: '',
+      warning: '',
+      error: '',
     },
   },
   defaultVariants: {
