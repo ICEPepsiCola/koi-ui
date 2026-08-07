@@ -2,23 +2,23 @@ import { ThemeLab } from '../../ThemeLab';
 
 # 主题定制
 
-Koi UI 主题基于 CSS 变量。可用内置皮肤（`data-theme`），也可在业务里覆盖 Token。
+两套外观：浅色与深色。通过 `KoiProvider` 覆盖 `--color-primary`。
 
 ## 内置主题
 
-`@koi-ui/tokens` 提供 6 套皮肤：`light`、`dark`、`ocean`、`forest`、`sunset`、`violet`。
+`@koi-ui/tokens` 提供 `light` 与 `dark`，通过 `data-theme` 应用。
 
 ```tsx preview
 import { KoiProvider, Button, Alert, Tag, Space } from '@koi-ui/core';
 
 export default () => (
-  <KoiProvider theme={{ name: 'ocean' }}>
+  <KoiProvider theme={{ name: 'light' }}>
     <Space>
       <Button color="primary">主按钮</Button>
       <Button color="primary" variant="soft">轻量</Button>
       <Button color="primary" variant="outline">描边</Button>
       <Tag>标签</Tag>
-      <Alert title="海洋主题" description="通过 KoiProvider 应用 data-theme" />
+      <Alert title="浅色主题" description="通过 KoiProvider 应用 data-theme" />
     </Space>
   </KoiProvider>
 );
@@ -33,7 +33,7 @@ export default () => (
 ```tsx pure
 import { KoiProvider } from '@koi-ui/core';
 
-<KoiProvider theme={{ name: 'violet', primaryColor: 'hsl(280 80% 50%)', radiusMd: '1rem' }}>
+<KoiProvider theme={{ name: 'dark', primaryColor: 'hsl(211 100% 50%)', radiusMd: '1rem' }}>
   {children}
 </KoiProvider>
 ```
@@ -42,12 +42,12 @@ import { KoiProvider } from '@koi-ui/core';
 
 ```css
 :root {
-  --color-primary: hsl(160 84% 39%);
+  --color-primary: hsl(211 100% 50%);
   --color-primary-foreground: hsl(0 0% 100%);
   --radius-md: 0.75rem;
 }
 
-html[data-theme='ocean'] {
+html[data-theme='dark'] {
   /* 或任意子树 */
 }
 ```

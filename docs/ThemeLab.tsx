@@ -14,27 +14,23 @@ import {
 const LABELS: Record<KoiThemeName, { en: string; zh: string }> = {
   light: { en: 'Light', zh: '浅色' },
   dark: { en: 'Dark', zh: '深色' },
-  ocean: { en: 'Ocean', zh: '海洋' },
-  forest: { en: 'Forest', zh: '森林' },
-  sunset: { en: 'Sunset', zh: '日落' },
-  violet: { en: 'Violet', zh: '紫藤' },
 };
 
 const COPY = {
   en: {
-    title: 'Theme skins',
-    hint: 'Pick a skin — the controls below update together.',
+    title: 'Appearance',
+    hint: 'Switch between light and dark — the controls below update together.',
   },
   zh: {
-    title: '主题皮肤',
-    hint: '点选皮肤，下方控件会一起变色。',
+    title: '外观',
+    hint: '在浅色与深色之间切换，下方控件会一起更新。',
   },
 } as const;
 
 export function ThemeLab() {
   const lang = useLang() === 'zh' ? 'zh' : 'en';
   const copy = COPY[lang];
-  const [themeName, setThemeName] = useState<KoiThemeName>('ocean');
+  const [themeName, setThemeName] = useState<KoiThemeName>('light');
 
   return (
     <div className="koi-theme-lab">

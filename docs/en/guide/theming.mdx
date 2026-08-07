@@ -2,23 +2,23 @@ import { ThemeLab } from '../../ThemeLab';
 
 # Theming
 
-Koi UI themes are CSS variables. Pick a built-in skin with `data-theme`, or override tokens in your app.
+Two appearances: light and dark. Override `--color-primary` via `KoiProvider`.
 
 ## Built-in themes
 
-Six skins ship in `@koi-ui/tokens`: `light`, `dark`, `ocean`, `forest`, `sunset`, `violet`.
+`@koi-ui/tokens` ships `light` and `dark` via `data-theme`.
 
 ```tsx preview
 import { KoiProvider, Button, Alert, Tag, Space } from '@koi-ui/core';
 
 export default () => (
-  <KoiProvider theme={{ name: 'ocean' }}>
+  <KoiProvider theme={{ name: 'light' }}>
     <Space>
       <Button color="primary">Primary</Button>
       <Button color="primary" variant="soft">Soft</Button>
       <Button color="primary" variant="outline">Outline</Button>
       <Tag>Tag</Tag>
-      <Alert title="Ocean theme" description="data-theme applied via KoiProvider" />
+      <Alert title="Light theme" description="data-theme applied via KoiProvider" />
     </Space>
   </KoiProvider>
 );
@@ -33,7 +33,7 @@ Docs demos also expose a theme switcher next to the desktop/mobile toggle.
 ```tsx pure
 import { KoiProvider } from '@koi-ui/core';
 
-<KoiProvider theme={{ name: 'violet', primaryColor: 'hsl(280 80% 50%)', radiusMd: '1rem' }}>
+<KoiProvider theme={{ name: 'dark', primaryColor: 'hsl(211 100% 50%)', radiusMd: '1rem' }}>
   {children}
 </KoiProvider>
 ```
@@ -42,12 +42,12 @@ import { KoiProvider } from '@koi-ui/core';
 
 ```css
 :root {
-  --color-primary: hsl(160 84% 39%);
+  --color-primary: hsl(211 100% 50%);
   --color-primary-foreground: hsl(0 0% 100%);
   --radius-md: 0.75rem;
 }
 
-html[data-theme='ocean'] {
+html[data-theme='dark'] {
   /* or any subtree */
 }
 ```

@@ -2,14 +2,7 @@ import { createContext, useContext } from 'react';
 import type { Breakpoint } from '@koi-ui/hooks';
 
 /** Built-in skins applied via `data-theme`. */
-export const KOI_THEME_NAMES = [
-  'light',
-  'dark',
-  'ocean',
-  'forest',
-  'sunset',
-  'violet',
-] as const;
+export const KOI_THEME_NAMES = ['light', 'dark'] as const;
 
 export type KoiThemeName = (typeof KOI_THEME_NAMES)[number];
 

@@ -36,10 +36,6 @@ const PREVIEW_COPY = {
 const THEME_LABELS: Record<KoiThemeName, { en: string; zh: string }> = {
   light: { en: 'Light', zh: '浅色' },
   dark: { en: 'Dark', zh: '深色' },
-  ocean: { en: 'Ocean', zh: '海洋' },
-  forest: { en: 'Forest', zh: '森林' },
-  sunset: { en: 'Sunset', zh: '日落' },
-  violet: { en: 'Violet', zh: '紫藤' },
 };
 
 export function DevicePreviewShell({

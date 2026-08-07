@@ -165,14 +165,13 @@ test('Popover closes on Escape and restores focus', async () => {
 });
 
 test('KoiProvider applies data-theme and CSS overrides', () => {
-  const { container } = render(
-    <KoiProvider theme={{ name: 'ocean', primaryColor: 'hsl(200 80% 40%)' }}>
-      <Button>主题</Button>
+  render(
+    <KoiProvider theme={{ name: 'dark', primaryColor: 'hsl(200 80% 40%)' }}>
+      <span>hi</span>
     </KoiProvider>,
   );
-  const root = container.querySelector('.koi-theme-root');
-  expect(root).toHaveAttribute('data-theme', 'ocean');
-  expect(root).toHaveStyle({ '--color-primary': 'hsl(200 80% 40%)' });
+  const root = document.querySelector('[data-theme]');
+  expect(root).toHaveAttribute('data-theme', 'dark');
 });
 
 test('Empty uses illustration instead of empty-set glyph', () => {

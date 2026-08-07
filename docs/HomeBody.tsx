@@ -9,9 +9,9 @@ const FEATURES = {
         'Table, Modal, Form, and Select flip between desktop and mobile layouts at the breakpoint.',
     },
     {
-      title: 'Theme skins',
+      title: 'Light & dark',
       details:
-        'Six data-theme skins with shared semantic colors — switch live in the docs.',
+        'Two appearances with system-like grays — switch live in the docs.',
     },
     {
       title: 'Shared appearance',
@@ -29,8 +29,8 @@ const FEATURES = {
       details: 'Table、Modal、Form、Select 等按断点自动切换桌面 / 移动布局。',
     },
     {
-      title: '主题皮肤',
-      details: '内置 6 套 data-theme 皮肤与语义色，文档站可即时切换。',
+      title: '浅色与深色',
+      details: '两套外观与 iOS 风格灰阶，文档站可即时切换。',
     },
     {
       title: '统一外观读法',
@@ -58,7 +58,7 @@ export function HomeBody() {
         ))}
       </section>
 
-      <section className="koi-home__lab" aria-label={lang === 'zh' ? '主题皮肤' : 'Theme skins'}>
+      <section className="koi-home__lab" aria-label={lang === 'zh' ? '外观' : 'Appearance'}>
         <ThemeLab />
       </section>
     </div>
