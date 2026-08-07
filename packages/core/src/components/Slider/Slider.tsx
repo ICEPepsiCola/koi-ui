@@ -3,23 +3,69 @@ import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { controlAccent, type ControlColor } from '../../utils/controlColor';
 import { Text } from '../../primitives/Text';
+import { focusRing } from '../../utils/interaction';
+
+const thumbBase = [
+  '[&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full',
+  '[&::-webkit-slider-thumb]:border-0',
+  '[&::-webkit-slider-thumb]:shadow-field [&::-webkit-slider-thumb]:transition-transform',
+  '[&::-webkit-slider-thumb]:duration-100 [&::-webkit-slider-thumb]:ease-out',
+  'active:[&::-webkit-slider-thumb]:scale-[0.97]',
+  '[&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full',
+  '[&::-moz-range-thumb]:border-0',
+  '[&::-moz-range-thumb]:shadow-field',
+].join(' ');
+
+const trackBase = [
+  '[&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-fill-secondary',
+  '[&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-fill-secondary',
+].join(' ');
+
+const thumbColor: Record<ControlColor, string> = {
+  neutral:
+    '[&::-webkit-slider-thumb]:bg-muted-foreground [&::-moz-range-thumb]:bg-muted-foreground',
+  primary: '[&::-webkit-slider-thumb]:bg-primary [&::-moz-range-thumb]:bg-primary',
+  secondary: '[&::-webkit-slider-thumb]:bg-secondary [&::-moz-range-thumb]:bg-secondary',
+  info: '[&::-webkit-slider-thumb]:bg-info [&::-moz-range-thumb]:bg-info',
+  success: '[&::-webkit-slider-thumb]:bg-success [&::-moz-range-thumb]:bg-success',
+  warning: '[&::-webkit-slider-thumb]:bg-warning [&::-moz-range-thumb]:bg-warning',
+  error: '[&::-webkit-slider-thumb]:bg-error [&::-moz-range-thumb]:bg-error',
+};
 
 const sliderVariants = tv({
-  base: 'w-full cursor-pointer appearance-none rounded-full bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50',
+  base: cn(
+    'w-full min-h-11 cursor-pointer appearance-none bg-transparent touch-manipulation',
+    focusRing,
+    'rounded-full disabled:cursor-not-allowed disabled:opacity-50',
+    thumbBase,
+    trackBase,
+  ),
   variants: {
     size: {
-      sm: 'h-1',
-      md: 'h-1.5',
-      lg: 'h-2',
+      sm: cn(
+        '[&::-webkit-slider-runnable-track]:h-1 [&::-moz-range-track]:h-1',
+        '[&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4',
+        '[&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4',
+      ),
+      md: cn(
+        '[&::-webkit-slider-runnable-track]:h-1.5 [&::-moz-range-track]:h-1.5',
+        '[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5',
+        '[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5',
+      ),
+      lg: cn(
+        '[&::-webkit-slider-runnable-track]:h-2 [&::-moz-range-track]:h-2',
+        '[&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6',
+        '[&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6',
+      ),
     },
     color: {
-      neutral: controlAccent.neutral,
-      primary: controlAccent.primary,
-      secondary: controlAccent.secondary,
-      info: controlAccent.info,
-      success: controlAccent.success,
-      warning: controlAccent.warning,
-      error: controlAccent.error,
+      neutral: cn(controlAccent.neutral, thumbColor.neutral),
+      primary: cn(controlAccent.primary, thumbColor.primary),
+      secondary: cn(controlAccent.secondary, thumbColor.secondary),
+      info: cn(controlAccent.info, thumbColor.info),
+      success: cn(controlAccent.success, thumbColor.success),
+      warning: cn(controlAccent.warning, thumbColor.warning),
+      error: cn(controlAccent.error, thumbColor.error),
     },
   },
   defaultVariants: {

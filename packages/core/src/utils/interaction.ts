@@ -6,15 +6,18 @@ import { cn } from './cn';
  * Prefer these over one-off `transition-colors` / `opacity-90` hover hacks.
  */
 
-/** Default field control scale — sm / md / lg → 24 / 32 / 40px. */
+/**
+ * Default field control scale — sm / md / lg → 32 / 44 / 48px.
+ * `md` meets the 44px primary hit target; `sm` stays compact for dense layouts.
+ */
 export type FieldSize = 'sm' | 'md' | 'lg';
 
 export const fieldSizeVariants = tv({
   variants: {
     size: {
-      sm: 'h-6 text-sm',
-      md: 'h-8 text-sm',
-      lg: 'h-10 text-base',
+      sm: 'h-8 min-h-8 text-sm',
+      md: 'h-11 min-h-11 text-sm',
+      lg: 'h-12 min-h-12 text-base',
     },
   },
   defaultVariants: {
@@ -26,9 +29,9 @@ export const fieldSizeVariants = tv({
 export const fieldHeightVariants = tv({
   variants: {
     size: {
-      sm: 'h-6',
-      md: 'h-8',
-      lg: 'h-10',
+      sm: 'h-8 min-h-8',
+      md: 'h-11 min-h-11',
+      lg: 'h-12 min-h-12',
     },
   },
   defaultVariants: {
@@ -62,17 +65,17 @@ export const controlTransition =
 export const pressable =
   'active:scale-[0.97] transition-transform duration-100 ease-out motion-reduce:active:scale-100 motion-reduce:transition-none';
 
-/** Trigger / field chrome (Input, Select, SearchBar, …). */
+/** Trigger / field chrome (Input, Select, SearchBar, …) — hairline separator, soft fill. */
 export const fieldBase = [
-  'rounded-field border border-border/90 bg-surface shadow-field',
+  'rounded-field border border-separator bg-fill/40 shadow-field',
   'transition-[color,background-color,border-color,box-shadow] duration-fast ease-emphasized',
-  'hover:border-primary/40',
+  'hover:border-primary/35',
   focusRing,
   'disabled:cursor-not-allowed disabled:opacity-50',
   'motion-reduce:transition-none',
 ].join(' ');
 
-/** Open / expanded state for picker-style field triggers. */
+/** Open / expanded state for picker-style field triggers — accessible glow. */
 export const fieldTriggerOpen =
   'border-primary shadow-[0_0_0_3px] shadow-primary/15';
 

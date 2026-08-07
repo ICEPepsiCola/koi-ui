@@ -2,11 +2,19 @@ import { useState, type ButtonHTMLAttributes } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { controlOnBg, type ControlColor } from '../../utils/controlColor';
+import { focusRing, pressable } from '../../utils/interaction';
 
 const switchVariants = tv({
   slots: {
+    /** Hit target ≥44px; visual track stays compact inside. */
+    root: cn(
+      'relative inline-flex min-h-11 min-w-11 shrink-0 cursor-pointer items-center justify-center touch-manipulation',
+      focusRing,
+      pressable,
+      'rounded-full disabled:cursor-not-allowed disabled:opacity-50',
+    ),
     track:
-      'relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-[background-color,box-shadow,transform] duration-fast ease-emphasized focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none motion-reduce:active:scale-100',
+      'relative inline-flex items-center rounded-full transition-[background-color,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none',
     thumb:
       'pointer-events-none inline-block rounded-full bg-white shadow-sm transition-transform duration-fast ease-emphasized motion-reduce:transition-none',
   },
@@ -27,7 +35,7 @@ const switchVariants = tv({
     },
     checked: {
       true: {},
-      false: { track: 'bg-muted' },
+      false: { track: 'bg-fill-secondary' },
     },
     color: {
       neutral: {},
@@ -82,7 +90,7 @@ export function Switch({
   ...props
 }: SwitchProps) {
   const [internal, setInternal] = useControlled(checked, defaultChecked, onChange);
-  const { track, thumb } = switchVariants({ size, checked: internal, color });
+  const { root, track, thumb } = switchVariants({ size, checked: internal, color });
 
   return (
     <button
@@ -90,11 +98,13 @@ export function Switch({
       role="switch"
       aria-checked={internal}
       disabled={disabled}
-      className={cn(track(), className)}
+      className={cn(root(), className)}
       onClick={() => setInternal(!internal)}
       {...props}
     >
-      <span className={thumb()} />
+      <span className={track()}>
+        <span className={thumb()} />
+      </span>
     </button>
   );
 }

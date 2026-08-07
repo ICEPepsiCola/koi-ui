@@ -2,9 +2,10 @@ import { useState, type KeyboardEvent, type ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 
 const segmentedVariants = tv({
-  base: 'inline-flex rounded-field bg-muted p-1',
+  base: 'inline-flex rounded-field bg-fill p-1',
   variants: {
     size: {
       sm: 'text-xs',
@@ -21,6 +22,12 @@ const segmentedVariants = tv({
     block: false,
   },
 });
+
+const segmentSize = {
+  sm: 'min-h-9 px-2.5 py-1',
+  md: 'min-h-11 px-3 py-1.5',
+  lg: 'min-h-12 px-3.5 py-2',
+} as const;
 
 export interface SegmentedOption {
   value: string;
@@ -53,6 +60,7 @@ export function Segmented({
     options.findIndex((option) => option.value === active),
     0,
   );
+  const resolvedSize = size ?? 'md';
 
   const handleChange = (v: string) => {
     if (value === undefined) setInternal(v);
@@ -99,11 +107,15 @@ export function Segmented({
           aria-selected={opt.value === active}
           tabIndex={index === activeIndex ? 0 : -1}
           className={cn(
-            'rounded-selector px-3 py-1.5 font-medium transition-[color,background-color,box-shadow,transform] duration-fast ease-emphasized active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100',
+            'rounded-selector font-medium touch-manipulation',
+            segmentSize[resolvedSize],
+            controlTransition,
+            focusRing,
+            !opt.disabled && pressable,
             block && 'flex-1',
             opt.value === active
-              ? 'bg-surface text-surface-foreground shadow-field'
-              : 'text-muted-foreground hover:text-surface-foreground',
+              ? 'bg-surface text-label shadow-field'
+              : 'text-label-secondary hover:text-label',
             opt.disabled && 'cursor-not-allowed opacity-50',
           )}
           onClick={() => !opt.disabled && handleChange(opt.value)}

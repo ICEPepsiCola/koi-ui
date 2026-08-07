@@ -2,12 +2,13 @@ import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react';
 import { useKoiBreakpoint } from '../../hooks/useKoiBreakpoint';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
-import { controlTransition, focusRing } from '../../utils/interaction';
+import { controlTransition, focusRing, pressable } from '../../utils/interaction';
 
 /**
  * Button: color × variant axes (solid / soft / outline / dash / ghost / link),
- * press translate + flatten shadow, hover darken on solid, sizes xs→xl,
+ * shared `pressable` scale, hover darken on solid, sizes xs→xl,
  * square / circle, block / wide.
+ * Primary (`md`) is ≥44px; `xs`/`sm` stay compact for dense layouts.
  */
 const buttonVariants = tv({
   base: cn(
@@ -16,10 +17,10 @@ const buttonVariants = tv({
     'outline-offset-2',
     controlTransition,
     focusRing,
-    // press: nudge down + drop elevation
-    'active:translate-y-px active:shadow-none motion-reduce:active:translate-y-0',
+    pressable,
+    'active:shadow-none',
     // disabled: flat mute
-    'disabled:pointer-events-none disabled:translate-y-0 disabled:cursor-not-allowed',
+    'disabled:pointer-events-none disabled:cursor-not-allowed',
     'disabled:border-transparent disabled:bg-surface-foreground/10 disabled:text-surface-foreground/25 disabled:shadow-none',
     'disabled:no-underline',
   ),
@@ -43,11 +44,11 @@ const buttonVariants = tv({
       link: 'border-transparent bg-transparent shadow-none underline underline-offset-4 disabled:bg-transparent',
     },
     size: {
-      xs: 'h-5 min-h-5 px-2 text-xs',
-      sm: 'h-6 min-h-6 px-2.5 text-sm',
-      md: 'h-8 min-h-8 px-3 text-sm',
-      lg: 'h-10 min-h-10 px-4 text-base',
-      xl: 'h-12 min-h-12 px-5 text-lg',
+      xs: 'h-7 min-h-7 px-2 text-xs',
+      sm: 'h-9 min-h-9 px-2.5 text-sm',
+      md: 'h-11 min-h-11 px-3.5 text-sm',
+      lg: 'h-12 min-h-12 px-4 text-base',
+      xl: 'h-14 min-h-14 px-5 text-lg',
     },
     shape: {
       default: '',
@@ -63,7 +64,7 @@ const buttonVariants = tv({
       false: '',
     },
     active: {
-      true: 'translate-y-px shadow-none',
+      true: 'scale-[0.97] shadow-none',
       false: '',
     },
   },
@@ -329,14 +330,13 @@ const buttonVariants = tv({
   },
 });
 
+/** Shrink one step on mobile, but never below `md` (44px primary hit target). */
 function downsize(
   size: NonNullable<VariantProps<typeof buttonVariants>['size']>,
 ): NonNullable<VariantProps<typeof buttonVariants>['size']> {
   if (size === 'xl') return 'lg';
   if (size === 'lg') return 'md';
-  if (size === 'md') return 'sm';
-  if (size === 'sm') return 'xs';
-  return 'xs';
+  return size;
 }
 
 export interface ButtonProps
