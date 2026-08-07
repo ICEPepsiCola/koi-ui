@@ -52,7 +52,7 @@ export function Popconfirm({
       placement={placement}
       className="rounded-box border-border/70 p-3.5 shadow-overlay"
       content={
-        <div className="flex w-[17.5rem] max-w-[min(17.5rem,calc(100vw-2rem))] flex-col gap-3.5">
+        <div className="flex w-[min(17.5rem,calc(100%-2rem))] flex-col gap-3.5">
           <div className="flex gap-3">
             <span
               className={cn(

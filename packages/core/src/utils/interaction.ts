@@ -92,9 +92,9 @@ export const floatPanel = cn(
   materialRegular,
 );
 
-/** Bottom sheet panel shell — thick material + large top radius. */
+/** Bottom sheet panel shell — thick material + large top radius, full width. */
 export const sheetSurface = cn(
-  'overflow-hidden rounded-t-[1.25rem] pb-safe shadow-overlay',
+  'w-full overflow-hidden rounded-t-[1.25rem] pb-safe shadow-overlay',
   materialThick,
 );
 

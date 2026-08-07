@@ -112,13 +112,16 @@ export function CascaderSheetView({
         }}
       />
       <Portal>
-        <Overlay open={open} onClick={closeSheet}>
-          <div className="flex h-full items-end">
-            <MotionPanel
-              variant="bottom"
-              className="max-h-[70vh] w-full overflow-hidden rounded-t-[14px] bg-surface pb-safe shadow-overlay"
-              onClick={(e) => e.stopPropagation()}
-            >
+        <Overlay
+          open={open}
+          onClick={closeSheet}
+          className="grid place-items-end"
+        >
+          <MotionPanel
+            variant="bottom"
+            className="max-h-[70vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
               <SheetChrome
                 title={placeholder}
                 onCancel={closeSheet}
@@ -158,7 +161,6 @@ export function CascaderSheetView({
                 </div>
               </SheetChrome>
             </MotionPanel>
-          </div>
         </Overlay>
       </Portal>
     </>

@@ -7,6 +7,7 @@ import {
 } from '@rspress/core/theme-original';
 import corePackage from '../../packages/core/package.json';
 import { HomeBody } from '../HomeBody';
+import { PreviewDeviceSwitch } from '../PreviewDeviceSwitch';
 
 export function Nav(props: ComponentProps<typeof BasicNav>) {
   return (
@@ -15,6 +16,7 @@ export function Nav(props: ComponentProps<typeof BasicNav>) {
       afterNavMenu={
         <>
           {props.afterNavMenu}
+          <PreviewDeviceSwitch />
           <span className="koi-docs-version" aria-label="Package version">
             v{corePackage.version}
           </span>

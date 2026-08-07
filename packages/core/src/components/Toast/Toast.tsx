@@ -77,6 +77,33 @@ const listeners = new Set<() => void>();
 let seq = 0;
 let hostEl: HTMLDivElement | null = null;
 let root: Root | null = null;
+/** Docs preview mounts into `.koi-demo__portal`; production uses `document.body`. */
+let hostParent: HTMLElement | null = null;
+
+function resolveHostParent(): HTMLElement | null {
+  if (typeof document === 'undefined') return null;
+  return hostParent ?? document.body;
+}
+
+/** Called by `KoiProvider` so imperative toasts stay inside device previews. */
+export function setToastHostParent(parent: HTMLElement | null | undefined) {
+  const next =
+    parent && typeof document !== 'undefined' ? parent : null;
+  if (hostParent === next) return;
+  hostParent = next;
+  // Remount under the new parent on next show / immediately if already open.
+  if (hostEl && root) {
+    try {
+      root.unmount();
+    } catch {
+      /* ignore */
+    }
+    hostEl.remove();
+    hostEl = null;
+    root = null;
+    if (records.length > 0) ensureHost();
+  }
+}
 
 function subscribe(listener: () => void) {
   listeners.add(listener);
@@ -176,22 +203,33 @@ function ToastViewport() {
 
 function ensureHost() {
   if (typeof document === 'undefined') return;
-  if (hostEl && root && document.body.contains(hostEl)) return;
+  const parent = resolveHostParent();
+  if (!parent) return;
 
-  // Test runners remount document.body between cases; drop stale host.
-  if (hostEl && root && !document.body.contains(hostEl)) {
+  if (hostEl && root && parent.contains(hostEl)) return;
+
+  // Parent remounted (tests / preview switch); drop stale host.
+  if (hostEl && root) {
     try {
       root.unmount();
     } catch {
       /* ignore */
     }
+    hostEl.remove();
     hostEl = null;
     root = null;
   }
 
   hostEl = document.createElement('div');
   hostEl.setAttribute('data-koi-toast-host', '');
-  document.body.appendChild(hostEl);
+  // Absolute fill so `fixed` toast viewports pin to the preview portal.
+  if (parent !== document.body) {
+    hostEl.style.position = 'absolute';
+    hostEl.style.inset = '0';
+    hostEl.style.pointerEvents = 'none';
+    hostEl.style.zIndex = '60';
+  }
+  parent.appendChild(hostEl);
   root = createRoot(hostEl);
   root.render(<ToastViewport />);
 }

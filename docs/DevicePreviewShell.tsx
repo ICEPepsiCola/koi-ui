@@ -12,22 +12,18 @@ import {
   type KoiThemeName,
 } from '@koi-ui/core';
 import { MockupBrowser, MockupPhone } from './mockups/examples';
+import { usePreviewDevice } from './previewDevice';
 
-type PreviewDevice = 'desktop' | 'mobile';
 type DemoTab = 'preview' | 'jsx';
 
 const PREVIEW_COPY = {
   en: {
     preview: 'Preview',
-    desktop: 'Desktop',
-    mobile: 'Mobile',
     theme: 'Theme',
     noCode: '// No source',
   },
   zh: {
     preview: '预览',
-    desktop: '桌面端',
-    mobile: '移动端',
     theme: '主题',
     noCode: '// 无源码',
   },
@@ -49,7 +45,7 @@ export function DevicePreviewShell({
   const tabName = useId();
   const codeSlotRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<DemoTab>('preview');
-  const [device, setDevice] = useState<PreviewDevice>('desktop');
+  const [device] = usePreviewDevice();
   const [themeName, setThemeName] = useState<KoiThemeName>('light');
   const [portalContainer, setPortalContainer] =
     useState<HTMLDivElement | null>(null);
@@ -147,24 +143,6 @@ export function DevicePreviewShell({
                 ))}
               </select>
             </label>
-            <div className="koi-demo__device-switch">
-              <button
-                type="button"
-                className="koi-demo__device-btn"
-                data-active={device === 'desktop'}
-                onClick={() => setDevice('desktop')}
-              >
-                {copy.desktop}
-              </button>
-              <button
-                type="button"
-                className="koi-demo__device-btn"
-                data-active={device === 'mobile'}
-                onClick={() => setDevice('mobile')}
-              >
-                {copy.mobile}
-              </button>
-            </div>
           </div>
 
           <KoiProvider

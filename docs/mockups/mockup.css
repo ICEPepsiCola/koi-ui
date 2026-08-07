@@ -216,7 +216,7 @@ html.rp-dark {
   align-items: stretch;
   width: 100%;
   max-width: 320px;
-  height: 550px;
+  height: 640px;
   padding: 5px;
   overflow: hidden;
   background-color: #000;
@@ -251,6 +251,8 @@ html.rp-dark {
   height: 100%;
   overflow: hidden;
   border-radius: 44px;
+  /* clip-path clips compositing layers (backdrop-filter) that overflow alone may miss */
+  clip-path: inset(0 round 44px);
 }
 
 .mockup-phone-display > img {

@@ -1,4 +1,8 @@
-import { useState, type InputHTMLAttributes } from 'react';
+import {
+  useState,
+  type CSSProperties,
+  type InputHTMLAttributes,
+} from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { controlAccent, type ControlColor } from '../../utils/controlColor';
@@ -16,10 +20,23 @@ const thumbBase = [
   '[&::-moz-range-thumb]:shadow-field',
 ].join(' ');
 
+/** Filled track via --koi-slider-*; remainder uses fill-secondary. */
 const trackBase = [
-  '[&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-fill-secondary',
+  '[&::-webkit-slider-runnable-track]:rounded-full',
+  '[&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,var(--koi-slider-fill)_0%,var(--koi-slider-fill)_var(--koi-slider-progress),var(--color-fill-secondary)_var(--koi-slider-progress),var(--color-fill-secondary)_100%)]',
   '[&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-fill-secondary',
+  '[&::-moz-range-progress]:rounded-full [&::-moz-range-progress]:bg-[var(--koi-slider-fill)]',
 ].join(' ');
+
+/**
+ * WebKit places the thumb relative to the tall input box after `min-h-11`.
+ * Margin = (trackHeight - thumbHeight) / 2 so the thumb sits on the track.
+ */
+const thumbAlign = {
+  sm: '[&::-webkit-slider-thumb]:-mt-1.5', // (4 - 16) / 2
+  md: '[&::-webkit-slider-thumb]:-mt-[0.4375rem]', // (6 - 20) / 2 = -7px
+  lg: '[&::-webkit-slider-thumb]:-mt-2', // (8 - 24) / 2
+} as const;
 
 const thumbColor: Record<ControlColor, string> = {
   neutral:
@@ -30,6 +47,16 @@ const thumbColor: Record<ControlColor, string> = {
   success: '[&::-webkit-slider-thumb]:bg-success [&::-moz-range-thumb]:bg-success',
   warning: '[&::-webkit-slider-thumb]:bg-warning [&::-moz-range-thumb]:bg-warning',
   error: '[&::-webkit-slider-thumb]:bg-error [&::-moz-range-thumb]:bg-error',
+};
+
+const fillVar: Record<ControlColor, string> = {
+  neutral: 'var(--color-muted-foreground)',
+  primary: 'var(--color-primary)',
+  secondary: 'var(--color-secondary)',
+  info: 'var(--color-info)',
+  success: 'var(--color-success)',
+  warning: 'var(--color-warning)',
+  error: 'var(--color-error)',
 };
 
 const sliderVariants = tv({
@@ -44,18 +71,24 @@ const sliderVariants = tv({
     size: {
       sm: cn(
         '[&::-webkit-slider-runnable-track]:h-1 [&::-moz-range-track]:h-1',
+        '[&::-moz-range-progress]:h-1',
         '[&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4',
         '[&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4',
+        thumbAlign.sm,
       ),
       md: cn(
         '[&::-webkit-slider-runnable-track]:h-1.5 [&::-moz-range-track]:h-1.5',
+        '[&::-moz-range-progress]:h-1.5',
         '[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5',
         '[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5',
+        thumbAlign.md,
       ),
       lg: cn(
         '[&::-webkit-slider-runnable-track]:h-2 [&::-moz-range-track]:h-2',
+        '[&::-moz-range-progress]:h-2',
         '[&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6',
         '[&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6',
+        thumbAlign.lg,
       ),
     },
     color: {
@@ -103,15 +136,24 @@ export function Slider({
   step = 1,
   disabled,
   showValue = false,
+  style,
   ...props
 }: SliderProps) {
   const [internal, setInternal] = useControlled(value, defaultValue, onChange);
+  const progress =
+    max === min ? 0 : Math.min(100, Math.max(0, ((internal - min) / (max - min)) * 100));
+  const sliderStyle = {
+    ...style,
+    '--koi-slider-progress': `${progress}%`,
+    '--koi-slider-fill': fillVar[color],
+  } as CSSProperties;
 
   return (
     <div className="w-full">
       <input
         type="range"
         className={cn(sliderVariants({ size, color }), className)}
+        style={sliderStyle}
         min={min}
         max={max}
         step={step}

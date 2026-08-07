@@ -79,18 +79,21 @@ export function BottomSheetView({
         }}
       />
       <Portal>
-        <Overlay open={open} onClick={() => setOpen(false)}>
-          <div className="flex h-full items-end">
-            <MotionPanel
-              ref={sheetRef}
-              variant="bottom"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby={titleId}
-              tabIndex={-1}
-              className="max-h-[70vh] w-full overflow-hidden rounded-t-[14px] bg-surface pb-safe shadow-overlay"
-              onClick={(e) => e.stopPropagation()}
-            >
+        <Overlay
+          open={open}
+          onClick={() => setOpen(false)}
+          className="grid place-items-end"
+        >
+          <MotionPanel
+            ref={sheetRef}
+            variant="bottom"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            tabIndex={-1}
+            className="max-h-[70vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
               <SheetChrome
                 title={<span id={titleId}>{resolvedPlaceholder}</span>}
                 onCancel={() => setOpen(false)}
@@ -116,7 +119,6 @@ export function BottomSheetView({
                 </div>
               </SheetChrome>
             </MotionPanel>
-          </div>
         </Overlay>
       </Portal>
     </>

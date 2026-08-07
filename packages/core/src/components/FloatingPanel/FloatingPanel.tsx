@@ -298,7 +298,8 @@ export function FloatingPanel({
   };
 
   const panelClassName = cn(
-    'flex w-full flex-col rounded-t-box border border-border/80 bg-surface shadow-overlay',
+    // Layout only — sheetSurface (MotionPanel bottom) owns radius / material / shadow.
+    'flex w-full flex-col',
     className,
   );
   const viewportHeight = resolveViewportHeight(portalContainer);

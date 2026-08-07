@@ -1,5 +1,6 @@
-import type { CSSProperties, ReactNode } from 'react';
+import { useEffect, type CSSProperties, type ReactNode } from 'react';
 import type { Breakpoint } from '@koi-ui/hooks';
+import { setToastHostParent } from '../components/Toast/Toast';
 import {
   KoiContext,
   type KoiLocale,
@@ -45,6 +46,14 @@ export function KoiProvider({
     primaryColor: theme.primaryColor,
     radiusMd: theme.radiusMd,
   };
+
+  useEffect(() => {
+    // Docs device preview: keep imperative toasts inside the mockup portal.
+    setToastHostParent(
+      previewDevice != null ? (portalContainer ?? null) : null,
+    );
+    return () => setToastHostParent(null);
+  }, [previewDevice, portalContainer]);
 
   return (
     <KoiContext.Provider

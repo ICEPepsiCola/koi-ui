@@ -156,13 +156,15 @@ export function TimeWheelView({
         }}
       />
       <Portal>
-        <Overlay open={open} onClick={() => setOpen(false)}>
-          <div className="flex h-full items-end">
-            <MotionPanel
-              variant="bottom"
-              className="w-full rounded-t-[14px] bg-surface pb-safe shadow-overlay"
-              onClick={(e) => e.stopPropagation()}
-            >
+        <Overlay
+          open={open}
+          onClick={() => setOpen(false)}
+          className="grid place-items-end"
+        >
+          <MotionPanel
+            variant="bottom"
+            onClick={(e) => e.stopPropagation()}
+          >
               <SheetChrome
                 title={title}
                 onCancel={() => setOpen(false)}
@@ -187,7 +189,6 @@ export function TimeWheelView({
                 </div>
               </SheetChrome>
             </MotionPanel>
-          </div>
         </Overlay>
       </Portal>
     </>

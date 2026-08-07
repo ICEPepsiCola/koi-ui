@@ -506,8 +506,49 @@ article code,
   background: color-mix(in oklab, var(--rp-c-bg-soft) 88%, transparent);
 }
 
+/* Global Desktop / Mobile preview switch (syncs all demos via localStorage). */
+.koi-docs-device {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  gap: 2px;
+  height: 28px;
+  margin-left: 0.35rem;
+  padding: 2px;
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider) 70%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--rp-c-bg-soft) 88%, transparent);
+}
+
+.koi-docs-device__btn {
+  appearance: none;
+  cursor: pointer;
+  height: 100%;
+  padding: 0 0.65rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--rp-c-text-2);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.koi-docs-device__btn[data-active='true'] {
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--rp-c-divider) 55%, transparent);
+}
+
 @media (width <= 767px) {
   .koi-docs-version {
+    margin-left: 0;
+  }
+
+  .koi-docs-device {
     margin-left: 0;
   }
 }

@@ -28,15 +28,15 @@ import { Overlay } from '../shared/Overlay';
 
 const drawerVariants = tv({
   base: cn(
-    'relative flex flex-col overflow-hidden bg-surface text-surface-foreground',
-    'shadow-[0_25px_50px_-12px_rgb(0_0_0_/_0.25)]',
+    'relative flex flex-col overflow-hidden text-surface-foreground',
   ),
   variants: {
     placement: {
-      left: 'h-full rounded-r-box rounded-l-none',
-      right: 'h-full rounded-l-box rounded-r-none',
-      top: 'w-full rounded-b-box rounded-t-none',
-      bottom: 'w-full rounded-t-box rounded-b-none',
+      left: 'h-full rounded-r-box rounded-l-none bg-surface shadow-[0_25px_50px_-12px_rgb(0_0_0_/_0.25)]',
+      right: 'h-full rounded-l-box rounded-r-none bg-surface shadow-[0_25px_50px_-12px_rgb(0_0_0_/_0.25)]',
+      top: 'w-full rounded-b-box rounded-t-none bg-surface shadow-[0_25px_50px_-12px_rgb(0_0_0_/_0.25)]',
+      // Radius / material / shadow from sheetSurface; do not set rounded-t-box, bg-surface, or shadow.
+      bottom: 'w-full',
     },
     size: {
       sm: '',
@@ -280,7 +280,8 @@ export function Drawer({
               size: resolvedSize,
             }),
             sizeClass,
-            'p-6',
+            // Bottom: px/pt only so sheetSurface `pb-safe` is not clobbered by `p-6`.
+            resolvedPlacement === 'bottom' ? 'px-6 pt-6' : 'p-6',
             className,
           )}
           onClick={(e) => e.stopPropagation()}

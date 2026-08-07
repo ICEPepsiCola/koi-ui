@@ -100,10 +100,6 @@ export function ActionSheet({
           aria-labelledby={title ? titleId : undefined}
           aria-describedby={title || description ? descriptionId : undefined}
           tabIndex={-1}
-          className={cn(
-            // iOS-style inset sheet: full radius, not flush to the display edge
-            'mx-2 mb-[max(0.5rem,env(safe-area-inset-bottom,0px))] w-[calc(100%-1rem)] overflow-hidden rounded-[14px] pb-0 shadow-overlay',
-          )}
           onClick={(e) => e.stopPropagation()}
         >
           <div style={contentStyle}>

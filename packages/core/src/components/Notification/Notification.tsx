@@ -24,7 +24,8 @@ import { Button } from '../Button';
 
 const notificationVariants = tv({
   base: cn(
-    'pointer-events-auto relative flex w-80 gap-3 rounded-box p-4 pr-10 shadow-float',
+    // Cap width to the portal/viewport so cards don't clip in narrow phone frames.
+    'pointer-events-auto relative flex w-80 max-w-[calc(100%-2rem)] gap-3 rounded-box p-4 pr-10 shadow-float',
     materialRegular,
     'text-surface-foreground',
   ),

@@ -102,14 +102,16 @@ export function PickerWheelView({
         }}
       />
       <Portal>
-        <Overlay open={open} onClick={() => setOpen(false)}>
-          <div className="flex h-full items-end">
-            <MotionPanel
-              variant="bottom"
-              data-picker-panel="mobile"
-              className="w-full rounded-t-[14px] bg-surface pb-safe shadow-overlay"
-              onClick={(e) => e.stopPropagation()}
-            >
+        <Overlay
+          open={open}
+          onClick={() => setOpen(false)}
+          className="grid place-items-end"
+        >
+          <MotionPanel
+            variant="bottom"
+            data-picker-panel="mobile"
+            onClick={(e) => e.stopPropagation()}
+          >
               <SheetChrome
                 title={placeholder}
                 onCancel={() => setOpen(false)}
@@ -137,7 +139,6 @@ export function PickerWheelView({
                 </div>
               </SheetChrome>
             </MotionPanel>
-          </div>
         </Overlay>
       </Portal>
     </>

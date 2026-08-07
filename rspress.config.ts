@@ -72,6 +72,8 @@ export default defineConfig({
       '**/superpowers/**',
       '**/Demo.tsx',
       '**/DevicePreviewShell.tsx',
+      '**/PreviewDeviceSwitch.tsx',
+      '**/previewDevice.ts',
       '**/HomeBody.tsx',
       '**/IconGallery.tsx',
       '**/ThemeLab.tsx',

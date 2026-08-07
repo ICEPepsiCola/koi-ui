@@ -97,7 +97,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   gap: 0.75rem;
 }
 
@@ -122,30 +121,6 @@
   font-size: 0.75rem;
   line-height: 1.4;
   color: inherit;
-}
-
-.koi-demo__device-switch {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: flex-end;
-}
-
-.koi-demo__device-btn {
-  appearance: none;
-  cursor: pointer;
-  padding: 0.25rem 0.65rem;
-  border-radius: 0.375rem;
-  border: 1px solid var(--koi-demo-border);
-  background: var(--koi-demo-bg);
-  font-size: 0.75rem;
-  line-height: 1.4;
-  color: var(--color-base-content, #1f2937);
-}
-
-.koi-demo__device-btn[data-active='true'] {
-  background: var(--color-base-content, #1f2937);
-  border-color: transparent;
-  color: var(--color-base-100, #fff);
 }
 
 /* 回退：无 Rspress 高亮块时的纯文本 */
@@ -260,8 +235,8 @@
 .koi-demo__phone-wrap .mockup-phone {
   width: 320px;
   max-width: 320px;
-  height: 550px;
-  max-height: 550px;
+  height: 640px;
+  max-height: 680px;
   flex-shrink: 0;
 }
 
@@ -288,6 +263,7 @@
   /* Clip portal overlays to the display radius (matches .mockup-phone-display). */
   overflow: hidden;
   border-radius: 44px;
+  clip-path: inset(0 round 44px);
 }
 
 .koi-demo__phone-wrap .koi-demo__viewport {
@@ -309,6 +285,7 @@
   /* Must clip: fixed overlays + backdrop-filter ignore parent display overflow. */
   overflow: hidden;
   border-radius: inherit;
+  clip-path: inset(0 round 44px);
   pointer-events: none;
   transform: translateZ(0);
 }

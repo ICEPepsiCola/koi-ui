@@ -7,7 +7,7 @@ import { useScrollLock } from '../../hooks/useScrollLock';
 import { Portal } from '../../utils/portal';
 import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
-import { ModalBoxContent, modalBoxVariants } from './modalStyles';
+import { ModalBoxContent } from './modalStyles';
 import type { ModalPanelProps } from './types';
 
 export type DrawerViewProps = ModalPanelProps;
@@ -19,7 +19,7 @@ export function DrawerView({
   children,
   footer,
   mobileFullscreen = true,
-  size = 'md',
+  size: _size = 'md',
   closable = false,
   maskClosable = true,
   closeOnDrag = true,
@@ -83,8 +83,10 @@ export function DrawerView({
           aria-describedby={descriptionId}
           tabIndex={-1}
           className={cn(
-            modalBoxVariants({ placement: 'bottom', size }),
-            'w-full max-w-none',
+            // Layout only — sheetSurface (MotionPanel) owns radius / material / shadow / pb-safe.
+            // Do not use modalBoxVariants bottom: its bg-surface + rounded-t-box override HIG sheet.
+            // Use px/pt only so `p-*` does not clobber sheetSurface `pb-safe`.
+            'relative w-full max-w-none min-h-0 overflow-y-auto overscroll-contain px-6 pt-6 text-surface-foreground',
             mobileFullscreen ? 'max-h-[90vh]' : 'max-h-[70vh]',
             className,
           )}
