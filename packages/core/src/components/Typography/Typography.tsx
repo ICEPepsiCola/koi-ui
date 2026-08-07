@@ -4,15 +4,15 @@ import { cn } from '../../utils/cn';
 import { controlTransition, focusRing } from '../../utils/interaction';
 
 const titleVariants = tv({
-  base: 'text-surface-foreground',
+  base: 'text-label',
   variants: {
     level: {
-      1: 'text-4xl font-bold tracking-tight',
-      2: 'text-3xl font-semibold tracking-tight',
-      3: 'text-2xl font-semibold',
-      4: 'text-xl font-semibold',
-      5: 'text-lg font-medium',
-      6: 'text-base font-medium',
+      1: 'text-4xl font-bold tracking-[var(--text-display-tracking)] leading-[var(--text-display-leading)]',
+      2: 'text-3xl font-semibold tracking-[var(--text-title-tracking)] leading-[var(--text-title-leading)]',
+      3: 'text-2xl font-semibold tracking-[var(--text-title-tracking)] leading-[var(--text-title-leading)]',
+      4: 'text-xl font-semibold tracking-[var(--text-title-tracking)]',
+      5: 'text-lg font-medium tracking-[var(--text-body-tracking)]',
+      6: 'text-base font-medium tracking-[var(--text-body-tracking)]',
     },
     ellipsis: {
       true: 'truncate',
@@ -26,17 +26,17 @@ const titleVariants = tv({
 });
 
 const textVariants = tv({
-  base: 'text-surface-foreground',
+  base: 'text-label leading-[var(--text-body-leading)] tracking-[var(--text-body-tracking)]',
   variants: {
     size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
+      xs: 'text-xs leading-[var(--text-caption-leading)] tracking-[var(--text-caption-tracking)]',
+      sm: 'text-sm leading-[var(--text-caption-leading)] tracking-[var(--text-caption-tracking)]',
       md: 'text-base',
       lg: 'text-lg',
     },
     type: {
       default: '',
-      secondary: 'text-muted-foreground',
+      secondary: 'text-label-secondary',
       info: 'text-info',
       success: 'text-success',
       warning: 'text-warning',
@@ -60,11 +60,11 @@ const textVariants = tv({
 });
 
 const paragraphVariants = tv({
-  base: 'text-base leading-relaxed text-surface-foreground',
+  base: 'text-base text-label leading-[var(--text-body-leading)] tracking-[var(--text-body-tracking)]',
   variants: {
     type: {
       default: '',
-      secondary: 'text-muted-foreground',
+      secondary: 'text-label-secondary',
     },
     ellipsis: {
       true: 'line-clamp-3',

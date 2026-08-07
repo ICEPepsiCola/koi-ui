@@ -21,6 +21,23 @@
   --color-info-foreground: hsl(0 0% 100%);
   --color-overlay: hsl(0 0% 0% / 0.45);
 
+  /* Semantic system colors (iOS-like aliases — additive, existing utilities unchanged) */
+  --color-label: hsl(240 6% 10%);
+  --color-label-secondary: hsl(240 4% 46%);
+  --color-separator: hsl(240 6% 90%);
+  --color-fill: hsl(240 5% 96%);
+  --color-fill-secondary: hsl(240 5% 92%);
+
+  /* Type scale — tracking & leading (appearance-agnostic) */
+  --text-display-tracking: -0.02em;
+  --text-title-tracking: -0.015em;
+  --text-body-tracking: 0em;
+  --text-caption-tracking: 0.01em;
+  --text-display-leading: 1.1;
+  --text-title-leading: 1.15;
+  --text-body-leading: 1.5;
+  --text-caption-leading: 1.33;
+
   /* Legacy scale (kept for existing utilities) */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -83,6 +100,11 @@
   --color-info: hsl(199 89% 42%);
   --color-info-foreground: hsl(0 0% 100%);
   --color-overlay: hsl(0 0% 0% / 0.45);
+  --color-label: hsl(240 6% 10%);
+  --color-label-secondary: hsl(240 4% 46%);
+  --color-separator: hsl(240 6% 90%);
+  --color-fill: hsl(240 5% 96%);
+  --color-fill-secondary: hsl(240 5% 92%);
   --material-regular-bg: hsl(0 0% 100% / 0.72);
   --material-thick-bg: hsl(0 0% 100% / 0.84);
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
@@ -115,6 +137,11 @@ html.rp-dark,
   --color-info: hsl(199 80% 55%);
   --color-info-foreground: hsl(0 0% 100%);
   --color-overlay: hsl(0 0% 0% / 0.6);
+  --color-label: hsl(210 40% 98%);
+  --color-label-secondary: hsl(215 20% 65%);
+  --color-separator: hsl(217 33% 22%);
+  --color-fill: hsl(217 33% 17%);
+  --color-fill-secondary: hsl(217 33% 20%);
   --material-regular-bg: hsl(240 6% 12% / 0.72);
   --material-thick-bg: hsl(240 6% 12% / 0.84);
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.35);
