@@ -1,7 +1,16 @@
-import { rubberband } from './physics';
+import { project, rubberband } from './physics';
 
 /** Pointer position sample for velocity estimation. */
 export type PointSample = { y: number; t: number; x?: number };
+
+/** Default sheet / drawer dismiss travel (px). */
+export const SHEET_DISMISS_OFFSET = 96;
+
+/**
+ * Default sheet / drawer flick dismiss velocity (px/s).
+ * Matches legacy ActionSheet `0.55` px/ms.
+ */
+export const SHEET_DISMISS_VELOCITY = 550;
 
 const VELOCITY_WINDOW_MS = 100;
 
@@ -57,6 +66,30 @@ export function shouldDismiss(options: {
 }): boolean {
   const { velocity, offset, dismissOffset, dismissVelocity } = options;
   return offset >= dismissOffset || velocity >= dismissVelocity;
+}
+
+/**
+ * Dismiss when projected coasting distance or flick velocity crosses thresholds.
+ * `offset` / `velocity` must be dismiss-positive (toward closed).
+ */
+export function shouldDismissProjected(options: {
+  offset: number;
+  velocity: number;
+  dismissOffset?: number;
+  dismissVelocity?: number;
+}): boolean {
+  const {
+    offset,
+    velocity,
+    dismissOffset = SHEET_DISMISS_OFFSET,
+    dismissVelocity = SHEET_DISMISS_VELOCITY,
+  } = options;
+  return shouldDismiss({
+    velocity,
+    offset: offset + project(velocity),
+    dismissOffset,
+    dismissVelocity,
+  });
 }
 
 export interface RubberbandBounds {

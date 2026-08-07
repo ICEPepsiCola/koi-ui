@@ -3,6 +3,7 @@ import {
   applyRubberband,
   nearestAnchor,
   shouldDismiss,
+  shouldDismissProjected,
   velocityFromSamples,
   type PointSample,
 } from '../src/motion/gesture';
@@ -83,6 +84,32 @@ test('shouldDismiss when velocity crosses threshold toward dismiss', () => {
       dismissVelocity: 500,
     }),
   ).toBe(false);
+});
+
+test('shouldDismissProjected uses coasting distance from project()', () => {
+  // Small offset + strong flick → projected past 96.
+  expect(
+    shouldDismissProjected({
+      offset: 20,
+      velocity: 1200,
+    }),
+  ).toBe(true);
+
+  // Below both travel and velocity thresholds.
+  expect(
+    shouldDismissProjected({
+      offset: 40,
+      velocity: 100,
+    }),
+  ).toBe(false);
+
+  // Travel alone still dismisses at rest.
+  expect(
+    shouldDismissProjected({
+      offset: 96,
+      velocity: 0,
+    }),
+  ).toBe(true);
 });
 
 test('applyRubberband resists beyond min and max', () => {

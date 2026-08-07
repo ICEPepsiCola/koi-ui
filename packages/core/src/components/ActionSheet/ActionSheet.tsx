@@ -1,24 +1,27 @@
 import {
+  useCallback,
   useEffect,
   useId,
   useRef,
-  useState,
-  type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from 'react';
+import { animate } from 'motion/react';
 import { cn } from '../../utils/cn';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useScrollLock } from '../../hooks/useScrollLock';
-import { MOTION_DURATION_S } from '../../motion/presets';
+import { useVerticalDrag } from '../../hooks/useVerticalDrag';
+import {
+  shouldDismissProjected,
+  SHEET_DISMISS_OFFSET,
+  SHEET_DISMISS_VELOCITY,
+} from '../../motion/gesture';
+import { springMomentum } from '../../motion/presets';
 import { useKoiContext } from '../../provider/context';
 import { Portal } from '../../utils/portal';
 import { controlTransition, pressable } from '../../utils/interaction';
 import { MotionPanel } from '../shared/MotionPanel';
 import { Overlay } from '../shared/Overlay';
-
-const CLOSE_DISTANCE = 96;
-const CLOSE_VELOCITY = 0.55;
 
 export interface ActionSheetAction {
   key: string;
@@ -43,10 +46,25 @@ export interface ActionSheetProps {
   maskClosable?: boolean;
   /**
    * Drag the handle downward to dismiss.
+   * @breaking Release uses projected offset (`project`) and px/s velocity via
+   * shared `shouldDismiss` (defaults: 96px / 550px/s), not local px/ms math.
    * @default true
    * @since 1.14.0
    */
   closeOnDrag?: boolean;
+}
+
+/** @internal Exported for dismiss-threshold unit tests. */
+export function shouldDismissActionSheet(options: {
+  offset: number;
+  velocity: number;
+}): boolean {
+  return shouldDismissProjected({
+    offset: options.offset,
+    velocity: options.velocity,
+    dismissOffset: SHEET_DISMISS_OFFSET,
+    dismissVelocity: SHEET_DISMISS_VELOCITY,
+  });
 }
 
 export function ActionSheet({
@@ -65,15 +83,65 @@ export function ActionSheet({
   const titleId = useId();
   const descriptionId = useId();
   const resolvedCancelText = cancelText ?? messages.cancelActionText;
+  const onCloseRef = useRef(onClose);
+  const springRef = useRef<{ stop: () => void } | null>(null);
+  const setOffsetRef = useRef<(value: number) => void>(() => {});
 
-  const [dragY, setDragY] = useState(0);
-  const [dragging, setDragging] = useState(false);
-  const dragYRef = useRef(0);
-  const startY = useRef(0);
-  const lastY = useRef(0);
-  const lastT = useRef(0);
-  const velocity = useRef(0);
-  const activePointerId = useRef<number | null>(null);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  const stopSpring = useCallback(() => {
+    springRef.current?.stop();
+    springRef.current = null;
+  }, []);
+
+  const handleDragEnd = useCallback(
+    ({ offset, velocity }: { offset: number; velocity: number }) => {
+      if (
+        shouldDismissActionSheet({
+          offset,
+          velocity,
+        })
+      ) {
+        onCloseRef.current();
+        return;
+      }
+
+      stopSpring();
+      springRef.current = animate(offset, 0, {
+        ...springMomentum,
+        velocity,
+        onUpdate: (value) => {
+          setOffsetRef.current(value);
+        },
+        onComplete: () => {
+          springRef.current = null;
+        },
+      });
+    },
+    [stopSpring],
+  );
+
+  const {
+    offset: dragY,
+    setOffset,
+    dragging,
+    onPointerDown: dragPointerDown,
+    onPointerMove,
+    onPointerUp,
+    onPointerCancel,
+  } = useVerticalDrag({
+    enabled: closeOnDrag && open,
+    min: 0,
+    dimension:
+      typeof window !== 'undefined' ? window.innerHeight : 400,
+    onDragEnd: handleDragEnd,
+  });
+
+  useEffect(() => {
+    setOffsetRef.current = setOffset;
+  }, [setOffset]);
 
   useScrollLock(open);
   useDismissibleLayer({
@@ -88,52 +156,14 @@ export function ActionSheet({
 
   useEffect(() => {
     if (!open) {
-      dragYRef.current = 0;
-      setDragY(0);
-      setDragging(false);
-      activePointerId.current = null;
+      stopSpring();
+      setOffset(0);
     }
-  }, [open]);
+  }, [open, setOffset, stopSpring]);
 
-  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (!closeOnDrag || e.button !== 0) return;
-    activePointerId.current = e.pointerId;
-    startY.current = e.clientY;
-    lastY.current = e.clientY;
-    lastT.current = performance.now();
-    velocity.current = 0;
-    setDragging(true);
-    e.currentTarget.setPointerCapture?.(e.pointerId);
-  };
-
-  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (!closeOnDrag || activePointerId.current !== e.pointerId) return;
-    const now = performance.now();
-    const dt = Math.max(1, now - lastT.current);
-    velocity.current = (e.clientY - lastY.current) / dt;
-    lastY.current = e.clientY;
-    lastT.current = now;
-    const next = Math.max(0, e.clientY - startY.current);
-    dragYRef.current = next;
-    setDragY(next);
-  };
-
-  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (activePointerId.current !== e.pointerId) return;
-    activePointerId.current = null;
-    setDragging(false);
-    if (e.currentTarget.hasPointerCapture?.(e.pointerId)) {
-      e.currentTarget.releasePointerCapture?.(e.pointerId);
-    }
-    const shouldClose =
-      dragYRef.current >= CLOSE_DISTANCE ||
-      velocity.current >= CLOSE_VELOCITY;
-    if (shouldClose) {
-      onClose();
-      return;
-    }
-    dragYRef.current = 0;
-    setDragY(0);
+  const onPointerDown = (event: Parameters<typeof dragPointerDown>[0]) => {
+    stopSpring();
+    dragPointerDown(event);
   };
 
   return (
@@ -157,9 +187,8 @@ export function ActionSheet({
           <div
             style={{
               transform: `translateY(${dragY}px)`,
-              transition: dragging
-                ? 'none'
-                : `transform ${MOTION_DURATION_S}s cubic-bezier(0.16, 1, 0.3, 1)`,
+              // Interruptible spring owns settle; disable CSS while dragging.
+              transition: dragging ? 'none' : undefined,
             }}
           >
             <div
@@ -169,8 +198,8 @@ export function ActionSheet({
               )}
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
-              onPointerUp={endDrag}
-              onPointerCancel={endDrag}
+              onPointerUp={onPointerUp}
+              onPointerCancel={onPointerCancel}
               data-actionsheet-handle
             >
               <div className="h-1 w-9 shrink-0 rounded-full bg-border/80" />
