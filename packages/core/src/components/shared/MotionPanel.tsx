@@ -2,8 +2,9 @@ import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from 'react
 import { motion, useReducedMotion, type HTMLMotionProps } from 'motion/react';
 import { cn } from '../../utils/cn';
 import {
-  motionTransition,
   resolvePanelVariants,
+  resolveTransition,
+  springSoft,
   type MotionPanelVariant,
 } from '../../motion/presets';
 
@@ -29,7 +30,7 @@ export const MotionPanel = forwardRef<HTMLDivElement, MotionPanelProps>(
         ref={ref}
         className={cn(className)}
         variants={resolvePanelVariants(variant)}
-        transition={reduce ? { duration: 0 } : motionTransition}
+        transition={resolveTransition(reduce, springSoft)}
         style={style}
         {...props}
       >

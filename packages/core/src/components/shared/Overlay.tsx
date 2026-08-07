@@ -8,8 +8,9 @@ import {
 import { cn } from '../../utils/cn';
 import {
   MOTION_DURATION_S,
-  motionTransition,
+  overlayScrimTransition,
   overlayScrimVariants,
+  resolveTransition,
 } from '../../motion/presets';
 
 export type PresenceState = 'open' | 'closed';
@@ -32,13 +33,19 @@ export function Overlay({
   onClick,
   className,
   children,
-  durationMs = MOTION_DURATION_S * 1000,
+  durationMs: _durationMs = MOTION_DURATION_S * 1000,
   ...props
 }: OverlayProps) {
   const reduce = useReducedMotion();
-  const duration = reduce ? 0 : (durationMs ?? 200) / 1000;
-  const transition = { ...motionTransition, duration };
   const state: PresenceState = open ? 'open' : 'closed';
+  const openScrimTransition = resolveTransition(
+    reduce,
+    overlayScrimTransition.open,
+  );
+  const closedScrimTransition = resolveTransition(
+    reduce,
+    overlayScrimTransition.closed,
+  );
 
   return (
     <AnimatePresence>
@@ -53,11 +60,11 @@ export function Overlay({
           variants={{
             open: {
               ...overlayScrimVariants.open,
-              transition: { ...transition, when: 'beforeChildren' },
+              transition: { ...openScrimTransition, when: 'beforeChildren' },
             },
             closed: {
               ...overlayScrimVariants.closed,
-              transition: { ...transition, when: 'afterChildren' },
+              transition: { ...closedScrimTransition, when: 'afterChildren' },
             },
           }}
           onClick={onClick}

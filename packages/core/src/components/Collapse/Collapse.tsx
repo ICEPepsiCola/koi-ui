@@ -6,6 +6,7 @@ import { controlTransition } from '../../utils/interaction';
 import {
   collapsePanelVariants,
   collapseTransition,
+  resolveTransition,
 } from '../../motion/presets';
 
 export interface CollapseItem {
@@ -36,7 +37,7 @@ export function Collapse({
   const [internalKeys, setInternalKeys] = useState(defaultActiveKeys);
   const activeKeys = controlledKeys ?? internalKeys;
   const reduce = useReducedMotion();
-  const transition = reduce ? { duration: 0 } : collapseTransition;
+  const transition = resolveTransition(reduce, collapseTransition);
 
   const toggle = (key: string) => {
     let next: string[];

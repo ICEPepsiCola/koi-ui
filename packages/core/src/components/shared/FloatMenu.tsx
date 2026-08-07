@@ -8,7 +8,8 @@ import {
 import { cn } from '../../utils/cn';
 import {
   floatPanelVariants,
-  motionTransition,
+  resolveTransition,
+  springSnappy,
 } from '../../motion/presets';
 import { floatPanel } from '../../utils/interaction';
 
@@ -38,7 +39,7 @@ export function FloatMenu({
           animate="open"
           exit="closed"
           variants={floatPanelVariants}
-          transition={reduce ? { duration: 0 } : motionTransition}
+          transition={resolveTransition(reduce, springSnappy)}
           className={cn(
             'absolute left-0 top-full z-50 mt-1.5 w-full origin-top',
             floatPanel,
