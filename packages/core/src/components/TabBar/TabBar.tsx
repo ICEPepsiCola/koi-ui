@@ -7,18 +7,23 @@ import {
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import { useKoiContext } from '../../provider/context';
-import { controlTransition, focusRing, pressable } from '../../utils/interaction';
+import {
+  controlTransition,
+  focusRing,
+  materialRegular,
+  pressable,
+} from '../../utils/interaction';
 import { findEnabledIndex, findNextEnabledIndex } from '../../utils/keyboard';
 
 const tabBarVariants = tv({
-  base: 'z-40 flex w-full bg-surface',
+  base: cn('z-40 flex w-full', materialRegular),
   variants: {
     safeArea: {
       true: 'pb-[env(safe-area-inset-bottom)]',
       false: '',
     },
     bordered: {
-      true: 'border border-border',
+      true: 'border-x-0 border-b-0',
       false: 'border-0',
     },
     fixed: {

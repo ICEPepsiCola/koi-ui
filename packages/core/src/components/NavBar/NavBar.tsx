@@ -1,19 +1,23 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import { materialRegular } from '../../utils/interaction';
 import { useKoiContext } from '../../provider/context';
 import { Icon } from '../Icon/Icon';
 
 const navBarVariants = tv({
-  base: 'z-40 flex h-12 items-center border-b border-border bg-surface px-3',
+  base: cn(
+    'z-40 flex h-12 items-center px-3',
+    materialRegular,
+  ),
   variants: {
     safeArea: {
       true: 'pt-[env(safe-area-inset-top)]',
       false: '',
     },
     bordered: {
-      true: 'border-b border-border',
-      false: 'border-b-0 shadow-sm',
+      true: 'border-x-0 border-t-0',
+      false: 'border-0 shadow-sm',
     },
     fixed: {
       true: 'fixed inset-x-0 top-0',

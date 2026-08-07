@@ -1,11 +1,21 @@
 import { useState, type HTMLAttributes, type ReactNode } from 'react';
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+} from 'motion/react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
+import {
+  floatPanelVariants,
+  resolveTransition,
+  springSnappy,
+} from '../../motion/presets';
 import { controlTransition, floatPanel } from '../../utils/interaction';
 import { Icon } from '../Icon/Icon';
 
 const menuVariants = tv({
-  base: 'flex bg-surface text-sm',
+  base: 'flex text-sm',
   variants: {
     mode: {
       vertical: 'w-full flex-col',
@@ -83,6 +93,8 @@ function MenuItems({
   onToggleOpen: (key: string) => void;
   depth?: number;
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <ul
       role="menu"
@@ -143,18 +155,33 @@ function MenuItems({
                 depth={depth + 1}
               />
             ) : null}
-            {hasChildren && isOpen && mode === 'horizontal' ? (
-              <div className={cn('absolute left-0 top-full z-50 mt-1 min-w-40', floatPanel)}>
-                <MenuItems
-                  items={item.children!}
-                  selectedKey={selectedKey}
-                  openKeys={openKeys}
-                  mode="vertical"
-                  onSelect={onSelect}
-                  onToggleOpen={onToggleOpen}
-                  depth={depth + 1}
-                />
-              </div>
+            {mode === 'horizontal' ? (
+              <AnimatePresence>
+                {hasChildren && isOpen ? (
+                  <motion.div
+                    key={`${item.key}-submenu`}
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                    variants={floatPanelVariants}
+                    transition={resolveTransition(reduce, springSnappy)}
+                    className={cn(
+                      'absolute left-0 top-full z-50 mt-1 min-w-40 origin-top',
+                      floatPanel,
+                    )}
+                  >
+                    <MenuItems
+                      items={item.children!}
+                      selectedKey={selectedKey}
+                      openKeys={openKeys}
+                      mode="vertical"
+                      onSelect={onSelect}
+                      onToggleOpen={onToggleOpen}
+                      depth={depth + 1}
+                    />
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
             ) : null}
           </li>
         );

@@ -9,7 +9,13 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { useDismissibleLayer } from '../../hooks/useDismissibleLayer';
+import {
+  floatPanelVariants,
+  resolveTransition,
+  springSnappy,
+} from '../../motion/presets';
 import { cn } from '../../utils/cn';
 import {
   findEnabledIndex,
@@ -43,10 +49,10 @@ const placementClasses: Record<
   NonNullable<DropdownViewProps['placement']>,
   string
 > = {
-  'bottom-start': 'left-0 top-full mt-1',
-  'bottom-end': 'right-0 top-full mt-1',
-  'top-start': 'left-0 bottom-full mb-1',
-  'top-end': 'right-0 bottom-full mb-1',
+  'bottom-start': 'left-0 top-full mt-1 origin-top-left',
+  'bottom-end': 'right-0 top-full mt-1 origin-top-right',
+  'top-start': 'left-0 bottom-full mb-1 origin-bottom-left',
+  'top-end': 'right-0 bottom-full mb-1 origin-bottom-right',
 };
 
 function focusItem(buttons: HTMLButtonElement[], index: number) {
@@ -71,6 +77,7 @@ export function DropdownView({
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuId = useId();
+  const reduce = useReducedMotion();
 
   useDismissibleLayer({
     open,
@@ -178,11 +185,16 @@ export function DropdownView({
         {triggerNode}
       </div>
       {open ? (
-        <ul
+        <motion.ul
+          key="koi-dropdown-menu"
           ref={menuRef}
           id={menuId}
           role="menu"
           tabIndex={-1}
+          initial="closed"
+          animate="open"
+          variants={floatPanelVariants}
+          transition={resolveTransition(reduce, springSnappy)}
           className={cn(
             'absolute z-50 min-w-40 overflow-hidden outline-none',
             floatPanel,
@@ -215,7 +227,7 @@ export function DropdownView({
               </button>
             </li>
           ))}
-        </ul>
+        </motion.ul>
       ) : null}
     </div>
   );
