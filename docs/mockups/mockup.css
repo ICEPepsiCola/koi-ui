@@ -221,14 +221,9 @@ html.rp-dark {
   overflow: hidden;
   background-color: #000;
   border: 4px solid #6b6b6b;
+  /* Keep circular radii only — `corner-shape: superellipse` does not clip
+     transformed portal overlays, so sheets/scrims square-bleed past the bezel. */
   border-radius: 52px;
-}
-
-@supports (corner-shape: superellipse(1.45)) {
-  .mockup-phone {
-    border-radius: 72px;
-    corner-shape: superellipse(1.45);
-  }
 }
 
 .mockup-phone-camera {
@@ -256,13 +251,6 @@ html.rp-dark {
   height: 100%;
   overflow: hidden;
   border-radius: 44px;
-}
-
-@supports (corner-shape: superellipse(1.87)) {
-  .mockup-phone-display {
-    border-radius: 82px;
-    corner-shape: superellipse(1.87);
-  }
 }
 
 .mockup-phone-display > img {

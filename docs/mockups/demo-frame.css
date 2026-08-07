@@ -285,6 +285,9 @@
   position: absolute;
   inset: 0;
   min-height: 0;
+  /* Clip portal overlays to the display radius (matches .mockup-phone-display). */
+  overflow: hidden;
+  border-radius: 44px;
 }
 
 .koi-demo__phone-wrap .koi-demo__viewport {
@@ -303,7 +306,9 @@
   position: absolute;
   inset: 0;
   z-index: 100;
-  overflow: visible;
+  /* Must clip: fixed overlays + backdrop-filter ignore parent display overflow. */
+  overflow: hidden;
+  border-radius: inherit;
   pointer-events: none;
   transform: translateZ(0);
 }

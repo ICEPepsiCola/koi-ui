@@ -32,7 +32,7 @@ export const MotionPanel = forwardRef<HTMLDivElement, MotionPanelProps>(
     return (
       <motion.div
         ref={ref}
-        className={cn(className, isBottomSheet && sheetSurface)}
+        className={cn(isBottomSheet && sheetSurface, className)}
         variants={resolvePanelVariants(variant)}
         transition={resolveTransition(
           reduce,
