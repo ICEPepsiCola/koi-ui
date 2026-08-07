@@ -16,6 +16,7 @@ export interface SheetChromeProps {
 
 /**
  * Bottom-sheet chrome: drag handle + cancel/title/confirm toolbar.
+ * Render inside a bottom `MotionPanel` (applies `sheetSurface` / `materialThick`).
  */
 export function SheetChrome({
   title,
@@ -28,7 +29,7 @@ export function SheetChrome({
   className,
 }: SheetChromeProps) {
   return (
-    <div className={cn('flex flex-col', className)}>
+    <div className={cn('flex min-h-0 flex-col', className)}>
       <div className="mx-auto mt-2.5 h-1 w-9 rounded-full bg-border/80" />
       <div className="flex items-center justify-between gap-3 px-4 pb-2 pt-3">
         <button

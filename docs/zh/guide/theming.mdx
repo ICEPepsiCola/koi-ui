@@ -80,6 +80,19 @@ html.dark {
 
 组件 API 统一用 `color="error"`（与 daisyUI 一致）。
 
+## 材质与动效
+
+浮层与底部 sheet 使用磨砂 **material** 表面，由 CSS 变量驱动：
+
+| Token | 用途 |
+|-------|------|
+| `--material-regular-bg` / `--blur-regular` | 下拉、浮层菜单（`FloatMenu`、`floatPanel`） |
+| `--material-thick-bg` / `--blur-thick` | 底部 sheet（`MotionPanel` `variant="bottom"`、`sheetSurface`） |
+
+`prefers-reduced-transparency: reduce` 时回退为不透明表面并关闭模糊。
+
+Overlay 进出场使用 **spring** 预设（`springSnappy` 浮层、`springMomentum` 底部 sheet），而非固定 200ms 线性缓动。
+
 ## 外观读法
 
 跨组件统一：

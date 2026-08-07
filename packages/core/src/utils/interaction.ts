@@ -84,7 +84,16 @@ export const materialThick =
   'bg-[var(--material-thick-bg)] backdrop-blur-[length:var(--blur-thick)] backdrop-saturate-150 border border-white/40 dark:border-white/10';
 
 /** Floating menus / listboxes under a trigger. */
-export const floatPanel = cn('rounded-box p-1 shadow-float', materialRegular);
+export const floatPanel = cn(
+  'overflow-hidden rounded-box p-1 shadow-float',
+  materialRegular,
+);
+
+/** Bottom sheet panel shell — thick material + large top radius. */
+export const sheetSurface = cn(
+  'overflow-hidden rounded-t-[1.25rem] pb-safe shadow-overlay',
+  materialThick,
+);
 
 /** Single option row inside float menus / sheets. */
 export const optionRowBase = [

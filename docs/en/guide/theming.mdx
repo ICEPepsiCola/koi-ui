@@ -80,6 +80,19 @@ html.dark {
 
 Component APIs use `color="error"` (daisyUI-aligned).
 
+## Materials & motion
+
+Floating panels and bottom sheets use frosted **material** surfaces backed by CSS variables:
+
+| Token | Role |
+|-------|------|
+| `--material-regular-bg` / `--blur-regular` | Dropdowns, float menus (`FloatMenu`, `floatPanel`) |
+| `--material-thick-bg` / `--blur-thick` | Bottom sheets (`MotionPanel` `variant="bottom"`, `sheetSurface`) |
+
+`prefers-reduced-transparency: reduce` falls back to opaque surfaces and disables blur.
+
+Overlay enter/exit uses **spring** presets from `@koi-ui/core` motion (`springSnappy` for float menus, `springMomentum` for bottom sheets) instead of fixed 200ms linear easing.
+
 ## Appearance language
 
 Shared reading across controls:

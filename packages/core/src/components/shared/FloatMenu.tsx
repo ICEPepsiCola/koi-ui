@@ -21,6 +21,7 @@ export interface FloatMenuProps
 
 /**
  * Anchored dropdown shell with enter/exit motion for Select / Picker panels.
+ * Surface uses `floatPanel` (`materialRegular` + shadow).
  */
 export function FloatMenu({
   open,

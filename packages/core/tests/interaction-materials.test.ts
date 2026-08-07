@@ -1,5 +1,10 @@
 import { expect, test } from '@rstest/core';
-import { floatPanel, materialRegular, materialThick } from '../src/utils/interaction';
+import {
+  floatPanel,
+  materialRegular,
+  materialThick,
+  sheetSurface,
+} from '../src/utils/interaction';
 
 test('material fragments are non-empty', () => {
   expect(materialRegular.length).toBeGreaterThan(10);
@@ -11,4 +16,8 @@ test('material fragments are non-empty', () => {
   expect(floatPanel).toContain('shadow-float');
   expect(floatPanel).toContain('--material-regular-bg');
   expect(floatPanel).toContain('backdrop-blur');
+  expect(floatPanel).toContain('overflow-hidden');
+  expect(sheetSurface).toContain('--material-thick-bg');
+  expect(sheetSurface).toContain('rounded-t-[1.25rem]');
+  expect(sheetSurface).toContain('shadow-overlay');
 });
