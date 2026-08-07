@@ -11,8 +11,8 @@ import {
 } from 'motion/react';
 import { useKoiBreakpoint } from '../../hooks/useKoiBreakpoint';
 import {
-  MOTION_DURATION_S,
-  motionTransition,
+  resolveTransition,
+  springSnappy,
 } from '../../motion/presets';
 import { useKoiContext } from '../../provider/context';
 import { tv, type VariantProps } from 'tailwind-variants';
@@ -182,7 +182,11 @@ export function Tooltip({
   }, [open, placement, portalContainer, content]);
 
   const offset = motionOffset[placement];
-  const duration = reduce ? 0 : MOTION_DURATION_S;
+  const enterTransition = resolveTransition(reduce, springSnappy);
+  const exitTransition = {
+    ...resolveTransition(reduce, springSnappy),
+    ...(reduce ? {} : { delay: 0.075 }),
+  };
 
   return (
     <>
@@ -226,13 +230,9 @@ export function Tooltip({
               exit={{
                 opacity: 0,
                 ...offset,
-                transition: {
-                  ...motionTransition,
-                  duration,
-                  delay: reduce ? 0 : 0.075,
-                },
+                transition: exitTransition,
               }}
-              transition={{ ...motionTransition, duration }}
+              transition={enterTransition}
               transformTemplate={(_t, generated) =>
                 `${placementTransform[placement]} ${generated}`
               }

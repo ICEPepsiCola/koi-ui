@@ -13,8 +13,9 @@ import {
 import { tv, type VariantProps } from 'tailwind-variants';
 import { cn } from '../../utils/cn';
 import {
-  MOTION_DURATION_S,
-  motionTransition,
+  resolveTransition,
+  springSnappy,
+  springSoft,
 } from '../../motion/presets';
 import { Portal } from '../../utils/portal';
 import { StatusIcon } from '../../utils/semanticSurface';
@@ -94,7 +95,6 @@ function NotificationCard({
   placement: NotificationPlacement;
 }) {
   const reduce = useReducedMotion();
-  const duration = reduce ? 0 : MOTION_DURATION_S;
   const offset = enterOffset[placement];
   const color = item.color ?? 'info';
 
@@ -108,9 +108,9 @@ function NotificationCard({
       exit={{
         opacity: 0,
         ...offset,
-        transition: { ...motionTransition, duration: Math.min(duration, 0.16) },
+        transition: resolveTransition(reduce, springSnappy),
       }}
-      transition={{ ...motionTransition, duration }}
+      transition={resolveTransition(reduce, springSoft)}
     >
       <StatusIcon color={color} className="mt-0.5" />
       <div className="min-w-0 flex-1 text-surface-foreground">
@@ -227,7 +227,6 @@ export function Notification({
   placement = 'topRight',
 }: NotificationProps) {
   const reduce = useReducedMotion();
-  const duration = reduce ? 0 : MOTION_DURATION_S;
   const offset = enterOffset[placement];
 
   return (
@@ -252,12 +251,9 @@ export function Notification({
               exit={{
                 opacity: 0,
                 ...offset,
-                transition: {
-                  ...motionTransition,
-                  duration: Math.min(duration, 0.16),
-                },
+                transition: resolveTransition(reduce, springSnappy),
               }}
-              transition={{ ...motionTransition, duration }}
+              transition={resolveTransition(reduce, springSoft)}
             >
               <StatusIcon color={color ?? 'info'} className="mt-0.5" />
               <div className="min-w-0 flex-1 text-surface-foreground">

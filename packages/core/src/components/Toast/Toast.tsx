@@ -7,8 +7,9 @@ import {
 } from 'motion/react';
 import { tv } from 'tailwind-variants';
 import {
-  MOTION_DURATION_S,
-  motionTransition,
+  resolveTransition,
+  springSnappy,
+  springSoft,
   toastPresenceVariants,
 } from '../../motion/presets';
 import { cn } from '../../utils/cn';
@@ -95,8 +96,6 @@ function ToastItem({
   position: ToastPosition;
 }) {
   const reduce = useReducedMotion();
-  const duration = reduce ? 0 : MOTION_DURATION_S;
-  const transition = { ...motionTransition, duration };
   const variants = toastPresenceVariants[position];
 
   const statusIcon =
@@ -114,15 +113,11 @@ function ToastItem({
       variants={{
         open: {
           ...variants.open,
-          transition,
+          transition: resolveTransition(reduce, springSoft),
         },
         closed: {
           ...variants.closed,
-          transition: {
-            ...transition,
-            // Exit a touch snappier than enter.
-            duration: reduce ? 0 : Math.min(duration, 0.16),
-          },
+          transition: resolveTransition(reduce, springSnappy),
         },
       }}
     >
