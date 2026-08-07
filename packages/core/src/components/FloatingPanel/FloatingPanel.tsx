@@ -305,8 +305,12 @@ export function FloatingPanel({
   const minAnchor = Math.min(
     ...anchors.map((anchor) => anchor * viewportHeight),
   );
-  const scrimOpacity =
-    height === null ? undefined : Math.min(1, Math.max(0, height / minAnchor));
+  // Only override Overlay variants while the panel is below the lowest anchor
+  // (drag / rubberband dismiss). At rest, leave opacity to enter/exit fades.
+  const dragLinkedScrim =
+    height !== null && height < minAnchor
+      ? Math.min(1, Math.max(0, height / minAnchor))
+      : undefined;
 
   const panelBody = (
     <>
@@ -358,7 +362,11 @@ export function FloatingPanel({
         open={open}
         onClick={maskClosable ? onClose : undefined}
         className="flex items-end"
-        style={{ opacity: scrimOpacity }}
+        style={
+          dragLinkedScrim === undefined
+            ? undefined
+            : { opacity: dragLinkedScrim }
+        }
       >
         <MotionPanel
           ref={panelRef}
